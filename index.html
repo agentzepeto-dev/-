@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>CUTE ARCADE FIGHTER</title>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <style>
   * {
     box-sizing: border-box;
@@ -735,6 +736,58 @@
     }
   }
 
+
+  .online-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(10, 7, 20, 0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+  }
+  .online-modal.hidden { display: none; }
+  .online-box {
+    width: 100%;
+    max-width: 360px;
+    background: #231b38;
+    border: 3px solid #5ce1e6;
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  .online-box h3 { margin: 0; color: #5ce1e6; font-size: 1.05rem; }
+  .online-box p { margin: 0; font-size: 0.82rem; color: #dcd3f2; line-height: 1.4; }
+  .room-code-big {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: #ffd166;
+    background: #140f24;
+    border: 2px dashed #ffd166;
+    border-radius: 10px;
+    padding: 8px;
+  }
+  .room-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 0.2em;
+    border-radius: 8px;
+    border: 2px solid #635196;
+    background: #140f24;
+    color: #fff;
+  }
+  @media (orientation: portrait) {
+    body.force-landscape .online-box { transform: rotate(90deg); }
+  }
+
 </style>
 </head>
 <body>
@@ -751,7 +804,8 @@
         <p id="ovDesc">1판 = 1코인 · 이기면 +2코인</p>
         <div class="ov-actions">
           <button id="ovBtn" class="start-btn">코인 넣고 시작 (-1 COIN)</button>
-          <button id="ov2pBtn" class="start-btn secondary">👥 2P 친구 대전</button>
+          <button id="ov2pBtn" class="start-btn secondary">👥 한화면 2P</button>
+          <button id="ovOnlineBtn" class="start-btn secondary" style="background:#1b6ca8;">🌐 폰끼리 온라인</button>
           <button id="ovShopBtn" class="start-btn secondary">캐릭터 상점</button>
         </div>
       </div>
@@ -764,6 +818,7 @@
         <div class="deck-btns">
           <button id="sizeBtn" class="mini-btn">크기:중</button>
           <button id="mode2pBtn" class="mini-btn">👥 2P</button>
+          <button id="onlineBtn" class="mini-btn" style="background:#1b6ca8;border-color:#74c0fc;">🌐 온라인</button>
           <button id="openShopBtn" class="mini-btn shop">상점</button>
           <button id="pauseBtn" class="mini-btn">⏸️</button>
           <button id="soundBtn" class="mini-btn">🔊</button>
@@ -820,6 +875,25 @@
     <div class="coin-door">
       <div class="coin-plate"><span class="coin-slit"></span> INSERT 1 COIN</div>
       <div class="coin-plate">PUSH TO PLAY</div>
+    </div>
+  </div>
+
+  
+  <div id="onlineModal" class="online-modal hidden">
+    <div class="online-box">
+      <h3>🌐 폰끼리 온라인 대전</h3>
+      <p>한 명이 방을 만들고, 친구 폰에서 4자리 방 번호를 입력하면 바로 연결돼요! (와이파이 권장)</p>
+      <button id="createRoomBtn" class="start-btn">방 만들기 (내가 1P)</button>
+      <div id="hostRoomBox" class="hidden" style="display:none;flex-direction:column;gap:6px;">
+        <div style="font-size:0.8rem;color:#ffd166;">친구에게 아래 방 번호를 알려 주세요!</div>
+        <div id="myRoomCode" class="room-code-big">----</div>
+        <div id="hostStatus" style="font-size:0.78rem;color:#80ed99;">친구 기다리는 중...</div>
+      </div>
+      <hr style="border:none;border-top:1px solid #413366;width:100%;margin:4px 0;">
+      <input id="joinCodeInput" class="room-input" type="tel" maxlength="4" placeholder="방 번호 4자리" />
+      <button id="joinRoomBtn" class="start-btn secondary">방 들어가기 (내가 2P)</button>
+      <div id="joinStatus" style="font-size:0.78rem;color:#ff8fab;"></div>
+      <button id="closeOnlineBtn" class="mini-btn" style="margin-top:4px;">닫기</button>
     </div>
   </div>
 
@@ -1155,6 +1229,16 @@ function startRound(idx) {
     persistSave();
   }
   p1 = createFighter(true, getPlayerChar());
+  if (isOnline2P) {
+    setTimeout(() => {
+      overlay.classList.remove('hidden');
+      ovTitle.textContent = playerWon ? '1P (방장) 승리!' : '2P (친구) 승리!';
+      ovDesc.textContent = '온라인 대결 끝!';
+      ovBtn.textContent = '다시 붙기';
+      ovBtn.onclick = () => { if (netRole === 'host') { if (netConn && netConn.open) netConn.send({ type: 'rematch' }); startOnlineMatch(); } };
+    }, 1050);
+    return;
+  }
   if (is2PMode) {
     const ch2 = ROSTER[p2RosterIdx % ROSTER.length];
     p2 = createFighter(false, { ...ch2, weakness: '', weakHint: '' });
@@ -1405,8 +1489,21 @@ function update() {
       if (timer === 0) endRound(p1.hp >= p2.hp);
     }
   }
+  if (isOnline2P && netRole === 'guest') {
+    if (netConn && netConn.open) netConn.send({ type: 'input', input });
+    return;
+  }
   updateFighter(p1, p2, input);
-  updateFighter(p2, p1, is2PMode ? input2 : null);
+  updateFighter(p2, p1, (is2PMode || isOnline2P) ? input2 : null);
+  if (isOnline2P && netRole === 'host' && netConn && netConn.open) {
+    netConn.send({
+      type: 'state',
+      p1: { x: p1.x, y: p1.y, dir: p1.dir, hp: p1.hp, energy: p1.energy, state: p1.state },
+      p2: { x: p2.x, y: p2.y, dir: p2.dir, hp: p2.hp, energy: p2.energy, state: p2.state },
+      timer,
+      gameState
+    });
+  }
 
   for (let i = projectiles.length - 1; i >= 0; i--) {
     const pr = projectiles[i];
@@ -1965,6 +2062,139 @@ pauseBtn.onclick = () => {
   pauseBtn.textContent = isPaused ? '▶️' : '⏸️';
   if (isPaused) { stopBGM(); addPopup(380, 200, 'PAUSED', '#ffd166', 34); }
   else if (soundOn) startBGM();
+};
+
+
+const onlineBtn = document.getElementById('onlineBtn');
+const ovOnlineBtn = document.getElementById('ovOnlineBtn');
+const onlineModal = document.getElementById('onlineModal');
+const closeOnlineBtn = document.getElementById('closeOnlineBtn');
+const createRoomBtn = document.getElementById('createRoomBtn');
+const hostRoomBox = document.getElementById('hostRoomBox');
+const myRoomCode = document.getElementById('myRoomCode');
+const hostStatus = document.getElementById('hostStatus');
+const joinCodeInput = document.getElementById('joinCodeInput');
+const joinRoomBtn = document.getElementById('joinRoomBtn');
+const joinStatus = document.getElementById('joinStatus');
+
+let netPeer = null;
+let netConn = null;
+let netRole = null; // 'host' (1P) or 'guest' (2P)
+let isOnline2P = false;
+let guestCharCfg = ROSTER[1];
+
+function closeOnlineSession() {
+  isOnline2P = false;
+  netRole = null;
+  if (netConn) { try { netConn.close(); } catch (e) {} netConn = null; }
+  if (netPeer) { try { netPeer.destroy(); } catch (e) {} netPeer = null; }
+  onlineBtn.style.background = '#1b6ca8';
+  onlineBtn.textContent = '🌐 온라인';
+}
+
+function openOnlineModal() {
+  if (typeof Peer === 'undefined') {
+    alert('인터넷 연결이 필요해요!');
+    return;
+  }
+  onlineModal.classList.remove('hidden');
+}
+onlineBtn.onclick = () => {
+  if (isOnline2P) {
+    closeOnlineSession();
+    gameState = 'menu';
+    overlay.classList.remove('hidden');
+  } else {
+    openOnlineModal();
+  }
+};
+ovOnlineBtn.onclick = openOnlineModal;
+closeOnlineBtn.onclick = () => onlineModal.classList.add('hidden');
+
+function setupConn(conn) {
+  netConn = conn;
+  conn.on('data', (msg) => {
+    if (!msg || typeof msg !== 'object') return;
+    if (msg.type === 'hello' && netRole === 'host') {
+      guestCharCfg = msg.char || ROSTER[1];
+      conn.send({ type: 'start', hostChar: getPlayerChar(), guestChar: guestCharCfg });
+      startOnlineMatch();
+    } else if (msg.type === 'start' && netRole === 'guest') {
+      startOnlineMatch(msg.hostChar, msg.guestChar);
+    } else if (msg.type === 'input' && netRole === 'host') {
+      Object.assign(input2, msg.input);
+    } else if (msg.type === 'state' && netRole === 'guest') {
+      if (msg.p1) Object.assign(p1, msg.p1);
+      if (msg.p2) Object.assign(p2, msg.p2);
+      if (typeof msg.timer === 'number') timer = msg.timer;
+      if (msg.gameState) gameState = msg.gameState;
+    } else if (msg.type === 'rematch') {
+      startOnlineMatch();
+    }
+  });
+  conn.on('close', () => {
+    if (isOnline2P) {
+      addPopup(380, 180, '연결 끊김', '#ff6b8b', 28);
+      closeOnlineSession();
+    }
+  });
+}
+
+function startOnlineMatch(hChar, gChar) {
+  isOnline2P = true;
+  is2PMode = false;
+  onlineModal.classList.add('hidden');
+  onlineBtn.style.background = '#ff6b8b';
+  onlineBtn.textContent = '🌐 나가기';
+  onePControls.classList.remove('hidden');
+  twoPControls.classList.remove('active');
+  overlay.classList.add('hidden');
+  p1 = createFighter(true, hChar || getPlayerChar());
+  p2 = createFighter(false, { ...(gChar || guestCharCfg), weakness: '', weakHint: '' });
+  timer = 99; timerTick = 0; popups = []; particles = []; projectiles = [];
+  gameState = 'fight';
+  addPopup(380, 185, 'ONLINE VS!', '#5ce1e6', 32);
+  startBGM();
+}
+
+createRoomBtn.onclick = () => {
+  closeOnlineSession();
+  const code = String(Math.floor(1000 + Math.random() * 9000));
+  const peerId = 'yelin-arcade-' + code;
+  netRole = 'host';
+  hostRoomBox.style.display = 'flex';
+  myRoomCode.textContent = code;
+  hostStatus.textContent = '서버 연결 중...';
+  netPeer = new Peer(peerId);
+  netPeer.on('open', () => {
+    hostStatus.textContent = '친구 기다리는 중... (번호 ' + code + ')';
+  });
+  netPeer.on('connection', (conn) => {
+    hostStatus.textContent = '친구 입장! 대결 시작!';
+    setupConn(conn);
+  });
+  netPeer.on('error', (err) => {
+    hostStatus.textContent = '연결 오류: 다시 시도해 주세요.';
+  });
+};
+
+joinRoomBtn.onclick = () => {
+  const code = joinCodeInput.value.trim();
+  if (code.length !== 4) { joinStatus.textContent = '4자리 숫자를 입력해 주세요!'; return; }
+  closeOnlineSession();
+  netRole = 'guest';
+  joinStatus.textContent = '방 찾는 중...';
+  netPeer = new Peer();
+  netPeer.on('open', () => {
+    const conn = netPeer.connect('yelin-arcade-' + code);
+    conn.on('open', () => {
+      joinStatus.textContent = '연결 성공!';
+      setupConn(conn);
+      conn.send({ type: 'hello', char: getPlayerChar() });
+    });
+    conn.on('error', () => { joinStatus.textContent = '방에 들어갈 수 없어요. 와이파이를 확인해 주세요.'; });
+  });
+  netPeer.on('error', () => { joinStatus.textContent = '방을 못 찾았어요. 번호를 확인해 주세요!'; });
 };
 
 loop();
