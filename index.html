@@ -788,6 +788,69 @@
     body.force-landscape .online-box { transform: rotate(90deg); }
   }
 
+
+  /* True Perfect Circular Arcade Buttons + Maximum Screen Area */
+  .arcade-cabinet {
+    max-width: 100vw !important;
+    padding: 0 4px 6px !important;
+  }
+  .marquee-hood {
+    padding: 3px 8px !important;
+    margin: 0 -4px !important;
+  }
+  .marquee {
+    height: 16px !important;
+    font-size: 0.62rem !important;
+  }
+  .speaker-grille, .coin-door { display: none !important; }
+  .monitor-bay {
+    padding: 3px !important;
+    margin: 0 !important;
+  }
+  .arcade-cabinet.size-md .screen-bezel {
+    width: 100% !important;
+    aspect-ratio: 4 / 3 !important;
+  }
+  .arcade-deck {
+    margin: 0 !important;
+    padding: 6px 8px 8px !important;
+    gap: 6px !important;
+  }
+  .actions {
+    grid-template-columns: repeat(2, 54px) !important;
+    grid-template-rows: 54px 54px !important;
+    gap: 8px !important;
+    justify-items: center;
+    align-items: center;
+  }
+  .ctrl-btn {
+    width: 54px !important;
+    height: 54px !important;
+    border-radius: 50% !important;
+    font-size: 0.82rem !important;
+    padding: 0 !important;
+  }
+  .p2-mini.atk, .p2-mini.kick, .p2-mini.spec, .p2-mini[data-act="dodge"] {
+    flex: 0 0 auto !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    font-size: 0.68rem !important;
+    padding: 0 !important;
+  }
+  @media (max-height: 560px) and (orientation: landscape) {
+    .actions {
+      grid-template-columns: repeat(2, 42px) !important;
+      grid-template-rows: 42px 42px !important;
+      gap: 6px !important;
+    }
+    .ctrl-btn {
+      width: 42px !important;
+      height: 42px !important;
+      font-size: 0.72rem !important;
+    }
+  }
+
 </style>
 </head>
 <body>
