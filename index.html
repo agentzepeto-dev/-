@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>CUTE ARCADE FIGHTER</title>
+<style>
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  body {
+    margin: 0;
+    background: radial-gradient(circle at 50% 20%, #24193d 0%, #09070f 85%);
+    color: #fff;
+    font-family: "Courier New", "Apple SD Gothic Neo", monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    padding: 2px;
+  }
+
+  /* Real 3D Arcade Cabinet Shell */
+  .arcade-cabinet {
+    position: relative;
+    width: 100%;
+    max-width: 980px;
+    background: linear-gradient(90deg, #1b1330 0%, #312454 6%, #312454 94%, #150e26 100%);
+    border-radius: 20px 20px 14px 14px;
+    padding: 0 8px 8px;
+    box-shadow:
+      -12px 0 0 #18102b,
+      12px 0 0 #100b1d,
+      0 28px 60px rgba(0, 0, 0, 0.9),
+      inset 0 2px 6px rgba(255, 255, 255, 0.14);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* 3D Angled Marquee Canopy */
+  .marquee-hood {
+    margin: 0 -18px;
+    padding: 5px 12px 4px;
+    background: linear-gradient(180deg, #4b397d 0%, #291e47 100%);
+    border-top: 4px solid #7d67bf;
+    border-bottom: 5px solid #120c21;
+    border-radius: 18px 18px 6px 6px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.55);
+
+  }
+  .marquee {
+    height: 20px;
+    background: linear-gradient(90deg, #ff4d6d, #ffd166, #4cc9f0, #ff4d6d);
+    border-radius: 6px;
+    border: 3px solid #140e24;
+    box-shadow:
+      0 0 18px rgba(255, 209, 102, 0.55),
+      inset 0 3px 6px rgba(255, 255, 255, 0.55),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.96rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: #161029;
+  }
+  /* Speaker Grille under Marquee */
+  .speaker-grille {
+    margin: 6px auto 0;
+    width: 56%;
+    height: 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      #100b1d 0px,
+      #100b1d 5px,
+      transparent 5px,
+      transparent 10px
+    );
+    border-radius: 4px;
+    opacity: 0.85;
+  }
+
+  /* Deeply Recessed CRT Monitor Bay */
+  .monitor-bay {
+    background: linear-gradient(180deg, #100b1c 0%, #1d1533 100%);
+    padding: 5px 6px 6px;
+    margin: 0 -4px;
+    border-left: 6px solid #140e24;
+    border-right: 6px solid #0c0817;
+    box-shadow: inset 0 14px 24px rgba(0, 0, 0, 0.85);
+  }
+  .screen-bezel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #07050c;
+    border-top: 6px solid #0b0814;
+    border-left: 6px solid #140f24;
+    border-right: 6px solid #0a0712;
+    border-bottom: 6px solid #261d40;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 34px rgba(0, 0, 0, 0.98),
+      0 2px 0 rgba(255, 255, 255, 0.08);
+  }
+  /* CRT Glass Curvature Glare + Scanlines */
+  .screen-bezel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 22% 16%, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 38%, transparent 65%);
+    pointer-events: none;
+    z-index: 6;
+  }
+  .screen-bezel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    z-index: 4;
+  }
+  canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+  .overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    background: rgba(10, 7, 20, 0.62);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px;
+    gap: 8px;
+  }
+  .overlay.hidden { display: none; }
+  .arcade-logo {
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    color: #ffd166;
+    text-shadow: 2px 2px 0 #8c1c39;
+    margin: 0;
+  }
+  .overlay p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #e4dcf5;
+    max-width: 280px;
+    line-height: 1.4;
+  }
+  .ov-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .start-btn {
+    background: #e03e66;
+    color: #fff;
+    border: 2px solid #ffd166;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 0.96rem;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #7a142d;
+  }
+  .start-btn.secondary {
+    background: #3858d6;
+    box-shadow: 0 3px 0 #1b2c75;
+  }
+  .start-btn:active { transform: translateY(2px); }
+
+  /* 3D Sloped Control Deck jutting forward */
+  .arcade-deck {
+    margin: 0 -20px;
+    background: linear-gradient(180deg, #3c2f63 0%, #261d42 78%, #161029 100%);
+    border-top: 4px solid #7d68bf;
+    border-left: 6px solid #2b204a;
+    border-right: 6px solid #161029;
+    border-bottom: 12px solid #100b1f;
+    border-radius: 10px 10px 18px 18px;
+    padding: 12px 18px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow:
+      0 14px 26px rgba(0, 0, 0, 0.7),
+      inset 0 3px 6px rgba(255, 255, 255, 0.18);
+
+  }
+  .deck-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .coin-slot {
+    background: #0d0917;
+    border: 2px solid #ffd166;
+    color: #ffd166;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-weight: 900;
+    font-size: 0.96rem;
+    letter-spacing: 0.06em;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+  .deck-btns { display: flex; gap: 6px; }
+  .mini-btn {
+    background: #372c57;
+    color: #fff;
+    border: 2px solid #635196;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.76rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #181229;
+  }
+  .mini-btn.shop {
+    background: #de3c66;
+    border-color: #ffb3c6;
+  }
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    touch-action: none;
+  }
+  .joystick-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .joystick-base {
+    position: relative;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, #0d0917 0%, #241b38 68%, #47386e 100%);
+    border: 4px solid #6956a1;
+    box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.9), 0 6px 12px rgba(0, 0, 0, 0.6);
+    touch-action: none;
+  }
+  .joystick-ring {
+    position: absolute;
+    inset: 20px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(255, 209, 102, 0.28);
+    pointer-events: none;
+  }
+  .joystick-shaft {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    margin: -7px 0 0 -7px;
+    background: radial-gradient(circle at 30% 30%, #e0e4f0, #6c738a);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .joystick-knob {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 48px;
+    height: 48px;
+    margin: -24px 0 0 -24px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 25%, #ffc2d1 0%, #ff3b6b 45%, #8c1130 100%);
+    border: 2px solid #ffd6e0;
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.78);
+    pointer-events: none;
+    transition: transform 0.05s linear;
+  }
+  .stick-hint { font-size: 0.68rem; color: #d0c6eb; }
+
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(2, 82px);
+    grid-template-rows: 56px 56px;
+    gap: 10px;
+  }
+  .ctrl-btn {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid #635296;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.02rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #120d1f, 0 8px 12px rgba(0,0,0,0.45);
+  }
+  .ctrl-btn:active, .ctrl-btn.pressed {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #120d1f;
+    filter: brightness(1.18);
+  }
+  .btn-punch { background: radial-gradient(circle at 35% 30%, #ff85a1, #d6365c); border-color: #ffc2d1; }
+  .btn-kick { background: radial-gradient(circle at 35% 30%, #ffc078, #e07016); border-color: #ffe8cc; }
+  .btn-dodge { background: radial-gradient(circle at 35% 30%, #74c0fc, #228be6); border-color: #d0ebff; }
+  .btn-special { background: radial-gradient(circle at 35% 30%, #ffe066, #f08c00); border-color: #fff3bf; color: #2b1800; }
+
+  /* Lower Coin Door Panel */
+  .coin-door {
+    margin-top: 8px;
+    padding: 4px 10px;
+    background: linear-gradient(180deg, #1b142e 0%, #100b1c 100%);
+    border-top: 3px solid #3c2f61;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .coin-plate {
+    background: #0a0712;
+    border: 2px solid #4d3e75;
+    border-radius: 5px;
+    padding: 3px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.68rem;
+    font-weight: 900;
+    color: #ff6b8b;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.9);
+  }
+  .coin-slit {
+    width: 6px;
+    height: 16px;
+    background: #000;
+    border: 1px solid #ff4d6d;
+    box-shadow: 0 0 6px rgba(255, 77, 109, 0.7);
+  }
+
+  .shop-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(10, 7, 20, 0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+  }
+  .shop-modal.hidden { display: none; }
+  .shop-box {
+    width: 100%;
+    max-width: 680px;
+    max-height: 88dvh;
+    background: #231b38;
+    border: 3px solid #635196;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .shop-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-bottom: 1px solid #413366;
+    background: #2d2247;
+  }
+  .shop-head h2 { margin: 0; font-size: 0.96rem; color: #ffd166; }
+  .shop-grid {
+    padding: 12px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 10px;
+  }
+  .char-card {
+    background: #2f254a;
+    border: 2px solid #4d3e75;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+  }
+  .char-card.selected { border-color: #ffd166; background: #3b2f5c; }
+  .portrait {
+    width: 72px;
+    height: 72px;
+    border-radius: 8px;
+    background: #1b152c;
+    border: 2px solid #6c59a3;
+    image-rendering: pixelated;
+  }
+  .char-name { font-weight: 800; font-size: 1rem; }
+  .char-role { font-size: 0.95rem; color: #cbbfe8; }
+  .char-stats {
+    width: 100%;
+    font-size: 0.82rem;
+    color: #ffd166;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    padding: 4px;
+  }
+  .char-btn {
+    width: 100%;
+    margin-top: auto;
+    border: none;
+    border-radius: 6px;
+    padding: 7px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: #fff;
+  }
+  .char-btn.use { background: #5ce1e6; color: #161224; }
+  .char-btn.using { background: #ffd166; color: #161224; }
+  .char-btn.buy { background: #ff6b8b; }
+  .char-btn.locked { background: #4b4166; color: #a79cc4; cursor: not-allowed; }
+
+  @media (max-width: 480px) {
+    .arcade-cabinet { padding: 0 10px 10px; }
+    .marquee-hood { margin: 0 -10px; padding: 8px 12px 6px; }
+    .arcade-deck { margin: 0 -12px; padding: 10px 12px 12px; }
+    .joystick-base { width: 102px; height: 102px; }
+    .actions { grid-template-columns: repeat(2, 74px); grid-template-rows: 52px 52px; gap: 8px; }
+  }
+
+  .two-p-controls {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    touch-action: none;
+  }
+  .two-p-controls.active { display: flex; }
+  .controls.hidden { display: none; }
+  .p-pad {
+    flex: 1;
+    background: rgba(15, 11, 28, 0.55);
+    border: 2px solid #4d3e75;
+    border-radius: 10px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .p-pad-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 900;
+    color: #5ce1e6;
+  }
+  .p-pad.p2 .p-pad-head { color: #ff8fab; }
+  .p-pad-row {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+  }
+  .p2-mini {
+    flex: 1;
+    height: 36px;
+    border-radius: 7px;
+    border: 2px solid #635296;
+    background: #372c57;
+    color: #fff;
+    font-weight: 900;
+    font-size: 0.78rem;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #140f22;
+  }
+  .p2-mini:active, .p2-mini.pressed { transform: translateY(2px); filter: brightness(1.2); }
+  .p2-mini.atk { background: #c92a54; border-color: #ffb3c6; }
+  .p2-mini.kick { background: #d96b14; border-color: #ffe8cc; }
+  .p2-mini.spec { background: #e69d00; border-color: #fff3bf; color: #2b1800; }
+
+
+  /* Phone Landscape Fit: show BOTH screen and controls together without scrolling */
+  @media (max-height: 560px) and (orientation: landscape) {
+    body { padding: 2px; height: 100dvh; overflow: hidden; }
+    .arcade-cabinet {
+      height: 98dvh;
+      max-height: 98dvh;
+      max-width: 100%;
+      padding: 4px 8px;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .marquee-hood, .coin-door { display: none; }
+    .monitor-bay {
+      flex: 1;
+      min-height: 0;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .screen-bezel {
+      height: 100%;
+      width: auto;
+      max-width: 100%;
+      aspect-ratio: 16 / 10;
+    }
+    .arcade-deck {
+      margin: 0;
+      padding: 4px 8px;
+      gap: 4px;
+    }
+    .deck-strip { gap: 4px; }
+    .mini-btn, .coin-slot { padding: 2px 7px; font-size: 0.72rem; }
+    .joystick-base { width: 76px; height: 76px; }
+    .joystick-knob { width: 34px; height: 34px; margin: -17px 0 0 -17px; }
+    .stick-hint { display: none; }
+    .actions { grid-template-columns: repeat(2, 54px); grid-template-rows: 34px 34px; gap: 5px; }
+    .ctrl-btn { font-size: 0.78rem; }
+    .p-pad { padding: 3px 5px; gap: 3px; }
+    .p2-mini { height: 28px; font-size: 0.72rem; }
+  }
+
+  /* Manual Screen Size Modes (affects screen itself on both portrait & landscape) */
+  .arcade-cabinet.size-lg .monitor-bay { flex: 2.4 !important; }
+  .arcade-cabinet.size-lg .screen-bezel { width: 100% !important; aspect-ratio: 4 / 3 !important; }
+  .arcade-cabinet.size-md .monitor-bay { flex: 1.5 !important; }
+  .arcade-cabinet.size-md .screen-bezel { width: 92% !important; margin: 0 auto; aspect-ratio: 16 / 10 !important; }
+  .arcade-cabinet.size-sm .monitor-bay { flex: 1.0 !important; }
+  .arcade-cabinet.size-sm .screen-bezel { width: 76% !important; margin: 0 auto; aspect-ratio: 16 / 9 !important; }
+  @media (max-height: 560px) and (orientation: landscape) {
+    .arcade-cabinet.size-lg .screen-bezel { height: 100% !important; width: auto !important; max-width: 100% !important; aspect-ratio: 16 / 10 !important; }
+    .arcade-cabinet.size-lg .p2-mini { height: 24px !important; font-size: 0.68rem !important; }
+    .arcade-cabinet.size-lg .arcade-deck { padding: 3px 6px !important; }
+    .arcade-cabinet.size-md .screen-bezel { height: 92% !important; width: auto !important; max-width: 100% !important; aspect-ratio: 16 / 10 !important; }
+    .arcade-cabinet.size-sm .screen-bezel { height: 80% !important; width: auto !important; max-width: 100% !important; aspect-ratio: 16 / 10 !important; }
+  }
+
+
+  /* When size-lg is chosen while phone is upright (portrait), rotate cabinet 90deg into full horizontal screen */
+  @media (orientation: portrait) {
+    body.force-landscape {
+      padding: 0;
+      margin: 0;
+      width: 100vw;
+      height: 100dvh;
+      overflow: hidden;
+      background: #07050c;
+    }
+    body.force-landscape .arcade-cabinet.size-lg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100dvh;
+      height: 100vw;
+      max-width: none;
+      max-height: none;
+      transform: translate(-50%, -50%) rotate(90deg);
+      padding: 4px 10px;
+      gap: 4px;
+      justify-content: space-between;
+      border-radius: 10px;
+    }
+    body.force-landscape .marquee-hood,
+    body.force-landscape .coin-door { display: none; }
+    body.force-landscape .monitor-bay {
+      flex: 2.2;
+      min-height: 0;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    body.force-landscape .screen-bezel {
+      height: 100% !important;
+      width: auto !important;
+      max-width: 100% !important;
+      aspect-ratio: 16 / 10 !important;
+    }
+    body.force-landscape .arcade-deck {
+      margin: 0;
+      padding: 4px 8px;
+      gap: 4px;
+    }
+    body.force-landscape .joystick-base { width: 78px; height: 78px; }
+    body.force-landscape .joystick-knob { width: 34px; height: 34px; margin: -17px 0 0 -17px; }
+    body.force-landscape .stick-hint { display: none; }
+    body.force-landscape .actions { grid-template-columns: repeat(2, 56px); grid-template-rows: 34px 34px; gap: 5px; }
+    body.force-landscape .p2-mini { height: 26px !important; font-size: 0.7rem !important; }
+  }
+
+
+  /* True 100% edge-to-edge screen fill for size-lg and landscape */
+  .arcade-cabinet.size-lg {
+    max-width: 100vw !important;
+    width: 100vw !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .arcade-cabinet.size-lg .marquee-hood,
+  .arcade-cabinet.size-lg .coin-door { display: none !important; }
+  .arcade-cabinet.size-lg .monitor-bay {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+  .arcade-cabinet.size-lg .screen-bezel {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    aspect-ratio: auto !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+  @media (orientation: landscape) {
+    .arcade-cabinet.size-lg {
+      height: 100dvh !important;
+    }
+    .arcade-cabinet.size-lg .monitor-bay {
+      flex: 1 1 auto !important;
+      height: auto !important;
+      min-height: 0 !important;
+    }
+  }
+  @media (orientation: portrait) {
+    body.force-landscape .arcade-cabinet.size-lg {
+      width: 100dvh !important;
+      height: 100vw !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+    }
+    body.force-landscape .monitor-bay {
+      flex: 1 1 auto !important;
+      width: 100% !important;
+      min-height: 0 !important;
+      padding: 0 !important;
+    }
+    body.force-landscape .screen-bezel {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none !important;
+      aspect-ratio: auto !important;
+    }
+  }
+
+
+  .arcade-deck { touch-action: none; }
+  @keyframes pulseReady {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 12px #ffd166, 0 6px 0 #120d1f; }
+    50% { transform: scale(1.07); box-shadow: 0 0 24px #ffe066, 0 6px 0 #120d1f; }
+  }
+  .btn-special.ready, .p2-mini.spec.ready {
+    animation: pulseReady 0.7s infinite;
+    filter: brightness(1.18);
+  }
+
+
+  /* Clean compact single-row deck strip & neat button sizes */
+  .deck-strip {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 5px !important;
+    padding-bottom: 2px;
+  }
+  .deck-btns {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
+    align-items: center;
+  }
+  .coin-slot {
+    padding: 3px 7px !important;
+    font-size: 0.74rem !important;
+    white-space: nowrap;
+  }
+  .mini-btn {
+    padding: 4px 7px !important;
+    font-size: 0.74rem !important;
+    white-space: nowrap;
+  }
+  .actions {
+    grid-template-columns: repeat(2, 66px) !important;
+    grid-template-rows: 44px 44px !important;
+    gap: 7px !important;
+  }
+  .ctrl-btn { font-size: 0.86rem !important; }
+  .p2-mini { height: 32px !important; font-size: 0.74rem !important; }
+
+  /* Ensure Shop Modal is always visible & properly oriented even in force-landscape */
+  @media (orientation: portrait) {
+    body.force-landscape .shop-modal {
+      padding: 0 !important;
+    }
+    body.force-landscape .shop-box {
+      width: 94dvh !important;
+      height: 92vw !important;
+      max-width: none !important;
+      max-height: none !important;
+      transform: rotate(90deg);
+    }
+  }
+  @media (orientation: landscape) {
+    .shop-box {
+      max-height: 94dvh !important;
+      max-width: 94vw !important;
+    }
+  }
+
+</style>
+</head>
+<body>
+  <div class="arcade-cabinet">
+    <div class="marquee-hood">
+      <div class="marquee">★ ARCADE FIGHTER ★</div>
+      <div class="speaker-grille"></div>
+    </div>
+    <div class="monitor-bay">
+    <div class="screen-bezel">
+      <canvas id="game" width="760" height="475"></canvas>
+      <div id="overlay" class="overlay">
+        <h1 id="ovTitle" class="arcade-logo">INSERT 1 COIN</h1>
+        <p id="ovDesc">1판 = 1코인 · 이기면 +2코인</p>
+        <div class="ov-actions">
+          <button id="ovBtn" class="start-btn">코인 넣고 시작 (-1 COIN)</button>
+          <button id="ov2pBtn" class="start-btn secondary">👥 2P 친구 대전</button>
+          <button id="ovShopBtn" class="start-btn secondary">캐릭터 상점</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="arcade-deck">
+      <div class="deck-strip">
+        <span id="coinBadge" class="coin-slot">COIN 5</span>
+        <div class="deck-btns">
+          <button id="sizeBtn" class="mini-btn">크기:중</button>
+          <button id="mode2pBtn" class="mini-btn">👥 2P</button>
+          <button id="openShopBtn" class="mini-btn shop">상점</button>
+          <button id="pauseBtn" class="mini-btn">⏸️</button>
+          <button id="soundBtn" class="mini-btn">🔊</button>
+        </div>
+      </div>
+      <div id="onePControls" class="controls">
+        <div class="joystick-wrap">
+          <div id="joystickBase" class="joystick-base">
+            <div class="joystick-ring"></div>
+            <div class="joystick-shaft"></div>
+            <div id="joystickKnob" class="joystick-knob"></div>
+          </div>
+          <div class="stick-hint">손잡이: 좌우 이동 · 위 점프 · 아래 숙여 피하기</div>
+        </div>
+        <div class="actions">
+          <button class="ctrl-btn btn-punch" data-key="punch">권투</button>
+          <button class="ctrl-btn btn-kick" data-key="kick">발차기</button>
+          <button class="ctrl-btn btn-dodge" data-key="dodge">피하기</button>
+          <button class="ctrl-btn btn-special" data-key="special">필살기</button>
+        </div>
+      </div>
+    </div>
+      <div id="twoPControls" class="two-p-controls">
+        <div class="p-pad p1">
+          <div class="p-pad-head"><span>1P (나)</span></div>
+          <div class="p-pad-row">
+            <button class="p2-mini" data-p="1" data-act="left">◀</button>
+            <button class="p2-mini" data-p="1" data-act="up">점프</button>
+            <button class="p2-mini" data-p="1" data-act="right">▶</button>
+          </div>
+          <div class="p-pad-row">
+            <button class="p2-mini atk" data-p="1" data-act="punch">권투</button>
+            <button class="p2-mini kick" data-p="1" data-act="kick">발차기</button>
+            <button class="p2-mini" data-p="1" data-act="dodge">피하기</button>
+            <button class="p2-mini spec" data-p="1" data-act="special">필살</button>
+          </div>
+        </div>
+        <div class="p-pad p2">
+          <div class="p-pad-head"><span>2P (친구)</span><button id="p2SwapBtn" class="mini-btn" style="padding:2px 6px;font-size:0.68rem;">캐릭터 변경</button></div>
+          <div class="p-pad-row">
+            <button class="p2-mini" data-p="2" data-act="left">◀</button>
+            <button class="p2-mini" data-p="2" data-act="up">점프</button>
+            <button class="p2-mini" data-p="2" data-act="right">▶</button>
+          </div>
+          <div class="p-pad-row">
+            <button class="p2-mini atk" data-p="2" data-act="punch">권투</button>
+            <button class="p2-mini kick" data-p="2" data-act="kick">발차기</button>
+            <button class="p2-mini" data-p="2" data-act="dodge">피하기</button>
+            <button class="p2-mini spec" data-p="2" data-act="special">필살</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="coin-door">
+      <div class="coin-plate"><span class="coin-slit"></span> INSERT 1 COIN</div>
+      <div class="coin-plate">PUSH TO PLAY</div>
+    </div>
+  </div>
+
+  <div id="shopModal" class="shop-modal hidden">
+    <div class="shop-box">
+      <div class="shop-head">
+        <h2>캐릭터 상점 (총 36마리)</h2>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span id="shopCoinBadge" class="coin-slot">COIN 5</span>
+          <button id="closeShopBtn" class="mini-btn">닫기</button>
+        </div>
+      </div>
+      <div id="shopTabs" style="display:flex;gap:6px;padding:8px 14px;background:#271e3f;border-bottom:1px solid #413366;overflow-x:auto;">
+        <button class="mini-btn shop-tab" data-tier="all">전체 (36)</button>
+        <button class="mini-btn shop-tab" data-tier="low">기본·입문 (0~95)</button>
+        <button class="mini-btn shop-tab" data-tier="mid">고급 (100~295)</button>
+        <button class="mini-btn shop-tab" data-tier="top">최강 전설 (300~450)</button>
+      </div>
+      <div id="shopGrid" class="shop-grid"></div>
+    </div>
+  </div>
+
+<script>
+const ROSTER = [
+  // 기본 3마리 (0 코인)
+  { id: 'bunny', species: 'bunny', name: '모모 토끼', role: '기본 밸런스형', price: 0, hp: 125, atk: 1.0, spd: 4.5, specPower: 22, specCount: 1, specSize: 15, specName: '작은 하트파', fur: '#ffc2d4', furDark: '#e68aa8', belly: '#fff5f8', eye: '#3d1e36', specColor: '#ff7eb3' },
+  { id: 'shiba', species: 'dog', name: '콩이 시바', role: '기본 스피드형', price: 0, hp: 120, atk: 1.0, spd: 5.1, specPower: 22, specCount: 1, specSize: 15, specName: '작은 별빛파', fur: '#f6b26b', furDark: '#d98236', belly: '#fff3db', eye: '#2b1b10', specColor: '#ffd166' },
+  { id: 'kitty', species: 'cat', name: '루루 고양이', role: '기본 민첩·회피형', price: 0, hp: 135, atk: 0.98, spd: 4.6, specPower: 22, specCount: 1, specSize: 15, specName: '작은 물방울파', fur: '#b8d8ff', furDark: '#7aa9e6', belly: '#f4f9ff', eye: '#1a2d4d', specColor: '#72efdd' },
+
+  // 입문·중급 (10 ~ 95 코인, 10마리)
+  { id: 'mint_bunny', species: 'bunny', name: '민트 토끼', role: '상점 · 상큼 펀치', price: 10, hp: 138, atk: 1.08, spd: 4.7, specPower: 26, specCount: 1, specSize: 17, specName: '민트 캔디파', fur: '#a8f0dc', furDark: '#59c7a9', belly: '#f2fffb', eye: '#153b31', specColor: '#64dfdf' },
+  { id: 'cream_cat', species: 'cat', name: '크림 냥이', role: '상점 · 부드러운 킥', price: 15, hp: 142, atk: 1.12, spd: 4.8, specPower: 28, specCount: 1, specSize: 18, specName: '밀크 푸딩파', fur: '#ffe5b4', furDark: '#e0b46e', belly: '#fffaf0', eye: '#3b2814', specColor: '#ffd6a5' },
+  { id: 'choco_dog', species: 'dog', name: '초코 퍼피', role: '상점 · 달콤 연타', price: 20, hp: 148, atk: 1.16, spd: 4.9, specPower: 30, specCount: 1, specSize: 19, specName: '코코아 펀치파', fur: '#c68b59', furDark: '#8c5830', belly: '#f7e6d4', eye: '#241307', specColor: '#e09f3e' },
+  { id: 'panda', species: 'panda', name: '포포 판다', role: '상점 · 파워 펀치', price: 30, hp: 160, atk: 1.24, spd: 4.5, specPower: 34, specCount: 1, specSize: 22, specName: '대나무 파워파', fur: '#ffffff', furDark: '#cfd8e3', belly: '#eef3f8', eye: '#1d222b', specColor: '#80ed99' },
+  { id: 'peach_fox', species: 'fox', name: '피치 여우', role: '상점 · 날쌘 발차기', price: 40, hp: 150, atk: 1.28, spd: 5.3, specPower: 36, specCount: 1, specSize: 22, specName: '복숭아 불꽃', fur: '#ffadad', furDark: '#e07a7a', belly: '#fff5f5', eye: '#3d1515', specColor: '#ff758f' },
+  { id: 'honey_bear', species: 'bear', name: '베리 꿀곰', role: '상점 · 단단한 맷집', price: 50, hp: 185, atk: 1.32, spd: 4.3, specPower: 24, specCount: 2, specSize: 22, specName: '더블 꿀폭탄', fur: '#d49a6a', furDark: '#a66d41', belly: '#ffecd6', eye: '#2b190d', specColor: '#ffb703' },
+  { id: 'sky_fox', species: 'fox', name: '소라 여우', role: '상점 · 바람 킥', price: 65, hp: 165, atk: 1.36, spd: 5.4, specPower: 26, specCount: 2, specSize: 23, specName: '더블 윈드파', fur: '#72efdd', furDark: '#38b6a3', belly: '#ecfffc', eye: '#0f3630', specColor: '#48bfe3' },
+  { id: 'pink_panda', species: 'panda', name: '체리 판다', role: '상점 · 귀여운 강타', price: 75, hp: 195, atk: 1.40, spd: 4.6, specPower: 28, specCount: 2, specSize: 24, specName: '더블 체리파', fur: '#ffd6e0', furDark: '#e699ad', belly: '#fff5f7', eye: '#381622', specColor: '#ff4d6d' },
+  { id: 'gold_dog', species: 'dog', name: '골드 리트리버', role: '상점 · 햇살 복서', price: 85, hp: 200, atk: 1.44, spd: 5.0, specPower: 30, specCount: 2, specSize: 25, specName: '선샤인 더블파', fur: '#ffe066', furDark: '#d9ad26', belly: '#fffbe6', eye: '#332506', specColor: '#ffd166' },
+  { id: 'violet_cat', species: 'cat', name: '라벤더 냥이', role: '상점 · 신비한 회피', price: 95, hp: 188, atk: 1.48, spd: 5.5, specPower: 32, specCount: 2, specSize: 25, specName: '라벤더 더블파', fur: '#cdb4db', furDark: '#9d79b5', belly: '#f9f2fc', eye: '#2a1638', specColor: '#c77dff' },
+
+  // 100~290 코인 고급 라인업 (15마리)
+  { id: 'ruby_fox', species: 'fox', name: '루비 여우', role: '고급 · 초고속 킥', price: 105, hp: 195, atk: 1.52, spd: 5.6, specPower: 22, specCount: 3, specSize: 22, specName: '3연발 여우불', fur: '#ff8547', furDark: '#cf531d', belly: '#fff1e6', eye: '#2e140c', specColor: '#ff595e' },
+  { id: 'ice_bear', species: 'bear', name: '빙수 북극곰', role: '고급 · 얼음 주먹', price: 115, hp: 220, atk: 1.55, spd: 4.6, specPower: 24, specCount: 3, specSize: 23, specName: '3연발 빙산파', fur: '#e0fbfc', furDark: '#98c1d9', belly: '#ffffff', eye: '#1d3557', specColor: '#90e0ef' },
+  { id: 'star_bunny', species: 'bunny', name: '별빛 토끼', role: '고급 · 유성 킥', price: 125, hp: 205, atk: 1.58, spd: 5.5, specPower: 26, specCount: 3, specSize: 24, specName: '3연발 유성파', fur: '#bde0fe', furDark: '#72a8db', belly: '#f0f7ff', eye: '#142847', specColor: '#ffd166' },
+  { id: 'tiger_cat', species: 'cat', name: '아기 호랑이', role: '고급 · 맹수 연타', price: 135, hp: 215, atk: 1.62, spd: 5.4, specPower: 27, specCount: 3, specSize: 24, specName: '3연발 호랑이파', fur: '#ffb703', furDark: '#d98400', belly: '#fff5d6', eye: '#2e1900', specColor: '#fb8500' },
+  { id: 'leo_lion', species: 'lion', name: '레오 꼬마사자', role: '고급 · 용맹한 사자', price: 150, hp: 230, atk: 1.66, spd: 5.2, specPower: 58, specCount: 1, specSize: 32, specName: '사자왕 포효파', fur: '#ffd166', furDark: '#d99b26', belly: '#fff8db', eye: '#332008', specColor: '#ffe066' },
+  { id: 'shadow_fox', species: 'fox', name: '미드나잇 여우', role: '고급 · 그림자 킥', price: 165, hp: 215, atk: 1.70, spd: 5.8, specPower: 29, specCount: 3, specSize: 25, specName: '3연발 나이트파', fur: '#7b2cbf', furDark: '#4a1578', belly: '#f3e6ff', eye: '#ffd166', specColor: '#e0aaff' },
+  { id: 'emerald_panda', species: 'panda', name: '에메랄드 판다', role: '고급 · 무림 고수', price: 180, hp: 245, atk: 1.74, spd: 4.9, specPower: 64, specCount: 1, specSize: 34, specName: '대나무 폭풍파', fur: '#b7e4c7', furDark: '#52b788', belly: '#f0fff4', eye: '#081c15', specColor: '#40916c' },
+  { id: 'berry_bunny', species: 'bunny', name: '베리베리 토끼', role: '고급 · 점프 스매시', price: 195, hp: 225, atk: 1.78, spd: 5.7, specPower: 31, specCount: 3, specSize: 25, specName: '3연발 딸기폭탄', fur: '#ff758f', furDark: '#c9184a', belly: '#fff0f3', eye: '#380515', specColor: '#ff4d6d' },
+  { id: 'thunder_dog', species: 'dog', name: '번개 웰시코기', role: '고급 · 스파크 러시', price: 210, hp: 235, atk: 1.82, spd: 5.8, specPower: 33, specCount: 3, specSize: 26, specName: '3연발 썬더볼', fur: '#ffca3a', furDark: '#d49a00', belly: '#fff9db', eye: '#2b2000', specColor: '#00f5d4' },
+  { id: 'royal_cat', species: 'cat', name: '로열 페르시안', role: '고급 · 우아한 반격', price: 225, hp: 250, atk: 1.86, spd: 5.4, specPower: 70, specCount: 1, specSize: 35, specName: '로열 크리스탈파', fur: '#f8edeb', furDark: '#d8b4a0', belly: '#ffffff', eye: '#4a154b', specColor: '#f72585' },
+  { id: 'galaxy_bear', species: 'bear', name: '은하수 곰돌이', role: '고급 · 우주 파워', price: 245, hp: 270, atk: 1.90, spd: 5.0, specPower: 28, specCount: 4, specSize: 24, specName: '4연발 별똥별', fur: '#5e60ce', furDark: '#3a0ca3', belly: '#e0e1ff', eye: '#ffd166', specColor: '#4cc9f0' },
+  { id: 'flame_lion', species: 'lion', name: '불꽃 사자', role: '고급 · 화염 돌진', price: 260, hp: 265, atk: 1.95, spd: 5.5, specPower: 78, specCount: 1, specSize: 36, specName: '화염 메테오', fur: '#ff6d00', furDark: '#bd3e00', belly: '#fff0db', eye: '#2e0e00', specColor: '#ff9e00' },
+  { id: 'aurora_fox', species: 'fox', name: '오로라 여우', role: '고급 · 극광 연타', price: 275, hp: 255, atk: 2.00, spd: 6.0, specPower: 30, specCount: 4, specSize: 25, specName: '4연발 오로라파', fur: '#80ffdb', furDark: '#48bfe3', belly: '#f2fffa', eye: '#122b38', specColor: '#7400b8' },
+  { id: 'jade_panda', species: 'panda', name: '비취 대사부', role: '고급 · 일격필살', price: 285, hp: 285, atk: 2.04, spd: 5.1, specPower: 84, specCount: 1, specSize: 37, specName: '천하무적 파동', fur: '#d8f3dc', furDark: '#74c69d', belly: '#ffffff', eye: '#1b4332', specColor: '#52b788' },
+  { id: 'moon_bunny', species: 'bunny', name: '달빛 여신 토끼', role: '고급 · 달의 가호', price: 295, hp: 270, atk: 2.08, spd: 5.9, specPower: 32, specCount: 4, specSize: 26, specName: '4연발 문라이트', fur: '#e0c3fc', furDark: '#9d4edd', belly: '#fbf5ff', eye: '#240046', specColor: '#ffd166' },
+
+  // 300 ~ 450 코인 최강 전설 라인업 (8마리)
+  { id: 'king_bear', species: 'bear', name: '킹콩 꿀곰 대왕', role: '전설 · 압도적 탱커', price: 310, hp: 320, atk: 2.18, spd: 5.2, specPower: 92, specCount: 1, specSize: 40, specName: '대지진 슈퍼파', fur: '#ffb703', furDark: '#b5651d', belly: '#fff6d6', eye: '#2b1300', specColor: '#ff5400' },
+  { id: 'cyber_dog', species: 'dog', name: '네온 사이버 시바', role: '전설 · 초광속 연타', price: 330, hp: 305, atk: 2.25, spd: 6.2, specPower: 34, specCount: 4, specSize: 28, specName: '4연발 레이저파', fur: '#4cc9f0', furDark: '#3a0ca3', belly: '#e6faff', eye: '#ffd166', specColor: '#f72585' },
+  { id: 'sakura_fox', species: 'fox', name: '천년 구미호', role: '전설 · 환상 난무', price: 350, hp: 315, atk: 2.32, spd: 6.3, specPower: 32, specCount: 5, specSize: 26, specName: '5연발 벚꽃폭풍', fur: '#ff99c8', furDark: '#d64586', belly: '#fff0f6', eye: '#4a0826', specColor: '#ff4d6d' },
+  { id: 'emperor_cat', species: 'cat', name: '황제 냥이', role: '전설 · 절대 회피', price: 370, hp: 335, atk: 2.40, spd: 6.1, specPower: 105, specCount: 1, specSize: 42, specName: '황제 성광파', fur: '#ffe66d', furDark: '#d4a300', belly: '#ffffff', eye: '#ff006e', specColor: '#ffbe0b' },
+  { id: 'golden_panda', species: 'panda', name: '황금 무신 판다', role: '전설 · 궁극의 권법', price: 390, hp: 360, atk: 2.48, spd: 5.6, specPower: 112, specCount: 1, specSize: 44, specName: '황금 용권파', fur: '#fff1a8', furDark: '#e0a800', belly: '#ffffff', eye: '#3d2200', specColor: '#ff9f1c' },
+  { id: 'cosmic_bunny', species: 'bunny', name: '코스믹 스타 토끼', role: '초전설 · 우주 최강', price: 410, hp: 355, atk: 2.58, spd: 6.4, specPower: 36, specCount: 5, specSize: 28, specName: '5연발 빅뱅파', fur: '#a0c4ff', furDark: '#5e60ce', belly: '#ffffff', eye: '#ffbe0b', specColor: '#ff006e' },
+  { id: 'omega_lion', species: 'lion', name: '오메가 레오 킹', role: '초전설 · 불멸의 왕', price: 430, hp: 390, atk: 2.68, spd: 6.0, specPower: 125, specCount: 1, specSize: 46, specName: '오메가 슈퍼노바', fur: '#ffbe0b', furDark: '#fb5607', belly: '#fff9db', eye: '#8338ec', specColor: '#ff006e' },
+  { id: 'rainbow_lion', species: 'lion', name: '무지개 신수 레오', role: '신화 · 진 최종 최강', price: 450, hp: 420, atk: 2.85, spd: 6.5, specPower: 42, specCount: 5, specSize: 32, specName: '5연발 레인보우 메테오', fur: '#ff8fab', furDark: '#8338ec', belly: '#ffffff', eye: '#ffbe0b', specColor: '#00f5d4' }
+];
+
+const ARENA_THEMES = [
+  { bgTop: '#1f163b', bgBot: '#51377a', floor: '#322252', rope: '#ff6b8b' },
+  { bgTop: '#0e2d45', bgBot: '#21638a', floor: '#153d57', rope: '#5ce1e6' },
+  { bgTop: '#381020', bgBot: '#7d2038', floor: '#471525', rope: '#ffd166' },
+  { bgTop: '#162d24', bgBot: '#2c5e4b', floor: '#1c3d30', rope: '#80ed99' },
+  { bgTop: '#2b193d', bgBot: '#613a85', floor: '#3b2252', rope: '#ff9ebb' }
+];
+const WEAK_LIST = [
+  { weakness: 'jump_kick', weakHint: '약점: 점프 발차기!' },
+  { weakness: 'punch', weakHint: '약점: 권투 연타!' },
+  { weakness: 'kick', weakHint: '약점: 발차기!' }
+];
+const OPP_POOL = [
+  { species: 'dog', name: '터보 불독', fur: '#c98a5b', furDark: '#945b33', belly: '#f5dfc8', eye: '#261409' },
+  { species: 'fox', name: '블레이드 여우', fur: '#ff7043', furDark: '#bf3e1b', belly: '#ffe8de', eye: '#240b05' },
+  { species: 'cat', name: '와일드 냥이', fur: '#9d79b5', furDark: '#6b4985', belly: '#f5ebfc', eye: '#2a1638' },
+  { species: 'panda', name: '스톰 판다', fur: '#e8eef5', furDark: '#a8b7c9', belly: '#ffffff', eye: '#1d222b' },
+  { species: 'bear', name: '메가 꿀곰', fur: '#d49a6a', furDark: '#945b33', belly: '#ffecd6', eye: '#2b190d' },
+  { species: 'bunny', name: '로켓 토끼', fur: '#ff8fab', furDark: '#d6456c', belly: '#fff0f3', eye: '#3d0e1e' },
+  { species: 'lion', name: '카이저 사자왕', fur: '#ffb703', furDark: '#cc7a00', belly: '#fff5cc', eye: '#2b1800' }
+];
+
+function getOpponentForStage(idx) {
+  const base = OPP_POOL[idx % OPP_POOL.length];
+  const theme = ARENA_THEMES[idx % ARENA_THEMES.length];
+  const weak = WEAK_LIST[idx % WEAK_LIST.length];
+  const tier = Math.floor(idx / OPP_POOL.length);
+  const titlePrefix = tier > 0 ? `Lv.${idx + 1} ` : '';
+  return {
+    ...base,
+    ...theme,
+    ...weak,
+    name: `${titlePrefix}${base.name}`,
+    hp: Math.round(95 + idx * 10),
+    atk: Number((0.72 + Math.min(2.4, idx * 0.035)).toFixed(2)),
+    spd: Number((3.1 + Math.min(2.8, idx * 0.06)).toFixed(2)),
+    aggr: Number((0.038 + Math.min(0.065, idx * 0.002)).toFixed(3)),
+    dodgeRate: Number((0.12 + Math.min(0.36, idx * 0.01)).toFixed(2)),
+    specPower: Math.round(16 + Math.min(72, idx * 1.2)),
+    specCount: idx >= 20 ? 2 : 1,
+    specSize: Math.min(34, 14 + Math.floor(idx * 0.4))
+  };
+}
+
+const SAVE_KEY = 'cute_arcade_fighter_v4';
+let save = { coins: 5, unlocked: ['bunny', 'shiba', 'kitty'], selected: 'bunny', stage: 0 };
+
+function loadSaveData() {
+  const sources = [];
+  try {
+    if (location.hash && location.hash.startsWith('#save=')) {
+      sources.push(decodeURIComponent(location.hash.slice(6)));
+    }
+  } catch (e) {}
+  try {
+    const ls = localStorage.getItem(SAVE_KEY);
+    if (ls) sources.push(ls);
+  } catch (e) {}
+  try {
+    if (window.name && window.name.startsWith('CAF_SAVE:')) {
+      sources.push(window.name.slice(9));
+    }
+  } catch (e) {}
+  for (const raw of sources) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (typeof parsed.coins === 'number') save.coins = parsed.coins;
+      if (Array.isArray(parsed.unlocked)) save.unlocked = parsed.unlocked;
+      if (parsed.selected) save.selected = parsed.selected;
+      if (typeof parsed.stage === 'number' && parsed.stage >= 0) save.stage = parsed.stage;
+      break;
+    } catch (e) {}
+  }
+}
+loadSaveData();
+
+function persistSave() {
+  const json = JSON.stringify(save);
+  try { localStorage.setItem(SAVE_KEY, json); } catch (e) {}
+  try { window.name = 'CAF_SAVE:' + json; } catch (e) {}
+  try { history.replaceState(null, '', '#save=' + encodeURIComponent(json)); } catch (e) {}
+  updateCoinUI();
+}
+function updateCoinUI() {
+  document.getElementById('coinBadge').textContent = `COIN ${save.coins}`;
+  document.getElementById('shopCoinBadge').textContent = `COIN ${save.coins}`;
+}
+
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const overlay = document.getElementById('overlay');
+const ovTitle = document.getElementById('ovTitle');
+const ovDesc = document.getElementById('ovDesc');
+const ovBtn = document.getElementById('ovBtn');
+const ovShopBtn = document.getElementById('ovShopBtn');
+const soundBtn = document.getElementById('soundBtn');
+const shopModal = document.getElementById('shopModal');
+const shopGrid = document.getElementById('shopGrid');
+
+const GROUND_Y = 394;
+let soundOn = true;
+let audioCtx = null;
+let bgmInterval = null;
+let bgmStep = 0;
+
+function ensureAudio() {
+  if (!soundOn) return null;
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+  } catch (e) { return null; }
+}
+
+function beep(freq, dur, type = 'square', vol = 0.08, slideTo = null) {
+  const ctxA = ensureAudio();
+  if (!ctxA) return;
+  const now = ctxA.currentTime;
+  const osc = ctxA.createOscillator();
+  const gain = ctxA.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, now);
+  if (slideTo) osc.frequency.exponentialRampToValueAtTime(Math.max(20, slideTo), now + dur);
+  gain.gain.setValueAtTime(vol, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+  osc.connect(gain);
+  gain.connect(ctxA.destination);
+  osc.start(now);
+  osc.stop(now + dur);
+}
+
+function noiseHit(dur = 0.09, vol = 0.14) {
+  const ctxA = ensureAudio();
+  if (!ctxA) return;
+  const bufSize = Math.floor(ctxA.sampleRate * dur);
+  const buf = ctxA.createBuffer(1, bufSize, ctxA.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufSize);
+  const src = ctxA.createBufferSource();
+  src.buffer = buf;
+  const filter = ctxA.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.value = 1100;
+  const gain = ctxA.createGain();
+  gain.gain.value = vol;
+  src.connect(filter);
+  filter.connect(gain);
+  gain.connect(ctxA.destination);
+  src.start();
+}
+
+function playCoinSfx() {
+  beep(988, 0.07, 'square', 0.09);
+  setTimeout(() => beep(1319, 0.22, 'square', 0.09), 70);
+}
+
+function playHitSfx(heavy = false) {
+  noiseHit(heavy ? 0.13 : 0.08, heavy ? 0.18 : 0.12);
+  beep(heavy ? 180 : 240, heavy ? 0.14 : 0.09, 'sawtooth', 0.1, 45);
+}
+
+function playFanfare(win = true) {
+  const notes = win ? [523, 659, 784, 1046] : [392, 349, 311, 220];
+  notes.forEach((n, idx) => {
+    setTimeout(() => beep(n, idx === notes.length - 1 ? 0.3 : 0.11, 'square', 0.09), idx * 110);
+  });
+}
+
+const BGM_MELODY = [330, 392, 440, 392, 523, 494, 440, 392, 330, 294, 330, 392, 440, 392, 330, 262];
+const BGM_BASS   = [110, 110, 147, 147, 165, 165, 131, 131, 110, 110, 147, 147, 165, 131, 110, 98];
+
+function startBGM() {
+  stopBGM();
+  if (!soundOn) return;
+  bgmStep = 0;
+  bgmInterval = setInterval(() => {
+    if (!soundOn || gameState !== 'fight') return;
+    const mel = BGM_MELODY[bgmStep % BGM_MELODY.length];
+    const bas = BGM_BASS[bgmStep % BGM_BASS.length];
+    beep(mel, 0.11, 'square', 0.028);
+    beep(bas, 0.13, 'triangle', 0.045);
+    bgmStep++;
+  }, 150);
+}
+
+function stopBGM() {
+  if (bgmInterval) { clearInterval(bgmInterval); bgmInterval = null; }
+}
+
+const input = { left: false, right: false, up: false, dodge: false, punch: false, kick: false, special: false };
+const input2 = { left: false, right: false, up: false, dodge: false, punch: false, kick: false, special: false };
+let is2PMode = false;
+let p2RosterIdx = 1;
+let stageIdx = save.stage || 0;
+let gameState = 'menu';
+let shake = 0;
+let timer = 99;
+let timerTick = 0;
+let popups = [];
+let particles = [];
+let projectiles = [];
+
+function getPlayerChar() {
+  return ROSTER.find(c => c.id === save.selected) || ROSTER[0];
+}
+
+function createFighter(isPlayer, cfg) {
+  return {
+    isPlayer,
+    x: isPlayer ? 185 : 575,
+    y: GROUND_Y,
+    vx: 0,
+    vy: 0,
+    dir: isPlayer ? 1 : -1,
+    hp: cfg.hp,
+    maxHp: cfg.hp,
+    atk: cfg.atk,
+    energy: isPlayer ? 30 : 0,
+    state: 'idle', // idle, walk, jump, dodge, punch, kick, special, hit, ko
+    stateTime: 0,
+    dodgeCooldown: 0,
+    hitApplied: false,
+    species: cfg.species,
+    fur: cfg.fur,
+    furDark: cfg.furDark,
+    belly: cfg.belly,
+    eye: cfg.eye,
+    specColor: cfg.specColor || '#ffd166',
+    name: cfg.name,
+    speed: cfg.spd,
+    specPower: cfg.specPower || 22,
+    specCount: cfg.specCount || 1,
+    specSize: cfg.specSize || 16,
+    weakness: cfg.weakness || '',
+    weakHint: cfg.weakHint || '',
+    aggr: cfg.aggr || 0,
+    dodgeRate: cfg.dodgeRate || 0,
+    aiJumpCooldown: 0
+  };
+}
+
+let p1 = createFighter(true, getPlayerChar());
+let p2 = createFighter(false, getOpponentForStage(stageIdx));
+
+function insertCoinAndStart(idx) {
+  if (save.coins < 1) {
+    save.coins = 2;
+    persistSave();
+    ovTitle.textContent = 'COIN REFILL (2 COIN)';
+    ovDesc.textContent = '코인이 0개가 되어 2코인부터 다시 시작할 수 있어요!';
+    ovBtn.textContent = '코인 넣고 시작 (-1 COIN)';
+    return;
+  }
+  save.coins -= 1;
+  persistSave();
+  playCoinSfx();
+  startRound(idx);
+}
+
+function startRound(idx) {
+  stageIdx = idx;
+  if (!is2PMode) {
+    save.stage = idx;
+    persistSave();
+  }
+  p1 = createFighter(true, getPlayerChar());
+  if (is2PMode) {
+    const ch2 = ROSTER[p2RosterIdx % ROSTER.length];
+    p2 = createFighter(false, { ...ch2, weakness: '', weakHint: '' });
+  } else {
+    p2 = createFighter(false, getOpponentForStage(stageIdx));
+  }
+  timer = 99;
+  timerTick = 0;
+  popups = [];
+  particles = [];
+  projectiles = [];
+  gameState = 'fight';
+  overlay.classList.add('hidden');
+  addPopup(380, 185, `ROUND ${stageIdx + 1} · FIGHT!`, '#ffd166', 32);
+  startBGM();
+}
+
+function addPopup(x, y, text, color = '#fff', size = 22) {
+  popups.push({ x, y, text, color, size, life: 45 });
+}
+
+function spawnSparks(x, y, color, count = 10) {
+  for (let i = 0; i < count; i++) {
+    const ang = Math.random() * Math.PI * 2;
+    const spd = 2 + Math.random() * 4.5;
+    particles.push({ x, y, vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd - 1.5, color, life: 18 + Math.random() * 14 });
+  }
+}
+
+function startDodge(f) {
+  if (f.dodgeCooldown > 0 || f.state === 'hit' || f.state === 'ko' || f.y < GROUND_Y) return;
+  f.state = 'dodge';
+  f.stateTime = 18;
+  f.dodgeCooldown = 28;
+  f.vx = -f.dir * 8.2;
+  beep(420, 0.06, 'sine', 0.05);
+}
+
+function startAttack(f, kind) {
+  if (f.state === 'hit' || f.state === 'ko' || f.state === 'punch' || f.state === 'kick' || f.state === 'special') return;
+  if (kind === 'special') {
+    if (f.energy < 100) return;
+    f.energy = 0;
+    f.state = 'special';
+    f.stateTime = 24;
+    beep(720, 0.16, 'sine', 0.1);
+    for (let i = 0; i < f.specCount; i++) {
+      setTimeout(() => {
+        if (gameState !== 'fight') return;
+        projectiles.push({
+          owner: f,
+          x: f.x + f.dir * 38,
+          y: f.y - 54 - (i * 8),
+          vx: f.dir * (9.5 + i * 0.8),
+          color: f.specColor,
+          power: f.specPower,
+          size: f.specSize,
+          life: 58
+        });
+        if (i > 0) beep(760 + i * 110, 0.1, 'sine', 0.08);
+      }, i * 140);
+    }
+    return;
+  }
+  f.state = kind;
+  f.stateTime = kind === 'punch' ? 15 : 21;
+  f.hitApplied = false;
+  beep(kind === 'punch' ? 280 : 210, 0.07, 'triangle', 0.07);
+}
+
+function applyDamage(attacker, defender, baseDmg, knock, label) {
+  if (defender.state !== 'dodge') {
+    attacker.combo = (attacker.combo || 0) + 1;
+    attacker.comboTimer = 95;
+  }
+  if (defender.state === 'dodge') {
+    addPopup(defender.x, defender.y - 110, '피했다!', '#74c0fc', 19);
+    return;
+  }
+  const dmg = Math.round(baseDmg * attacker.atk);
+  defender.hp = Math.max(0, defender.hp - dmg);
+  defender.vx = attacker.dir * knock;
+  attacker.energy = Math.min(100, attacker.energy + 20);
+  defender.energy = Math.min(100, defender.energy + 12);
+
+  defender.state = defender.hp <= 0 ? 'ko' : 'hit';
+  defender.stateTime = defender.hp <= 0 ? 60 : 13;
+  shake = Math.min(12, dmg * 0.5);
+  spawnSparks(defender.x, defender.y - 55, '#ffd166', 12);
+  const comboTxt = attacker.combo >= 2 ? ` (${attacker.combo} COMBO!)` : '';
+  addPopup(defender.x, defender.y - 122, `${label} -${dmg}${comboTxt}`, attacker.combo >= 3 ? '#5ce1e6' : '#ff8fab', attacker.combo >= 3 ? 25 : 21);
+  playHitSfx(dmg >= 20);
+
+  if (defender.hp <= 0) {
+    defender.state = 'ko';
+    defender.vy = -5.5;
+    endRound(attacker.isPlayer);
+  }
+}
+
+function endRound(playerWon) {
+  if (gameState !== 'fight') return;
+  gameState = 'round_end';
+  addPopup(380, 185, 'K.O.!', '#ffd166', 44);
+  stopBGM();
+  playFanfare(playerWon);
+  if (playerWon) { const cols=['#ffd166','#ff6b8b','#5ce1e6','#80ed99','#ffffff']; for(let i=0;i<36;i++) particles.push({x:380+(Math.random()-0.5)*360,y:140+(Math.random()-0.5)*80,vx:(Math.random()-0.5)*9,vy:-Math.random()*8-2,life:55+Math.random()*25,color:cols[i%cols.length]}); }
+  if (is2PMode) {
+    setTimeout(() => {
+      overlay.classList.remove('hidden');
+      ovTitle.textContent = playerWon ? '1P (나) 승리!' : '2P (친구) 승리!';
+      ovDesc.textContent = '친구랑 한 판 더 하거나, 혼자하기로 돌아갈 수 있어요.';
+      ovBtn.textContent = '2P 다시 붙기';
+      ovBtn.onclick = () => startRound(stageIdx);
+      ov2pBtn.classList.remove('hidden');
+      ov2pBtn.textContent = '👤 1P 혼자하기';
+      ov2pBtn.onclick = () => set2PMode(false);
+    }, 1050);
+    return;
+  }
+
+  const opp = getOpponentForStage(stageIdx);
+  const earned = playerWon ? 2 : 0;
+  if (earned > 0) {
+    save.coins += earned;
+  }
+  if (playerWon) {
+    save.stage = stageIdx + 1;
+  }
+  persistSave();
+
+  setTimeout(() => {
+    overlay.classList.remove('hidden');
+    if (playerWon) {
+      ovTitle.textContent = `STAGE ${stageIdx + 1} CLEAR! (+2 COIN)`;
+      ovDesc.textContent = `${opp.name} 상대를 이겼어요! 다음 STAGE ${stageIdx + 2} 도전!`;
+      ovBtn.textContent = `STAGE ${stageIdx + 2} 계속하기`;
+      ovBtn.onclick = () => startRound(stageIdx + 1);
+    } else {
+      ovTitle.textContent = `K.O.! YOU LOSE`;
+      ovDesc.textContent = `${opp.name} 선수에게 졌어요. 코인 1개를 넣고 다시 도전해 보세요!`;
+      ovBtn.textContent = '코인 넣고 재도전 (-1 COIN)';
+      ovBtn.onclick = () => insertCoinAndStart(stageIdx);
+    }
+  }, 1050);
+}
+
+function updateFighter(f, opp, ctrl) {
+  if (f.dodgeCooldown > 0) f.dodgeCooldown--;
+  if (f.state !== 'ko' && f.state !== 'hit') f.dir = opp.x >= f.x ? 1 : -1;
+
+  if (f.stateTime > 0) {
+    f.stateTime--;
+    if ((f.state === 'punch' || f.state === 'kick') && !f.hitApplied && f.stateTime === (f.state === 'punch' ? 9 : 11)) {
+      const reach = f.state === 'kick' ? 88 : 68;
+      const dx = (opp.x - f.x) * f.dir;
+      const dy = Math.abs(opp.y - f.y);
+      if (dx > -10 && dx < reach && dy < 72 && opp.state !== 'ko') {
+        f.hitApplied = true;
+        const isAir = f.y < GROUND_Y - 10;
+        let dmg = f.state === 'kick' ? (isAir ? 22 : 16) : 12;
+        let label = isAir ? 'JUMP KICK!' : (f.state === 'kick' ? 'KICK!' : 'PUNCH!');
+        const hitType = isAir && f.state === 'kick' ? 'jump_kick' : f.state;
+        if (opp.weakness && (opp.weakness === hitType || (opp.weakness === 'kick' && f.state === 'kick'))) {
+          dmg = Math.round(dmg * 1.7);
+          label = '약점 명중!';
+        }
+        applyDamage(f, opp, dmg, f.state === 'kick' ? 10 : 6, label);
+      }
+    }
+    if (f.stateTime === 0 && f.state !== 'ko') f.state = 'idle';
+  }
+
+  if (ctrl && gameState === 'fight' && f.state !== 'hit' && f.state !== 'ko') {
+    if (ctrl.special && f.energy >= 100) startAttack(f, 'special');
+    else if (ctrl.dodge) startDodge(f);
+    else if (ctrl.punch) startAttack(f, 'punch');
+    else if (ctrl.kick) startAttack(f, 'kick');
+
+    if (f.state === 'idle' || f.state === 'walk' || f.state === 'jump') {
+      if (ctrl.left) { f.vx = -f.speed; if (f.y >= GROUND_Y) f.state = 'walk'; }
+      else if (ctrl.right) { f.vx = f.speed; if (f.y >= GROUND_Y) f.state = 'walk'; }
+      else { f.vx *= 0.6; if (f.y >= GROUND_Y && f.state === 'walk') f.state = 'idle'; }
+
+      if (ctrl.up && f.y >= GROUND_Y) {
+        f.vy = -14.2;
+        f.state = 'jump';
+        beep(340, 0.06, 'sine', 0.05);
+      }
+    }
+  }
+
+  if (!ctrl && gameState === 'fight' && f.state !== 'hit' && f.state !== 'ko') {
+    if (f.aiJumpCooldown > 0) f.aiJumpCooldown--;
+    const dist = Math.abs(opp.x - f.x);
+
+    const incomingProj = projectiles.find(pr => pr.owner === opp && Math.abs(pr.x - f.x) < 120);
+    if (incomingProj && f.y >= GROUND_Y && f.aiJumpCooldown === 0) {
+      f.vy = -14.0;
+      f.state = 'jump';
+      f.aiJumpCooldown = 50;
+    }
+
+    if (f.state === 'idle' || f.state === 'walk') {
+      if (f.energy >= 100 && dist > 110 && Math.random() < 0.08) {
+        startAttack(f, 'special');
+      } else if ((opp.state === 'punch' || opp.state === 'kick') && dist < 92 && Math.random() < f.dodgeRate) {
+        startDodge(f);
+      } else {
+        if (dist > 74) { f.vx = f.dir * f.speed * 0.92; f.state = 'walk'; }
+        else if (dist < 42) { f.vx = -f.dir * f.speed * 0.6; }
+        else { f.vx *= 0.6; f.state = 'idle'; }
+
+        if (dist < 88 && Math.random() < f.aggr) {
+          if (Math.random() < 0.18 && f.y >= GROUND_Y && f.aiJumpCooldown === 0) {
+            f.vy = -13.5;
+            f.state = 'jump';
+            f.aiJumpCooldown = 60;
+            setTimeout(() => { if (gameState === 'fight' && f.state !== 'ko') startAttack(f, 'kick'); }, 180);
+          } else {
+            startAttack(f, Math.random() < 0.55 ? 'kick' : 'punch');
+          }
+        }
+      }
+    }
+  }
+
+  f.x += f.vx;
+  f.y += f.vy;
+  if (f.y < GROUND_Y) f.vy += 0.78;
+  else { f.y = GROUND_Y; f.vy = 0; if (f.state === 'jump') f.state = 'idle'; }
+  f.vx *= 0.86;
+  f.x = Math.max(55, Math.min(705, f.x));
+}
+
+function update() {
+  if (isPaused) return;
+  if (specBtn1P) specBtn1P.classList.toggle('ready', p1.energy >= 100);
+  if (specBtn2P1) specBtn2P1.classList.toggle('ready', p1.energy >= 100);
+  if (specBtn2P2) specBtn2P2.classList.toggle('ready', p2.energy >= 100);
+  if (p1.comboTimer > 0) { p1.comboTimer--; if (p1.comboTimer === 0) p1.combo = 0; }
+  if (p2.comboTimer > 0) { p2.comboTimer--; if (p2.comboTimer === 0) p2.combo = 0; }
+  if (gameState === 'fight') {
+    timerTick++;
+    if (timerTick >= 60) {
+      timerTick = 0;
+      timer = Math.max(0, timer - 1);
+      if (timer === 0) endRound(p1.hp >= p2.hp);
+    }
+  }
+  updateFighter(p1, p2, input);
+  updateFighter(p2, p1, is2PMode ? input2 : null);
+
+  for (let i = projectiles.length - 1; i >= 0; i--) {
+    const pr = projectiles[i];
+    pr.x += pr.vx; pr.life--;
+    const target = pr.owner === p1 ? p2 : p1;
+    if (Math.abs(pr.x - target.x) < (24 + pr.size) && Math.abs(pr.y - (target.y - 54)) < (42 + pr.size) && target.state !== 'ko') {
+      applyDamage(pr.owner, target, pr.power, 12 + Math.floor(pr.size * 0.2), '필살기!');
+      projectiles.splice(i, 1);
+      continue;
+    }
+    if (pr.life <= 0 || pr.x < 0 || pr.x > 760) projectiles.splice(i, 1);
+  }
+  for (let i = popups.length - 1; i >= 0; i--) { popups[i].y -= 0.9; popups[i].life--; if (popups[i].life <= 0) popups.splice(i, 1); }
+  for (let i = particles.length - 1; i >= 0; i--) { const pt = particles[i]; pt.x += pt.vx; pt.y += pt.vy; pt.vy += 0.24; pt.life--; if (pt.life <= 0) particles.splice(i, 1); }
+  if (shake > 0) shake *= 0.82;
+}
+
+const P = 4; // 4px pixel art grid
+function px(c, x, y, w, h, col) {
+  c.fillStyle = col;
+  c.fillRect(Math.round(x / P) * P, Math.round(y / P) * P, Math.max(P, Math.round(w / P) * P), Math.max(P, Math.round(h / P) * P));
+}
+
+function drawAnimeAnimalHead(c, ch, cx, cy, scale = 1, state = 'idle') {
+  c.save();
+  c.translate(Math.round(cx), Math.round(cy));
+  c.scale(scale, scale);
+
+  // Lion pixel mane
+  if (ch.species === 'lion') {
+    px(c, -32, -32, 64, 64, '#c96218');
+    px(c, -28, -36, 56, 72, '#c96218');
+  }
+
+  // Pixel Ears
+  if (ch.species === 'bunny') {
+    px(c, -16, -52, 12, 28, ch.furDark);
+    px(c, 4, -52, 12, 28, ch.furDark);
+    px(c, -12, -48, 8, 20, '#ff9ebb');
+    px(c, 8, -48, 8, 20, '#ff9ebb');
+  } else if (ch.species === 'cat' || ch.species === 'fox') {
+    px(c, -24, -36, 12, 16, ch.furDark);
+    px(c, 12, -36, 12, 16, ch.furDark);
+    px(c, -20, -32, 8, 12, '#ff9ebb');
+    px(c, 16, -32, 8, 12, '#ff9ebb');
+  } else {
+    const earCol = ch.species === 'panda' ? '#242733' : ch.furDark;
+    px(c, -28, -28, 14, 14, earCol);
+    px(c, 14, -28, 14, 14, earCol);
+  }
+
+  // Pixel Head Outline & Fill
+  px(c, -26, -24, 52, 48, '#241a38');
+  px(c, -22, -20, 44, 40, ch.fur);
+  px(c, -18, -24, 36, 4, ch.fur);
+  px(c, -18, 20, 36, 4, ch.furDark);
+
+  // Panda eye patches
+  if (ch.species === 'panda') {
+    px(c, 4, -12, 12, 14, '#252936');
+    px(c, -14, -12, 12, 14, '#252936');
+  }
+
+  // Muzzle
+  px(c, -4, 4, 20, 12, ch.belly);
+  px(c, 6, 4, 6, 4, (ch.species === 'dog' || ch.species === 'bear' || ch.species === 'panda' || ch.species === 'lion') ? '#241a38' : '#ff6b8b');
+
+  // Pixel Eyes
+  if (state === 'hit' || state === 'ko') {
+    px(c, 4, -10, 8, 4, ch.eye);
+    px(c, 8, -6, 8, 4, ch.eye);
+  } else {
+    px(c, 8, -10, 8, 10, ch.eye);
+    px(c, -10, -10, 8, 10, ch.eye);
+    px(c, 12, -10, 4, 4, '#ffffff');
+    px(c, -6, -10, 4, 4, '#ffffff');
+  }
+
+  // Blush
+  px(c, 14, 2, 6, 4, '#ff7597');
+  px(c, -18, 2, 6, 4, '#ff7597');
+
+  c.restore();
+}
+
+function drawFighter3D(f) {
+  ctx.save();
+  ctx.translate(Math.round(f.x / P) * P, Math.round(f.y / P) * P);
+  ctx.scale(f.dir, 1);
+
+  if (f.state === 'dodge') ctx.globalAlpha = 0.6;
+
+  // Pixel shadow
+  px(ctx, -24, 0, 48, 8, 'rgba(0,0,0,0.42)');
+
+  if (f.state === 'ko') { ctx.rotate(-Math.PI / 2); ctx.translate(20, -20); }
+  else if (f.state === 'hit') ctx.rotate(-0.15);
+  else if (f.state === 'dodge') ctx.translate(0, 12);
+
+  const bob = (f.state === 'idle' || f.state === 'walk') ? (Math.floor(Date.now() / 180) % 2) * 4 : 0;
+
+  // Pixel Tail
+  px(ctx, -28, -28 + bob, 12, 12, f.belly);
+
+  // Pixel Legs
+  px(ctx, -18, -12, 14, 12, f.furDark);
+  if (f.state === 'kick') {
+    px(ctx, 20, -40, 36, 14, f.fur);
+    px(ctx, 48, -44, 14, 18, f.furDark);
+  } else {
+    px(ctx, 6, -12, 14, 12, f.furDark);
+  }
+
+  // Pixel Body
+  px(ctx, -20, -56 + bob, 40, 44, '#241a38');
+  px(ctx, -16, -52 + bob, 32, 36, f.fur);
+  px(ctx, -4, -48 + bob, 16, 24, f.belly);
+
+  // Pixel Head
+  drawAnimeAnimalHead(ctx, f, 0, -78 + bob, 1, f.state);
+
+  // Pixel Boxing Glove
+  const gCol = f.isPlayer ? '#ff5b7f' : '#ffb703';
+  const gDark = f.isPlayer ? '#b82548' : '#b87400';
+  if (f.state === 'punch') {
+    px(ctx, 24, -52 + bob, 32, 16, gCol);
+    px(ctx, 48, -56 + bob, 16, 20, gDark);
+  } else {
+    px(ctx, 14, -44 + bob, 18, 16, gCol);
+    px(ctx, 18, -40 + bob, 10, 8, gDark);
+  }
+
+  ctx.restore();
+}
+
+function drawDojoFurniture(cfg) {
+  // Pixel sky/wall
+  px(ctx, 0, 0, 760, GROUND_Y, cfg.bgTop);
+  // Shoji / Dojo wall panels
+  for (let wx = 40; wx < 720; wx += 140) {
+    px(ctx, wx, 52, 112, 260, cfg.bgBot);
+    px(ctx, wx + 8, 60, 96, 244, 'rgba(255, 245, 220, 0.12)');
+    // Grid slats
+    for (let gy = 100; gy < 290; gy += 48) px(ctx, wx + 8, gy, 96, 4, 'rgba(20, 12, 30, 0.35)');
+    px(ctx, wx + 54, 60, 4, 244, 'rgba(20, 12, 30, 0.35)');
+  }
+
+  // Gently swaying animated Pixel Lanterns
+  const sway = Math.round(Math.sin(Date.now() / 450) * 3);
+  [160, 600].forEach(lx => {
+    px(ctx, lx - 2, 0, 4, 32, '#241a38');
+    px(ctx, lx - 14 + sway, 32, 28, 36, '#ff6b6b');
+    px(ctx, lx - 10 + sway, 36, 20, 28, (Math.floor(Date.now() / 300) % 2 === 0) ? '#ffd166' : '#ffe89e');
+    px(ctx, lx - 14 + sway, 68, 28, 6, '#241a38');
+  });
+
+  // Left Furniture: Wooden Weapon/Trophy Shelf & Bonsai Plant
+  px(ctx, 32, 248, 84, 146, '#4a2c1d');
+  px(ctx, 36, 256, 76, 12, '#6e422b');
+  px(ctx, 36, 304, 76, 12, '#6e422b');
+  px(ctx, 36, 352, 76, 12, '#6e422b');
+  // Trophy & scrolls on shelf
+  px(ctx, 50, 232, 16, 16, '#ffd166');
+  px(ctx, 80, 284, 20, 20, '#5ce1e6');
+  // Potted Bonsai on floor next to shelf
+  px(ctx, 124, 366, 32, 28, '#8d5524');
+  px(ctx, 136, 342, 8, 24, '#5c3317');
+  px(ctx, 120, 322, 40, 24, '#52b788');
+  px(ctx, 128, 314, 24, 12, '#74c69d');
+
+  // Center-Back: Wooden Bench & Hanging Punching Bag
+  px(ctx, 310, 348, 140, 14, '#7f4f24');
+  px(ctx, 324, 362, 12, 32, '#582f0e');
+  px(ctx, 424, 362, 12, 32, '#582f0e');
+  // Punching bag hanging
+  px(ctx, 248, 0, 6, 130, '#241a38');
+  px(ctx, 232, 130, 38, 96, '#d62828');
+  px(ctx, 236, 140, 12, 76, '#f77f00');
+
+  // Right Furniture: Retro Mini Arcade Cabinet & Wooden Crates
+  px(ctx, 646, 238, 76, 156, '#2b2244');
+  px(ctx, 654, 250, 60, 44, (Math.floor(Date.now() / 260) % 2 === 0) ? '#4cc9f0' : '#80ffdb');
+  px(ctx, 654, 302, 60, 12, '#ff6b8b');
+  // Wooden Crate
+  px(ctx, 578, 342, 52, 52, '#9c6644');
+  px(ctx, 584, 348, 40, 40, '#7f5539');
+  px(ctx, 584, 366, 40, 4, '#582f0e');
+
+  // Arena Floor Planks
+  px(ctx, 0, GROUND_Y, 760, 475 - GROUND_Y, cfg.floor);
+  px(ctx, 0, GROUND_Y, 760, 6, '#ffd166');
+  for (let fx = 0; fx < 760; fx += 64) {
+    px(ctx, fx, GROUND_Y + 6, 4, 80, 'rgba(0,0,0,0.22)');
+  }
+}
+
+function drawHUD() {
+  px(ctx, 24, 18, 290, 20, '#18122b');
+  px(ctx, 28, 22, Math.max(0, 282 * (p1.hp / p1.maxHp)), 12, '#5ce1e6');
+  px(ctx, 24, 42, 180, 8, '#18122b');
+  px(ctx, 24, 42, 180 * (p1.energy / 100), 8, p1.energy >= 100 ? '#ffd166' : '#ff8fab');
+
+  px(ctx, 446, 18, 290, 20, '#18122b');
+  const w2 = Math.max(0, 282 * (p2.hp / p2.maxHp));
+  px(ctx, 450 + (282 - w2), 22, w2, 12, '#ff6b8b');
+
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 16px monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText(`1P ${p1.name}`, 26, 66);
+  ctx.textAlign = 'right';
+  ctx.fillText(`${is2PMode ? '2P' : 'CPU'} ${p2.name}`, 734, 66);
+  if (p2.weakHint) {
+    ctx.fillStyle = '#ffd166';
+    ctx.font = 'bold 15px monospace';
+    ctx.fillText(p2.weakHint, 734, 88);
+  }
+
+  ctx.fillStyle = '#ffd166';
+  ctx.font = '900 28px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText(String(timer).padStart(2, '0'), 380, 36);
+  ctx.fillStyle = '#bfb3de';
+  ctx.font = 'bold 14px monospace';
+  ctx.fillText(is2PMode ? '2P VS MODE' : `STAGE ${stageIdx + 1}`, 380, 56);
+}
+
+function draw() {
+  const cfg = getOpponentForStage(stageIdx);
+  ctx.save();
+  ctx.imageSmoothingEnabled = false;
+  if (shake > 0.5) ctx.translate(Math.round((Math.random() - 0.5) * shake / P) * P, Math.round((Math.random() - 0.5) * shake / P) * P);
+
+  drawDojoFurniture(cfg);
+  drawFighter3D(p2);
+  drawFighter3D(p1);
+
+  projectiles.forEach(pr => {
+    const r = pr.size || 18;
+    px(ctx, pr.x - r, pr.y - r, r * 2, r * 2, pr.color);
+    px(ctx, pr.x - r * 0.5, pr.y - r * 0.5, r, r, '#ffffff');
+  });
+
+  particles.forEach(pt => { px(ctx, pt.x - 4, pt.y - 4, 8, 8, pt.color); });
+  drawHUD();
+  popups.forEach(pp => {
+    ctx.fillStyle = pp.color;
+    ctx.font = `900 ${Math.min(24, pp.size)}px monospace`;
+    ctx.textAlign = 'center';
+    ctx.fillText(pp.text, pp.x, pp.y);
+  });
+  ctx.restore();
+}
+
+function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+let shopTier = 'all';
+document.querySelectorAll('.shop-tab').forEach(tb => {
+  tb.onclick = () => { shopTier = tb.dataset.tier; renderShop(); };
+});
+
+function renderShop() {
+  updateCoinUI();
+  document.querySelectorAll('.shop-tab').forEach(tb => {
+    tb.style.background = tb.dataset.tier === shopTier ? '#ff6b8b' : '#372c57';
+  });
+  shopGrid.innerHTML = '';
+  const filtered = ROSTER.filter(ch => {
+    if (shopTier === 'low') return ch.price < 100;
+    if (shopTier === 'mid') return ch.price >= 100 && ch.price < 300;
+    if (shopTier === 'top') return ch.price >= 300;
+    return true;
+  });
+  filtered.forEach(ch => {
+    const owned = save.unlocked.includes(ch.id);
+    const isSel = save.selected === ch.id;
+    const card = document.createElement('div');
+    card.className = 'char-card' + (isSel ? ' selected' : '');
+
+    const pCanvas = document.createElement('canvas');
+    pCanvas.width = 96;
+    pCanvas.height = 96;
+    pCanvas.className = 'portrait';
+    const pCtx = pCanvas.getContext('2d');
+    drawAnimeAnimalHead(pCtx, ch, 48, 56, 0.92, 'idle');
+
+    const nameEl = document.createElement('div');
+    nameEl.className = 'char-name';
+    nameEl.textContent = ch.name;
+
+    const roleEl = document.createElement('div');
+    roleEl.className = 'char-role';
+    roleEl.textContent = ch.role;
+
+    const statsEl = document.createElement('div');
+    statsEl.className = 'char-stats';
+    statsEl.textContent = `체력 ${ch.hp} · 공격 x${ch.atk} · 필살기: ${ch.specName}`;
+
+    const btn = document.createElement('button');
+    if (isSel) {
+      btn.className = 'char-btn using';
+      btn.textContent = '✓ 출전 중';
+    } else if (owned) {
+      btn.className = 'char-btn use';
+      btn.textContent = '선택하기';
+      btn.onclick = () => {
+        save.selected = ch.id;
+        persistSave();
+        renderShop();
+        if (gameState !== 'fight') p1 = createFighter(true, getPlayerChar());
+      };
+    } else if (save.coins >= ch.price) {
+      btn.className = 'char-btn buy';
+      btn.textContent = `COIN ${ch.price} 구매`;
+      btn.onclick = () => {
+        save.coins -= ch.price;
+        save.unlocked.push(ch.id);
+        save.selected = ch.id;
+        persistSave();
+        beep(660, 0.12); setTimeout(() => beep(880, 0.18), 110);
+        renderShop();
+        if (gameState !== 'fight') p1 = createFighter(true, getPlayerChar());
+      };
+    } else {
+      btn.className = 'char-btn locked';
+      btn.textContent = `COIN ${ch.price} 필요`;
+    }
+
+    card.append(pCanvas, nameEl, roleEl, statsEl, btn);
+    shopGrid.appendChild(card);
+  });
+}
+
+function openShop() { renderShop(); shopModal.classList.remove('hidden'); }
+document.getElementById('openShopBtn').onclick = openShop;
+ovShopBtn.onclick = openShop;
+document.getElementById('closeShopBtn').onclick = () => shopModal.classList.add('hidden');
+
+// Arcade Joystick Logic
+const joyBase = document.getElementById('joystickBase');
+const joyKnob = document.getElementById('joystickKnob');
+let joyActive = false;
+
+function updateJoystick(clientX, clientY) {
+  const rect = joyBase.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const maxR = rect.width * 0.34;
+  let dx = clientX - cx;
+  let dy = clientY - cy;
+  if (document.body.classList.contains('force-landscape') && window.innerHeight > window.innerWidth) {
+    const tmp = dx;
+    dx = dy;
+    dy = -tmp;
+  }
+  const dist = Math.hypot(dx, dy);
+  if (dist > maxR) {
+    dx = (dx / dist) * maxR;
+    dy = (dy / dist) * maxR;
+  }
+  joyKnob.style.transform = `translate(${dx}px, ${dy}px)`;
+  input.left = dx < -12;
+  input.right = dx > 12;
+  input.up = dy < -18;
+  input.dodge = dy > 20;
+}
+
+function resetJoystick() {
+  joyActive = false;
+  joyKnob.style.transform = 'translate(0px, 0px)';
+  input.left = false;
+  input.right = false;
+  input.up = false;
+  input.dodge = false;
+}
+
+joyBase.addEventListener('touchstart', e => {
+  e.preventDefault();
+  joyActive = true;
+  updateJoystick(e.touches[0].clientX, e.touches[0].clientY);
+}, { passive: false });
+joyBase.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (joyActive) updateJoystick(e.touches[0].clientX, e.touches[0].clientY);
+}, { passive: false });
+joyBase.addEventListener('touchend', resetJoystick);
+joyBase.addEventListener('touchcancel', resetJoystick);
+
+joyBase.addEventListener('mousedown', e => {
+  joyActive = true;
+  updateJoystick(e.clientX, e.clientY);
+});
+window.addEventListener('mousemove', e => {
+  if (joyActive) updateJoystick(e.clientX, e.clientY);
+});
+window.addEventListener('mouseup', () => {
+  if (joyActive) resetJoystick();
+});
+
+// Round action buttons
+document.querySelectorAll('[data-key]').forEach(btn => {
+  const key = btn.dataset.key;
+  const press = (e) => { e.preventDefault(); input[key] = true; btn.classList.add('pressed'); };
+  const release = (e) => { e.preventDefault(); input[key] = false; btn.classList.remove('pressed'); };
+  btn.addEventListener('touchstart', press, { passive: false });
+  btn.addEventListener('touchend', release, { passive: false });
+  btn.addEventListener('touchcancel', release, { passive: false });
+  btn.addEventListener('mousedown', press);
+  window.addEventListener('mouseup', release);
+});
+
+const keyMap = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'dodge', z: 'punch', Z: 'punch', x: 'kick', X: 'kick', c: 'dodge', C: 'dodge', ' ': 'special' };
+window.addEventListener('keydown', e => { if (keyMap[e.key]) { e.preventDefault(); input[keyMap[e.key]] = true; } });
+window.addEventListener('keyup', e => { if (keyMap[e.key]) input[keyMap[e.key]] = false; });
+
+soundBtn.onclick = () => { soundOn = !soundOn; soundBtn.textContent = soundOn ? '🔊' : '🔇'; if (!soundOn) stopBGM(); else if (gameState === 'fight') startBGM(); };
+if (save.stage > 0) {
+  ovTitle.textContent = `STAGE ${save.stage + 1} 이어하기`;
+  ovBtn.textContent = `STAGE ${save.stage + 1} 시작 (-1 COIN)`;
+}
+ovBtn.onclick = () => insertCoinAndStart(save.stage || 0);
+
+updateCoinUI();
+
+const mode2pBtn = document.getElementById('mode2pBtn');
+const ov2pBtn = document.getElementById('ov2pBtn');
+const onePControls = document.getElementById('onePControls');
+const twoPControls = document.getElementById('twoPControls');
+const p2SwapBtn = document.getElementById('p2SwapBtn');
+
+function set2PMode(on) {
+  is2PMode = on;
+  mode2pBtn.textContent = on ? '👤 1P 혼자' : '👥 2P';
+  mode2pBtn.style.background = on ? '#5ce1e6' : '#372c57';
+  mode2pBtn.style.color = on ? '#161224' : '#fff';
+  onePControls.classList.toggle('hidden', on);
+  twoPControls.classList.toggle('active', on);
+  if (on) {
+    ov2pBtn.classList.add('hidden');
+    startRound(stageIdx);
+  } else {
+    ov2pBtn.classList.remove('hidden');
+    ov2pBtn.textContent = '👥 2P 친구 대전';
+    ov2pBtn.onclick = () => set2PMode(true);
+    gameState = 'menu';
+    overlay.classList.remove('hidden');
+    ovTitle.textContent = save.stage > 0 ? `STAGE ${save.stage + 1} 이어하기` : 'INSERT 1 COIN';
+    ovBtn.textContent = save.stage > 0 ? `STAGE ${save.stage + 1} 시작 (-1 COIN)` : '코인 넣고 시작 (-1 COIN)';
+    ovBtn.onclick = () => insertCoinAndStart(save.stage || 0);
+  }
+}
+
+mode2pBtn.onclick = () => set2PMode(!is2PMode);
+ov2pBtn.onclick = () => set2PMode(true);
+p2SwapBtn.onclick = () => {
+  p2RosterIdx = (p2RosterIdx + 1) % ROSTER.length;
+  if (is2PMode) startRound(stageIdx);
+};
+
+document.querySelectorAll('.p2-mini').forEach(btn => {
+  const target = btn.dataset.p === '2' ? input2 : input;
+  const act = btn.dataset.act;
+  const down = (e) => {
+    e.preventDefault();
+    ensureAudio();
+    target[act] = true;
+    btn.classList.add('pressed');
+  };
+  const up = (e) => {
+    e.preventDefault();
+    target[act] = false;
+    btn.classList.remove('pressed');
+  };
+  btn.addEventListener('pointerdown', down);
+  btn.addEventListener('pointerup', up);
+  btn.addEventListener('pointercancel', up);
+  btn.addEventListener('pointerleave', up);
+});
+
+window.addEventListener('keydown', e => {
+  if (!is2PMode) return;
+  if (e.code === 'ArrowLeft') input2.left = true;
+  if (e.code === 'ArrowRight') input2.right = true;
+  if (e.code === 'ArrowUp') input2.up = true;
+  if (e.code === 'ArrowDown') input2.dodge = true;
+  if (e.code === 'KeyJ') input2.punch = true;
+  if (e.code === 'KeyK') input2.kick = true;
+  if (e.code === 'KeyL') input2.special = true;
+});
+window.addEventListener('keyup', e => {
+  if (!is2PMode) return;
+  if (e.code === 'ArrowLeft') input2.left = false;
+  if (e.code === 'ArrowRight') input2.right = false;
+  if (e.code === 'ArrowUp') input2.up = false;
+  if (e.code === 'ArrowDown') input2.dodge = false;
+  if (e.code === 'KeyJ') input2.punch = false;
+  if (e.code === 'KeyK') input2.kick = false;
+  if (e.code === 'KeyL') input2.special = false;
+});
+
+
+function silenceOnExit() {
+  stopBGM();
+  if (audioCtx && audioCtx.state === 'running') {
+    try { audioCtx.suspend(); } catch (e) {}
+  }
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) silenceOnExit();
+  else if (soundOn && gameState === 'fight') startBGM();
+});
+window.addEventListener('pagehide', silenceOnExit);
+window.addEventListener('blur', silenceOnExit);
+
+
+const sizeBtn = document.getElementById('sizeBtn');
+const cabinetEl = document.querySelector('.arcade-cabinet');
+const sizeModes = [
+  { cls: 'size-md', label: '크기:중' },
+  { cls: 'size-lg', label: '크기:대' },
+  { cls: 'size-sm', label: '크기:소' }
+];
+let sizeIdx = 0;
+cabinetEl.classList.add('size-md');
+sizeBtn.textContent = sizeModes[0].label;
+
+function applySizeMode() {
+  const mode = sizeModes[sizeIdx];
+  const isLg = mode.cls === 'size-lg';
+  document.body.classList.toggle('force-landscape', isLg);
+  if (isLg && screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock('landscape').catch(() => {});
+  } else if (!isLg && screen.orientation && screen.orientation.unlock) {
+    try { screen.orientation.unlock(); } catch (e) {}
+  }
+}
+
+sizeBtn.onclick = () => {
+  cabinetEl.classList.remove(sizeModes[sizeIdx].cls);
+  sizeIdx = (sizeIdx + 1) % sizeModes.length;
+  cabinetEl.classList.add(sizeModes[sizeIdx].cls);
+  sizeBtn.textContent = sizeModes[sizeIdx].label;
+  applySizeMode();
+};
+
+
+let isPaused = false;
+const pauseBtn = document.getElementById('pauseBtn');
+const specBtn1P = document.querySelector('.btn-special');
+const specBtn2P1 = document.querySelector('.p2-mini[data-p="1"][data-act="special"]');
+const specBtn2P2 = document.querySelector('.p2-mini[data-p="2"][data-act="special"]');
+
+pauseBtn.onclick = () => {
+  if (gameState !== 'fight' && !isPaused) return;
+  isPaused = !isPaused;
+  pauseBtn.textContent = isPaused ? '▶️' : '⏸️';
+  if (isPaused) { stopBGM(); addPopup(380, 200, 'PAUSED', '#ffd166', 34); }
+  else if (soundOn) startBGM();
+};
+
+loop();
+</script>
+</body>
+</html>
