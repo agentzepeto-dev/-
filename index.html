@@ -1588,7 +1588,7 @@ function update() {
   if (shake > 0) shake *= 0.82;
 }
 
-const P = 4; // 4px pixel art grid
+const P = 2; // Finer 16-bit pixel art grid!
 function px(c, x, y, w, h, col) {
   c.fillStyle = col;
   c.fillRect(Math.round(x / P) * P, Math.round(y / P) * P, Math.max(P, Math.round(w / P) * P), Math.max(P, Math.round(h / P) * P));
@@ -1599,59 +1599,82 @@ function drawAnimeAnimalHead(c, ch, cx, cy, scale = 1, state = 'idle') {
   c.translate(Math.round(cx), Math.round(cy));
   c.scale(scale, scale);
 
-  // Lion pixel mane
+  // Lion lush pixel mane
   if (ch.species === 'lion') {
-    px(c, -32, -32, 64, 64, '#c96218');
-    px(c, -28, -36, 56, 72, '#c96218');
+    px(c, -34, -34, 68, 66, '#a3480d');
+    px(c, -30, -38, 60, 74, '#c96218');
+    px(c, -26, -34, 52, 62, '#e07a22');
   }
 
-  // Pixel Ears
+  // Cute Pixel Ears with inner pink & dark outline
   if (ch.species === 'bunny') {
-    px(c, -16, -52, 12, 28, ch.furDark);
-    px(c, 4, -52, 12, 28, ch.furDark);
-    px(c, -12, -48, 8, 20, '#ff9ebb');
-    px(c, 8, -48, 8, 20, '#ff9ebb');
+    px(c, -18, -56, 14, 32, '#241a38');
+    px(c, 4, -56, 14, 32, '#241a38');
+    px(c, -16, -54, 10, 28, ch.fur);
+    px(c, 6, -54, 10, 28, ch.fur);
+    px(c, -14, -50, 6, 20, '#ff8fab');
+    px(c, 8, -50, 6, 20, '#ff8fab');
   } else if (ch.species === 'cat' || ch.species === 'fox') {
-    px(c, -24, -36, 12, 16, ch.furDark);
-    px(c, 12, -36, 12, 16, ch.furDark);
-    px(c, -20, -32, 8, 12, '#ff9ebb');
-    px(c, 16, -32, 8, 12, '#ff9ebb');
+    px(c, -26, -38, 16, 18, '#241a38');
+    px(c, 10, -38, 16, 18, '#241a38');
+    px(c, -24, -36, 12, 14, ch.fur);
+    px(c, 12, -36, 12, 14, ch.fur);
+    px(c, -20, -32, 6, 10, '#ff8fab');
+    px(c, 14, -32, 6, 10, '#ff8fab');
   } else {
-    const earCol = ch.species === 'panda' ? '#242733' : ch.furDark;
-    px(c, -28, -28, 14, 14, earCol);
-    px(c, 14, -28, 14, 14, earCol);
+    const earCol = ch.species === 'panda' ? '#252936' : ch.furDark;
+    px(c, -30, -30, 16, 16, '#241a38');
+    px(c, 14, -30, 16, 16, '#241a38');
+    px(c, -28, -28, 12, 12, earCol);
+    px(c, 16, -28, 12, 12, earCol);
+    px(c, -24, -24, 6, 6, '#ff9ebb');
+    px(c, 18, -24, 6, 6, '#ff9ebb');
   }
 
-  // Pixel Head Outline & Fill
-  px(c, -26, -24, 52, 48, '#241a38');
-  px(c, -22, -20, 44, 40, ch.fur);
-  px(c, -18, -24, 36, 4, ch.fur);
-  px(c, -18, 20, 36, 4, ch.furDark);
+  // Head outline + shaded 16-bit head
+  px(c, -28, -24, 56, 48, '#241a38');
+  px(c, -24, -28, 48, 56, '#241a38');
+  px(c, -24, -22, 48, 44, ch.fur);
+  px(c, -20, -26, 40, 52, ch.fur);
+  // Top highlight & bottom jaw shade
+  px(c, -16, -24, 32, 4, '#ffffff', 0.25);
+  px(c, -20, 18, 40, 6, ch.furDark);
+
+  // Cute forehead tuft / eyebrows
+  px(c, -4, -26, 8, 6, ch.furDark);
 
   // Panda eye patches
   if (ch.species === 'panda') {
-    px(c, 4, -12, 12, 14, '#252936');
-    px(c, -14, -12, 12, 14, '#252936');
+    px(c, 2, -14, 16, 16, '#252936');
+    px(c, -16, -14, 16, 16, '#252936');
   }
 
-  // Muzzle
-  px(c, -4, 4, 20, 12, ch.belly);
-  px(c, 6, 4, 6, 4, (ch.species === 'dog' || ch.species === 'bear' || ch.species === 'panda' || ch.species === 'lion') ? '#241a38' : '#ff6b8b');
+  // Cute muzzle & happy open mouth
+  px(c, -6, 4, 24, 14, ch.belly);
+  px(c, 6, 4, 6, 4, (ch.species === 'dog' || ch.species === 'bear' || ch.species === 'panda' || ch.species === 'lion') ? '#241a38' : '#ff5c8a');
+  px(c, 4, 10, 8, 6, '#c9184a');
+  px(c, 6, 12, 4, 4, '#ff758f');
 
-  // Pixel Eyes
+  // Big Sparkling Anime Pixel Eyes!
   if (state === 'hit' || state === 'ko') {
-    px(c, 4, -10, 8, 4, ch.eye);
-    px(c, 8, -6, 8, 4, ch.eye);
+    px(c, 4, -10, 10, 4, ch.eye);
+    px(c, 8, -6, 10, 4, ch.eye);
+    px(c, -12, -10, 10, 4, ch.eye);
   } else {
-    px(c, 8, -10, 8, 10, ch.eye);
-    px(c, -10, -10, 8, 10, ch.eye);
-    px(c, 12, -10, 4, 4, '#ffffff');
-    px(c, -6, -10, 4, 4, '#ffffff');
+    // Eye whites + big iris + double sparkle
+    px(c, 4, -14, 12, 14, '#ffffff');
+    px(c, -14, -14, 12, 14, '#ffffff');
+    px(c, 6, -12, 10, 12, ch.eye);
+    px(c, -12, -12, 10, 12, ch.eye);
+    px(c, 10, -12, 4, 4, '#ffffff');
+    px(c, -8, -12, 4, 4, '#ffffff');
+    px(c, 6, -4, 2, 2, '#ffffff');
+    px(c, -12, -4, 2, 2, '#ffffff');
   }
 
-  // Blush
-  px(c, 14, 2, 6, 4, '#ff7597');
-  px(c, -18, 2, 6, 4, '#ff7597');
+  // Rosy anime cheeks
+  px(c, 16, 2, 6, 4, '#ff7597');
+  px(c, -20, 2, 6, 4, '#ff7597');
 
   c.restore();
 }
@@ -1663,108 +1686,136 @@ function drawFighter3D(f) {
 
   if (f.state === 'dodge') ctx.globalAlpha = 0.6;
 
-  // Pixel shadow
-  px(ctx, -24, 0, 48, 8, 'rgba(0,0,0,0.42)');
+  // Soft floor shadow
+  px(ctx, -26, 0, 52, 8, 'rgba(0,0,0,0.45)');
 
   if (f.state === 'ko') { ctx.rotate(-Math.PI / 2); ctx.translate(20, -20); }
   else if (f.state === 'hit') ctx.rotate(-0.15);
   else if (f.state === 'dodge') ctx.translate(0, 12);
 
-  const bob = (f.state === 'idle' || f.state === 'walk') ? (Math.floor(Date.now() / 180) % 2) * 4 : 0;
+  const bob = (f.state === 'idle' || f.state === 'walk') ? (Math.floor(Date.now() / 170) % 2) * 4 : 0;
 
-  // Pixel Tail
-  px(ctx, -28, -28 + bob, 12, 12, f.belly);
+  // Cute Fluffy Tail
+  px(ctx, -28, -28 + bob, 14, 14, '#241a38');
+  px(ctx, -26, -26 + bob, 10, 10, f.belly);
 
-  // Pixel Legs
-  px(ctx, -18, -12, 14, 12, f.furDark);
+  // Legs + Boxing Shorts!
+  const shortsCol = f.isPlayer ? '#e63963' : '#1d70d6';
+  const shortsShade = f.isPlayer ? '#a61c40' : '#11488f';
+
+  // Back leg
+  px(ctx, -18, -14, 14, 14, '#241a38');
+  px(ctx, -16, -12, 10, 10, f.furDark);
+
+  // Front leg / Kick
   if (f.state === 'kick') {
-    px(ctx, 20, -40, 36, 14, f.fur);
-    px(ctx, 48, -44, 14, 18, f.furDark);
+    px(ctx, 16, -42, 40, 16, '#241a38');
+    px(ctx, 18, -40, 36, 12, f.fur);
+    px(ctx, 44, -44, 14, 18, f.furDark);
   } else {
-    px(ctx, 6, -12, 14, 12, f.furDark);
+    px(ctx, 4, -14, 14, 14, '#241a38');
+    px(ctx, 6, -12, 10, 10, f.fur);
   }
 
-  // Pixel Body
-  px(ctx, -20, -56 + bob, 40, 44, '#241a38');
-  px(ctx, -16, -52 + bob, 32, 36, f.fur);
-  px(ctx, -4, -48 + bob, 16, 24, f.belly);
+  // Boxing Shorts + White Belt
+  px(ctx, -22, -34 + bob, 44, 18, '#241a38');
+  px(ctx, -20, -32 + bob, 40, 14, shortsCol);
+  px(ctx, -20, -24 + bob, 40, 6, shortsShade);
+  px(ctx, -20, -34 + bob, 40, 4, '#ffffff');
+  px(ctx, -2, -32 + bob, 6, 12, '#ffffff');
 
-  // Pixel Head
-  drawAnimeAnimalHead(ctx, f, 0, -78 + bob, 1, f.state);
+  // Upper Torso
+  px(ctx, -20, -58 + bob, 40, 26, '#241a38');
+  px(ctx, -18, -56 + bob, 36, 22, f.fur);
+  px(ctx, -4, -54 + bob, 18, 18, f.belly);
 
-  // Pixel Boxing Glove
-  const gCol = f.isPlayer ? '#ff5b7f' : '#ffb703';
-  const gDark = f.isPlayer ? '#b82548' : '#b87400';
+  // Head
+  drawAnimeAnimalHead(ctx, f, 0, -80 + bob, 1, f.state);
+
+  // Big Cute Puffy Boxing Gloves!
+  const gCol = f.isPlayer ? '#ff3b6b' : '#2684ff';
+  const gDark = f.isPlayer ? '#b0173e' : '#124ca1';
+  const gLight = '#ff9ebb';
   if (f.state === 'punch') {
-    px(ctx, 24, -52 + bob, 32, 16, gCol);
-    px(ctx, 48, -56 + bob, 16, 20, gDark);
+    px(ctx, 20, -56 + bob, 36, 20, '#241a38');
+    px(ctx, 22, -54 + bob, 32, 16, gCol);
+    px(ctx, 40, -52 + bob, 12, 8, f.isPlayer ? gLight : '#90c2ff');
+    px(ctx, 22, -42 + bob, 32, 4, gDark);
   } else {
-    px(ctx, 14, -44 + bob, 18, 16, gCol);
-    px(ctx, 18, -40 + bob, 10, 8, gDark);
+    // Front & back guard gloves
+    px(ctx, 12, -48 + bob, 22, 20, '#241a38');
+    px(ctx, 14, -46 + bob, 18, 16, gCol);
+    px(ctx, 18, -44 + bob, 8, 6, f.isPlayer ? gLight : '#90c2ff');
+    px(ctx, 14, -34 + bob, 18, 4, gDark);
   }
 
   ctx.restore();
 }
 
 function drawDojoFurniture(cfg) {
-  // Pixel sky/wall
-  px(ctx, 0, 0, 760, GROUND_Y, cfg.bgTop);
-  // Shoji / Dojo wall panels
-  for (let wx = 40; wx < 720; wx += 140) {
-    px(ctx, wx, 52, 112, 260, cfg.bgBot);
-    px(ctx, wx + 8, 60, 96, 244, 'rgba(255, 245, 220, 0.12)');
-    // Grid slats
-    for (let gy = 100; gy < 290; gy += 48) px(ctx, wx + 8, gy, 96, 4, 'rgba(20, 12, 30, 0.35)');
-    px(ctx, wx + 54, 60, 4, 244, 'rgba(20, 12, 30, 0.35)');
-  }
+  // Warm Wooden Dojo Wall (cover art vibe!)
+  px(ctx, 0, 0, 760, GROUND_Y, '#3b2316');
+  px(ctx, 0, 0, 760, 28, '#26150c');
 
-  // Gently swaying animated Pixel Lanterns
-  const sway = Math.round(Math.sin(Date.now() / 450) * 3);
-  [160, 600].forEach(lx => {
-    px(ctx, lx - 2, 0, 4, 32, '#241a38');
-    px(ctx, lx - 14 + sway, 32, 28, 36, '#ff6b6b');
-    px(ctx, lx - 10 + sway, 36, 20, 28, (Math.floor(Date.now() / 300) % 2 === 0) ? '#ffd166' : '#ffe89e');
-    px(ctx, lx - 14 + sway, 68, 28, 6, '#241a38');
+  // Shoji sliding screens on left & right
+  [44, 536].forEach(wx => {
+    px(ctx, wx, 52, 180, 290, '#24130a');
+    px(ctx, wx + 6, 58, 168, 278, '#4a6b82');
+    for (let gy = 100; gy < 310; gy += 54) px(ctx, wx + 6, gy, 168, 4, '#2b180e');
+    for (let gx = wx + 58; gx < wx + 170; gx += 56) px(ctx, gx, 58, 4, 278, '#2b180e');
   });
 
-  // Left Furniture: Wooden Weapon/Trophy Shelf & Bonsai Plant
-  px(ctx, 32, 248, 84, 146, '#4a2c1d');
-  px(ctx, 36, 256, 76, 12, '#6e422b');
-  px(ctx, 36, 304, 76, 12, '#6e422b');
-  px(ctx, 36, 352, 76, 12, '#6e422b');
-  // Trophy & scrolls on shelf
-  px(ctx, 50, 232, 16, 16, '#ffd166');
-  px(ctx, 80, 284, 20, 20, '#5ce1e6');
-  // Potted Bonsai on floor next to shelf
-  px(ctx, 124, 366, 32, 28, '#8d5524');
-  px(ctx, 136, 342, 8, 24, '#5c3317');
-  px(ctx, 120, 322, 40, 24, '#52b788');
-  px(ctx, 128, 314, 24, 12, '#74c69d');
+  // Center Dojo Wood Pillars & Paw-Print Plaque!
+  px(ctx, 280, 28, 200, 314, '#4d2e1c');
+  px(ctx, 280, 28, 16, 314, '#2b180e');
+  px(ctx, 464, 28, 16, 314, '#2b180e');
+  // Paw-Print Framed Plaque in center
+  px(ctx, 336, 62, 88, 84, '#2b180e');
+  px(ctx, 344, 70, 72, 68, '#d9b382');
+  px(ctx, 368, 98, 24, 20, '#4a2c1d');
+  px(ctx, 360, 84, 8, 10, '#4a2c1d');
+  px(ctx, 376, 80, 8, 10, '#4a2c1d');
+  px(ctx, 392, 84, 8, 10, '#4a2c1d');
 
-  // Center-Back: Wooden Bench & Hanging Punching Bag
-  px(ctx, 310, 348, 140, 14, '#7f4f24');
-  px(ctx, 324, 362, 12, 32, '#582f0e');
-  px(ctx, 424, 362, 12, 32, '#582f0e');
-  // Punching bag hanging
-  px(ctx, 248, 0, 6, 130, '#241a38');
-  px(ctx, 232, 130, 38, 96, '#d62828');
-  px(ctx, 236, 140, 12, 76, '#f77f00');
+  // Gently swaying warm Glowing Lanterns (left & right)
+  const sway = Math.round(Math.sin(Date.now() / 450) * 3);
+  [134, 626].forEach(lx => {
+    px(ctx, lx - 2, 0, 4, 30, '#1a0f08');
+    px(ctx, lx - 20 + sway, 30, 40, 44, '#c94c16');
+    px(ctx, lx - 16 + sway, 34, 32, 36, '#ff9f1c');
+    px(ctx, lx - 10 + sway, 38, 20, 28, (Math.floor(Date.now() / 300) % 2 === 0) ? '#ffd166' : '#fff0a8');
+    px(ctx, lx - 16 + sway, 74, 32, 6, '#2b180e');
+  });
 
-  // Right Furniture: Retro Mini Arcade Cabinet & Wooden Crates
-  px(ctx, 646, 238, 76, 156, '#2b2244');
-  px(ctx, 654, 250, 60, 44, (Math.floor(Date.now() / 260) % 2 === 0) ? '#4cc9f0' : '#80ffdb');
-  px(ctx, 654, 302, 60, 12, '#ff6b8b');
-  // Wooden Crate
-  px(ctx, 578, 342, 52, 52, '#9c6644');
-  px(ctx, 584, 348, 40, 40, '#7f5539');
-  px(ctx, 584, 366, 40, 4, '#582f0e');
+  // Cozy Dojo Props & Furniture: Trophy Shelf + Bonsai + Bench + Mini Arcade
+  px(ctx, 24, 270, 80, 124, '#3d2214');
+  px(ctx, 28, 278, 72, 10, '#6e422b');
+  px(ctx, 28, 322, 72, 10, '#6e422b');
+  px(ctx, 42, 256, 14, 14, '#ffd166');
+  // Bonsai
+  px(ctx, 114, 366, 32, 28, '#8d5524');
+  px(ctx, 126, 344, 8, 22, '#5c3317');
+  px(ctx, 110, 324, 40, 22, '#52b788');
+  // Wooden Bench in back
+  px(ctx, 316, 346, 128, 14, '#7f4f24');
+  px(ctx, 328, 360, 12, 34, '#582f0e');
+  px(ctx, 420, 360, 12, 34, '#582f0e');
+  // Mini Arcade Cabinet on right
+  px(ctx, 660, 248, 72, 146, '#241b3d');
+  px(ctx, 668, 258, 56, 40, (Math.floor(Date.now() / 260) % 2 === 0) ? '#4cc9f0' : '#80ffdb');
+  px(ctx, 668, 304, 56, 10, '#ff6b8b');
 
-  // Arena Floor Planks
-  px(ctx, 0, GROUND_Y, 760, 475 - GROUND_Y, cfg.floor);
+  // Warm Wooden Dojo Floor Planks + Spotlight!
+  px(ctx, 0, GROUND_Y, 760, 475 - GROUND_Y, '#8f552b');
   px(ctx, 0, GROUND_Y, 760, 6, '#ffd166');
-  for (let fx = 0; fx < 760; fx += 64) {
-    px(ctx, fx, GROUND_Y + 6, 4, 80, 'rgba(0,0,0,0.22)');
+  for (let fx = 0; fx < 760; fx += 76) {
+    px(ctx, fx, GROUND_Y + 6, 4, 80, '#5c3317');
   }
+  // Center Arena Spotlight Glow
+  ctx.fillStyle = 'rgba(255, 243, 196, 0.22)';
+  ctx.beginPath();
+  ctx.ellipse(380, GROUND_Y + 34, 190, 22, 0, 0, Math.PI * 2);
+  ctx.fill();
 }
 
 function drawHUD() {
@@ -1814,7 +1865,7 @@ function draw() {
     px(ctx, pr.x - r * 0.5, pr.y - r * 0.5, r, r, '#ffffff');
   });
 
-  particles.forEach(pt => { px(ctx, pt.x - 4, pt.y - 4, 8, 8, pt.color); });
+  particles.forEach(pt => { px(ctx, pt.x - 4, pt.y - 4, 8, 8, pt.color); px(ctx, pt.x - 2, pt.y - 6, 4, 12, '#ffffff'); });
   drawHUD();
   popups.forEach(pp => {
     ctx.fillStyle = pp.color;
