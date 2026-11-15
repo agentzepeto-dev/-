@@ -1368,9 +1368,11 @@ function startAttack(f, kind) {
     return;
   }
   f.state = kind;
-  f.stateTime = kind === 'punch' ? 15 : 21;
+  f.isSpinKick = (kind === 'kick' && f.y < GROUND_Y - 6);
+  f.stateTime = kind === 'punch' ? 15 : (f.isSpinKick ? 24 : 21);
+  if (kind === 'kick') f.vx = f.dir * (f.isSpinKick ? 5.2 : 3.2);
   f.hitApplied = false;
-  beep(kind === 'punch' ? 280 : 210, 0.07, 'triangle', 0.07);
+  beep(f.isSpinKick ? 340 : (kind === 'punch' ? 280 : 210), 0.08, 'triangle', 0.08, f.isSpinKick ? 540 : null);
 }
 
 function applyDamage(attacker, defender, baseDmg, knock, label) {
@@ -1464,7 +1466,7 @@ function updateFighter(f, opp, ctrl) {
         f.hitApplied = true;
         const isAir = f.y < GROUND_Y - 10;
         let dmg = f.state === 'kick' ? (isAir ? 22 : 16) : 12;
-        let label = isAir ? 'JUMP KICK!' : (f.state === 'kick' ? 'KICK!' : 'PUNCH!');
+        let label = (f.state === 'kick' && f.isSpinKick) ? '돌려차기!' : (f.state === 'kick' ? '양발차기!' : '양손 펀치!');
         const hitType = isAir && f.state === 'kick' ? 'jump_kick' : f.state;
         if (opp.weakness && (opp.weakness === hitType || (opp.weakness === 'kick' && f.state === 'kick'))) {
           dmg = Math.round(dmg * 1.7);
@@ -1693,6 +1695,14 @@ function drawFighter3D(f) {
   px(ctx, -26, 0, 52, 8, 'rgba(0,0,0,0.45)');
 
   if (f.state === 'ko') { ctx.rotate(-Math.PI / 2); ctx.translate(20, -20); }
+  else if (f.state === 'kick' && f.isSpinKick) {
+    const spinProg = (24 - f.stateTime) / 24;
+    ctx.translate(0, -45);
+    ctx.rotate(spinProg * Math.PI * 2);
+    ctx.translate(0, 45);
+    px(ctx, -46, -54, 92, 8, '#ffd166');
+    px(ctx, -38, -42, 76, 6, '#5ce1e6');
+  }
   else if (f.state === 'hit') ctx.rotate(-0.15);
   else if (f.state === 'dodge') ctx.translate(0, 12);
 
@@ -1706,16 +1716,17 @@ function drawFighter3D(f) {
   const shortsCol = f.isPlayer ? '#e63963' : '#1d70d6';
   const shortsShade = f.isPlayer ? '#a61c40' : '#11488f';
 
-  // Back leg
-  px(ctx, -18, -14, 14, 14, '#241a38');
-  px(ctx, -16, -12, 10, 10, f.furDark);
-
-  // Front leg / Kick
+  // Legs / Double-Foot Kick (양발차기)
   if (f.state === 'kick') {
-    px(ctx, 16, -42, 40, 16, '#241a38');
-    px(ctx, 18, -40, 36, 12, f.fur);
-    px(ctx, 44, -44, 14, 18, f.furDark);
+    px(ctx, 14, -46, 42, 14, '#241a38');
+    px(ctx, 16, -44, 38, 10, f.fur);
+    px(ctx, 44, -48, 14, 16, f.furDark);
+    px(ctx, 10, -28, 40, 14, '#241a38');
+    px(ctx, 12, -26, 36, 10, f.furDark);
+    px(ctx, 38, -30, 14, 16, f.fur);
   } else {
+    px(ctx, -18, -14, 14, 14, '#241a38');
+    px(ctx, -16, -12, 10, 10, f.furDark);
     px(ctx, 4, -14, 14, 14, '#241a38');
     px(ctx, 6, -12, 10, 10, f.fur);
   }
@@ -1740,10 +1751,14 @@ function drawFighter3D(f) {
   const gDark = f.isPlayer ? '#b0173e' : '#124ca1';
   const gLight = '#ff9ebb';
   if (f.state === 'punch') {
-    px(ctx, 20, -56 + bob, 36, 20, '#241a38');
-    px(ctx, 22, -54 + bob, 32, 16, gCol);
-    px(ctx, 40, -52 + bob, 12, 8, f.isPlayer ? gLight : '#90c2ff');
-    px(ctx, 22, -42 + bob, 32, 4, gDark);
+    const alt = (Math.floor(f.stateTime / 3) % 2 === 0) ? 8 : -4;
+    px(ctx, 16 + alt, -62 + bob, 32, 18, '#241a38');
+    px(ctx, 18 + alt, -60 + bob, 28, 14, gCol);
+    px(ctx, 34 + alt, -58 + bob, 10, 6, f.isPlayer ? gLight : '#90c2ff');
+    px(ctx, 24 - alt, -44 + bob, 34, 18, '#241a38');
+    px(ctx, 26 - alt, -42 + bob, 30, 14, gCol);
+    px(ctx, 44 - alt, -40 + bob, 10, 6, f.isPlayer ? gLight : '#90c2ff');
+    px(ctx, 26 - alt, -32 + bob, 30, 4, gDark);
   } else {
     // Front & back guard gloves
     px(ctx, 12, -48 + bob, 22, 20, '#241a38');
