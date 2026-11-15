@@ -1461,7 +1461,40 @@ function insertCoinAndStart(idx) {
   startRound(idx);
 }
 
+const playerStats = { punch: 0, kick: 0, jump: 0, dodge: 0, total: 0, detectedWeakness: '', hint: 'AI 분석: 패턴 파악 중...' };
+function resetPlayerStats() {
+  playerStats.punch = 0; playerStats.kick = 0; playerStats.jump = 0; playerStats.dodge = 0;
+  playerStats.total = 0; playerStats.detectedWeakness = ''; playerStats.hint = 'AI 분석: 패턴 파악 중...';
+}
+function recordPlayerAction(kind) {
+  if (is2PMode || isOnline2P || gameState !== 'fight') return;
+  playerStats[kind] = (playerStats[kind] || 0) + 1;
+  playerStats.total += 1;
+  if (playerStats.total < 5) return;
+  const prev = playerStats.detectedWeakness;
+  if (playerStats.jump >= playerStats.punch && playerStats.jump >= playerStats.kick && playerStats.jump >= 3) {
+    playerStats.detectedWeakness = 'jump';
+    playerStats.hint = 'AI 노림수: 점프 잦음!';
+  } else if (playerStats.punch > playerStats.kick * 1.25) {
+    playerStats.detectedWeakness = 'punch';
+    playerStats.hint = 'AI 노림수: 펀치 위주!';
+  } else if (playerStats.kick > playerStats.punch * 1.25) {
+    playerStats.detectedWeakness = 'kick';
+    playerStats.hint = 'AI 노림수: 발차기 위주!';
+  } else if (playerStats.dodge === 0 && playerStats.total >= 7) {
+    playerStats.detectedWeakness = 'no_dodge';
+    playerStats.hint = 'AI 노림수: 회피 부족!';
+  } else {
+    playerStats.detectedWeakness = 'balanced';
+    playerStats.hint = 'AI 분석: 균형 잡힘!';
+  }
+  if (prev !== playerStats.detectedWeakness && playerStats.detectedWeakness !== 'balanced') {
+    addPopup(180, 145, '🤖 AI 약점 파악!', '#5ce1e6', 20);
+  }
+}
+
 function startRound(idx) {
+  resetPlayerStats();
   stageIdx = idx;
   if (!is2PMode) {
     save.stage = idx;
@@ -1498,6 +1531,7 @@ function spawnSparks(x, y, color, count = 10) {
 }
 
 function startDodge(f) {
+  if (f === p1) recordPlayerAction('dodge');
   if (f.dodgeCooldown > 0 || f.state === 'hit' || f.state === 'ko' || f.y < GROUND_Y) return;
   f.state = 'dodge';
   f.stateTime = 18;
@@ -1681,16 +1715,31 @@ function updateFighter(f, opp, ctrl) {
     }
 
     if (f.state === 'idle' || f.state === 'walk') {
+      const pw = playerStats.detectedWeakness;
+      const bonusDodge = (pw === 'punch' && opp.state === 'punch') ? 0.25 : 0;
+      const bonusAggr = (pw === 'no_dodge') ? f.aggr * 1.35 : f.aggr;
+
       if (f.energy >= 100 && dist > 110 && Math.random() < 0.08) {
         startAttack(f, 'special');
-      } else if ((opp.state === 'punch' || opp.state === 'kick') && dist < 92 && Math.random() < f.dodgeRate) {
+      } else if (pw === 'jump' && opp.y < GROUND_Y - 14 && dist < 130 && f.y >= GROUND_Y && f.aiJumpCooldown === 0 && Math.random() < 0.22) {
+        // Counter jump habit with anti-air spin kick!
+        f.vy = -13.8;
+        f.state = 'jump';
+        f.aiJumpCooldown = 45;
+        setTimeout(() => { if (gameState === 'fight' && f.state !== 'ko') startAttack(f, 'kick'); }, 150);
+      } else if (pw === 'kick' && opp.state === 'kick' && dist < 105 && f.y >= GROUND_Y && f.aiJumpCooldown === 0 && Math.random() < 0.24) {
+        // Jump over predictable kicks & counter!
+        f.vy = -13.5;
+        f.state = 'jump';
+        f.aiJumpCooldown = 50;
+      } else if ((opp.state === 'punch' || opp.state === 'kick') && dist < 92 && Math.random() < (f.dodgeRate + bonusDodge)) {
         startDodge(f);
       } else {
         if (dist > 74) { f.vx = f.dir * f.speed * 0.92; f.state = 'walk'; }
         else if (dist < 42) { f.vx = -f.dir * f.speed * 0.6; }
         else { f.vx *= 0.6; f.state = 'idle'; }
 
-        if (dist < 88 && Math.random() < f.aggr) {
+        if (dist < 88 && Math.random() < bonusAggr) {
           if (Math.random() < 0.18 && f.y >= GROUND_Y && f.aiJumpCooldown === 0) {
             f.vy = -13.5;
             f.state = 'jump';
@@ -2074,6 +2123,11 @@ function drawHUD() {
   ctx.font = 'bold 16px monospace';
   ctx.textAlign = 'left';
   ctx.fillText(`1P ${p1.name}`, 26, 66);
+  if (!is2PMode && !isOnline2P) {
+    ctx.fillStyle = playerStats.detectedWeakness && playerStats.detectedWeakness !== 'balanced' ? '#5ce1e6' : '#bfb3de';
+    ctx.font = 'bold 14px monospace';
+    ctx.fillText(playerStats.hint, 26, 88);
+  }
   ctx.textAlign = 'right';
   ctx.fillText(`${is2PMode ? '2P' : 'CPU'} ${p2.name}`, 734, 66);
   if (p2.weakHint) {
