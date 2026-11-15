@@ -1297,13 +1297,10 @@ function startRound(idx) {
   }
   p1 = createFighter(true, getPlayerChar());
   if (isOnline2P) {
-    setTimeout(() => {
-      overlay.classList.remove('hidden');
-      ovTitle.textContent = playerWon ? '1P (방장) 승리!' : '2P (친구) 승리!';
-      ovDesc.textContent = '온라인 대결 끝!';
-      ovBtn.textContent = '다시 붙기';
-      ovBtn.onclick = () => { if (netRole === 'host') { if (netConn && netConn.open) netConn.send({ type: 'rematch' }); startOnlineMatch(); } };
-    }, 1050);
+    if (netRole === 'host' && netConn && netConn.open) {
+      try { netConn.send({ type: 'game_over', hostWon: playerWon }); } catch (e) {}
+    }
+    showOnlineResult(playerWon);
     return;
   }
   if (is2PMode) {
@@ -1416,9 +1413,9 @@ function endRound(playerWon) {
   if (is2PMode) {
     setTimeout(() => {
       overlay.classList.remove('hidden');
-      ovTitle.textContent = playerWon ? '1P (나) 승리!' : '2P (친구) 승리!';
+      ovTitle.textContent = playerWon ? '🏆 1P 승 · 2P 패!' : '🏆 2P 승 · 1P 패!';
       ovDesc.textContent = '친구랑 한 판 더 하거나, 혼자하기로 돌아갈 수 있어요.';
-      ovBtn.textContent = '2P 다시 붙기';
+      ovBtn.textContent = '🔄 한 판 더 하기';
       ovBtn.onclick = () => startRound(stageIdx);
       ov2pBtn.classList.remove('hidden');
       ov2pBtn.textContent = '👤 1P 혼자하기';
@@ -1440,12 +1437,12 @@ function endRound(playerWon) {
   setTimeout(() => {
     overlay.classList.remove('hidden');
     if (playerWon) {
-      ovTitle.textContent = `STAGE ${stageIdx + 1} CLEAR! (+2 COIN)`;
+      ovTitle.textContent = `🏆 승! STAGE ${stageIdx + 1} 클리어 (+2 COIN)`;
       ovDesc.textContent = `${opp.name} 상대를 이겼어요! 다음 STAGE ${stageIdx + 2} 도전!`;
       ovBtn.textContent = `STAGE ${stageIdx + 2} 계속하기`;
       ovBtn.onclick = () => startRound(stageIdx + 1);
     } else {
-      ovTitle.textContent = `K.O.! YOU LOSE`;
+      ovTitle.textContent = `😢 패! 다시 도전해 보세요`;
       ovDesc.textContent = `${opp.name} 선수에게 졌어요. 코인 1개를 넣고 다시 도전해 보세요!`;
       ovBtn.textContent = '코인 넣고 재도전 (-1 COIN)';
       ovBtn.onclick = () => insertCoinAndStart(stageIdx);
@@ -1556,20 +1553,26 @@ function update() {
       if (timer === 0) endRound(p1.hp >= p2.hp);
     }
   }
+  netSyncTick++;
   if (isOnline2P && netRole === 'guest') {
-    if (netConn && netConn.open) netConn.send({ type: 'input', input });
+    if (netConn && netConn.open && netSyncTick % 3 === 0) {
+      try { netConn.send({ type: 'input', input }); } catch (e) {}
+    }
     return;
   }
   updateFighter(p1, p2, input);
   updateFighter(p2, p1, (is2PMode || isOnline2P) ? input2 : null);
-  if (isOnline2P && netRole === 'host' && netConn && netConn.open) {
-    netConn.send({
-      type: 'state',
-      p1: { x: p1.x, y: p1.y, dir: p1.dir, hp: p1.hp, energy: p1.energy, state: p1.state },
-      p2: { x: p2.x, y: p2.y, dir: p2.dir, hp: p2.hp, energy: p2.energy, state: p2.state },
-      timer,
-      gameState
-    });
+  if (isOnline2P && netRole === 'host' && netConn && netConn.open && netSyncTick % 3 === 0) {
+    try {
+      netConn.send({
+        type: 'state',
+        p1: { x: p1.x, y: p1.y, dir: p1.dir, hp: p1.hp, energy: p1.energy, state: p1.state },
+        p2: { x: p2.x, y: p2.y, dir: p2.dir, hp: p2.hp, energy: p2.energy, state: p2.state },
+        projectiles: projectiles.map(pr => ({ x: pr.x, y: pr.y, color: pr.color, size: pr.size })),
+        timer,
+        gameState
+      });
+    } catch (e) {}
   }
 
   for (let i = projectiles.length - 1; i >= 0; i--) {
@@ -2229,6 +2232,42 @@ onlineBtn.onclick = () => {
 ovOnlineBtn.onclick = openOnlineModal;
 closeOnlineBtn.onclick = () => onlineModal.classList.add('hidden');
 
+let netSyncTick = 0;
+function showOnlineResult(iWon) {
+  gameState = 'round_end';
+  stopBGM();
+  playFanfare(iWon);
+  setTimeout(() => {
+    overlay.classList.remove('hidden');
+    ovTitle.textContent = iWon ? '🏆 승! (이겼어요!)' : '😢 패! (졌어요)';
+    ovDesc.textContent = iWon ? '멋지게 승리했어요!' : '아쉽네요! 한 판 더 도전해 보세요.';
+    ovBtn.textContent = '🔄 한 판 더 하기';
+    ovBtn.onclick = () => {
+      if (netRole === 'host') {
+        if (netConn && netConn.open) netConn.send({ type: 'rematch' });
+        startOnlineMatch();
+      } else if (netConn && netConn.open) {
+        ovDesc.textContent = '방장에게 다시 하자고 보냈어요...';
+        netConn.send({ type: 'rematch_req' });
+      }
+    };
+    ovTogetherBtn.classList.remove('hidden');
+    ovTogetherBtn.textContent = '👤 혼자 하기';
+    ovTogetherBtn.onclick = () => {
+      closeOnlineSession();
+      togetherBtn.textContent = '👥 같이';
+      togetherBtn.style.background = '#2e5cb8';
+      togetherBtn.style.color = '#fff';
+      gameState = 'menu';
+      ovTitle.textContent = save.stage > 0 ? `STAGE ${save.stage + 1} 이어하기` : 'INSERT 1 COIN';
+      ovBtn.textContent = save.stage > 0 ? `STAGE ${save.stage + 1} 시작 (-1 COIN)` : '코인 넣고 시작 (-1 COIN)';
+      ovBtn.onclick = () => insertCoinAndStart(save.stage || 0);
+      ovTogetherBtn.textContent = '👥 친구랑 같이하기';
+      ovTogetherBtn.onclick = openOnlineModal;
+    };
+  }, 600);
+}
+
 function setupConn(conn) {
   netConn = conn;
   conn.on('data', (msg) => {
@@ -2244,9 +2283,15 @@ function setupConn(conn) {
     } else if (msg.type === 'state' && netRole === 'guest') {
       if (msg.p1) Object.assign(p1, msg.p1);
       if (msg.p2) Object.assign(p2, msg.p2);
+      if (Array.isArray(msg.projectiles)) projectiles = msg.projectiles;
       if (typeof msg.timer === 'number') timer = msg.timer;
-      if (msg.gameState) gameState = msg.gameState;
-    } else if (msg.type === 'rematch') {
+      if (msg.gameState && gameState !== 'round_end') gameState = msg.gameState;
+    } else if (msg.type === 'game_over' && netRole === 'guest') {
+      showOnlineResult(!msg.hostWon);
+    } else if (msg.type === 'rematch' && netRole === 'guest') {
+      startOnlineMatch(msg.hostChar, msg.guestChar);
+    } else if (msg.type === 'rematch_req' && netRole === 'host') {
+      if (netConn && netConn.open) netConn.send({ type: 'rematch', hostChar: getPlayerChar(), guestChar: guestCharCfg });
       startOnlineMatch();
     }
   });
