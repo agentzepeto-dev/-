@@ -1531,8 +1531,8 @@ function spawnSparks(x, y, color, count = 10) {
 }
 
 function startDodge(f) {
-  if (f === p1) recordPlayerAction('dodge');
   if (f.dodgeCooldown > 0 || f.state === 'hit' || f.state === 'ko' || f.y < GROUND_Y) return;
+  if (f === p1) recordPlayerAction('dodge');
   f.state = 'dodge';
   f.stateTime = 18;
   f.dodgeCooldown = 28;
@@ -1542,6 +1542,7 @@ function startDodge(f) {
 
 function startAttack(f, kind) {
   if (f.state === 'hit' || f.state === 'ko' || f.state === 'punch' || f.state === 'kick' || f.state === 'special') return;
+  if (f === p1 && (kind === 'punch' || kind === 'kick')) recordPlayerAction(kind);
   if (kind === 'special') {
     if (f.energy < 100) return;
     f.energy = 0;
@@ -1698,6 +1699,7 @@ function updateFighter(f, opp, ctrl) {
       if (ctrl.up && f.y >= GROUND_Y) {
         f.vy = -14.2;
         f.state = 'jump';
+        if (f === p1) recordPlayerAction('jump');
         beep(340, 0.06, 'sine', 0.05);
       }
     }
