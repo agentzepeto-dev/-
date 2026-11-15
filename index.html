@@ -1076,7 +1076,76 @@ function getOpponentForStage(idx) {
 }
 
 const SAVE_KEY = 'cute_arcade_fighter_v4';
-let save = { coins: 5, unlocked: ['bunny', 'shiba', 'kitty'], selected: 'bunny', stage: 0 };
+const IDB_NAME = 'cute_arcade_fighter_db';
+const IDB_STORE = 'saves';
+let save = { coins: 5, unlocked: ['bunny', 'shiba', 'kitty'], selected: 'bunny', stage: 0, updatedAt: 0 };
+
+function applyParsedSave(parsed) {
+  if (!parsed || typeof parsed !== 'object') return false;
+  const incomingTime = typeof parsed.updatedAt === 'number' ? parsed.updatedAt : 0;
+  const currentTime = typeof save.updatedAt === 'number' ? save.updatedAt : 0;
+  // Prefer newer timestamp; if neither has timestamp, prefer richer progress
+  if (currentTime > 0 && incomingTime > 0 && incomingTime < currentTime) return false;
+  if (currentTime > 0 && incomingTime === 0) return false;
+  if (typeof parsed.coins === 'number') save.coins = parsed.coins;
+  if (Array.isArray(parsed.unlocked) && parsed.unlocked.length > 0) save.unlocked = parsed.unlocked;
+  if (parsed.selected) save.selected = parsed.selected;
+  if (typeof parsed.stage === 'number' && parsed.stage >= 0) save.stage = parsed.stage;
+  if (incomingTime > 0) save.updatedAt = incomingTime;
+  return true;
+}
+
+function readCookieSave() {
+  try {
+    const m = document.cookie.match(/(?:^|; )caf_save=([^;]+)/);
+    return m ? decodeURIComponent(m[1]) : null;
+  } catch (e) { return null; }
+}
+
+function writeCookieSave(json) {
+  try {
+    document.cookie = 'caf_save=' + encodeURIComponent(json) + '; max-age=31536000; path=/; SameSite=Lax';
+  } catch (e) {}
+}
+
+function writeIDBSave(json) {
+  try {
+    if (!window.indexedDB) return;
+    const req = indexedDB.open(IDB_NAME, 1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(IDB_STORE)) db.createObjectStore(IDB_STORE);
+    };
+    req.onsuccess = () => {
+      try {
+        const db = req.result;
+        const tx = db.transaction(IDB_STORE, 'readwrite');
+        tx.objectStore(IDB_STORE).put(json, SAVE_KEY);
+      } catch (e) {}
+    };
+  } catch (e) {}
+}
+
+function readIDBSave(cb) {
+  try {
+    if (!window.indexedDB) return;
+    const req = indexedDB.open(IDB_NAME, 1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(IDB_STORE)) db.createObjectStore(IDB_STORE);
+    };
+    req.onsuccess = () => {
+      try {
+        const db = req.result;
+        const tx = db.transaction(IDB_STORE, 'readonly');
+        const getReq = tx.objectStore(IDB_STORE).get(SAVE_KEY);
+        getReq.onsuccess = () => {
+          if (getReq.result) cb(getReq.result);
+        };
+      } catch (e) {}
+    };
+  } catch (e) {}
+}
 
 function loadSaveData() {
   const sources = [];
@@ -1089,6 +1158,8 @@ function loadSaveData() {
     const ls = localStorage.getItem(SAVE_KEY);
     if (ls) sources.push(ls);
   } catch (e) {}
+  const ck = readCookieSave();
+  if (ck) sources.push(ck);
   try {
     if (window.name && window.name.startsWith('CAF_SAVE:')) {
       sources.push(window.name.slice(9));
@@ -1096,24 +1167,41 @@ function loadSaveData() {
   } catch (e) {}
   for (const raw of sources) {
     try {
-      const parsed = JSON.parse(raw);
-      if (typeof parsed.coins === 'number') save.coins = parsed.coins;
-      if (Array.isArray(parsed.unlocked)) save.unlocked = parsed.unlocked;
-      if (parsed.selected) save.selected = parsed.selected;
-      if (typeof parsed.stage === 'number' && parsed.stage >= 0) save.stage = parsed.stage;
-      break;
+      applyParsedSave(JSON.parse(raw));
     } catch (e) {}
   }
+  readIDBSave((raw) => {
+    try {
+      const parsed = JSON.parse(raw);
+      if (applyParsedSave(parsed)) {
+        if (typeof stageIdx !== 'undefined' && typeof gameState !== 'undefined' && gameState === 'ready') {
+          stageIdx = save.stage || 0;
+          if (typeof p1 !== 'undefined') p1 = createFighter(true, getPlayerChar());
+          if (typeof p2 !== 'undefined' && !is2PMode && !isOnline2P) p2 = createFighter(false, getOpponentForStage(stageIdx));
+        }
+        if (typeof updateCoinUI === 'function') updateCoinUI();
+        if (typeof refreshStartOverlay === 'function') refreshStartOverlay();
+      }
+    } catch (e) {}
+  });
 }
 loadSaveData();
 
-function persistSave() {
+function persistSave(touchTime = true) {
+  if (touchTime) save.updatedAt = Date.now();
   const json = JSON.stringify(save);
   try { localStorage.setItem(SAVE_KEY, json); } catch (e) {}
+  writeCookieSave(json);
+  writeIDBSave(json);
   try { window.name = 'CAF_SAVE:' + json; } catch (e) {}
   try { history.replaceState(null, '', '#save=' + encodeURIComponent(json)); } catch (e) {}
   updateCoinUI();
 }
+window.addEventListener('pagehide', () => persistSave(false));
+window.addEventListener('beforeunload', () => persistSave(false));
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) persistSave(false);
+});
 function updateCoinUI() {
   document.getElementById('coinBadge').textContent = `COIN ${save.coins}`;
   document.getElementById('shopCoinBadge').textContent = `COIN ${save.coins}`;
