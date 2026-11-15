@@ -1297,13 +1297,6 @@ function startRound(idx) {
     persistSave();
   }
   p1 = createFighter(true, getPlayerChar());
-  if (isOnline2P) {
-    if (netRole === 'host' && netConn && netConn.open) {
-      try { netConn.send({ type: 'game_over', hostWon: playerWon }); } catch (e) {}
-    }
-    showOnlineResult(playerWon);
-    return;
-  }
   if (is2PMode) {
     const ch2 = ROSTER[p2RosterIdx % ROSTER.length];
     p2 = createFighter(false, { ...ch2, weakness: '', weakHint: '' });
@@ -1413,6 +1406,13 @@ function endRound(playerWon) {
   stopBGM();
   playFanfare(playerWon);
   if (playerWon) { const cols=['#ffd166','#ff6b8b','#5ce1e6','#80ed99','#ffffff']; for(let i=0;i<36;i++) particles.push({x:380+(Math.random()-0.5)*360,y:140+(Math.random()-0.5)*80,vx:(Math.random()-0.5)*9,vy:-Math.random()*8-2,life:55+Math.random()*25,color:cols[i%cols.length]}); }
+  if (isOnline2P) {
+    if (netRole === 'host' && netConn && netConn.open) {
+      try { netConn.send({ type: 'game_over', hostWon: playerWon }); } catch (e) {}
+    }
+    showOnlineResult(playerWon);
+    return;
+  }
   if (is2PMode) {
     setTimeout(() => {
       overlay.classList.remove('hidden');
