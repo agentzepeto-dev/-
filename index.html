@@ -234,6 +234,7 @@
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
   }
   .deck-btns { display: flex; gap: 6px; }
+  .mini-btn, .start-btn, .ctrl-btn, .p2-mini { touch-action: manipulation; }
   .mini-btn {
     background: #372c57;
     color: #fff;
@@ -1687,7 +1688,7 @@ function drawAnimeAnimalHead(c, ch, cx, cy, scale = 1, state = 'idle') {
 function drawFighter3D(f) {
   ctx.save();
   ctx.translate(Math.round(f.x / P) * P, Math.round(f.y / P) * P);
-  ctx.scale(f.dir, 1);
+  ctx.scale(f.dir * 1.25, 1.25);
 
   if (f.state === 'dodge') ctx.globalAlpha = 0.6;
 
@@ -1771,6 +1772,58 @@ function drawFighter3D(f) {
 }
 
 function drawDojoFurniture(cfg) {
+  const tier = is2PMode || isOnline2P ? 1 : Math.floor(stageIdx / 3);
+  if (tier >= 2) {
+    // Stage 7+: Blazing Championship Stadium Arena!
+    px(ctx, 0, 0, 760, GROUND_Y, '#240814');
+    px(ctx, 0, 0, 760, 120, '#471024');
+    // Stadium spotlights
+    ctx.fillStyle = 'rgba(255, 209, 102, 0.14)';
+    ctx.beginPath(); ctx.moveTo(140, 0); ctx.lineTo(40, GROUND_Y); ctx.lineTo(260, GROUND_Y); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(620, 0); ctx.lineTo(500, GROUND_Y); ctx.lineTo(720, GROUND_Y); ctx.fill();
+    // Ring ropes & posts
+    px(ctx, 30, 180, 16, GROUND_Y - 180, '#ffd166');
+    px(ctx, 714, 180, 16, GROUND_Y - 180, '#ffd166');
+    px(ctx, 46, 210, 668, 6, '#ff4d6d');
+    px(ctx, 46, 260, 668, 6, '#ffd166');
+    px(ctx, 46, 310, 668, 6, '#5ce1e6');
+    // Blazing torches
+    const flicker = (Math.floor(Date.now() / 140) % 2) * 6;
+    [160, 600].forEach(tx => {
+      px(ctx, tx - 8, 220, 16, GROUND_Y - 220, '#3a1a12');
+      px(ctx, tx - 14, 186 - flicker, 28, 34 + flicker, '#ff6d00');
+      px(ctx, tx - 8, 194 - flicker, 16, 22 + flicker, '#ffd166');
+    });
+    // Championship Ring Floor
+    px(ctx, 0, GROUND_Y, 760, 475 - GROUND_Y, '#4a1828');
+    px(ctx, 0, GROUND_Y, 760, 8, '#ffd166');
+    return;
+  }
+  if (tier === 1) {
+    // Stage 4~6 & 2P: Street Fight Neon Alley Arena!
+    px(ctx, 0, 0, 760, GROUND_Y, '#141126');
+    // Brick wall pattern
+    for (let by = 20; by < GROUND_Y - 40; by += 32) {
+      px(ctx, 0, by, 760, 2, '#221c3d');
+    }
+    // Chain-link fence
+    for (let fx = 40; fx < 720; fx += 28) {
+      px(ctx, fx, 140, 2, GROUND_Y - 140, 'rgba(130, 160, 210, 0.25)');
+    }
+    // Neon FIGHT sign
+    px(ctx, 290, 66, 180, 56, '#0d0917');
+    px(ctx, 294, 70, 172, 48, (Math.floor(Date.now() / 320) % 2 === 0) ? '#ff2a6d' : '#05d9e8');
+    px(ctx, 302, 78, 156, 32, '#140f24');
+    // Oil drums & wooden crates
+    px(ctx, 56, 300, 56, 94, '#d62828');
+    px(ctx, 56, 328, 56, 6, '#ffd166');
+    px(ctx, 648, 310, 62, 84, '#7f5539');
+    px(ctx, 654, 316, 50, 72, '#9c6644');
+    // Street concrete floor
+    px(ctx, 0, GROUND_Y, 760, 475 - GROUND_Y, '#26213d');
+    px(ctx, 0, GROUND_Y, 760, 6, '#05d9e8');
+    return;
+  }
   // Warm Wooden Dojo Wall (cover art vibe!)
   px(ctx, 0, 0, 760, GROUND_Y, '#3b2316');
   px(ctx, 0, 0, 760, 28, '#26150c');
@@ -2116,7 +2169,7 @@ document.querySelectorAll('.p2-mini').forEach(btn => {
   btn.addEventListener('pointerdown', down);
   btn.addEventListener('pointerup', up);
   btn.addEventListener('pointercancel', up);
-  btn.addEventListener('pointerleave', up);
+  
 });
 
 window.addEventListener('keydown', e => {
@@ -2422,6 +2475,17 @@ modalLocal2pBtn.onclick = () => {
   onlineModal.classList.add('hidden');
   set2PMode(true);
 };
+
+
+function playTapSfx() {
+  beep(640, 0.025, 'sine', 0.02);
+}
+document.addEventListener('pointerdown', (e) => {
+  if (e.target && e.target.closest('button')) {
+    ensureAudio();
+    playTapSfx();
+  }
+}, { passive: true });
 
 loop();
 </script>
