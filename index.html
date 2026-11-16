@@ -1063,10 +1063,10 @@ function getOpponentForStage(idx) {
       const rTier = Math.floor(Math.random() * 4); // 0:쉬움, 1:보통, 2:어려움, 3:진짜어려움
       const rArena = Math.floor(Math.random() * 3);
       const tierStats = [
-        { label: '랜덤·쉬움', hp: 115, atk: 0.85, spd: 3.3, aggr: 0.042, dodge: 0.15, sp: 18, sc: 1, ss: 16 },
-        { label: '랜덤·보통', hp: 180, atk: 1.2,  spd: 4.0, aggr: 0.058, dodge: 0.25, sp: 28, sc: 1, ss: 20 },
-        { label: '랜덤·어려움', hp: 270, atk: 1.7, spd: 4.8, aggr: 0.078, dodge: 0.35, sp: 44, sc: 2, ss: 26 },
-        { label: '랜덤·진짜어려움', hp: 400, atk: 2.4, spd: 5.7, aggr: 0.10, dodge: 0.46, sp: 64, sc: 2, ss: 32 }
+        { label: '랜덤·쉬움', hp: 140, atk: 1.00, spd: 3.6, aggr: 0.055, dodge: 0.20, sp: 22, sc: 1, ss: 16 },
+        { label: '랜덤·보통', hp: 215, atk: 1.40, spd: 4.4, aggr: 0.078, dodge: 0.30, sp: 34, sc: 1, ss: 20 },
+        { label: '랜덤·어려움', hp: 315, atk: 1.95, spd: 5.2, aggr: 0.102, dodge: 0.40, sp: 52, sc: 2, ss: 26 },
+        { label: '랜덤·진짜어려움', hp: 460, atk: 2.75, spd: 6.0, aggr: 0.128, dodge: 0.52, sp: 72, sc: 2, ss: 32 }
       ][rTier];
       randomStageCache[idx] = {
         ...rPool,
@@ -1094,16 +1094,16 @@ function getOpponentForStage(idx) {
 
   let diffLabel, hp, atk, spd, aggr, dodgeRate, specPower, specCount, specSize, arenaTier;
   if (idx < 20) {
-    // 1~20단계: 쉬움
+    // 1~20단계: 쉬움 (초반도 너무 물렁하지 않게 탄탄한 기본기)
     const t = idx / 19;
     diffLabel = '쉬움';
     arenaTier = 0;
-    hp = Math.round(90 + t * 45);
-    atk = Number((0.65 + t * 0.30).toFixed(2));
-    spd = Number((2.9 + t * 0.7).toFixed(2));
-    aggr = Number((0.032 + t * 0.016).toFixed(3));
-    dodgeRate = Number((0.10 + t * 0.08).toFixed(2));
-    specPower = Math.round(14 + t * 8);
+    hp = Math.round(110 + t * 55);
+    atk = Number((0.85 + t * 0.30).toFixed(2));
+    spd = Number((3.3 + t * 0.7).toFixed(2));
+    aggr = Number((0.045 + t * 0.020).toFixed(3));
+    dodgeRate = Number((0.15 + t * 0.10).toFixed(2));
+    specPower = Math.round(18 + t * 8);
     specCount = 1;
     specSize = Math.round(14 + t * 4);
   } else if (idx < 40) {
@@ -1111,12 +1111,12 @@ function getOpponentForStage(idx) {
     const t = (idx - 20) / 19;
     diffLabel = '보통';
     arenaTier = 1;
-    hp = Math.round(145 + t * 65);
-    atk = Number((1.00 + t * 0.35).toFixed(2));
-    spd = Number((3.7 + t * 0.6).toFixed(2));
-    aggr = Number((0.050 + t * 0.015).toFixed(3));
-    dodgeRate = Number((0.20 + t * 0.08).toFixed(2));
-    specPower = Math.round(24 + t * 12);
+    hp = Math.round(175 + t * 70);
+    atk = Number((1.20 + t * 0.35).toFixed(2));
+    spd = Number((4.1 + t * 0.7).toFixed(2));
+    aggr = Number((0.068 + t * 0.020).toFixed(3));
+    dodgeRate = Number((0.26 + t * 0.09).toFixed(2));
+    specPower = Math.round(28 + t * 12);
     specCount = 1;
     specSize = Math.round(18 + t * 4);
   } else if (idx < 70) {
@@ -1124,12 +1124,12 @@ function getOpponentForStage(idx) {
     const t = (idx - 40) / 29;
     diffLabel = '어려움';
     arenaTier = 2;
-    hp = Math.round(220 + t * 90);
-    atk = Number((1.40 + t * 0.55).toFixed(2));
-    spd = Number((4.4 + t * 0.7).toFixed(2));
-    aggr = Number((0.068 + t * 0.017).toFixed(3));
-    dodgeRate = Number((0.30 + t * 0.08).toFixed(2));
-    specPower = Math.round(38 + t * 18);
+    hp = Math.round(260 + t * 100);
+    atk = Number((1.65 + t * 0.55).toFixed(2));
+    spd = Number((4.9 + t * 0.7).toFixed(2));
+    aggr = Number((0.090 + t * 0.025).toFixed(3));
+    dodgeRate = Number((0.36 + t * 0.09).toFixed(2));
+    specPower = Math.round(42 + t * 20);
     specCount = 2;
     specSize = Math.round(22 + t * 6);
   } else {
@@ -1137,12 +1137,12 @@ function getOpponentForStage(idx) {
     const t = (idx - 70) / 29;
     diffLabel = '진짜어려움';
     arenaTier = 2;
-    hp = Math.round(330 + t * 120);
-    atk = Number((2.00 + t * 0.75).toFixed(2));
-    spd = Number((5.2 + t * 0.8).toFixed(2));
-    aggr = Number((0.088 + t * 0.022).toFixed(3));
-    dodgeRate = Number((0.40 + t * 0.10).toFixed(2));
-    specPower = Math.round(58 + t * 24);
+    hp = Math.round(380 + t * 140);
+    atk = Number((2.25 + t * 0.85).toFixed(2));
+    spd = Number((5.6 + t * 0.8).toFixed(2));
+    aggr = Number((0.118 + t * 0.026).toFixed(3));
+    dodgeRate = Number((0.46 + t * 0.10).toFixed(2));
+    specPower = Math.round(64 + t * 26);
     specCount = 2;
     specSize = Math.round(28 + t * 6);
   }
