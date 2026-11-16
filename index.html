@@ -168,6 +168,12 @@
     text-shadow: 2px 2px 0 #8c1c39;
     margin: 0;
   }
+  .arcade-logo.result-big {
+    font-size: clamp(2.8rem, 11vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: 0.03em;
+    text-shadow: 4px 4px 0 #8c1c39, 0 0 18px rgba(255, 209, 102, 0.45);
+  }
   .overlay p {
     margin: 0;
     font-size: 0.95rem;
@@ -175,11 +181,28 @@
     max-width: 280px;
     line-height: 1.4;
   }
+  .overlay p.hidden { display: none; }
   .ov-actions {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
     justify-content: center;
+  }
+  .ov-actions.result-stack {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .ov-actions.result-stack #ovTogetherBtn {
+    order: 1;
+    padding: 9px 18px;
+    font-size: 0.9rem;
+  }
+  .ov-actions.result-stack #ovBtn {
+    order: 2;
+    padding: 11px 24px;
+    font-size: 1.03rem;
   }
   .start-btn {
     background: #e03e66;
@@ -872,8 +895,8 @@
         <h1 id="ovTitle" class="arcade-logo">INSERT 1 COIN</h1>
         <p id="ovDesc">1판 = 1코인 · 이기면 +2코인</p>
         <div class="ov-actions">
-          <button id="ovBtn" class="start-btn">코인 넣고 시작 (-1 COIN)</button>
-          <button id="ovTogetherBtn" class="start-btn secondary">👥 친구랑 같이하기</button>
+          <button id="ovBtn" class="start-btn">INSERT COIN (-1)</button>
+          <button id="ovTogetherBtn" class="start-btn secondary">👥 VS FRIEND</button>
         </div>
       </div>
     </div>
@@ -883,10 +906,10 @@
       <div class="deck-strip">
         <span id="coinBadge" class="coin-slot">COIN 5</span>
         <div class="deck-btns">
-          <button id="sizeBtn" class="mini-btn">크기</button>
-          <button id="openShopBtn" class="mini-btn shop">상점</button>
-          <button id="togetherBtn" class="mini-btn" style="background:#2e5cb8;border-color:#8cb4ff;">👥 같이</button>
-          <button id="shareBtn" class="mini-btn" style="background:#f5c518;color:#221800;border-color:#ffe680;">📤 공유</button>
+          <button id="sizeBtn" class="mini-btn">SIZE: M</button>
+          <button id="openShopBtn" class="mini-btn shop">SHOP</button>
+          <button id="togetherBtn" class="mini-btn" style="background:#2e5cb8;border-color:#8cb4ff;">👥 VS FRIEND</button>
+          <button id="shareBtn" class="mini-btn" style="background:#f5c518;color:#221800;border-color:#ffe680;">📤 SHARE</button>
           <button id="soundBtn" class="mini-btn">🔊</button>
         </div>
       </div>
@@ -897,43 +920,43 @@
             <div class="joystick-shaft"></div>
             <div id="joystickKnob" class="joystick-knob"></div>
           </div>
-          <div class="stick-hint">손잡이: 좌우 이동 · 위 점프 · 아래 숙여 피하기</div>
+          <div class="stick-hint">STICK: MOVE · UP JUMP · DOWN DODGE</div>
         </div>
         <div class="actions">
-          <button class="ctrl-btn btn-punch" data-key="punch">권투</button>
-          <button class="ctrl-btn btn-kick" data-key="kick">발차기</button>
-          <button class="ctrl-btn btn-dodge" data-key="dodge">피하기</button>
-          <button class="ctrl-btn btn-special" data-key="special">필살기</button>
+          <button class="ctrl-btn btn-punch" data-key="punch">PUNCH</button>
+          <button class="ctrl-btn btn-kick" data-key="kick">KICK</button>
+          <button class="ctrl-btn btn-dodge" data-key="dodge">DODGE</button>
+          <button class="ctrl-btn btn-special" data-key="special">SPECIAL</button>
         </div>
       </div>
     </div>
       <div id="twoPControls" class="two-p-controls">
         <div class="p-pad p1">
-          <div class="p-pad-head"><span>1P (나)</span></div>
+          <div class="p-pad-head"><span>1P (YOU)</span></div>
           <div class="p-pad-row">
             <button class="p2-mini" data-p="1" data-act="left">◀</button>
-            <button class="p2-mini" data-p="1" data-act="up">점프</button>
+            <button class="p2-mini" data-p="1" data-act="up">JUMP</button>
             <button class="p2-mini" data-p="1" data-act="right">▶</button>
           </div>
           <div class="p-pad-row">
-            <button class="p2-mini atk" data-p="1" data-act="punch">권투</button>
-            <button class="p2-mini kick" data-p="1" data-act="kick">발차기</button>
-            <button class="p2-mini" data-p="1" data-act="dodge">피하기</button>
-            <button class="p2-mini spec" data-p="1" data-act="special">필살</button>
+            <button class="p2-mini atk" data-p="1" data-act="punch">PUNCH</button>
+            <button class="p2-mini kick" data-p="1" data-act="kick">KICK</button>
+            <button class="p2-mini" data-p="1" data-act="dodge">DODGE</button>
+            <button class="p2-mini spec" data-p="1" data-act="special">SPECIAL</button>
           </div>
         </div>
         <div class="p-pad p2">
-          <div class="p-pad-head"><span>2P (친구)</span><button id="p2SwapBtn" class="mini-btn" style="padding:2px 6px;font-size:0.68rem;">캐릭터 변경</button></div>
+          <div class="p-pad-head"><span>2P (FRIEND)</span><button id="p2SwapBtn" class="mini-btn" style="padding:2px 6px;font-size:0.68rem;">CHANGE</button></div>
           <div class="p-pad-row">
             <button class="p2-mini" data-p="2" data-act="left">◀</button>
-            <button class="p2-mini" data-p="2" data-act="up">점프</button>
+            <button class="p2-mini" data-p="2" data-act="up">JUMP</button>
             <button class="p2-mini" data-p="2" data-act="right">▶</button>
           </div>
           <div class="p-pad-row">
-            <button class="p2-mini atk" data-p="2" data-act="punch">권투</button>
-            <button class="p2-mini kick" data-p="2" data-act="kick">발차기</button>
-            <button class="p2-mini" data-p="2" data-act="dodge">피하기</button>
-            <button class="p2-mini spec" data-p="2" data-act="special">필살</button>
+            <button class="p2-mini atk" data-p="2" data-act="punch">PUNCH</button>
+            <button class="p2-mini kick" data-p="2" data-act="kick">KICK</button>
+            <button class="p2-mini" data-p="2" data-act="dodge">DODGE</button>
+            <button class="p2-mini spec" data-p="2" data-act="special">SPECIAL</button>
           </div>
         </div>
       </div>
@@ -1488,12 +1511,13 @@ function recordPlayerAction(kind) {
     playerStats.detectedWeakness = 'balanced';
     playerStats.hint = 'AI 분석: 균형 잡힘!';
   }
-  if (prev !== playerStats.detectedWeakness && playerStats.detectedWeakness !== 'balanced') {
-    addPopup(180, 145, '🤖 AI 약점 파악!', '#5ce1e6', 20);
-  }
 }
 
 function startRound(idx) {
+  ovTitle.classList.remove('result-big');
+  ovDesc.classList.remove('hidden');
+  const ovActionsEl = document.querySelector('.ov-actions');
+  if (ovActionsEl) ovActionsEl.classList.remove('result-stack');
   resetPlayerStats();
   stageIdx = idx;
   if (!is2PMode) {
@@ -1514,7 +1538,6 @@ function startRound(idx) {
   projectiles = [];
   gameState = 'fight';
   overlay.classList.add('hidden');
-  addPopup(380, 185, `ROUND ${stageIdx + 1} · FIGHT!`, '#ffd166', 32);
   startBGM();
 }
 
@@ -1581,7 +1604,6 @@ function applyDamage(attacker, defender, baseDmg, knock, label) {
     attacker.comboTimer = 95;
   }
   if (defender.state === 'dodge') {
-    addPopup(defender.x, defender.y - 110, '피했다!', '#74c0fc', 19);
     return;
   }
   const dmg = Math.round(baseDmg * attacker.atk);
@@ -1594,8 +1616,6 @@ function applyDamage(attacker, defender, baseDmg, knock, label) {
   defender.stateTime = defender.hp <= 0 ? 60 : 13;
   shake = Math.min(12, dmg * 0.5);
   spawnSparks(defender.x, defender.y - 55, '#ffd166', 12);
-  const comboTxt = attacker.combo >= 2 ? ` (${attacker.combo} COMBO!)` : '';
-  addPopup(defender.x, defender.y - 122, `${label} -${dmg}${comboTxt}`, attacker.combo >= 3 ? '#5ce1e6' : '#ff8fab', attacker.combo >= 3 ? 25 : 21);
   playHitSfx(dmg >= 20);
 
   if (defender.hp <= 0) {
@@ -1605,10 +1625,24 @@ function applyDamage(attacker, defender, baseDmg, knock, label) {
   }
 }
 
+function showResultOverlay({ title, togetherLabel, retryLabel, onRetry }) {
+  const ovActionsEl = document.querySelector('.ov-actions');
+  overlay.classList.remove('hidden');
+  ovTitle.classList.add('result-big');
+  ovTitle.textContent = title;
+  ovDesc.textContent = '';
+  ovDesc.classList.add('hidden');
+  if (ovActionsEl) ovActionsEl.classList.add('result-stack');
+  ovTogetherBtn.classList.remove('hidden');
+  ovTogetherBtn.textContent = togetherLabel;
+  ovTogetherBtn.onclick = () => { openOnlineModal(); };
+  ovBtn.textContent = retryLabel;
+  ovBtn.onclick = onRetry;
+}
+
 function endRound(playerWon) {
   if (gameState !== 'fight') return;
   gameState = 'round_end';
-  addPopup(380, 185, 'K.O.!', '#ffd166', 44);
   stopBGM();
   playFanfare(playerWon);
   if (playerWon) { const cols=['#ffd166','#ff6b8b','#5ce1e6','#80ed99','#ffffff']; for(let i=0;i<36;i++) particles.push({x:380+(Math.random()-0.5)*360,y:140+(Math.random()-0.5)*80,vx:(Math.random()-0.5)*9,vy:-Math.random()*8-2,life:55+Math.random()*25,color:cols[i%cols.length]}); }
@@ -1621,15 +1655,13 @@ function endRound(playerWon) {
   }
   if (is2PMode) {
     setTimeout(() => {
-      overlay.classList.remove('hidden');
-      ovTitle.textContent = playerWon ? '🏆 1P 승 · 2P 패!' : '🏆 2P 승 · 1P 패!';
-      ovDesc.textContent = '친구랑 한 판 더 하거나, 혼자하기로 돌아갈 수 있어요.';
-      ovBtn.textContent = '🔄 한 판 더 하기';
-      ovBtn.onclick = () => startRound(stageIdx);
-      ov2pBtn.classList.remove('hidden');
-      ov2pBtn.textContent = '👤 1P 혼자하기';
-      ov2pBtn.onclick = () => set2PMode(false);
-    }, 1050);
+      showResultOverlay({
+        title: playerWon ? 'You win.' : 'Game over.',
+        togetherLabel: playerWon ? '👥 VS FRIEND' : '👥 ADD & VS FRIEND',
+        retryLabel: playerWon ? '🔄 PLAY AGAIN' : '🔄 RETRY',
+        onRetry: () => startRound(stageIdx)
+      });
+    }, 800);
     return;
   }
 
@@ -1644,19 +1676,13 @@ function endRound(playerWon) {
   persistSave();
 
   setTimeout(() => {
-    overlay.classList.remove('hidden');
-    if (playerWon) {
-      ovTitle.textContent = `🏆 승! STAGE ${stageIdx + 1} 클리어 (+2 COIN)`;
-      ovDesc.textContent = `${opp.name} 상대를 이겼어요! 다음 STAGE ${stageIdx + 2} 도전!`;
-      ovBtn.textContent = `STAGE ${stageIdx + 2} 계속하기`;
-      ovBtn.onclick = () => startRound(stageIdx + 1);
-    } else {
-      ovTitle.textContent = `😢 패! 다시 도전해 보세요`;
-      ovDesc.textContent = `${opp.name} 선수에게 졌어요. 코인 1개를 넣고 다시 도전해 보세요!`;
-      ovBtn.textContent = '코인 넣고 재도전 (-1 COIN)';
-      ovBtn.onclick = () => insertCoinAndStart(stageIdx);
-    }
-  }, 1050);
+    showResultOverlay({
+      title: playerWon ? 'You win.' : 'Game over.',
+      togetherLabel: playerWon ? '👥 VS FRIEND' : '👥 ADD & VS FRIEND',
+      retryLabel: playerWon ? '🔄 PLAY AGAIN' : '🔄 RETRY',
+      onRetry: playerWon ? () => startRound(stageIdx + 1) : () => insertCoinAndStart(stageIdx)
+    });
+  }, 800);
 }
 
 function updateFighter(f, opp, ctrl) {
@@ -2438,9 +2464,9 @@ window.addEventListener('blur', silenceOnExit);
 const sizeBtn = document.getElementById('sizeBtn');
 const cabinetEl = document.querySelector('.arcade-cabinet');
 const sizeModes = [
-  { cls: 'size-md', label: '크기:중' },
-  { cls: 'size-lg', label: '크기:대' },
-  { cls: 'size-sm', label: '크기:소' }
+  { cls: 'size-md', label: 'SIZE: M' },
+  { cls: 'size-lg', label: 'SIZE: L' },
+  { cls: 'size-sm', label: 'SIZE: S' }
 ];
 let sizeIdx = 0;
 cabinetEl.classList.add('size-md');
@@ -2533,34 +2559,20 @@ function showOnlineResult(iWon) {
   stopBGM();
   playFanfare(iWon);
   setTimeout(() => {
-    overlay.classList.remove('hidden');
-    ovTitle.textContent = iWon ? '🏆 승! (이겼어요!)' : '😢 패! (졌어요)';
-    ovDesc.textContent = iWon ? '멋지게 승리했어요!' : '아쉽네요! 한 판 더 도전해 보세요.';
-    ovBtn.textContent = '🔄 한 판 더 하기';
-    ovBtn.onclick = () => {
-      if (netRole === 'host') {
-        if (netConn && netConn.open) netConn.send({ type: 'rematch' });
-        startOnlineMatch();
-      } else if (netConn && netConn.open) {
-        ovDesc.textContent = '방장에게 다시 하자고 보냈어요...';
-        netConn.send({ type: 'rematch_req' });
+    showResultOverlay({
+      title: iWon ? 'You win.' : 'Game over.',
+      togetherLabel: iWon ? '👥 VS FRIEND' : '👥 ADD & VS FRIEND',
+      retryLabel: iWon ? '🔄 PLAY AGAIN' : '🔄 RETRY',
+      onRetry: () => {
+        if (netRole === 'host') {
+          if (netConn && netConn.open) netConn.send({ type: 'rematch' });
+          startOnlineMatch();
+        } else if (netConn && netConn.open) {
+          netConn.send({ type: 'rematch_req' });
+        }
       }
-    };
-    ovTogetherBtn.classList.remove('hidden');
-    ovTogetherBtn.textContent = '👤 혼자 하기';
-    ovTogetherBtn.onclick = () => {
-      closeOnlineSession();
-      togetherBtn.textContent = '👥 같이';
-      togetherBtn.style.background = '#2e5cb8';
-      togetherBtn.style.color = '#fff';
-      gameState = 'menu';
-      ovTitle.textContent = save.stage > 0 ? `STAGE ${save.stage + 1} 이어하기` : 'INSERT 1 COIN';
-      ovBtn.textContent = save.stage > 0 ? `STAGE ${save.stage + 1} 시작 (-1 COIN)` : '코인 넣고 시작 (-1 COIN)';
-      ovBtn.onclick = () => insertCoinAndStart(save.stage || 0);
-      ovTogetherBtn.textContent = '👥 친구랑 같이하기';
-      ovTogetherBtn.onclick = openOnlineModal;
-    };
-  }, 600);
+    });
+  }, 800);
 }
 
 function setupConn(conn) {
@@ -2611,7 +2623,6 @@ function startOnlineMatch(hChar, gChar) {
   p2 = createFighter(false, { ...(gChar || guestCharCfg), weakness: '', weakHint: '' });
   timer = 99; timerTick = 0; popups = []; particles = []; projectiles = [];
   gameState = 'fight';
-  addPopup(380, 185, 'ONLINE VS!', '#5ce1e6', 32);
   startBGM();
 }
 
