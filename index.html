@@ -865,12 +865,16 @@
     padding: 0 !important;
   }
   .p2-mini.atk, .p2-mini.kick, .p2-mini.spec, .p2-mini[data-act="dodge"] {
-    flex: 0 0 auto !important;
-    width: 36px !important;
-    height: 36px !important;
-    border-radius: 50% !important;
-    font-size: 0.68rem !important;
-    padding: 0 !important;
+    flex: 1 1 0 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    height: 30px !important;
+    border-radius: 9px !important;
+    font-size: 0.6rem !important;
+    letter-spacing: -0.02em;
+    padding: 0 2px !important;
+    white-space: nowrap;
+    overflow: hidden;
   }
   @media (max-height: 560px) and (orientation: landscape) {
     .actions {
