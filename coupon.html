@@ -509,7 +509,7 @@ function eyeGroup(cx,cy,ec,exp,side){
   var clip = (side<0?'eyeClipL':'eyeClipR')+__cur;
   var irx = exp==='wow' ? 8.4 : 12.8, iry = exp==='wow' ? 10.4 : 14.8;
   s += '<g clip-path="url(#'+clip+')">';
-  s += '<rect x="'+(cx-17)+'" y="'+(cy-23)+'" width="34" height="46" fill="#FFFBF6"/>';
+  s += '<path d="'+scleraD(cx,cy)+'" fill="#FFFBF6"/>';
   if(exp==='love'){
     s += '<ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="13.4" ry="15.4" fill="'+shade(ec,8)+'"/>';
     s += heart(cx,cy-7,1.06,'#FF4F84',INK);
