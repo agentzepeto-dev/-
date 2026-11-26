@@ -475,7 +475,7 @@ function hairShine(c,y){
   var band='M50 '+(y+7)+'C60 '+(y-7)+' 78 '+(y-15)+' 100 '+(y-15)+'C122 '+(y-15)+' 140 '+(y-7)+' 150 '+(y+7)
     +'C140 '+(y+3)+' 122 '+(y-3)+' 100 '+(y-3)+'C78 '+(y-3)+' 60 '+(y+3)+' 50 '+(y+7)+'Z';
   return '<path d="'+band+'" fill="'+shade(c,40)+'" opacity=".5"/>'
-    + stro('M62 '+(y+3)+'l9 -3M86 '+(y-3)+'l11 1M114 '+(y-3)+'l10 2M138 '+(y+3)+'l6 3', shade(c,58), 2.4, 'opacity=".45"');
+    + stro('M66 '+(y+1)+'q18 -4 34 -2', shade(c,58), 2.2, 'opacity=".3"');
 }
 function irisGrad(ec){
   var id='ir'+__cur+String(ec).replace('#','');
@@ -1220,8 +1220,8 @@ function capsuleSVG(kind){
   s += '<ellipse cx="100" cy="182" rx="62" ry="12" fill="rgba(20,8,20,.28)"/>';
   s += '<path d="M22 100a78 78 0 0 1 156 0Z" fill="'+top+'" stroke="'+INK+'" stroke-width="4.5"/>';
   s += '<path d="M22 100a78 78 0 0 0 156 0Z" fill="'+bot+'" stroke="'+INK+'" stroke-width="4.5"/>';
-  s += '<path d="M36 88a66 66 0 0 1 70 -58" stroke="#FFFFFF" stroke-width="10" fill="none" stroke-linecap="round" opacity=".5"/>';
-  s += '<ellipse cx="60" cy="52" rx="16" ry="7" fill="#FFFFFF" opacity=".45" transform="rotate(-36 60 52)"/>';
+  s += '<path d="M40 84a62 62 0 0 1 62 -52" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" opacity=".4"/>';
+  s += '<ellipse cx="58" cy="54" rx="13" ry="5.5" fill="#FFFFFF" opacity=".4" transform="rotate(-36 58 54)"/>';
   s += '<rect x="16" y="92" width="168" height="16" rx="8" fill="#FFFFFF" stroke="'+INK+'" stroke-width="3.5"/>';
   s += '<circle cx="100" cy="100" r="34" fill="#FFFFFF" stroke="'+INK+'" stroke-width="3.5"/>';
   s += '<circle cx="100" cy="100" r="29" fill="'+bot+'"/>';
@@ -1262,11 +1262,11 @@ function giftBoxSVG(){
     +   '<path d="M42 96h150" stroke="#FFFFFF" stroke-width="4" opacity=".35" stroke-linecap="round"/>'
     + '</g>'
     + '<g id="bow">'
-    +   '<ellipse cx="94" cy="76" rx="24" ry="15" fill="#FFD166" stroke="'+INK+'" stroke-width="3.4" transform="rotate(-18 94 76)"/>'
-    +   '<ellipse cx="146" cy="76" rx="24" ry="15" fill="#FFD166" stroke="'+INK+'" stroke-width="3.4" transform="rotate(18 146 76)"/>'
-    +   '<ellipse cx="94" cy="76" rx="11" ry="6" fill="#FFE9A8" opacity=".7" transform="rotate(-18 94 76)"/>'
-    +   '<ellipse cx="146" cy="76" rx="11" ry="6" fill="#FFE9A8" opacity=".7" transform="rotate(18 146 76)"/>'
-    +   '<circle cx="120" cy="78" r="10" fill="#F3B400" stroke="'+INK+'" stroke-width="3"/>'
+    +   '<ellipse cx="94" cy="82" rx="25" ry="14" fill="#FFD166" stroke="'+INK+'" stroke-width="3.4" transform="rotate(-16 94 82)"/>'
+    +   '<ellipse cx="146" cy="82" rx="25" ry="14" fill="#FFD166" stroke="'+INK+'" stroke-width="3.4" transform="rotate(16 146 82)"/>'
+    +   '<ellipse cx="94" cy="82" rx="12" ry="5.5" fill="#FFE9A8" opacity=".7" transform="rotate(-16 94 82)"/>'
+    +   '<ellipse cx="146" cy="82" rx="12" ry="5.5" fill="#FFE9A8" opacity=".7" transform="rotate(16 146 82)"/>'
+    +   '<circle cx="120" cy="84" r="10" fill="#F3B400" stroke="'+INK+'" stroke-width="3"/>'
     + '</g>'
     + '</svg>';
 }
@@ -1276,9 +1276,9 @@ var THEMES = {
   pastel:{ name:'파스텔 꿈', rep:'repeat,repeat,repeat,repeat', bg:'linear-gradient(165deg,#FFE9F3 0%,#FFF6E7 46%,#EDE6FF 100%)',
     pat:'radial-gradient(circle at 22% 26%, rgba(255,255,255,.95) 0 30px, rgba(255,255,255,0) 31px),radial-gradient(circle at 78% 34%, rgba(255,255,255,.8) 0 22px, rgba(255,255,255,0) 23px),radial-gradient(circle at 56% 80%, rgba(255,214,232,.65) 0 46px, rgba(255,214,232,0) 47px),radial-gradient(circle at 12% 74%, rgba(214,232,255,.6) 0 38px, rgba(214,232,255,0) 39px)',
     size:'460px 460px,380px 380px,520px 520px,440px 440px' },
-  night:{ name:'밤하늘', rep:'no-repeat,no-repeat,repeat,repeat,repeat,repeat', bg:'linear-gradient(180deg,#1E2050 0%,#3B2F75 55%,#7A5AA8 100%)',
-    pat:'radial-gradient(circle at 78% 14%, rgba(255,248,205,.5) 0 52px, rgba(255,248,205,0) 54px),radial-gradient(circle at 78% 14%, #FFF6CE 0 26px, rgba(255,246,206,0) 28px),radial-gradient(circle at 20% 30%, #FFFFFF 0 1.8px, transparent 2.4px),radial-gradient(circle at 70% 52%, #FFFFFF 0 1.4px, transparent 2px),radial-gradient(circle at 44% 18%, #FFF5C8 0 1.6px, transparent 2.2px),radial-gradient(circle at 30% 74%, #FFFFFF 0 1.2px, transparent 1.8px)',
-    size:'520px 520px,520px 520px,54px 54px,86px 86px,38px 38px,120px 120px' },
+  night:{ name:'밤하늘', rep:'no-repeat,repeat,repeat,repeat,repeat', bg:'linear-gradient(180deg,#1E2050 0%,#3B2F75 55%,#7A5AA8 100%)',
+    pat:'radial-gradient(circle at 80% 14%, #FFFBDF 0 26px, rgba(255,248,205,.55) 30px, rgba(255,248,205,0) 50px),radial-gradient(circle at 20% 30%, #FFFFFF 0 1.8px, transparent 2.4px),radial-gradient(circle at 70% 52%, #FFFFFF 0 1.4px, transparent 2px),radial-gradient(circle at 44% 18%, #FFF5C8 0 1.6px, transparent 2.2px),radial-gradient(circle at 30% 74%, #FFFFFF 0 1.2px, transparent 1.8px)',
+    size:'520px 520px,54px 54px,86px 86px,38px 38px,120px 120px' },
   room:{ name:'아늑한 방', rep:'repeat,repeat', bg:'linear-gradient(180deg,#FAEEDF 0%,#F1DBC7 58%,#E0C2A6 100%)',
     pat:'linear-gradient(106deg, rgba(255,244,205,.55) 0 84px, rgba(255,244,205,0) 84px 190px, rgba(255,244,205,.4) 190px 250px, rgba(255,244,205,0) 250px),linear-gradient(180deg, rgba(255,255,255,0) 0 66%, rgba(178,132,98,.28) 66% 67%, rgba(255,255,255,0) 67%)',
     size:'auto,auto' },
@@ -1289,7 +1289,7 @@ var THEMES = {
     pat:'radial-gradient(ellipse 9px 5px at 30% 34%, rgba(255,150,188,.95), rgba(255,150,188,0) 62%),radial-gradient(ellipse 7px 4px at 68% 62%, rgba(255,182,208,.95), rgba(255,182,208,0) 62%),radial-gradient(ellipse 6px 3.4px at 48% 16%, rgba(255,205,225,.95), rgba(255,205,225,0) 62%),radial-gradient(ellipse 8px 4.4px at 84% 22%, rgba(255,170,200,.9), rgba(255,170,200,0) 62%),radial-gradient(ellipse 5px 3px at 16% 74%, rgba(255,196,216,.9), rgba(255,196,216,0) 62%)',
     size:'150px 150px,120px 120px,180px 180px,160px 160px,140px 140px' },
   sea:{ name:'바다', rep:'no-repeat,repeat', bg:'linear-gradient(180deg,#DCF6FF 0%,#9EDCFF 46%,#4E9FE0 100%)',
-    pat:'radial-gradient(circle at 76% 16%, rgba(255,250,214,.85) 0 34px, rgba(255,250,214,0) 36px),repeating-linear-gradient(0deg, rgba(255,255,255,.28) 0 3px, rgba(255,255,255,0) 3px 30px)',
+    pat:'radial-gradient(circle at 76% 16%, #FFFBE0 0 30px, rgba(255,251,224,.5) 34px, rgba(255,251,224,0) 54px),repeating-linear-gradient(0deg, rgba(255,255,255,.28) 0 3px, rgba(255,255,255,0) 3px 30px)',
     size:'auto,auto' },
   sunset:{ name:'노을', rep:'no-repeat,repeat', bg:'linear-gradient(180deg,#FFDCA8 0%,#FFA79C 46%,#A96FD6 100%)',
     pat:'radial-gradient(circle at 50% 62%, rgba(255,248,206,.9) 0 52px, rgba(255,248,206,0) 56px),linear-gradient(180deg, rgba(255,255,255,0) 0 26%, rgba(255,255,255,.22) 26% 30%, rgba(255,255,255,0) 30% 40%, rgba(255,255,255,.16) 40% 44%, rgba(255,255,255,0) 44%)',
