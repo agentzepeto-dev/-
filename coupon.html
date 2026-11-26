@@ -238,7 +238,7 @@ h1,h2,h3,p{margin:0}
   .bubble{font-size:16px;padding:11px 20px}
 }
 /* 좁은 세로 화면: 캐릭터를 위에 크게, 기계 두 대를 아래에 나란히 */
-@media(max-width:640px) and (min-height:640px){
+@media(max-width:640px) and (min-height:600px){
   .stage-inner{grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) auto;column-gap:10px;row-gap:2px;padding:0 10px 6px}
   .char-col{grid-column:1 / -1;grid-row:1;max-width:none;height:100%;margin-bottom:-4px}
   .char-col svg{width:auto;height:100%;max-width:100%;max-height:100%}
