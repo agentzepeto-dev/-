@@ -1086,11 +1086,11 @@ function bodySVG(ch){
   s += ink('M80 246h17v18H80Z', '#FFFDF8', 2.4);
   s += ink('M103 246h17v18h-17Z', '#FFFDF8', 2.4);
   s += stro('M80 250h17M103 250h17', '#E9CBD8', 1.8);
-  s += ink('M74 264h27c3 0 5 2 5 5v4c0 4 -3 7 -7 7H79c-4 0 -6 -3 -6 -7v-3c0 -3 1 -6 4 -6Z', '#FFFDF8', 2.6);
-  s += ink('M99 264h27c3 0 4 3 4 6v3c0 4 -2 7 -6 7h-20c-4 0 -6 -3 -6 -7v-4c0 -3 1 -5 4 -5Z', '#FFFDF8', 2.6);
-  s += ink('M73 274h33v2c0 3 -2 4 -5 4H78c-3 0 -5 -1 -5 -4Z', '#8A6A90', 1.8);
-  s += ink('M98 274h33v2c0 3 -2 4 -5 4h-23c-3 0 -5 -1 -5 -4Z', '#8A6A90', 1.8);
-  s += stro('M78 266h20M101 266h20', '#FF9FB7', 2.6, 'opacity=".85"');
+  s += '<rect x="72" y="262" width="26" height="18" rx="8" fill="#FFFDF8" stroke="'+INK+'" stroke-width="2.6"/>';
+  s += '<rect x="102" y="262" width="26" height="18" rx="8" fill="#FFFDF8" stroke="'+INK+'" stroke-width="2.6"/>';
+  s += '<rect x="70" y="272" width="30" height="8" rx="4" fill="#8A6A90" stroke="'+INK+'" stroke-width="2"/>';
+  s += '<rect x="100" y="272" width="30" height="8" rx="4" fill="#8A6A90" stroke="'+INK+'" stroke-width="2"/>';
+  s += stro('M74 268h22M104 268h22', '#FF9FB7', 2.6, 'opacity=".9"');
   // 윗옷
   if(o.torso) s += o.torso(cloth,dk,lt);
   s += armSVG(-1,o.sleeve||'short',svc,skin);
