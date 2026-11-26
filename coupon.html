@@ -35,7 +35,7 @@ h1,h2,h3,p{margin:0}
 /* ---------- stage ---------- */
 .stage{position:relative;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .bg-layer{position:absolute;inset:0;z-index:0;transition:background .35s ease}
-.bg-pattern{position:absolute;inset:0;opacity:.55}
+.bg-pattern{position:absolute;inset:0;opacity:.8}
 .rug{position:absolute;z-index:1;left:50%;bottom:0;transform:translateX(-50%);width:min(96%,560px);height:22%;border-radius:50%;background:radial-gradient(ellipse at 50% 60%,rgba(255,255,255,.8),rgba(255,255,255,0) 68%);pointer-events:none}
 .sticker-layer{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
 .sticker{position:absolute;line-height:1;transform-origin:center;filter:drop-shadow(0 2px 3px rgba(120,80,110,.18));pointer-events:none;user-select:none}
@@ -1076,6 +1076,9 @@ function bodySVG(ch){
   s += '<rect x="103" y="222" width="17" height="56" rx="8.5" fill="'+skin+'" stroke="'+INK+'" stroke-width="2.6"/>';
   s += soft('M92 222h5v56h-5Z', shade(skin,-16), 'opacity=".22"');
   s += soft('M115 222h5v56h-5Z', shade(skin,-16), 'opacity=".22"');
+  // 몸통(피부)
+  s += ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L131 214C120 220 80 220 69 214Z', skin, 2.6);
+  // 아랫옷
   if(o.lower) s += o.lower(cloth,dk,lt);
   // 신발
   s += ink('M80 252h17v14H80Z', '#FFFDF8', 2.4);
@@ -1086,8 +1089,7 @@ function bodySVG(ch){
   s += ink('M74 276h27v3c0 2 -2 4 -5 4H79c-3 0 -5 -1 -5 -4Z', '#8A6A90', 2);
   s += ink('M99 276h27v3c0 2 -2 4 -5 4h-17c-3 0 -5 -1 -5 -4Z', '#8A6A90', 2);
   s += stro('M82 270q4 -2 8 -1M105 270q4 -2 8 -1', '#C9A7B8', 1.6, 'opacity=".7"');
-  // 몸통(피부)
-  s += ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L133 232C120 238 80 238 67 232Z', skin, 2.6);
+  // 윗옷
   if(o.torso) s += o.torso(cloth,dk,lt);
   s += armSVG(-1,o.sleeve||'short',svc,skin);
   s += armSVG(1,o.sleeve||'short',svc,skin);
