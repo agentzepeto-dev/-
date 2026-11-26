@@ -576,11 +576,11 @@ function fringeSoft(c){
     + hairShine(c,44);
 }
 function fringePart(c){
-  var d='M30 98C28 44 58 10 100 10C142 10 172 44 170 98C164 74 155 60 142 54C136 70 126 80 114 83C108 70 104 54 100 42C96 54 92 70 86 83C74 80 64 70 58 54C45 60 36 74 30 98Z';
+  var d='M30 98C28 44 58 10 100 10C142 10 172 44 170 98C164 76 154 62 142 56C138 72 130 80 120 82C112 76 106 68 100 62C94 68 88 76 80 82C70 80 62 72 58 56C46 62 36 76 30 98Z';
   return ink(d, hairFill(c), 3)
-    + wedge(100,16,100,42,7, shade(c,-26), '.38')
-    + wedge(100,16,86,83,6, shade(c,-22), '.3')
-    + wedge(100,16,114,83,6, shade(c,-22), '.3')
+    + wedge(100,16,100,62,7, shade(c,-26), '.34')
+    + wedge(100,16,80,82,6, shade(c,-22), '.28')
+    + wedge(100,16,120,82,6, shade(c,-22), '.28')
     + hairShine(c,42);
 }
 function fringeStraight(c){
@@ -639,9 +639,9 @@ var HAIRS = {
         + soft('M184 170C182 196 174 210 162 208C172 192 174 178 172 160Z', shade(c,-28), 'opacity=".42"');
     },
     over:function(c){
-      return '<circle cx="42" cy="76" r="9" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2.4"/>'
-        + '<circle cx="158" cy="76" r="9" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2.4"/>'
-        + heart(42,72,0.44,'#FFFFFF') + heart(158,72,0.44,'#FFFFFF');
+      return '<circle cx="38" cy="56" r="8.5" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2.4"/>'
+        + '<circle cx="162" cy="56" r="8.5" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2.4"/>'
+        + heart(38,52,0.42,'#FFFFFF') + heart(162,52,0.42,'#FFFFFF');
     },
     front:function(c){ return fringePart(c); }
   },
