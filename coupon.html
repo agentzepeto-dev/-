@@ -163,7 +163,7 @@ h1,h2,h3,p{margin:0}
 /* draw */
 #drawOverlay{background:rgba(28,10,24,.68);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 #drawOverlay .draw-inner{width:min(620px,100%);display:flex;flex-direction:column;align-items:center;gap:12px;max-height:96dvh}
-.draw-hint{background:#fff;padding:9px 20px;border-radius:999px;font-weight:900;font-size:16px;box-shadow:0 6px 16px rgba(60,20,45,.25);text-align:center;letter-spacing:-.3px;flex:0 0 auto}
+.draw-hint{background:#fff;padding:9px 20px;border-radius:22px;border:3.4px solid #3A2B3D;font-weight:900;font-size:16px;box-shadow:4px 5px 0 rgba(58,43,61,.35);text-align:center;letter-spacing:-.3px;flex:0 0 auto}
 .draw-stage{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;flex:1 1 auto;min-height:0;overflow-y:auto;padding:6px 0}
 .draw-actions{display:flex;gap:8px;width:100%;max-width:420px;flex:0 0 auto;padding-bottom:env(safe-area-inset-bottom)}
 .draw-actions button{flex:1}
@@ -183,7 +183,7 @@ h1,h2,h3,p{margin:0}
 .giftbox.open #boxbody{animation:boxpop .5s ease}
 @keyframes boxpop{40%{transform:scale(1.06)}}
 .tapdots{display:flex;gap:10px;justify-content:center;margin-top:4px}
-.tapdots i{width:21px;height:21px;border-radius:50%;background:rgba(255,255,255,.5);box-shadow:inset 0 0 0 2px rgba(255,255,255,.7);font-style:normal}
+.tapdots i{width:21px;height:21px;border-radius:50%;background:rgba(255,255,255,.55);border:2.4px solid #3A2B3D;font-style:normal}
 .tapdots i.on{background:#FF5C8D;box-shadow:0 0 0 3px rgba(255,255,255,.85)}
 .card-pop{width:100%;max-width:460px;animation:cardIn .45s cubic-bezier(.2,1.1,.4,1)}
 @keyframes cardIn{from{transform:scale(.75) translateY(20px);opacity:0}to{transform:none;opacity:1}}
@@ -1213,21 +1213,25 @@ function machineSVG(kind){
 
 function capsuleSVG(kind){
   var gift = kind==='gift';
-  var top = gift? '#FF8FB1' : '#B49BFF';
-  var bot = gift? '#FFE3EE' : '#F0E8FF';
+  var top = gift? '#FF6F9C' : '#9B7BF0';
+  var bot = gift? '#FFEFF5' : '#F4EEFF';
   var icon = gift? '🎁' : '💗';
   var s = '';
   s += '<ellipse cx="100" cy="182" rx="62" ry="12" fill="rgba(20,8,20,.28)"/>';
   s += '<path d="M22 100a78 78 0 0 1 156 0Z" fill="'+top+'" stroke="'+INK+'" stroke-width="4.5"/>';
   s += '<path d="M22 100a78 78 0 0 0 156 0Z" fill="'+bot+'" stroke="'+INK+'" stroke-width="4.5"/>';
-  s += '<path d="M40 84a62 62 0 0 1 62 -52" stroke="#FFFFFF" stroke-width="7" fill="none" stroke-linecap="round" opacity=".4"/>';
-  s += '<ellipse cx="58" cy="54" rx="13" ry="5.5" fill="#FFFFFF" opacity=".4" transform="rotate(-36 58 54)"/>';
-  s += '<rect x="16" y="92" width="168" height="16" rx="8" fill="#FFFFFF" stroke="'+INK+'" stroke-width="3.5"/>';
-  s += '<circle cx="100" cy="100" r="34" fill="#FFFFFF" stroke="'+INK+'" stroke-width="3.5"/>';
-  s += '<circle cx="100" cy="100" r="29" fill="'+bot+'"/>';
-  s += '<text x="100" y="114" text-anchor="middle" font-size="36" font-family="Apple Color Emoji,Segoe UI Emoji,sans-serif">'+icon+'</text>';
-  s += '<path d="M100 178l3.4 8 8 3.4-8 3.4-3.4 8-3.4-8-8-3.4 8-3.4z" fill="#FFF3C4" stroke="'+INK+'" stroke-width="1.6"/>';
-  return '<svg class="capsule" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img">'+s+'</svg>';
+  s += '<path d="M24 100a76 76 0 0 0 152 0a78 78 0 0 1 -152 0Z" fill="'+shade(top,-28)+'" opacity=".18"/>';
+  s += '<path d="M46 88C50 58 68 38 94 30" stroke="#FFFFFF" stroke-width="12" fill="none" stroke-linecap="round" opacity=".5"/>';
+  s += '<ellipse cx="70" cy="52" rx="15" ry="6" fill="#FFFFFF" opacity=".42" transform="rotate(-38 70 52)"/>';
+  s += '<path d="M132 54l2.6 6.2 6.2 2.6-6.2 2.6-2.6 6.2-2.6-6.2-6.2-2.6 6.2-2.6z" fill="#FFFFFF" opacity=".85"/>';
+  s += '<path d="M150 78l1.8 4.2 4.2 1.8-4.2 1.8-1.8 4.2-1.8-4.2-4.2-1.8 4.2-1.8z" fill="#FFFFFF" opacity=".6"/>';
+  s += '<rect x="16" y="92" width="168" height="16" rx="8" fill="#FBF7FF" stroke="'+INK+'" stroke-width="3.4"/>';
+  s += '<rect x="22" y="95" width="156" height="4" rx="2" fill="#FFFFFF" opacity=".75"/>';
+  s += '<circle cx="100" cy="100" r="15" fill="'+bot+'" stroke="'+INK+'" stroke-width="2.6"/>';
+  s += heart(100,92,0.62, gift? '#FF5C8D':'#8B63E8', INK);
+  s += '<text x="100" y="176" text-anchor="middle" font-size="26" font-family="Apple Color Emoji,Segoe UI Emoji,sans-serif">'+icon+'</text>';
+  s += '<path d="M100 186l3.4 8 8 3.4-8 3.4-3.4 8-3.4-8-8-3.4 8-3.4z" fill="#FFF3C4" stroke="'+INK+'" stroke-width="1.6"/>';
+  return '<svg class="capsule" viewBox="0 0 200 208" xmlns="http://www.w3.org/2000/svg" role="img">'+s+'</svg>';
 }
 
 function giftBoxSVG(){
