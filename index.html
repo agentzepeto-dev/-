@@ -822,6 +822,154 @@
     body.force-landscape .online-box { transform: rotate(90deg); }
   }
 
+  /* ===== SAVE / RESTORE modal ===== */
+  .save-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    background: rgba(10, 7, 20, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+  }
+  .save-modal.hidden { display: none; }
+  .save-box {
+    width: 100%;
+    max-width: 430px;
+    max-height: 92dvh;
+    background: #231b38;
+    border: 3px solid #ffd166;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+  }
+  .save-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 16px;
+    background: #2d2247;
+    border-bottom: 2px solid #413366;
+  }
+  .save-head h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #ffd166;
+    letter-spacing: 0.05em;
+    font-weight: 900;
+  }
+  .save-body {
+    padding: 14px 16px 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .save-status { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .save-stat {
+    background: #0d0917;
+    border: 2px solid #4d3e75;
+    border-radius: 10px;
+    padding: 8px 4px;
+    text-align: center;
+    min-width: 0;
+  }
+  .save-stat span {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: #bfb3de;
+    letter-spacing: 0.1em;
+  }
+  .save-stat strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .save-stat strong.gold { color: #ffd166; }
+  .save-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px solid #413366;
+    padding-top: 12px;
+  }
+  .save-label {
+    font-size: 0.84rem;
+    font-weight: 900;
+    color: #5ce1e6;
+    letter-spacing: 0.08em;
+  }
+  .save-row { display: flex; gap: 8px; align-items: stretch; }
+  .save-input, .save-code {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: #0d0917;
+    color: #fff;
+    border: 2px solid #635196;
+    border-radius: 10px;
+    padding: 11px 12px;
+    font-family: monospace;
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+  .save-code {
+    width: 100%;
+    min-height: 68px;
+    resize: vertical;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.45;
+    word-break: break-all;
+  }
+  .save-input:focus, .save-code:focus { outline: none; border-color: #ffd166; }
+  .save-btn {
+    background: #372c57;
+    color: #fff;
+    border: 2px solid #635196;
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 0.92rem;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 3px 0 #181229;
+  }
+  .save-btn:active { transform: translateY(2px); box-shadow: none; }
+  .save-btn.primary { background: #ffd166; color: #221800; border-color: #fff3bf; }
+  .save-btn.cyan { background: #2e8fb8; color: #04141c; border-color: #a8e6ff; }
+  .save-btn.wide { width: 100%; }
+  .save-hint { font-size: 0.78rem; color: #bfb3de; line-height: 1.45; word-break: keep-all; }
+  .save-msg {
+    min-height: 1.15em;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 900;
+    color: #80ed99;
+    line-height: 1.35;
+    word-break: keep-all;
+  }
+  .save-msg.err { color: #ff8fab; }
+  @media (orientation: portrait) {
+    body.force-landscape .save-modal { padding: 0 !important; }
+    body.force-landscape .save-box {
+      width: 94dvh !important;
+      height: 92vw !important;
+      max-width: none !important;
+      max-height: none !important;
+      transform: rotate(90deg);
+    }
+  }
+
 
   /* True Perfect Circular Arcade Buttons + Maximum Screen Area */
   .arcade-cabinet {
@@ -917,6 +1065,7 @@
         <span id="coinBadge" class="coin-slot">COIN 5</span>
         <div class="deck-btns">
           <button id="sizeBtn" class="mini-btn">SIZE: M</button>
+          <button id="saveBtn" class="mini-btn" style="background:#2fa87b;border-color:#b6ffdd;color:#062018;">SAVE</button>
           <button id="openShopBtn" class="mini-btn shop">SHOP</button>
           <button id="togetherBtn" class="mini-btn" style="background:#2e5cb8;border-color:#8cb4ff;">👥 VS FRIEND</button>
           <button id="shareBtn" class="mini-btn" style="background:#f5c518;color:#221800;border-color:#ffe680;">📤 SHARE</button>
@@ -995,6 +1144,49 @@
       <button id="joinRoomBtn" class="start-btn secondary">방 들어가기 (내가 2P)</button>
       <div id="joinStatus" style="font-size:0.78rem;color:#ff8fab;"></div>
       <button id="closeOnlineBtn" class="mini-btn" style="margin-top:4px;">닫기</button>
+    </div>
+  </div>
+
+  <div id="saveModal" class="save-modal hidden">
+    <div class="save-box">
+      <div class="save-head">
+        <h2>💾 SAVE / RESTORE</h2>
+      </div>
+      <div class="save-body">
+        <div class="save-status">
+          <div class="save-stat"><span>STAGE</span><strong id="svStage" class="gold">1</strong></div>
+          <div class="save-stat"><span>COIN</span><strong id="svCoin">5</strong></div>
+          <div class="save-stat"><span>CHARACTER</span><strong id="svChar">-</strong></div>
+        </div>
+
+        <div class="save-block" style="border-top:none;padding-top:0;">
+          <div class="save-label">STAGE JUMP</div>
+          <div class="save-row">
+            <input id="svStageInput" class="save-input" type="number" inputmode="numeric" min="1" max="999" step="1" placeholder="45" />
+            <button id="svSetStageBtn" class="save-btn primary">SET STAGE</button>
+          </div>
+          <div class="save-hint">가고 싶은 스테이지 번호를 넣고 누르면 그 스테이지부터 이어서 시작해요.</div>
+        </div>
+
+        <div class="save-block">
+          <div class="save-label">SAVE CODE</div>
+          <div class="save-row">
+            <button id="svCopyCodeBtn" class="save-btn">COPY CODE</button>
+            <button id="svCopyLinkBtn" class="save-btn cyan">COPY LINK</button>
+          </div>
+          <textarea id="svCodeOut" class="save-code" readonly spellcheck="false"></textarea>
+          <div class="save-hint">복사가 안 되면 위 글자를 길게 눌러 직접 복사해 두세요. 링크를 열면 자동으로 불러와요.</div>
+        </div>
+
+        <div class="save-block">
+          <div class="save-label">LOAD CODE</div>
+          <textarea id="svCodeIn" class="save-code" placeholder="저장 코드나 링크를 붙여넣기" spellcheck="false"></textarea>
+          <button id="svLoadBtn" class="save-btn primary wide">LOAD</button>
+        </div>
+
+        <div id="svMsg" class="save-msg"></div>
+        <button id="svCloseBtn" class="save-btn wide">CLOSE</button>
+      </div>
     </div>
   </div>
 
@@ -1192,6 +1384,7 @@ function getOpponentForStage(idx) {
 }
 
 const SAVE_KEY = 'cute_arcade_fighter_v4';
+const SAVE_BACKUP_KEY = 'cute_arcade_fighter_v4_backup';
 const IDB_NAME = 'cute_arcade_fighter_db';
 const IDB_STORE = 'saves';
 let save = { coins: 5, unlocked: ['bunny', 'shiba', 'kitty'], selected: 'bunny', stage: 0, updatedAt: 0 };
@@ -1273,6 +1466,8 @@ function loadSaveData() {
   try {
     const ls = localStorage.getItem(SAVE_KEY);
     if (ls) sources.push(ls);
+    const bk = localStorage.getItem(SAVE_BACKUP_KEY);
+    if (bk) sources.push(bk);
   } catch (e) {}
   const ck = readCookieSave();
   if (ck) sources.push(ck);
@@ -1290,16 +1485,16 @@ function loadSaveData() {
     try {
       const parsed = JSON.parse(raw);
       if (applyParsedSave(parsed)) {
-        if (typeof stageIdx !== 'undefined' && typeof gameState !== 'undefined' && gameState === 'ready') {
-          stageIdx = save.stage || 0;
-          if (typeof p1 !== 'undefined') p1 = createFighter(true, getPlayerChar());
-          if (typeof p2 !== 'undefined' && !is2PMode && !isOnline2P) p2 = createFighter(false, getOpponentForStage(stageIdx));
-        }
-        if (typeof updateCoinUI === 'function') updateCoinUI();
         if (typeof refreshStartOverlay === 'function') refreshStartOverlay();
+        if (typeof updateCoinUI === 'function') updateCoinUI();
+        try { persistSave(false); } catch (e) {}
       }
     } catch (e) {}
   });
+  // Keep all stores in sync with the newest progress so a stale copy can never win later
+  if (save.updatedAt > 0) {
+    try { persistSave(false); } catch (e) {}
+  }
 }
 loadSaveData();
 
@@ -1321,6 +1516,30 @@ document.addEventListener('visibilitychange', () => {
 function updateCoinUI() {
   document.getElementById('coinBadge').textContent = `COIN ${save.coins}`;
   document.getElementById('shopCoinBadge').textContent = `COIN ${save.coins}`;
+}
+
+// Redraw the start (menu) screen from the current save data
+function refreshStartOverlay() {
+  const st = (save.stage || 0) + 1;
+  if (gameState === 'menu') {
+    const ovActionsEl = document.querySelector('.ov-actions');
+    if (ovActionsEl) ovActionsEl.classList.remove('result-stack');
+    ovTitle.classList.remove('result-big');
+    ovDesc.classList.remove('hidden');
+    ovDesc.textContent = '1판 = 1코인 · 이기면 +2코인';
+    ovTitle.textContent = save.stage > 0 ? `STAGE ${st} 이어하기` : 'INSERT 1 COIN';
+    ovBtn.textContent = save.stage > 0 ? `STAGE ${st} 시작 (-1 COIN)` : 'COIN 넣고 시작 (-1 COIN)';
+    ovBtn.onclick = () => insertCoinAndStart(save.stage || 0);
+    ovTogetherBtn.classList.remove('hidden');
+    ovTogetherBtn.textContent = '👥 VS FRIEND';
+    ovTogetherBtn.onclick = () => openOnlineModal();
+    overlay.classList.remove('hidden');
+  }
+  if (!is2PMode && !isOnline2P && gameState !== 'fight') {
+    stageIdx = save.stage || 0;
+    p1 = createFighter(true, getPlayerChar());
+    p2 = createFighter(false, getOpponentForStage(stageIdx));
+  }
 }
 
 const canvas = document.getElementById('game');
@@ -1531,7 +1750,9 @@ function startRound(idx) {
   resetPlayerStats();
   stageIdx = idx;
   if (!is2PMode) {
-    save.stage = idx;
+    // Progress never slips backwards while playing; only the SAVE panel can move it down
+    save.stage = Math.max(save.stage || 0, idx);
+    save.best = Math.max(save.best || 0, save.stage);
     persistSave();
   }
   p1 = createFighter(true, getPlayerChar());
@@ -1681,9 +1902,10 @@ function endRound(playerWon) {
     save.coins += earned;
   }
   if (playerWon) {
-    save.stage = stageIdx + 1;
+    save.stage = Math.max(save.stage || 0, stageIdx + 1);
+    save.best = Math.max(save.best || 0, save.stage);
   }
-  persistSave();
+  persistSave(); // stage clear is written to every store right away
 
   setTimeout(() => {
     showResultOverlay({
@@ -2368,7 +2590,10 @@ document.querySelectorAll('[data-key]').forEach(btn => {
 });
 
 const keyMap = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'dodge', z: 'punch', Z: 'punch', x: 'kick', X: 'kick', c: 'dodge', C: 'dodge', ' ': 'special' };
-window.addEventListener('keydown', e => { if (keyMap[e.key]) { e.preventDefault(); input[keyMap[e.key]] = true; } });
+window.addEventListener('keydown', e => {
+  if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable)) return;
+  if (keyMap[e.key]) { e.preventDefault(); input[keyMap[e.key]] = true; }
+});
 window.addEventListener('keyup', e => { if (keyMap[e.key]) input[keyMap[e.key]] = false; });
 
 soundBtn.onclick = () => { soundOn = !soundOn; soundBtn.textContent = soundOn ? '🔊' : '🔇'; if (!soundOn) stopBGM(); else if (gameState === 'fight') startBGM(); };
@@ -2514,6 +2739,257 @@ if (pauseBtn) pauseBtn.onclick = () => {
   pauseBtn.textContent = isPaused ? '▶️' : '⏸️';
   if (isPaused) { stopBGM(); addPopup(380, 200, 'PAUSED', '#ffd166', 34); }
   else if (soundOn) startBGM();
+};
+
+// ===== SAVE / RESTORE panel =====
+const saveModal = document.getElementById('saveModal');
+const saveBtn = document.getElementById('saveBtn');
+const svStage = document.getElementById('svStage');
+const svCoin = document.getElementById('svCoin');
+const svChar = document.getElementById('svChar');
+const svStageInput = document.getElementById('svStageInput');
+const svSetStageBtn = document.getElementById('svSetStageBtn');
+const svCopyCodeBtn = document.getElementById('svCopyCodeBtn');
+const svCopyLinkBtn = document.getElementById('svCopyLinkBtn');
+const svCodeOut = document.getElementById('svCodeOut');
+const svCodeIn = document.getElementById('svCodeIn');
+const svLoadBtn = document.getElementById('svLoadBtn');
+const svMsg = document.getElementById('svMsg');
+const svCloseBtn = document.getElementById('svCloseBtn');
+let saveAutoPaused = false;
+
+function setSaveMsg(text, isErr) {
+  svMsg.textContent = text || '';
+  svMsg.classList.toggle('err', !!isErr);
+}
+
+function renderSaveStatus() {
+  svStage.textContent = String((save.stage || 0) + 1);
+  svCoin.textContent = String(save.coins);
+  svChar.textContent = getPlayerChar().name;
+  svStageInput.value = String((save.stage || 0) + 1);
+}
+
+function buildSaveCode() {
+  const idxOf = (id) => ROSTER.findIndex(c => c.id === id);
+  const unlockedIdx = (save.unlocked || []).map(idxOf).filter(i => i >= 0).join('.');
+  const compact = { v: 1, c: save.coins, s: save.stage || 0, u: unlockedIdx, p: idxOf(save.selected), t: save.updatedAt || Date.now() };
+  let b64 = '';
+  try { b64 = btoa(unescape(encodeURIComponent(JSON.stringify(compact)))); } catch (e) { b64 = ''; }
+  return 'SAVE1.' + b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function buildSaveLink() {
+  const payload = JSON.stringify({
+    coins: save.coins,
+    unlocked: save.unlocked,
+    selected: save.selected,
+    stage: save.stage || 0,
+    updatedAt: Date.now()
+  });
+  const base = (location.protocol === 'http:' || location.protocol === 'https:')
+    ? location.origin + location.pathname
+    : SHARE_GAME_URL;
+  return base + '#save=' + encodeURIComponent(payload);
+}
+
+function refreshSaveCodeOut() {
+  try { svCodeOut.value = buildSaveCode(); } catch (e) { svCodeOut.value = ''; }
+}
+
+function normalizeSaveObject(obj) {
+  if (!obj || typeof obj !== 'object') return null;
+  const num = (...vals) => {
+    for (const v of vals) { if (typeof v === 'number' && isFinite(v)) return v; }
+    return null;
+  };
+  const coins = num(obj.c, obj.coins);
+  const stage = num(obj.s, obj.stage);
+  if (coins === null && stage === null) return null;
+  const out = {
+    coins: Math.max(0, Math.min(999999, Math.round(coins === null ? save.coins : coins))),
+    stage: Math.max(0, Math.min(998, Math.round(stage === null ? (save.stage || 0) : stage))),
+    unlocked: (save.unlocked || []).slice(),
+    selected: save.selected
+  };
+  const u = Object.prototype.hasOwnProperty.call(obj, 'u') ? obj.u : obj.unlocked;
+  let ids = null;
+  if (typeof u === 'string') {
+    ids = u.split('.').filter(v => v !== '').map(v => ROSTER[parseInt(v, 10)]).filter(Boolean).map(c => c.id);
+  } else if (Array.isArray(u)) {
+    ids = u.filter(id => ROSTER.some(c => c.id === id));
+  }
+  if (ids && ids.length) {
+    out.unlocked = Array.from(new Set(['bunny', 'shiba', 'kitty', ...ids]));
+  }
+  const p = Object.prototype.hasOwnProperty.call(obj, 'p') ? obj.p : obj.selected;
+  let sel = null;
+  if (typeof p === 'number' && ROSTER[p]) sel = ROSTER[p].id;
+  else if (typeof p === 'string' && ROSTER.some(c => c.id === p)) sel = p;
+  if (!sel && ids && ids.length) sel = ids[0];
+  if (sel) out.selected = sel;
+  if (!out.unlocked.includes(out.selected)) out.unlocked.push(out.selected);
+  return out;
+}
+
+function parseSaveCode(raw) {
+  if (!raw) return null;
+  let text = String(raw).trim();
+  if (!text) return null;
+  const hashAt = text.indexOf('#save=');
+  if (hashAt >= 0) {
+    text = text.slice(hashAt + 6);
+    try { text = decodeURIComponent(text); } catch (e) {}
+  } else if (text.indexOf('CAF_SAVE:') === 0) {
+    text = text.slice(9);
+  }
+  text = text.trim();
+  if (!text) return null;
+  if (text.indexOf('SAVE1.') === 0) {
+    const b64 = text.slice(6).replace(/-/g, '+').replace(/_/g, '/');
+    const pad = b64.length % 4 ? '='.repeat(4 - (b64.length % 4)) : '';
+    let json = '';
+    try { json = decodeURIComponent(escape(atob(b64 + pad))); } catch (e) { return null; }
+    return normalizeSaveObject(JSON.parse(json));
+  }
+  return normalizeSaveObject(JSON.parse(text));
+}
+
+function applyStageJump(n) {
+  const idx = n - 1;
+  save.stage = idx;
+  save.best = Math.max(save.best || 0, idx);
+  persistSave();
+  if (isOnline2P || is2PMode) {
+    updateCoinUI();
+    return { ok: true, msg: `STAGE ${n} 저장됨 · 혼자 하기에서 이어져요` };
+  }
+  const wasFighting = (gameState === 'fight' || gameState === 'round_end');
+  stageIdx = idx;
+  gameState = 'menu';
+  stopBGM();
+  p1 = createFighter(true, getPlayerChar());
+  p2 = createFighter(false, getOpponentForStage(idx));
+  refreshStartOverlay();
+  updateCoinUI();
+  return { ok: true, msg: wasFighting ? `STAGE ${n}로 복구! 시작 화면으로 돌아왔어요` : `STAGE ${n}로 복구됐어요` };
+}
+
+function applyRestoredSave(obj) {
+  if (!obj) return { ok: false, msg: '코드를 읽을 수 없어요.' };
+  save.coins = obj.coins;
+  save.stage = obj.stage;
+  save.unlocked = obj.unlocked;
+  save.selected = obj.selected;
+  if (!save.unlocked.includes(save.selected)) save.unlocked.push(save.selected);
+  save.best = Math.max(save.best || 0, save.stage);
+  if (!is2PMode && !isOnline2P) {
+    stageIdx = save.stage;
+    gameState = 'menu';
+    stopBGM();
+    p1 = createFighter(true, getPlayerChar());
+    p2 = createFighter(false, getOpponentForStage(stageIdx));
+  }
+  persistSave(); // restored copy gets the newest timestamp, so it wins from now on
+  updateCoinUI();
+  refreshStartOverlay();
+  try { if (!shopModal.classList.contains('hidden')) renderShop(); } catch (e) {}
+  return { ok: true, msg: `복구 완료! STAGE ${save.stage + 1} · COIN ${save.coins}` };
+}
+
+function legacyCopyText(text) {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', 'readonly');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    ta.style.left = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { ta.setSelectionRange(0, text.length); } catch (e) {}
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) { return false; }
+}
+
+function copySaveText(text, label) {
+  const manual = () => {
+    const ok = legacyCopyText(text);
+    svCodeOut.value = text;
+    try { svCodeOut.focus(); svCodeOut.setSelectionRange(0, text.length); } catch (e) {}
+    setSaveMsg(ok ? `${label} 복사 완료!` : `${label} 칸에 담았어요. 길게 눌러 복사해 주세요.`, !ok);
+  };
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        svCodeOut.value = text;
+        setSaveMsg(`${label} 복사 완료!`, false);
+      }).catch(manual);
+      return;
+    }
+  } catch (e) {}
+  manual();
+}
+
+function openSaveModal() {
+  renderSaveStatus();
+  setSaveMsg('', false);
+  svCodeIn.value = '';
+  refreshSaveCodeOut();
+  saveModal.classList.remove('hidden');
+  if (gameState === 'fight' && !isPaused) {
+    isPaused = true;
+    saveAutoPaused = true;
+    stopBGM();
+  }
+}
+
+function closeSaveModal() {
+  saveModal.classList.add('hidden');
+  if (saveAutoPaused) {
+    saveAutoPaused = false;
+    isPaused = false;
+    if (soundOn && gameState === 'fight') startBGM();
+  }
+}
+
+saveBtn.onclick = openSaveModal;
+svCloseBtn.onclick = closeSaveModal;
+saveModal.addEventListener('click', (e) => { if (e.target === saveModal) closeSaveModal(); });
+
+svSetStageBtn.onclick = () => {
+  const raw = String(svStageInput.value || '').replace(/[^0-9]/g, '');
+  const n = parseInt(raw, 10);
+  if (!isFinite(n) || n < 1 || n > 999) {
+    setSaveMsg('1 ~ 999 사이 숫자를 넣어 주세요.', true);
+    return;
+  }
+  const res = applyStageJump(n);
+  setSaveMsg(res.msg, !res.ok);
+  renderSaveStatus();
+  refreshSaveCodeOut();
+};
+
+svStageInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); svSetStageBtn.click(); }
+});
+
+svCopyCodeBtn.onclick = () => copySaveText(buildSaveCode(), 'SAVE CODE');
+svCopyLinkBtn.onclick = () => copySaveText(buildSaveLink(), 'SAVE LINK');
+
+svLoadBtn.onclick = () => {
+  const raw = String(svCodeIn.value || '').trim();
+  if (!raw) { setSaveMsg('저장 코드나 링크를 먼저 붙여넣어 주세요.', true); return; }
+  let obj = null;
+  try { obj = parseSaveCode(raw); } catch (e) { obj = null; }
+  if (!obj) { setSaveMsg('코드를 읽을 수 없어요. 다시 확인해 주세요.', true); return; }
+  const res = applyRestoredSave(obj);
+  setSaveMsg(res.msg, !res.ok);
+  renderSaveStatus();
+  refreshSaveCodeOut();
+  svCodeIn.value = '';
 };
 
 
