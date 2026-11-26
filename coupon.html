@@ -472,8 +472,10 @@ function hairGrad(c){
 }
 function hairFill(c){ return 'url(#'+hairId(c)+')'; }
 function hairShine(c,y){
-  var d='M52 '+y+'L60 '+(y-8)+'L67 '+y+'L74 '+(y-10)+'L81 '+(y-1)+'L88 '+(y-10)+'L95 '+(y-1)+'L102 '+(y-10)+'L109 '+(y-1)+'L116 '+(y-9)+'L123 '+y+'L130 '+(y-8)+'L137 '+(y-1);
-  return stro(d, shade(c,52), 7, 'opacity=".8"') + stro(d, '#FFFFFF', 2.6, 'opacity=".55"');
+  var band='M50 '+(y+7)+'C60 '+(y-7)+' 78 '+(y-15)+' 100 '+(y-15)+'C122 '+(y-15)+' 140 '+(y-7)+' 150 '+(y+7)'
+    +'C140 '+(y+3)+' 122 '+(y-3)+' 100 '+(y-3)+'C78 '+(y-3)+' 60 '+(y+3)+' 50 '+(y+7)+'Z';
+  return '<path d="'+band+'" fill="'+shade(c,40)+'" opacity=".5"/>'
+    + stro('M62 '+(y+3)+'l9 -3M86 '+(y-3)+'l11 1M114 '+(y-3)+'l10 2M138 '+(y+3)+'l6 3', shade(c,58), 2.4, 'opacity=".45"');
 }
 function irisGrad(ec){
   var id='ir'+__cur+String(ec).replace('#','');
@@ -626,7 +628,8 @@ var HAIRS = {
     },
     over:function(c){
       return ink('M32 68C26 120 32 182 26 238C40 248 54 238 50 220C45 162 46 108 45 74Z', c, 2.6)
-        + ink('M168 68C174 120 168 182 174 238C160 248 146 238 150 220C155 162 154 108 155 74Z', c, 2.6);
+        + ink('M168 68C174 120 168 182 174 238C160 248 146 238 150 220C155 162 154 108 155 74Z', c, 2.6)
+        + stro('M40 90q-4 60 -3 120M160 90q4 60 3 120', shade(c,-24), 1.8, 'opacity=".35"');
     },
     front:function(c){ return fringeSweep(c); }
   },
@@ -831,12 +834,12 @@ var OUTFITS = {
   },
   hanbok:{ name:'한복풍', sleeve:'long', sv:'cloth',
     lower:function(cl,dk,lt){
-      return ink('M62 186L138 186C142 214 152 244 166 264C136 278 64 278 34 264C48 244 58 214 62 186Z', lt, 3)
-        + soft('M134 188C138 216 148 246 166 264C154 268 140 271 126 272C134 244 138 214 138 190Z', shade(lt,-18), 'opacity=".5"')
-        + stro('M100 200v70M80 206L74 270M120 206L126 270', shade(lt,-22), 1.8, 'opacity=".3"');
+      return ink('M62 186L138 186C142 214 152 244 166 264C136 278 64 278 34 264C48 244 58 214 62 186Z', cl, 3)
+        + soft('M134 188C138 216 148 246 166 264C154 268 140 271 126 272C134 244 138 214 138 190Z', dk, 'opacity=".38"')
+        + stro('M100 200v70M80 206L74 270M120 206L126 270', shade(cl,-22), 1.8, 'opacity=".28"');
     },
-    torso:function(cl){
-      return ink('M72 156C78 146 88 142 100 142C112 142 122 146 128 156L130 186C120 192 80 192 70 186Z', cl, 3);
+    torso:function(cl,dk,lt){
+      return ink('M72 156C78 146 88 142 100 142C112 142 122 146 128 156L130 186C120 192 80 192 70 186Z', lt, 3);
     },
     details:function(cl,dk){
       return ink('M86 144L100 158L114 144L110 140L100 150L90 140Z', '#FFFFFF', 2.2)
@@ -895,9 +898,10 @@ var OUTFITS = {
       return ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L130 196C120 202 80 202 70 196Z', '#FFFBF5', 3);
     },
     details:function(cl,dk){
-      return ink('M78 148L100 168L122 148L114 140L100 154L86 140Z', '#4A5F94', 2.6)
+      return ink('M78 148L100 168L122 148L114 140L100 154L86 140Z', '#3D5288', 2.6)
         + stro('M84 156l16 14M116 156l-16 14', '#FFFFFF', 2, 'opacity=".7"')
         + ink('M96 164h8l-4 10Z', '#E4577C', 1.8)
+        + stro('M92 162q8 8 16 0', '#FFFFFF', 2.6)
         + stro('M100 176v18M90 186h20', dk, 2, 'opacity=".4"');
     }
   },
@@ -1074,10 +1078,14 @@ function bodySVG(ch){
   s += soft('M115 222h5v56h-5Z', shade(skin,-16), 'opacity=".22"');
   if(o.lower) s += o.lower(cloth,dk,lt);
   // 신발
-  s += ink('M77 270C77 266 80 264 84 264h12c3 0 5 2 5 5v10c0 4 -3 6 -7 6H81c-3 0 -4 -2 -4 -5Z', '#FFFDF8', 2.6);
-  s += ink('M102 270C102 266 105 264 109 264h12c3 0 5 2 5 5v10c0 4 -3 6 -7 6h-13c-3 0 -4 -2 -4 -5Z', '#FFFDF8', 2.6);
-  s += ink('M76 278h26v4c0 3 -3 4 -6 4H80c-3 0 -4 -1 -4 -4Z', '#8A6A90', 2);
-  s += ink('M101 278h26v4c0 3 -3 4 -6 4h-16c-3 0 -4 -1 -4 -4Z', '#8A6A90', 2);
+  s += ink('M80 252h17v14H80Z', '#FFFDF8', 2.4);
+  s += ink('M103 252h17v14h-17Z', '#FFFDF8', 2.4);
+  s += stro('M80 256h17M103 256h17', '#E9CBD8', 2);
+  s += ink('M76 266h23c3 0 4 2 4 5v5c0 4 -3 6 -7 6H81c-4 0 -6 -3 -6 -7Z', '#FFFDF8', 2.6);
+  s += ink('M101 266h23c3 0 4 2 4 5v5c0 4 -3 6 -7 6h-15c-4 0 -6 -3 -6 -7Z', '#FFFDF8', 2.6);
+  s += ink('M74 276h27v3c0 2 -2 4 -5 4H79c-3 0 -5 -1 -5 -4Z', '#8A6A90', 2);
+  s += ink('M99 276h27v3c0 2 -2 4 -5 4h-17c-3 0 -5 -1 -5 -4Z', '#8A6A90', 2);
+  s += stro('M82 270q4 -2 8 -1M105 270q4 -2 8 -1', '#C9A7B8', 1.6, 'opacity=".7"');
   // 몸통(피부)
   s += ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L133 232C120 238 80 238 67 232Z', skin, 2.6);
   if(o.torso) s += o.torso(cloth,dk,lt);
