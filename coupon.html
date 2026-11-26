@@ -459,7 +459,9 @@ function heart(cx,cy,s,fill,edge){
     +(edge?' stroke="'+edge+'" stroke-width="'+(2.2/s)+'" stroke-linejoin="round"':'')
     +' transform="translate('+cx+','+cy+') scale('+s+')"/>';
 }
-function hairId(c){ return 'hg'+String(c).replace('#',''); }
+var __svgN = 0, __cur = '';
+function nextSvgId(){ __svgN++; return 'v'+__svgN.toString(36)+'_'; }
+function hairId(c){ return 'hg'+__cur+String(c).replace('#',''); }
 function hairGrad(c){
   var id=hairId(c);
   return '<linearGradient id="'+id+'" x1="0" y1="0" x2="0.15" y2="1">'
@@ -474,7 +476,7 @@ function hairShine(c,y){
   return stro(d, shade(c,52), 7, 'opacity=".8"') + stro(d, '#FFFFFF', 2.6, 'opacity=".55"');
 }
 function irisGrad(ec){
-  var id='ir'+String(ec).replace('#','');
+  var id='ir'+__cur+String(ec).replace('#','');
   return '<radialGradient id="'+id+'" cx=".5" cy=".32" r=".8">'
     +'<stop offset="0" stop-color="'+shade(ec,40)+'"/>'
     +'<stop offset=".5" stop-color="'+ec+'"/>'
@@ -489,8 +491,8 @@ function scleraD(cx,cy){
     +'C'+(cx-9)+' '+(cy+18)+' '+(cx-15)+' '+(cy+10)+' '+(cx-15)+' '+(cy+1)+'Z';
 }
 function eyeClips(){
-  return '<clipPath id="eyeClipL"><path d="'+scleraD(70,90)+'"/></clipPath>'
-    +'<clipPath id="eyeClipR"><path d="'+scleraD(130,90)+'"/></clipPath>';
+  return '<clipPath id="eyeClipL'+__cur+'"><path d="'+scleraD(70,90)+'"/></clipPath>'
+    +'<clipPath id="eyeClipR'+__cur+'"><path d="'+scleraD(130,90)+'"/></clipPath>';
 }
 
 /* ---------------- 얼굴·눈 (만화 스타일) ---------------- */
@@ -502,7 +504,7 @@ function eyeGroup(cx,cy,ec,exp,side){
     s += stro('M'+(cx-6)+' '+(cy-3)+'q6 -4 12 -1', '#FFFFFF', 1.8, 'opacity=".45"');
     return s;
   }
-  var clip = side<0?'eyeClipL':'eyeClipR';
+  var clip = (side<0?'eyeClipL':'eyeClipR')+__cur;
   var irx = exp==='wow' ? 8.4 : 12.8, iry = exp==='wow' ? 10.4 : 14.8;
   s += '<g clip-path="url(#'+clip+')">';
   s += '<rect x="'+(cx-17)+'" y="'+(cy-23)+'" width="34" height="46" fill="#FFFBF6"/>';
@@ -512,7 +514,7 @@ function eyeGroup(cx,cy,ec,exp,side){
     s += '<circle cx="'+(cx-4)+'" cy="'+(cy-3)+'" r="2.3" fill="#FFFFFF" opacity=".95"/>';
     s += '<circle cx="'+(cx+4)+'" cy="'+(cy+3)+'" r="1.3" fill="#FFFFFF" opacity=".8"/>';
   } else {
-    s += '<ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="'+irx+'" ry="'+iry+'" fill="url(#ir'+String(ec).replace('#','')+')"/>';
+    s += '<ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="'+irx+'" ry="'+iry+'" fill="url(#ir'+__cur+String(ec).replace('#','')+')"/>';
     s += '<path d="M'+(cx-irx-1)+' '+(cy-2)+'A'+(irx+1)+' '+(iry+1)+' 0 0 1 '+(cx+irx+1)+' '+(cy-2)+'L'+(cx+irx+1)+' '+(cy-18)+'L'+(cx-irx-1)+' '+(cy-18)+'Z" fill="#2A1B33" opacity=".4"/>';
     s += '<ellipse cx="'+cx+'" cy="'+(cy+2)+'" rx="'+(exp==='wow'?3.4:5.6)+'" ry="'+(exp==='wow'?4.4:7.1)+'" fill="#241826"/>';
     s += '<ellipse cx="'+cx+'" cy="'+(cy+iry*0.55)+'" rx="'+(irx*0.66)+'" ry="'+(iry*0.3)+'" fill="'+shade(ec,52)+'" opacity=".72"/>';
@@ -565,12 +567,12 @@ function browSVG(exp,hc){
 
 /* ---------------- 머리 앞머리(공용) ---------------- */
 function fringeSoft(c){
-  var d='M30 98C28 44 58 10 100 10C142 10 172 44 170 98C163 76 156 64 146 58C140 74 132 84 122 86C112 76 106 66 100 56C94 66 88 76 78 86C68 84 60 74 54 58C44 64 37 76 30 98Z';
+  var d='M30 98C28 44 58 10 100 10C142 10 172 44 170 98C165 76 157 64 147 60C142 76 136 84 128 84C122 72 112 66 100 70C88 66 78 72 72 84C64 84 58 76 53 60C43 64 35 76 30 98Z';
   return ink(d, hairFill(c), 3)
-    + wedge(100,18,100,56,8, shade(c,-28), '.4')
-    + wedge(100,18,78,86,7, shade(c,-24), '.32')
-    + wedge(100,18,122,86,7, shade(c,-24), '.32')
-    + stro('M56 60q7 14 16 24M144 60q-7 14 -16 24', shade(c,-30), 1.8, 'opacity=".4"')
+    + wedge(100,18,100,70,8, shade(c,-28), '.38')
+    + wedge(100,18,72,84,7, shade(c,-24), '.3')
+    + wedge(100,18,128,84,7, shade(c,-24), '.3')
+    + stro('M55 62q8 14 17 22M145 62q-8 14 -17 22', shade(c,-30), 1.8, 'opacity=".36"')
     + hairShine(c,44);
 }
 function fringePart(c){
@@ -1104,6 +1106,7 @@ function headSVG(skin,ec,hc,exp){
 
 /* ---------------- 캐릭터 조립 ---------------- */
 function characterSVG(ch,exp){
+  __cur = nextSvgId();
   var skin = SKINS[ch.skin][1];
   var hc = HAIR_COLORS[ch.hairColor][1];
   var ec = EYE_COLORS[ch.hairColor] || EYE_COLORS[0];
@@ -1122,6 +1125,7 @@ function characterSVG(ch,exp){
 }
 
 function bustSVG(ch){
+  __cur = nextSvgId();
   var skin = SKINS[ch.skin][1];
   var hc = HAIR_COLORS[ch.hairColor][1];
   var ec = EYE_COLORS[ch.hairColor] || EYE_COLORS[0];
@@ -1193,7 +1197,7 @@ function machineSVG(kind){
   // 배출구
   s += ink('M72 242h58c4 0 7 3 7 7v6c0 4 -3 7 -7 7H72c-4 0 -7 -3 -7 -7v-6c0 -4 3 -7 7 -7Z', '#3E2F44', 2.8);
   s += '<rect x="70" y="245" width="62" height="6" rx="3" fill="#241826" opacity=".8"/>';
-  s += '<path d="M88 245a12 12 0 0 1 24 0Z" fill="'+capA+'" stroke="'+INK+'" stroke-width="2"/>';
+  s += stro('M80 250h42','#FFFFFF',1.6,'opacity=".28"');
   return '<svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg" role="img">'+s+'</svg>';
 }
 
