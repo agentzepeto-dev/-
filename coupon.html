@@ -1232,14 +1232,23 @@ function removeSticker(id){
 }
 function addSticker(emoji){
   if(state.bg.stickers.length>=40){ toast('스티커는 40개까지 붙일 수 있어요'); return; }
-  var leftSide = Math.random() < 0.5;
-  state.bg.stickers.push({
-    id:uid(), e:emoji,
-    x: leftSide ? 5+Math.random()*15 : 80+Math.random()*15,
-    y: 8+Math.random()*58,
-    s: 5.5+Math.random()*3.5,
-    r: -18+Math.random()*36
-  });
+  // 캐릭터를 가리지 않도록 양옆 띠 안에서, 이미 붙은 스티커와 가장 먼 자리를 고른다
+  var best=null, bestScore=-1;
+  for(var t=0;t<16;t++){
+    var cand = {
+      x: Math.random()<0.5 ? 6+Math.random()*20 : 74+Math.random()*14,
+      y: 8+Math.random()*60,
+      s: 5.5+Math.random()*3.5,
+      r: -18+Math.random()*36
+    };
+    var score = 999;
+    state.bg.stickers.forEach(function(s){
+      var d = Math.sqrt((cand.x-s.x)*(cand.x-s.x) + (cand.y-s.y)*(cand.y-s.y));
+      if(d<score) score=d;
+    });
+    if(score>bestScore){ bestScore=score; best=cand; }
+  }
+  state.bg.stickers.push({ id:uid(), e:emoji, x:best.x, y:best.y, s:best.s, r:best.r });
   save();
   renderStickers(czStickers,true);
   renderStickers(mainStickers,false);
