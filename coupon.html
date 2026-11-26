@@ -90,7 +90,7 @@ h1,h2,h3,p{margin:0}
 .preview .sticker-layer{pointer-events:auto}
 .cz-char{position:absolute;left:50%;bottom:-2%;transform:translateX(-50%);height:86%;aspect-ratio:164/252}
 .cz-char svg{width:100%;height:100%;display:block;filter:drop-shadow(0 8px 10px rgba(120,70,110,.18))}
-.cz-tip{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);background:rgba(255,255,255,.88);color:#9A7C8C;font-size:11.5px;font-weight:800;padding:4px 12px;border-radius:999px;pointer-events:none;white-space:nowrap;max-width:94%;overflow:hidden;text-overflow:ellipsis}
+.cz-tip{position:absolute;left:50%;top:8px;transform:translateX(-50%);background:rgba(255,255,255,.88);color:#9A7C8C;font-size:11.5px;font-weight:800;padding:4px 12px;border-radius:999px;pointer-events:none;white-space:nowrap;max-width:94%;overflow:hidden;text-overflow:ellipsis}
 .segmented{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#FFEDF4;padding:5px;border-radius:18px;margin-bottom:10px}
 .segmented button{padding:11px;border-radius:14px;font-weight:900;font-size:15px;color:#B98CA2}
 .segmented button.on{background:#fff;color:#E45B8B;box-shadow:0 3px 8px rgba(214,120,155,.18)}
@@ -232,9 +232,9 @@ h1,h2,h3,p{margin:0}
   .m-label span{font-size:10.5px}
 }
 @media(min-width:820px){
-  .stage-inner{max-width:1180px;grid-template-columns:1fr 32% 1fr}
+  .stage-inner{max-width:1220px;grid-template-columns:1fr 28% 1fr;column-gap:14px}
   .machine{max-width:330px}
-  .char-col{max-width:400px}
+  .char-col{max-width:360px}
   .bubble{font-size:16px;padding:11px 20px}
 }
 /* 좁은 세로 화면: 캐릭터를 위에 크게, 기계 두 대를 아래에 나란히 */
@@ -450,7 +450,7 @@ var HAIRS = {
   },
   long:{ name:'긴 생머리',
     back:function(c){return '<path d="M50 90C46 30 70 16 100 16C130 16 154 30 150 90L154 206C120 220 80 220 46 206Z" fill="'+c+'"/>';},
-    over:function(c){return '<path d="M50 94C46 140 48 182 52 206L68 206C62 170 60 130 62 96Z" fill="'+c+'"/><path d="M150 94C154 140 152 182 148 206L132 206C138 170 140 130 138 96Z" fill="'+c+'"/>';},
+    over:function(c){return '<path d="M50 96C47 132 48 158 52 182L64 182C60 152 60 124 62 98Z" fill="'+c+'"/><path d="M150 96C153 132 152 158 148 182L136 182C140 152 140 124 138 98Z" fill="'+c+'"/>';},
     front:function(c){return '<path d="M58 80C56 32 74 24 100 24C126 24 144 32 142 80C140 56 128 44 112 42C96 40 76 50 64 66Z" fill="'+c+'"/>';}
   },
   twin:{ name:'양갈래',
@@ -460,7 +460,7 @@ var HAIRS = {
   },
   wavy:{ name:'웨이브 롱',
     back:function(c){return '<path d="M50 90C46 30 70 16 100 16C130 16 154 30 150 90C156 128 162 168 150 202C140 214 130 198 122 208C112 218 100 204 90 210C78 216 68 202 58 208C46 198 46 158 50 118Z" fill="'+c+'"/>';},
-    over:function(c){return '<path d="M48 96C44 140 52 174 44 198C54 208 64 198 62 184C66 154 62 122 64 98Z" fill="'+c+'"/><path d="M152 96C156 140 148 174 156 198C146 208 136 198 138 184C134 154 138 122 136 98Z" fill="'+c+'"/>';},
+    over:function(c){return '<path d="M49 98C46 130 52 158 48 178C56 186 64 178 62 168C65 146 61 120 63 100Z" fill="'+c+'"/><path d="M151 98C154 130 148 158 152 178C144 186 136 178 138 168C135 146 139 120 137 100Z" fill="'+c+'"/>';},
     front:function(c){return '<path d="M58 84C56 32 74 24 100 24C126 24 144 32 142 84C136 56 118 48 100 48C82 48 64 56 58 84Z" fill="'+c+'"/>';}
   },
   pixie:{ name:'숏컷',
@@ -934,7 +934,7 @@ var HEARTS = [
 var TYPE_LABEL = { coupon:'쿠폰', letter:'응원 편지', heart:'마음', special:'스페셜' };
 var MISSIONS = [
   {id:'m1',emoji:'💬',title:'고마운 점 한 가지 말해주기',desc:'소중한 사람에게 고마운 점을 한 가지 말해 보세요.',reward:{heart:1}},
-  {id:'m2',emoji:'🤗',title:'꼭 안아주기 (또는 하이파이브)',desc:'따뜻하게 안아 주거나 하이파이브로 마음을 나눠요.',reward:{gift:1}},
+  {id:'m2',emoji:'🤗',title:'꼭 안아주기 · 하이파이브',desc:'따뜻하게 안아 주거나 하이파이브로 마음을 나눠요.',reward:{gift:1}},
   {id:'m3',emoji:'🌤️',title:'오늘 기분 좋았던 일 나누기',desc:'오늘 좋았던 순간 하나를 이야기해 보세요.',reward:{gift:1}},
   {id:'m4',emoji:'💌',title:'칭찬 한마디 해주기',desc:'상대의 좋은 점을 한마디 칭찬해 주세요.',reward:{heart:1}}
 ];
