@@ -59,8 +59,8 @@ h1,h2,h3,p{margin:0}
 .tip-pill{position:absolute;z-index:3;left:50%;bottom:6px;transform:translateX(-50%);background:rgba(255,255,255,.85);color:#9A7C8C;font-size:12px;font-weight:800;padding:4px 12px;border-radius:999px;pointer-events:none;white-space:nowrap}
 
 /* ---------- tabbar ---------- */
-.tabbar{flex:0 0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:rgba(255,246,249,.94);border-top:1px solid #FFE3EE}
-.tabbar button{position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 4px;border-radius:18px;font-weight:900;font-size:12.5px;background:#fff;box-shadow:0 3px 10px rgba(214,120,155,.15);transition:transform .1s}
+.tabbar{flex:0 0 auto;display:flex;justify-content:center;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:rgba(255,246,249,.94);border-top:1px solid #FFE3EE}
+.tabbar button{position:relative;flex:0 1 170px;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 4px;border-radius:18px;font-weight:900;font-size:12.5px;background:#fff;box-shadow:0 3px 10px rgba(214,120,155,.15);transition:transform .1s}
 .tabbar button:active{transform:scale(.96)}
 .tabbar .ticon{font-size:20px;line-height:1.1}
 .tabbar .badge{position:absolute;top:2px;right:8px;min-width:18px;height:18px;border-radius:9px;background:#FF5C8D;color:#fff;font-size:11px;display:grid;place-items:center;padding:0 4px;font-weight:900}
