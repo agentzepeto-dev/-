@@ -1052,7 +1052,7 @@ function applyTheme(el, id){
 }
 function renderStickers(container, interactive){
   var html = state.bg.stickers.map(function(s){
-    return '<div class="sticker" data-sid="'+s.id+'" style="left:'+s.x+'%;top:'+s.y+'%;font-size:'+s.s+'vmin;transform:rotate('+s.r+'deg)">'+s.e+'<span class="del" data-del="'+s.id+'" role="button" aria-label="스티커 지우기">✕</span></div>';
+    return '<div class="sticker" data-sid="'+s.id+'"'+(interactive?' role="button" tabindex="0" aria-label="스티커 옮기기"':'')+' style="left:'+s.x+'%;top:'+s.y+'%;font-size:'+s.s+'vmin;transform:rotate('+s.r+'deg)">'+s.e+'<span class="del" data-del="'+s.id+'" role="button" aria-label="스티커 지우기">✕</span></div>';
   }).join('');
   container.innerHTML = html;
   container.style.pointerEvents = interactive ? 'auto' : 'none';
