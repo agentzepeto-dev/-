@@ -160,17 +160,17 @@ h1,h2,h3,p{margin:0}
 .sheet-body{overflow-y:auto;padding:14px 16px calc(20px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
 
 /* draw */
-#drawOverlay{background:rgba(40,16,34,.58)}
+#drawOverlay{background:rgba(28,10,24,.68);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 #drawOverlay .draw-inner{width:min(620px,100%);display:flex;flex-direction:column;align-items:center;gap:12px;max-height:96dvh}
-.draw-hint{background:#fff;padding:8px 18px;border-radius:999px;font-weight:900;font-size:15px;box-shadow:0 6px 16px rgba(60,20,45,.25);text-align:center;letter-spacing:-.3px;flex:0 0 auto}
+.draw-hint{background:#fff;padding:9px 20px;border-radius:999px;font-weight:900;font-size:16px;box-shadow:0 6px 16px rgba(60,20,45,.25);text-align:center;letter-spacing:-.3px;flex:0 0 auto}
 .draw-stage{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;flex:1 1 auto;min-height:0;overflow-y:auto;padding:6px 0}
 .draw-actions{display:flex;gap:8px;width:100%;max-width:420px;flex:0 0 auto;padding-bottom:env(safe-area-inset-bottom)}
 .draw-actions button{flex:1}
-.capsule{width:min(60vw,270px);cursor:pointer;animation:capsuleBob 2.1s ease-in-out infinite;transform-origin:center;filter:drop-shadow(0 16px 18px rgba(30,10,30,.35))}
+.capsule{width:min(64vw,300px);cursor:pointer;animation:capsuleBob 2.1s ease-in-out infinite;transform-origin:center;filter:drop-shadow(0 16px 18px rgba(30,10,30,.35))}
 @keyframes capsuleBob{50%{transform:translateY(-10px) rotate(-2deg)}}
 .capsule.drop{animation:capsuleDrop .7s cubic-bezier(.3,1.6,.5,1)}
 @keyframes capsuleDrop{0%{transform:translateY(-180px) scale(.8);opacity:0}60%{transform:translateY(10px) scale(1.04)}100%{transform:none}}
-.giftbox{width:min(72vw,320px);cursor:pointer;filter:drop-shadow(0 18px 20px rgba(30,10,30,.35));transform-origin:50% 90%}
+.giftbox{width:min(80vw,370px);cursor:pointer;filter:drop-shadow(0 18px 20px rgba(30,10,30,.35));transform-origin:50% 90%}
 .giftbox #lid,.giftbox #bow{transform-box:fill-box;transform-origin:center}
 .giftbox.t1{animation:shakeBox .42s ease}
 .giftbox.t2{animation:shakeBox .34s ease 2}
@@ -182,9 +182,9 @@ h1,h2,h3,p{margin:0}
 .giftbox.open #boxbody{animation:boxpop .5s ease}
 @keyframes boxpop{40%{transform:scale(1.06)}}
 .tapdots{display:flex;gap:10px;justify-content:center;margin-top:4px}
-.tapdots i{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.5);box-shadow:inset 0 0 0 2px rgba(255,255,255,.7);font-style:normal}
+.tapdots i{width:21px;height:21px;border-radius:50%;background:rgba(255,255,255,.5);box-shadow:inset 0 0 0 2px rgba(255,255,255,.7);font-style:normal}
 .tapdots i.on{background:#FF5C8D;box-shadow:0 0 0 3px rgba(255,255,255,.85)}
-.card-pop{width:100%;max-width:420px;animation:cardIn .45s cubic-bezier(.2,1.1,.4,1)}
+.card-pop{width:100%;max-width:460px;animation:cardIn .45s cubic-bezier(.2,1.1,.4,1)}
 @keyframes cardIn{from{transform:scale(.75) translateY(20px);opacity:0}to{transform:none;opacity:1}}
 .gcard.big{min-height:0;padding:22px 20px 20px;border-radius:28px;background:#fff;border:4px solid #fff;box-shadow:0 18px 40px rgba(40,10,30,.35)}
 .gcard.big.t-coupon{background:linear-gradient(180deg,#FFF4F8,#FFE3EE)}
