@@ -74,7 +74,7 @@ h1,h2,h3,p{margin:0}
 .icon-btn{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;font-size:20px;background:#FFF0F5;flex:0 0 auto}
 .icon-btn:active{transform:scale(.94)}
 .hbtn{background:#FFF0F5;border-radius:14px;padding:9px 12px;font-weight:900;font-size:13.5px;color:#C4517A;white-space:nowrap;flex:0 0 auto}
-.screen-body{flex:1;min-height:0;overflow-y:auto;padding:12px 12px calc(28px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
+.screen-body{flex:1;min-height:0;overflow-y:auto;padding:12px max(12px,calc((100% - 940px)/2)) calc(28px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
 
 .primary{background:linear-gradient(180deg,#FF8FB1,#FF6F9C);color:#fff;font-weight:900;border-radius:18px;padding:14px 20px;box-shadow:0 6px 0 #E85E8D,0 10px 18px rgba(232,94,141,.24);font-size:16px;letter-spacing:-.3px}
 .primary:active{transform:translateY(3px);box-shadow:0 3px 0 #E85E8D}
@@ -160,16 +160,17 @@ h1,h2,h3,p{margin:0}
 .sheet-body{overflow-y:auto;padding:14px 16px calc(20px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
 
 /* draw */
-#drawOverlay .draw-inner{width:min(560px,100%);display:flex;flex-direction:column;align-items:center;gap:12px;max-height:96dvh}
+#drawOverlay{background:rgba(40,16,34,.58)}
+#drawOverlay .draw-inner{width:min(620px,100%);display:flex;flex-direction:column;align-items:center;gap:12px;max-height:96dvh}
 .draw-hint{background:#fff;padding:8px 18px;border-radius:999px;font-weight:900;font-size:15px;box-shadow:0 6px 16px rgba(60,20,45,.25);text-align:center;letter-spacing:-.3px;flex:0 0 auto}
 .draw-stage{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;flex:1 1 auto;min-height:0;overflow-y:auto;padding:6px 0}
 .draw-actions{display:flex;gap:8px;width:100%;max-width:420px;flex:0 0 auto;padding-bottom:env(safe-area-inset-bottom)}
 .draw-actions button{flex:1}
-.capsule{width:min(54vw,210px);cursor:pointer;animation:capsuleBob 2.1s ease-in-out infinite;transform-origin:center;filter:drop-shadow(0 16px 18px rgba(30,10,30,.35))}
+.capsule{width:min(60vw,270px);cursor:pointer;animation:capsuleBob 2.1s ease-in-out infinite;transform-origin:center;filter:drop-shadow(0 16px 18px rgba(30,10,30,.35))}
 @keyframes capsuleBob{50%{transform:translateY(-10px) rotate(-2deg)}}
 .capsule.drop{animation:capsuleDrop .7s cubic-bezier(.3,1.6,.5,1)}
 @keyframes capsuleDrop{0%{transform:translateY(-180px) scale(.8);opacity:0}60%{transform:translateY(10px) scale(1.04)}100%{transform:none}}
-.giftbox{width:min(66vw,250px);cursor:pointer;filter:drop-shadow(0 18px 20px rgba(30,10,30,.35));transform-origin:50% 90%}
+.giftbox{width:min(72vw,320px);cursor:pointer;filter:drop-shadow(0 18px 20px rgba(30,10,30,.35));transform-origin:50% 90%}
 .giftbox #lid,.giftbox #bow{transform-box:fill-box;transform-origin:center}
 .giftbox.t1{animation:shakeBox .42s ease}
 .giftbox.t2{animation:shakeBox .34s ease 2}
@@ -183,18 +184,19 @@ h1,h2,h3,p{margin:0}
 .tapdots{display:flex;gap:10px;justify-content:center;margin-top:4px}
 .tapdots i{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.5);box-shadow:inset 0 0 0 2px rgba(255,255,255,.7);font-style:normal}
 .tapdots i.on{background:#FF5C8D;box-shadow:0 0 0 3px rgba(255,255,255,.85)}
-.card-pop{width:100%;max-width:380px;animation:cardIn .45s cubic-bezier(.2,1.1,.4,1)}
+.card-pop{width:100%;max-width:420px;animation:cardIn .45s cubic-bezier(.2,1.1,.4,1)}
 @keyframes cardIn{from{transform:scale(.75) translateY(20px);opacity:0}to{transform:none;opacity:1}}
-.gcard.big{min-height:0;padding:20px 18px;border-radius:28px;background:#fff;border:4px solid #fff;box-shadow:0 18px 40px rgba(40,10,30,.35)}
+.gcard.big{min-height:0;padding:22px 20px 20px;border-radius:28px;background:#fff;border:4px solid #fff;box-shadow:0 18px 40px rgba(40,10,30,.35)}
 .gcard.big.t-coupon{background:linear-gradient(180deg,#FFF4F8,#FFE3EE)}
 .gcard.big.t-letter{background:linear-gradient(180deg,#FFFCF3,#FFF0D2)}
 .gcard.big.t-heart{background:linear-gradient(180deg,#F9F3FF,#EBDFFF)}
 .gcard.big.t-special{background:linear-gradient(140deg,#FFE9F2,#FFF7D6 38%,#E3F0FF 68%,#EDE0FF);border-color:#FFD166}
 .gcard.big .gc-emoji{font-size:44px}
-.gcard.big .gc-title{font-size:21px;letter-spacing:-.6px}
-.gcard.big .gc-desc{font-size:14.5px}
+.gcard.big .gc-title{font-size:21px;letter-spacing:-.6px;line-height:1.28}
+.gcard.big .gc-desc{font-size:14.5px;line-height:1.5}
+.gcard.big .gc-foot{margin-top:12px;padding-top:8px;border-top:1px dashed rgba(154,133,147,.35)}
 .gcard.big .gc-badge{font-size:12px;padding:4px 11px}
-.card-stamp{display:inline-block;margin-top:10px;font-size:11px;font-weight:900;letter-spacing:1px;color:#C4517A;border:2px dashed #FFA9C6;border-radius:999px;padding:3px 10px;transform:rotate(-4deg)}
+.card-stamp{display:inline-block;align-self:flex-start;margin-top:10px;font-size:11px;font-weight:900;letter-spacing:1px;color:#C4517A;border:2px dashed #FFA9C6;border-radius:999px;padding:3px 10px;transform:rotate(-4deg)}
 .bonus{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-weight:900;color:#7A5A00;background:#FFF3C4;border-radius:16px;padding:9px 14px;animation:bonusIn .5s .15s both;font-size:14.5px}
 @keyframes bonusIn{from{transform:translateY(14px) scale(.9);opacity:0}to{transform:none;opacity:1}}
 .coin-float{position:absolute;font-size:56px;pointer-events:none;animation:coinFloat 1.5s ease-out forwards;filter:drop-shadow(0 8px 12px rgba(0,0,0,.3))}
@@ -230,10 +232,21 @@ h1,h2,h3,p{margin:0}
   .m-label span{font-size:10.5px}
 }
 @media(min-width:820px){
-  .stage-inner{max-width:1000px}
-  .machine{max-width:280px}
-  .char-col{max-width:300px}
+  .stage-inner{max-width:1180px;grid-template-columns:1fr 32% 1fr}
+  .machine{max-width:330px}
+  .char-col{max-width:400px}
   .bubble{font-size:16px;padding:11px 20px}
+}
+/* 좁은 세로 화면: 캐릭터를 위에 크게, 기계 두 대를 아래에 나란히 */
+@media(max-width:640px) and (min-height:640px){
+  .stage-inner{grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) auto;column-gap:10px;row-gap:2px;padding:0 10px 6px}
+  .char-col{grid-column:1 / -1;grid-row:1;max-width:none;height:100%;margin-bottom:-4px}
+  .char-col svg{width:auto;height:100%;max-width:100%;max-height:100%}
+  .char-col:after{content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:66%;height:16px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(120,80,110,.18),rgba(120,80,110,0) 70%);pointer-events:none}
+  .machine{grid-row:2;max-width:none;height:auto}
+  .m-art{flex:0 0 auto}
+  .m-label{max-width:none}
+  .bubble{font-size:14px;top:6px}
 }
 @media(prefers-reduced-motion:reduce){
   .char-col svg,.capsule{animation:none}
@@ -433,7 +446,7 @@ function shine(){
 var HAIRS = {
   bob:{ name:'단발',
     back:function(c){return '<path d="M52 92C48 34 72 20 100 20C128 20 152 34 148 92L150 114C120 128 80 128 50 114Z" fill="'+c+'"/>';},
-    front:function(c){return '<path d="M58 82C56 34 74 26 100 26C126 26 144 34 142 82C136 58 122 50 108 52C102 64 92 66 86 54C74 58 62 66 58 82Z" fill="'+c+'"/>';}
+    front:function(c){return '<path d="M58 82C56 34 74 26 100 26C126 26 144 34 142 82C136 58 124 52 110 56C104 64 96 64 90 56C76 52 62 66 58 82Z" fill="'+c+'"/>';}
   },
   long:{ name:'긴 생머리',
     back:function(c){return '<path d="M50 90C46 30 70 16 100 16C130 16 154 30 150 90L154 206C120 220 80 220 46 206Z" fill="'+c+'"/>';},
@@ -1266,7 +1279,7 @@ function startDraw(kind){
   drawState = { kind:kind, phase:'capsule', taps:0, result:null, bonus:null };
   drawHint.textContent = '캡슐을 톡 눌러 보세요';
   drawStage.innerHTML = capsuleSVG(kind);
-  drawActions.innerHTML = '<button class="ghost" id="drawClose">닫기</button>';
+  drawActions.innerHTML = '';
   openOverlay('drawOverlay');
   hideTipPill();
   say(kind==='gift' ? '두근두근… 무슨 선물이 나올까?' : '내 마음을 담아 볼게!','wow');
@@ -1282,7 +1295,7 @@ function revealCapsule(){
   if(drawState.kind==='gift'){
     drawState.phase='box';
     drawState.taps=0;
-    drawHint.textContent='선물 상자를 3번 터치해서 열어 보세요!';
+    drawHint.textContent='선물 상자를 3번 톡톡톡 눌러 열어 보세요!';
     setTimeout(function(){
       if(!drawState) return;
       drawStage.innerHTML = giftBoxSVG()
