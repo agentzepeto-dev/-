@@ -1389,19 +1389,37 @@ const IDB_NAME = 'cute_arcade_fighter_db';
 const IDB_STORE = 'saves';
 let save = { coins: 5, unlocked: ['bunny', 'shiba', 'kitty'], selected: 'bunny', stage: 0, updatedAt: 0 };
 
+// Fill the save with whatever one stored copy knows. Copies are merged oldest-first,
+// so the newest copy wins field by field and a partial copy (stage only) never erases
+// the coins or characters that only an older copy still holds.
+function mergeSaveFields(parsed) {
+  if (!parsed || typeof parsed !== 'object') return false;
+  let changed = false;
+  if (typeof parsed.coins === 'number' && isFinite(parsed.coins) && parsed.coins >= 0) {
+    save.coins = Math.round(parsed.coins); changed = true;
+  }
+  if (Array.isArray(parsed.unlocked) && parsed.unlocked.length > 0) {
+    const ids = parsed.unlocked.filter(id => ROSTER.some(c => c.id === id));
+    if (ids.length) { save.unlocked = ids; changed = true; }
+  }
+  if (typeof parsed.selected === 'string' && ROSTER.some(c => c.id === parsed.selected)) {
+    save.selected = parsed.selected; changed = true;
+  }
+  if (typeof parsed.stage === 'number' && isFinite(parsed.stage) && parsed.stage >= 0) {
+    save.stage = Math.round(parsed.stage); changed = true;
+  }
+  const t = typeof parsed.updatedAt === 'number' && isFinite(parsed.updatedAt) ? parsed.updatedAt : 0;
+  if (t > (save.updatedAt || 0)) { save.updatedAt = t; changed = true; }
+  return changed;
+}
+
 function applyParsedSave(parsed) {
   if (!parsed || typeof parsed !== 'object') return false;
   const incomingTime = typeof parsed.updatedAt === 'number' ? parsed.updatedAt : 0;
   const currentTime = typeof save.updatedAt === 'number' ? save.updatedAt : 0;
-  // Prefer newer timestamp; if neither has timestamp, prefer richer progress
-  if (currentTime > 0 && incomingTime > 0 && incomingTime < currentTime) return false;
-  if (currentTime > 0 && incomingTime === 0) return false;
-  if (typeof parsed.coins === 'number') save.coins = parsed.coins;
-  if (Array.isArray(parsed.unlocked) && parsed.unlocked.length > 0) save.unlocked = parsed.unlocked;
-  if (parsed.selected) save.selected = parsed.selected;
-  if (typeof parsed.stage === 'number' && parsed.stage >= 0) save.stage = parsed.stage;
-  if (incomingTime > 0) save.updatedAt = incomingTime;
-  return true;
+  // A whole copy is only taken when it is newer than what is already in memory
+  if (incomingTime <= currentTime) return false;
+  return mergeSaveFields(parsed);
 }
 
 function readCookieSave() {
@@ -1458,6 +1476,7 @@ function readIDBSave(cb) {
 
 function loadSaveData() {
   const sources = [];
+  const parsedList = [];
   try {
     if (location.hash && location.hash.startsWith('#save=')) {
       sources.push(decodeURIComponent(location.hash.slice(6)));
@@ -1478,9 +1497,13 @@ function loadSaveData() {
   } catch (e) {}
   for (const raw of sources) {
     try {
-      applyParsedSave(JSON.parse(raw));
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') parsedList.push(parsed);
     } catch (e) {}
   }
+  // Oldest first, so the newest copy is applied last and wins field by field
+  parsedList.sort((a, b) => (Number(a.updatedAt) || 0) - (Number(b.updatedAt) || 0));
+  for (const parsed of parsedList) mergeSaveFields(parsed);
   readIDBSave((raw) => {
     try {
       const parsed = JSON.parse(raw);
