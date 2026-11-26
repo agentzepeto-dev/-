@@ -472,7 +472,7 @@ function hairGrad(c){
 }
 function hairFill(c){ return 'url(#'+hairId(c)+')'; }
 function hairShine(c,y){
-  var band='M50 '+(y+7)+'C60 '+(y-7)+' 78 '+(y-15)+' 100 '+(y-15)+'C122 '+(y-15)+' 140 '+(y-7)+' 150 '+(y+7)'
+  var band='M50 '+(y+7)+'C60 '+(y-7)+' 78 '+(y-15)+' 100 '+(y-15)+'C122 '+(y-15)+' 140 '+(y-7)+' 150 '+(y+7)
     +'C140 '+(y+3)+' 122 '+(y-3)+' 100 '+(y-3)+'C78 '+(y-3)+' 60 '+(y+3)+' 50 '+(y+7)+'Z';
   return '<path d="'+band+'" fill="'+shade(c,40)+'" opacity=".5"/>'
     + stro('M62 '+(y+3)+'l9 -3M86 '+(y-3)+'l11 1M114 '+(y-3)+'l10 2M138 '+(y+3)+'l6 3', shade(c,58), 2.4, 'opacity=".45"');
