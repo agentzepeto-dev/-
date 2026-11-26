@@ -639,7 +639,9 @@ var HAIRS = {
         + ink('M34 78C16 102 10 148 16 188C20 208 44 212 50 194C56 172 46 138 52 106Z', hairFill(c), 3)
         + ink('M166 78C184 102 190 148 184 188C180 208 156 212 150 194C144 172 154 138 148 106Z', hairFill(c), 3)
         + soft('M16 170C18 196 26 210 38 208C28 192 26 178 28 160Z', shade(c,-28), 'opacity=".42"')
-        + soft('M184 170C182 196 174 210 162 208C172 192 174 178 172 160Z', shade(c,-28), 'opacity=".42"');
+        + soft('M184 170C182 196 174 210 162 208C172 192 174 178 172 160Z', shade(c,-28), 'opacity=".42"')
+        + stro('M30 96q-8 50 -4 100M170 96q8 50 4 100', shade(c,-22), 2, 'opacity=".3"')
+        + stro('M40 104q-6 44 -3 84M160 104q6 44 3 84', shade(c,26), 2.2, 'opacity=".22"');
     },
     over:function(c){
       return '<circle cx="38" cy="56" r="8.5" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2.4"/>'
