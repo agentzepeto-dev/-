@@ -1350,9 +1350,16 @@ function drawMachine(ctx, kind, o){
   /* ---------- 안쪽 패널 ---------- */
   ctx.save();
   var panG=ctx.createLinearGradient(66,206,66,420);
-  panG.addColorStop(0,'rgba(255,255,255,.12)'); panG.addColorStop(1,'rgba(0,0,0,.16)');
+  panG.addColorStop(0,'rgba(255,248,240,.24)'); panG.addColorStop(.4,'rgba(255,240,232,.10)'); panG.addColorStop(1,'rgba(40,0,20,.28)');
   ctx.fillStyle=panG; roundRect(ctx,68,206,224,214,20); ctx.fill();
-  ctx.strokeStyle='rgba(255,255,255,.24)'; ctx.lineWidth=1.6; roundRect(ctx,68,206,224,214,20); ctx.stroke();
+  ctx.save(); roundRect(ctx,68,206,224,214,20); ctx.clip();
+  for(var bi=0;bi<26;bi++){
+    ctx.fillStyle= bi%2? 'rgba(255,255,255,.035)':'rgba(0,0,0,.035)';
+    ctx.fillRect(70+bi*8.6,206,4,214);
+  }
+  ctx.restore();
+  ctx.strokeStyle='rgba(255,255,255,.46)'; ctx.lineWidth=2; roundRect(ctx,68,206,224,214,20); ctx.stroke();
+  ctx.strokeStyle='rgba(60,0,30,.3)'; ctx.lineWidth=1; roundRect(ctx,70,208.5,220,209,18); ctx.stroke();
   ctx.restore();
 
   /* ---------- 동전 투입구 ---------- */
@@ -1429,7 +1436,7 @@ function drawMachine(ctx, kind, o){
     var dy=o.drop.y;
     drawCapsuleShape(ctx, winX+winW/2, dy, 15, o.drop.rot||0.2, o.drop.c1||'#FFE9A8', o.drop.c2||'#FFC93C', isGift?'gift':'heart');
   }else if(o.showCapsule){
-    drawCapsuleShape(ctx, winX+winW/2, winY+winH-19, 15.5, -0.18, o.showCapsule.c1, o.showCapsule.c2, isGift?'gift':'heart');
+    drawCapsuleShape(ctx, winX+winW/2, winY+winH-20, 20, -0.18, o.showCapsule.c1, o.showCapsule.c2, isGift?'gift':'heart');
   }
   // 유리 반사
   var rg=ctx.createLinearGradient(winX,winY,winX+winW,winY+winH);
@@ -1831,10 +1838,194 @@ function gachaPointer(e){
 /* =========================================================
    캡슐 개봉
    ========================================================= */
+
+/* ---------- 3D 선물 상자 (Canvas) ---------- */
+var GiftBox = { lift:0, target:0, shake:0, t:0, last:0, raf:null, on:false };
+GiftBox.start=function(){
+  if(this.raf) cancelAnimationFrame(this.raf);
+  this.last=0;
+  var cv=$('#giftCanvas'); if(!cv) return;
+  var ctx=cv.getContext('2d');
+  function loop(ts){
+    if(!GiftBox.on) { GiftBox.raf=null; return; }
+    if(!GiftBox.last) GiftBox.last=ts;
+    var dt=Math.min(0.04,(ts-GiftBox.last)/1000); GiftBox.last=ts; GiftBox.t+=dt;
+    GiftBox.lift += (GiftBox.target-GiftBox.lift)*Math.min(1,dt*6.5);
+    GiftBox.shake *= Math.pow(0.02,dt);
+    drawGiftBox(ctx);
+    GiftBox.raf=requestAnimationFrame(loop);
+  }
+  GiftBox.raf=requestAnimationFrame(loop);
+};
+GiftBox.stop=function(){
+  this.on=false;
+  if(this.raf) cancelAnimationFrame(this.raf);
+  this.raf=null;
+};
+
+function poly(ctx,pts){
+  ctx.beginPath();
+  ctx.moveTo(pts[0][0],pts[0][1]);
+  for(var i=1;i<pts.length;i++) ctx.lineTo(pts[i][0],pts[i][1]);
+  ctx.closePath();
+}
+
+function drawGiftBox(ctx){
+  var S=320;
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,640,640);
+  ctx.setTransform(2,0,0,2,0,0);
+
+  var w=110,h=100,dx=42,dy=24,base=286,lidT=13;
+  var x0=160-(w+dx)/2, y0=base-h;
+  var cx=x0+w/2;                 // 앞면 리본 중심
+  var bx=cx+dx/2;                // 윗면 중심
+  var lift=GiftBox.lift;
+
+  ctx.save();
+  // 흔들림
+  var sh=GiftBox.shake;
+  if(sh>0.01){
+    ctx.translate(bx, base-40);
+    ctx.rotate(Math.sin(GiftBox.t*46)*0.045*sh);
+    ctx.translate(-bx, -(base-40));
+  }
+  var sq=1+Math.sin(GiftBox.t*36)*0.02*sh;
+  ctx.translate(bx,base);
+  ctx.scale(2-sq,sq);
+  ctx.translate(-bx,-base);
+
+  // 바닥 그림자
+  var sg=ctx.createRadialGradient(bx,base+4,6,bx,base+4,110);
+  sg.addColorStop(0,'rgba(40,0,24,.55)'); sg.addColorStop(.55,'rgba(40,0,24,.3)'); sg.addColorStop(1,'rgba(40,0,24,0)');
+  ctx.save(); ctx.translate(bx,base+4); ctx.scale(1,0.18);
+  ctx.fillStyle=sg; ctx.beginPath(); ctx.arc(0,0,110,0,7); ctx.fill(); ctx.restore();
+
+  // 열릴 때 빛
+  if(lift>0.02){
+    var gg=ctx.createRadialGradient(bx,y0-dy-6,2,bx,y0-dy-6,150);
+    gg.addColorStop(0,'rgba(255,248,200,'+(0.85*Math.min(1,lift*1.6))+')');
+    gg.addColorStop(.4,'rgba(255,214,110,'+(0.38*Math.min(1,lift*1.6))+')');
+    gg.addColorStop(1,'rgba(255,180,80,0)');
+    ctx.fillStyle=gg; ctx.beginPath(); ctx.arc(bx,y0-dy-6,150,0,7); ctx.fill();
+  }
+
+  // 오른쪽 면
+  var rg=ctx.createLinearGradient(x0+w,y0-dy,x0+w+dx,base);
+  rg.addColorStop(0,'#C9385F'); rg.addColorStop(.45,'#A42248'); rg.addColorStop(1,'#6E0F2A');
+  poly(ctx,[[x0+w,y0],[x0+w+dx,y0-dy],[x0+w+dx,base-dy],[x0+w,base]]);
+  ctx.fillStyle=rg; ctx.fill();
+  ctx.strokeStyle='rgba(70,0,26,.35)'; ctx.lineWidth=1; ctx.stroke();
+
+  // 앞면
+  var fg=ctx.createLinearGradient(x0,y0,x0+w,base);
+  fg.addColorStop(0,'#FFA2BE'); fg.addColorStop(.42,'#F25C86'); fg.addColorStop(.78,'#D2355F'); fg.addColorStop(1,'#A81E45');
+  poly(ctx,[[x0,y0],[x0+w,y0],[x0+w,base],[x0,base]]);
+  ctx.fillStyle=fg; ctx.fill();
+  ctx.strokeStyle='rgba(70,0,26,.3)'; ctx.lineWidth=1; ctx.stroke();
+
+  // 앞면 광택
+  ctx.save();
+  poly(ctx,[[x0,y0],[x0+w,y0],[x0+w,base],[x0,base]]); ctx.clip();
+  var hg=ctx.createLinearGradient(x0,base,x0+70,y0);
+  hg.addColorStop(0,'rgba(255,255,255,0)'); hg.addColorStop(.48,'rgba(255,255,255,.28)'); hg.addColorStop(.62,'rgba(255,255,255,0)');
+  ctx.fillStyle=hg; ctx.fillRect(x0,y0,w,h);
+  ctx.restore();
+
+  // 윗면(뚜껑 아래 상자 안쪽)
+  if(lift>0.06){
+    var ig=ctx.createLinearGradient(bx,y0-dy,bx,y0+10);
+    ig.addColorStop(0,'#4A0A22'); ig.addColorStop(1,'#7A1533');
+    poly(ctx,[[x0,y0],[x0+dx,y0-dy],[x0+w+dx,y0-dy],[x0+w,y0]]);
+    ctx.fillStyle=ig; ctx.fill();
+  }
+
+  // 앞면 리본
+  var rib=ctx.createLinearGradient(cx-15,base,cx+15,y0);
+  rib.addColorStop(0,'#D89008'); rib.addColorStop(.22,'#FFD24A'); rib.addColorStop(.5,'#FFF0B0'); rib.addColorStop(.78,'#FFC12E'); rib.addColorStop(1,'#B8791A');
+  ctx.fillStyle=rib;
+  ctx.fillRect(cx-15,y0,30,base-y0);
+  ctx.fillStyle='rgba(255,255,255,.28)';
+  ctx.fillRect(cx-11,y0,4,base-y0);
+
+  // 뚜껑 그룹
+  ctx.save();
+  var lidCx=bx, lidCy=y0-dy-lidT/2;
+  ctx.translate(lidCx,lidCy);
+  ctx.rotate(lift*0.34);
+  ctx.translate(-lift*30,-lift*118);
+  ctx.translate(-lidCx,-lidCy);
+  var fade=1-Math.max(0,(lift-0.72)/0.28);
+  ctx.globalAlpha=Math.max(0,fade);
+
+  // 뚜껑 윗면
+  var tg=ctx.createLinearGradient(x0,y0-dy-lidT,x0+w+dx,y0-lidT);
+  tg.addColorStop(0,'#FFC6DA'); tg.addColorStop(.5,'#FF8FB0'); tg.addColorStop(1,'#E45C86');
+  poly(ctx,[[x0,y0-lidT],[x0+dx,y0-dy-lidT],[x0+w+dx,y0-dy-lidT],[x0+w,y0-lidT]]);
+  ctx.fillStyle=tg; ctx.fill();
+  ctx.strokeStyle='rgba(90,10,40,.28)'; ctx.lineWidth=1; ctx.stroke();
+
+  // 뚜껑 앞면(두께)
+  var lg=ctx.createLinearGradient(0,y0-lidT,0,y0);
+  lg.addColorStop(0,'#E8547E'); lg.addColorStop(1,'#B72A52');
+  ctx.fillStyle=lg; ctx.fillRect(x0,y0-lidT,w,lidT);
+  // 뚜껑 오른쪽 두께
+  var lg2=ctx.createLinearGradient(x0+w,0,x0+w+dx,0);
+  lg2.addColorStop(0,'#C23B62'); lg2.addColorStop(1,'#8C1738');
+  poly(ctx,[[x0+w,y0-lidT],[x0+w+dx,y0-dy-lidT],[x0+w+dx,y0-dy],[x0+w,y0]]);
+  ctx.fillStyle=lg2; ctx.fill();
+
+  // 뚜껑 리본 (윗면 가로지르기)
+  poly(ctx,[[cx-15,y0-lidT],[cx+15,y0-lidT],[cx+dx+15,y0-dy-lidT],[cx+dx-15,y0-dy-lidT]]);
+  ctx.fillStyle=rib; ctx.fill();
+  // 뚜껑 앞면 리본
+  ctx.fillStyle=rib; ctx.fillRect(cx-15,y0-lidT,30,lidT);
+
+  // 리본 매듭 (보우)
+  var bowX=cx+dx/2, bowY=y0-dy-lidT-2;
+  ctx.save();
+  ctx.translate(bowX,bowY);
+  var bg2=ctx.createLinearGradient(-30,-24,30,14);
+  bg2.addColorStop(0,'#FFF0B8'); bg2.addColorStop(.45,'#FFC93C'); bg2.addColorStop(1,'#D89008');
+  // 왼쪽 고리
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.bezierCurveTo(-12,-30,-44,-26,-38,-6);
+  ctx.bezierCurveTo(-34,8,-12,6,0,0);
+  ctx.fillStyle=bg2; ctx.fill();
+  ctx.strokeStyle='rgba(140,80,0,.35)'; ctx.lineWidth=1.2; ctx.stroke();
+  // 오른쪽 고리
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.bezierCurveTo(12,-30,44,-26,38,-6);
+  ctx.bezierCurveTo(34,8,12,6,0,0);
+  ctx.fillStyle=bg2; ctx.fill();
+  ctx.stroke();
+  // 꼬리
+  ctx.beginPath();
+  ctx.moveTo(-6,2); ctx.bezierCurveTo(-20,22,-30,30,-38,34); ctx.lineTo(-26,34);
+  ctx.bezierCurveTo(-16,26,-8,14,-2,6); ctx.closePath();
+  ctx.fillStyle='#FFC93C'; ctx.fill(); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(6,2); ctx.bezierCurveTo(20,22,30,30,38,34); ctx.lineTo(26,34);
+  ctx.bezierCurveTo(16,26,8,14,2,6); ctx.closePath();
+  ctx.fillStyle='#FFC93C'; ctx.fill(); ctx.stroke();
+  // 매듭
+  var kg=ctx.createRadialGradient(-2,-3,1,0,0,10);
+  kg.addColorStop(0,'#FFF6CE'); kg.addColorStop(.6,'#FFC93C'); kg.addColorStop(1,'#C98706');
+  ctx.beginPath(); ctx.arc(0,0,9,0,7); ctx.fillStyle=kg; ctx.fill();
+  ctx.strokeStyle='rgba(140,80,0,.4)'; ctx.stroke();
+  ctx.restore();
+
+  ctx.restore(); // 뚜껑
+  ctx.restore(); // 흔들림
+}
+
 var OpenStage = {
   kind:'gift', cap:null, taps:0, closed:false,
   reset:function(){
     this.kind='gift'; this.cap=null; this.taps=0;
+    GiftBox.stop();
     $('#openScene').innerHTML=''; $('#openActions').innerHTML='';
     $('#tapDots').style.visibility='hidden';
     $$('#tapDots i').forEach(function(d){ d.classList.remove('on'); });
@@ -1853,7 +2044,7 @@ var OpenStage = {
     var botC = kind==='gift' ? 'linear-gradient(155deg,#FFD9E6 0%,#FF9FC2 36%,#E05A8C 72%,#9E2A57 100%)'
                              : 'linear-gradient(155deg,#FFF3D8 0%,#FFD98A 40%,#E2A31C 76%,#A06A05 100%)';
     scene.innerHTML='<div class="cap-rays" id="capRays"></div>'
-      +'<div class="box-shadow" id="capShadow"></div>'
+      +'<div class="box-shadow" style="top:calc(50% + 82px);width:130px"></div>'
       +'<div class="capsule3d" id="cap3d" role="button" tabindex="0" aria-label="캡슐 열기">'
       +'<div class="cap-half bot" style="background:'+botC+'"></div>'
       +'<div class="cap-half top" style="background:'+topC+'"></div>'
@@ -1884,37 +2075,29 @@ var OpenStage = {
     $('#tapDots').style.visibility='visible';
     var scene=$('#openScene');
     scene.innerHTML='<div class="cap-rays on" id="capRays"></div>'
-      +'<div class="box-stage"><div class="gift3d idle" id="gift3d" role="button" tabindex="0" aria-label="선물 상자 열기">'
-      +'<div class="gift-burst"></div>'
-      +'<div class="face f-back"><div class="ribbon-v"></div></div>'
-      +'<div class="face f-left"><div class="ribbon-h"></div></div>'
-      +'<div class="face f-right"><div class="ribbon-h"></div></div>'
-      +'<div class="face f-bot"></div>'
-      +'<div class="face f-front"><div class="ribbon-v"></div></div>'
-      +'<div class="lid" id="giftLid"><div class="lid-top"></div><div class="lid-side"></div><div class="lid-ribbon"></div>'
-      +'<div class="bow"><span></span><span></span><i></i></div></div>'
-      +'</div><div class="box-shadow"></div></div>';
-    var box=$('#gift3d');
+      +'<canvas id="giftCanvas" width="640" height="640" tabindex="0" role="button" aria-label="선물 상자 열기" '
+      +'style="width:min(76vw,320px);height:min(76vw,320px);display:block;z-index:3;cursor:pointer;touch-action:manipulation;outline:none"></canvas>';
     this.taps=0;
-    box.addEventListener('click', function(){ OpenStage.tapBox(); });
-    box.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); OpenStage.tapBox(); } });
+    GiftBox.lift=0; GiftBox.target=0; GiftBox.shake=0; GiftBox.on=true; GiftBox.last=0; GiftBox.t=0;
+    var cv=$('#giftCanvas');
+    cv.addEventListener('pointerdown', function(e){ e.preventDefault(); OpenStage.tapBox(); });
+    cv.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); OpenStage.tapBox(); } });
+    GiftBox.start();
   },
   tapBox:function(){
     if(this.taps>=3) return;
-    var box=$('#gift3d'); if(!box) return;
     this.taps++;
     SFX.tap();
-    box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
+    GiftBox.shake=1;
     var dots=$$('#tapDots i');
     dots.forEach(function(d,i){ d.classList.toggle('on', i<OpenStage.taps); });
     if(this.taps===1) $('#openHint').textContent='한 번 더! 리본이 살랑살랑~';
-    else if(this.taps===2) { $('#openHint').textContent='마지막 한 번! 팡!'; box.style.transform='rotateX(-16deg) rotateY(-24deg) scale(1.04)'; }
+    else if(this.taps===2){ $('#openHint').textContent='마지막 한 번! 팡!'; }
     else {
-      box.classList.remove('idle');
-      box.classList.add('open');
       $('#openHint').textContent='팡! 선물이 열렸어요 🎉';
-      SFX.open(); confetti(40);
-      setTimeout(function(){ OpenStage.finish(); }, 620);
+      GiftBox.target=1;
+      SFX.open(); confetti(44);
+      setTimeout(function(){ OpenStage.finish(); }, 780);
     }
   },
   showHeartCard:function(){
@@ -1923,6 +2106,7 @@ var OpenStage = {
     setTimeout(function(){ OpenStage.finish(); }, 700);
   },
   finish:function(){
+    GiftBox.stop();
     var c=makeCard(this.kind);
     state.cards.unshift(c);
     var bonus=null;
