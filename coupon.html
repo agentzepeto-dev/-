@@ -1594,10 +1594,12 @@ function capsuleSVG(kind){
   s += '<circle cx="120" cy="30" r="1.7" fill="#FFFFFF" opacity=".8"/>';
 
   /* 맞물림 링 */
-  s += '<rect x="19" y="93.5" width="162" height="12.5" rx="6.2" fill="url(#'+P+'ring)"/>';
-  s += '<rect x="19" y="93.5" width="162" height="3.4" rx="1.7" fill="#FFFFFF" opacity=".9"/>';
-  s += '<rect x="19" y="103" width="162" height="3" rx="1.5" fill="'+shade(botDeep,-32)+'" opacity=".42"/>';
-  s += '<rect x="19" y="93.5" width="162" height="12.5" rx="6.2" fill="none" stroke="'+shade(topTint,-40)+'" stroke-opacity=".38" stroke-width="1.4"/>';
+  s += '<rect x="20" y="94.5" width="160" height="10.5" rx="5.2" fill="url(#'+P+'ring)"/>';
+  s += '<rect x="20" y="94.5" width="160" height="2.6" rx="1.3" fill="#FFFFFF" opacity=".85"/>';
+  s += '<rect x="20" y="102" width="160" height="2.8" rx="1.4" fill="'+shade(botDeep,-34)+'" opacity=".45"/>';
+  s += '<rect x="20" y="94.5" width="160" height="10.5" rx="5.2" fill="none" stroke="'+shade(topTint,-40)+'" stroke-opacity=".35" stroke-width="1.2"/>';
+  s += '<rect x="93" y="94.8" width="14" height="7" rx="3.5" fill="'+shade(topTint,34)+'" stroke="'+shade(topTint,-34)+'" stroke-opacity=".4" stroke-width="1"/>';
+  s += '<rect x="95" y="96" width="10" height="1.6" rx=".8" fill="#FFFFFF" opacity=".8"/>';
 
   /* 스티커 엠블럼 */
   s += '<ellipse cx="100" cy="143" rx="24" ry="6" fill="'+shade(botDeep,-24)+'" opacity=".22"/>';
@@ -1754,8 +1756,8 @@ function coinSVG(type, extra){
   var face = gift ? '#FFD65E' : '#FFC2D6';
   var face2 = gift ? '#F2A900' : '#F0709C';
   var face3 = gift ? '#A97100' : '#B93C68';
-  var emb = gift ? '#FFF1B8' : '#FFF0F6';
-  var emb2 = gift ? '#D99A00' : '#C2416C';
+  var emb = gift ? '#FFF1B8' : '#FF7DA6';
+  var emb2 = gift ? '#D99A00' : '#B52C58';
   var s = '<defs>'
     + '<linearGradient id="'+P+'rim" x1=".15" y1="0" x2=".85" y2="1">'
       + '<stop offset="0" stop-color="'+shade(face,64)+'"/>'
@@ -1799,7 +1801,8 @@ function coinSVG(type, extra){
     s += '</g>';
   } else {
     s += '<path d="M32 21.5c-3.2-3.6-9.7-1.4-7.5 4.2 1.3 3.2 4.8 6 7.5 7.6 2.7-1.6 6.2-4.4 7.5-7.6 2.2-5.6-4.3-7.8-7.5-4.2z" fill="url(#'+P+'emb)"/>';
-    s += '<path d="M32 21.5c-3.2-3.6-9.7-1.4-7.5 4.2 1.3 3.2 4.8 6 7.5 7.6 2.7-1.6 6.2-4.4 7.5-7.6 2.2-5.6-4.3-7.8-7.5-4.2z" fill="none" stroke="'+face2+'" stroke-opacity=".55" stroke-width="1.2"/>';
+    s += '<path d="M32 21.5c-3.2-3.6-9.7-1.4-7.5 4.2 1.3 3.2 4.8 6 7.5 7.6 2.7-1.6 6.2-4.4 7.5-7.6 2.2-5.6-4.3-7.8-7.5-4.2z" fill="none" stroke="#FFFFFF" stroke-opacity=".75" stroke-width="1.6"/>';
+    s += '<ellipse cx="28.6" cy="24.4" rx="2.6" ry="1.3" fill="#FFFFFF" opacity=".85" transform="rotate(-32 28.6 24.4)"/>';
   }
   /* 빛이 스치는 광택 */
   s += '<path d="M11 22A25 25 0 0 1 42 9.5" fill="none" stroke="url(#'+P+'sw)" stroke-width="6.4" stroke-linecap="round"/>';
