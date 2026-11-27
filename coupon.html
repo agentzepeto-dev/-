@@ -26,8 +26,8 @@ h1,h2,h3,p{margin:0}
 .brand-text{font-weight:900;font-size:15px;letter-spacing:-.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .coinbar{margin-left:auto;display:flex;gap:6px;flex:0 0 auto}
 .coin{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:999px;background:#fff;box-shadow:0 3px 8px rgba(214,120,155,.18);font-weight:900;font-size:15px}
-.coin .ico{display:grid;place-items:center;width:22px;height:22px}
-.coin .ico svg{width:22px;height:22px;display:block;filter:drop-shadow(0 2px 2px rgba(150,90,20,.28))}
+.coin .ico{display:grid;place-items:center;width:25px;height:25px}
+.coin .ico svg{width:25px;height:25px;display:block;filter:drop-shadow(0 2px 3px rgba(150,90,20,.32))}
 .coin.heart{border:2px solid #FFD1E0}
 .coin.gift{border:2px solid #FFE3B0}
 .coin.pop{animation:coinpop .45s}
@@ -1473,17 +1473,21 @@ function machineSVG(kind){
   s += '<path d="M37 121l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#FFF3B0" opacity=".9"/>';
 
   /* 레버 */
-  s += '<g class="lever" id="lever-'+P+'" style="transform-box:view-box;transform-origin:171px 182px;transition:transform .2s cubic-bezier(.3,.9,.35,1)">';
-  s += '<path d="M171 182L184 171" stroke="'+shade(edge,-30)+'" stroke-width="10.5" stroke-linecap="round" opacity=".45"/>';
-  s += '<path d="M171 181L183.5 171.5" stroke="url(#'+P+'gold)" stroke-width="8.6" stroke-linecap="round"/>';
-  s += '<path d="M172 178.5L182 170" stroke="#FFF8D0" stroke-width="2.4" stroke-linecap="round" opacity=".75"/>';
-  s += '<circle cx="187" cy="168" r="11" fill="url(#'+P+'gold)" stroke="'+shade(edge,-20)+'" stroke-opacity=".5" stroke-width="1.6"/>';
-  s += '<ellipse cx="183.4" cy="163.8" rx="3.8" ry="2.5" fill="#FFFFFF" opacity=".9" transform="rotate(-32 183.4 163.8)"/>';
-  s += '<path d="M180 175A10 10 0 0 0 194 173" fill="none" stroke="'+shade(edge,-30)+'" stroke-width="1.4" opacity=".35"/>';
+  s += '<ellipse cx="177" cy="192" rx="13" ry="7" fill="'+shade(edge,-40)+'" opacity=".28" filter="url(#'+P+'bl2)"/>';
+  s += '<rect x="166" y="171" width="16" height="27" rx="8" fill="url(#'+P+'crome)" stroke="'+shade(edge,-20)+'" stroke-opacity=".45" stroke-width="1.5"/>';
+  s += '<rect x="168.5" y="174" width="4" height="21" rx="2" fill="#FFFFFF" opacity=".7"/>';
+  s += '<circle cx="174" cy="178" r="1.7" fill="#8E9BAA"/>';
+  s += '<circle cx="174" cy="191" r="1.7" fill="#8E9BAA"/>';
+  s += '<g class="lever" id="lever-'+P+'" style="transform-box:view-box;transform-origin:174px 184px;transition:transform .2s cubic-bezier(.3,.9,.35,1)">';
+  s += '<path d="M174 184L191 172" stroke="'+shade(edge,-30)+'" stroke-width="12" stroke-linecap="round" opacity=".4"/>';
+  s += '<path d="M174 183L190 171.5" stroke="url(#'+P+'gold)" stroke-width="9.4" stroke-linecap="round"/>';
+  s += '<path d="M175 179.5L188 170" stroke="#FFF8D0" stroke-width="2.6" stroke-linecap="round" opacity=".8"/>';
+  s += '<path d="M176 187.5L189 177" stroke="'+shade(edge,-30)+'" stroke-width="2" stroke-linecap="round" opacity=".35"/>';
+  s += '<circle cx="193" cy="169" r="11.6" fill="url(#'+P+'gold)" stroke="'+shade(edge,-24)+'" stroke-opacity=".55" stroke-width="1.8"/>';
+  s += '<ellipse cx="189.2" cy="164.6" rx="4" ry="2.6" fill="#FFFFFF" opacity=".92" transform="rotate(-32 189.2 164.6)"/>';
+  s += '<path d="M185 176.5A10.5 10.5 0 0 0 200 174" fill="none" stroke="'+shade(edge,-30)+'" stroke-width="1.5" opacity=".35"/>';
+  s += '<circle cx="197" cy="173" r="1.6" fill="#FFF6C2" opacity=".9"/>';
   s += '</g>';
-  s += '<circle cx="171" cy="182" r="10.5" fill="url(#'+P+'crome)" stroke="'+shade(edge,-20)+'" stroke-opacity=".45" stroke-width="1.6"/>';
-  s += '<circle cx="171" cy="182" r="4.2" fill="#8E9BAA"/>';
-  s += '<circle cx="169.6" cy="180.4" r="1.8" fill="#FFFFFF" opacity=".8"/>';
 
   /* 간판 */
   s += '<ellipse cx="100" cy="270" rx="40" ry="4" fill="'+shade(edge,-30)+'" opacity=".18" filter="url(#'+P+'bl2)"/>';
@@ -1518,7 +1522,7 @@ function machineSVG(kind){
   s += '<rect x="94" y="274.5" width="12" height="3.4" rx="1.7" fill="#0F0611" opacity=".65"/>';
   s += '<path d="M73 271q9 -4 18 -2" stroke="#FFFFFF" stroke-width="1.6" fill="none" opacity=".35" stroke-linecap="round"/>';
 
-  return '<svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg" role="img">'+s+'</svg>';
+  return '<svg viewBox="-8 0 216 320" xmlns="http://www.w3.org/2000/svg" role="img">'+s+'</svg>';
 }
 
 /* ---------------- 뽑기 캡슐 ---------------- */
@@ -1526,8 +1530,8 @@ function capsuleSVG(kind){
   var gift = kind === 'gift';
   var P = gift ? 'cpG' : 'cpH';
   var topTint = gift ? '#FFB9D2' : '#B9A4FF';
-  var botCol  = gift ? '#FFF0F5' : '#F4EEFF';
-  var botDeep = gift ? '#FFC2D8' : '#D9C9FF';
+  var botCol  = gift ? '#FFE7F0' : '#F1E8FF';
+  var botDeep = gift ? '#FFB9D2' : '#C9B4FF';
   var emb  = gift ? '#FF5C8D' : '#8B63E8';
   var emb2 = gift ? '#C93A6B' : '#6B45C6';
   var s = '<defs>'
@@ -1567,14 +1571,18 @@ function capsuleSVG(kind){
   /* 아래 통 */
   s += '<path d="M22 100a78 78 0 0 0 156 0Z" fill="url(#'+P+'bot)"/>';
   s += '<path d="M22 100a78 78 0 0 0 156 0" fill="none" stroke="'+shade(botDeep,-30)+'" stroke-opacity=".45" stroke-width="2.4"/>';
-  s += '<path d="M30 106a70 70 0 0 0 140 0" fill="none" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="2.2"/>';
+  s += '<path d="M24 103a76 76 0 0 0 152 0a74 74 0 0 1 -152 0Z" fill="'+shade(botDeep,-26)+'" opacity=".28"/>';
+  s += '<path d="M30 110a70 70 0 0 0 140 0" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="2.6"/>';
   s += '<path d="M40 140c14 22 46 34 82 30" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="9" stroke-linecap="round"/>';
   s += '<path d="M128 168c14-6 22-14 28-26" fill="none" stroke="'+shade(botDeep,-20)+'" stroke-opacity=".35" stroke-width="10" stroke-linecap="round"/>';
 
   /* 위 반투명 캡슐 */
   s += '<path d="M22 100a78 78 0 0 1 156 0Z" fill="url(#'+P+'top)" opacity=".92"/>';
   s += '<g clip-path="url(#'+P+'topClip)">';
-  s += '<ellipse cx="100" cy="92" rx="52" ry="30" fill="#FFFFFF" opacity=".5"/>';
+  s += '<ellipse cx="100" cy="90" rx="50" ry="28" fill="#FFFFFF" opacity=".45"/>';
+  s += gift
+    ? '<g opacity=".3" transform="translate(100 88) rotate(-8)"><path d="M-13 -4L1 -11L15 -4V10L1 17L-13 10Z" fill="#FFFFFF"/><path d="M-13 -4L1 3V17L-13 10Z" fill="#FFE7A8"/><path d="M-3 -8L10 -1V3L-3 -4Z" fill="#FFD166"/></g>'
+    : '<path d="M100 74c-4-4.6-12-1.8-9.2 5.2 1.6 3.8 6 7.2 9.2 9.2 3.2-2 7.6-5.4 9.2-9.2 2.8-7-5.2-9.8-9.2-5.2z" fill="#FFFFFF" opacity=".34"/>';
   s += '<path d="M74 84c4-12 14-20 26-22" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="14" stroke-linecap="round" fill="none"/>';
   s += '</g>';
   s += '<path d="M22 100a78 78 0 0 1 156 0" fill="none" stroke="'+shade(topTint,-34)+'" stroke-opacity=".5" stroke-width="2.6"/>';
@@ -1593,11 +1601,12 @@ function capsuleSVG(kind){
   s += '<rect x="16" y="92" width="168" height="17" rx="8.5" fill="none" stroke="'+shade(topTint,-38)+'" stroke-opacity=".45" stroke-width="1.6"/>';
 
   /* 스티커 엠블럼 */
-  s += '<circle cx="100" cy="132" r="18" fill="#FFFFFF" opacity=".95"/>';
-  s += '<circle cx="100" cy="132" r="18" fill="none" stroke="'+shade(botDeep,-14)+'" stroke-opacity=".5" stroke-width="1.6"/>';
-  s += '<circle cx="100" cy="132" r="14.6" fill="'+shade(botCol,30)+'" opacity=".7"/>';
+  s += '<ellipse cx="100" cy="140" rx="23" ry="6" fill="'+shade(botDeep,-20)+'" opacity=".22"/>';
+  s += '<circle cx="100" cy="134" r="21" fill="#FFFFFF" opacity=".97"/>';
+  s += '<circle cx="100" cy="134" r="21" fill="none" stroke="'+shade(botDeep,-14)+'" stroke-opacity=".45" stroke-width="1.8"/>';
+  s += '<circle cx="100" cy="134" r="17.2" fill="'+shade(botCol,34)+'" opacity=".8"/>';
   if(gift){
-    s += '<g transform="translate(100 134)">';
+    s += '<g transform="translate(100 137)">';
     s += '<path d="M-8.5 -2.5L1.5 -7L11 -2.5V6.5L1 11L-8.5 6.5Z" fill="url(#'+P+'emb)"/>';
     s += '<path d="M-8.5 -2.5L1 1.5V11L-8.5 6.5Z" fill="'+shade(emb,14)+'"/>';
     s += '<path d="M1 1.5L11 -2.5V6.5L1 11Z" fill="'+shade(emb2,-4)+'"/>';
@@ -1607,10 +1616,10 @@ function capsuleSVG(kind){
     s += '<ellipse cx="-4" cy="-1.6" rx="2.6" ry="1.4" fill="#FFFFFF" opacity=".7" transform="rotate(-28 -4 -1.6)"/>';
     s += '</g>';
   } else {
-    s += '<path d="M100 126c-2.4-2.6-7-1-5.4 3 .9 2.3 3.4 4.2 5.4 5.4 2-1.2 4.5-3.1 5.4-5.4 1.6-4-3-5.6-5.4-3z" fill="url(#'+P+'emb)"/>';
-    s += '<ellipse cx="97.6" cy="129.4" rx="2.4" ry="1.3" fill="#FFFFFF" opacity=".8" transform="rotate(-30 97.6 129.4)"/>';
+    s += '<path d="M100 127c-2.9-3.1-8.4-1.2-6.5 3.6 1.1 2.7 4.1 5.1 6.5 6.5 2.4-1.4 5.4-3.8 6.5-6.5 1.9-4.8-3.6-6.7-6.5-3.6z" fill="url(#'+P+'emb)"/>';
+    s += '<ellipse cx="97.2" cy="131" rx="2.9" ry="1.5" fill="#FFFFFF" opacity=".85" transform="rotate(-30 97.2 131)"/>';
   }
-  s += '<path d="M86 120a16 16 0 0 1 22 -5" fill="none" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2.2"/>';
+  s += '<path d="M83 120a20 20 0 0 1 30 -6" fill="none" stroke="#FFFFFF" stroke-opacity=".85" stroke-width="2.6"/>';
 
   return '<svg class="capsule" viewBox="0 0 200 208" xmlns="http://www.w3.org/2000/svg" role="img">'+s+'</svg>';
 }
@@ -1734,57 +1743,60 @@ function giftBoxSVG(){
 function coinSVG(type, extra){
   var gift = type === 'gift';
   var P = gift ? 'coG' : 'coH';
-  var face = gift ? '#FFD35C' : '#FFC2D6';
-  var face2 = gift ? '#F0A800' : '#F2709B';
-  var face3 = gift ? '#B97A00' : '#C2416C';
+  var face = gift ? '#FFD65E' : '#FFC2D6';
+  var face2 = gift ? '#F2A900' : '#F0709C';
+  var face3 = gift ? '#A97100' : '#B93C68';
+  var emb = gift ? '#FFF1B8' : '#FFF0F6';
+  var emb2 = gift ? '#D99A00' : '#C2416C';
   var s = '<defs>'
-    + '<linearGradient id="'+P+'rim" x1=".2" y1="0" x2=".8" y2="1">'
-      + '<stop offset="0" stop-color="'+shade(face,60)+'"/>'
-      + '<stop offset=".25" stop-color="'+face2+'"/>'
-      + '<stop offset=".5" stop-color="'+face3+'"/>'
-      + '<stop offset=".72" stop-color="'+shade(face,40)+'"/>'
-      + '<stop offset="1" stop-color="'+face2+'"/>'
+    + '<linearGradient id="'+P+'rim" x1=".15" y1="0" x2=".85" y2="1">'
+      + '<stop offset="0" stop-color="'+shade(face,64)+'"/>'
+      + '<stop offset=".22" stop-color="'+face+'"/>'
+      + '<stop offset=".45" stop-color="'+face2+'"/>'
+      + '<stop offset=".62" stop-color="'+shade(face,50)+'"/>'
+      + '<stop offset=".82" stop-color="'+face2+'"/>'
+      + '<stop offset="1" stop-color="'+face3+'"/>'
     + '</linearGradient>'
-    + '<radialGradient id="'+P+'face" cx=".34" cy=".28" r=".85">'
-      + '<stop offset="0" stop-color="'+shade(face,55)+'"/>'
-      + '<stop offset=".5" stop-color="'+face+'"/>'
+    + '<radialGradient id="'+P+'face" cx=".32" cy=".24" r=".9">'
+      + '<stop offset="0" stop-color="'+shade(face,58)+'"/>'
+      + '<stop offset=".45" stop-color="'+face+'"/>'
       + '<stop offset="1" stop-color="'+face2+'"/>'
     + '</radialGradient>'
-    + '<linearGradient id="'+P+'sw" x1="0" y1="0" x2=".6" y2="1">'
-      + '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".85"/>'
-      + '<stop offset=".45" stop-color="#FFFFFF" stop-opacity=".1"/>'
+    + '<linearGradient id="'+P+'sw" x1=".1" y1="0" x2=".6" y2="1">'
+      + '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".9"/>'
+      + '<stop offset=".4" stop-color="#FFFFFF" stop-opacity=".16"/>'
       + '<stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>'
     + '</linearGradient>'
-    + '<radialGradient id="'+P+'emb" cx=".35" cy=".3" r=".8">'
-      + '<stop offset="0" stop-color="'+shade(face,70)+'"/>'
-      + '<stop offset=".6" stop-color="'+shade(face,26)+'"/>'
-      + '<stop offset="1" stop-color="'+shade(face2,-8)+'"/>'
+    + '<radialGradient id="'+P+'emb" cx=".34" cy=".26" r=".85">'
+      + '<stop offset="0" stop-color="'+shade(emb,40)+'"/>'
+      + '<stop offset=".55" stop-color="'+emb+'"/>'
+      + '<stop offset="1" stop-color="'+emb2+'"/>'
     + '</radialGradient>'
     + '</defs>';
   s += '<circle cx="32" cy="32" r="30" fill="url(#'+P+'rim)"/>';
-  s += '<circle cx="32" cy="32" r="30" fill="none" stroke="'+shade(face3,-20)+'" stroke-opacity=".45" stroke-width="1.6"/>';
+  s += '<circle cx="32" cy="32" r="29.2" fill="none" stroke="'+face3+'" stroke-opacity=".55" stroke-width="1.6"/>';
   /* 톱니 테두리 */
-  s += '<circle cx="32" cy="32" r="26.5" fill="none" stroke="'+shade(face,30)+'" stroke-opacity=".55" stroke-width="4.6" stroke-dasharray="1.8 2.4"/>';
-  s += '<circle cx="32" cy="32" r="23.4" fill="url(#'+P+'face)"/>';
-  s += '<circle cx="32" cy="32" r="23.4" fill="none" stroke="'+shade(face2,-18)+'" stroke-opacity=".5" stroke-width="1.4"/>';
-  s += '<circle cx="32" cy="32" r="19.5" fill="none" stroke="'+shade(face,45)+'" stroke-opacity=".5" stroke-width="1.2"/>';
+  s += '<circle cx="32" cy="32" r="27.6" fill="none" stroke="'+shade(face,44)+'" stroke-opacity=".75" stroke-width="3.2" stroke-dasharray="1.9 2.5"/>';
+  s += '<circle cx="32" cy="32" r="25" fill="url(#'+P+'face)"/>';
+  s += '<circle cx="32" cy="32" r="25" fill="none" stroke="'+face2+'" stroke-opacity=".5" stroke-width="1.4"/>';
+  s += '<circle cx="32" cy="32" r="21.6" fill="none" stroke="'+shade(face,44)+'" stroke-opacity=".55" stroke-width="1.3"/>';
   if(gift){
-    s += '<g transform="translate(32 33)">';
+    s += '<g transform="translate(32 33.5) scale(1.32)">';
     s += '<path d="M-9 -2.5L1 -7.5L11 -2.5V6L1 11L-9 6Z" fill="url(#'+P+'emb)"/>';
-    s += '<path d="M-9 -2.5L1 2V11L-9 6Z" fill="'+shade(face2,-4)+'"/>';
-    s += '<path d="M1 2L11 -2.5V6L1 11Z" fill="'+shade(face3,4)+'"/>';
-    s += '<path d="M-9 -4.8L1 0.4L11 -4.8L1 -9.6Z" fill="'+shade(face,58)+'"/>';
-    s += '<path d="M-3 -5.8L7 -0.8V0.8L-3 -4Z" fill="'+shade(face3,6)+'"/>';
-    s += '<path d="M-8.2 -0.8L0.4 3.4V5L-8.2 0.8Z" fill="'+shade(face3,6)+'"/>';
+    s += '<path d="M-9 -2.5L1 2V11L-9 6Z" fill="'+shade(emb2,-6)+'"/>';
+    s += '<path d="M1 2L11 -2.5V6L1 11Z" fill="'+shade(emb2,-22)+'"/>';
+    s += '<path d="M-9 -4.8L1 0.4L11 -4.8L1 -9.6Z" fill="'+shade(emb,26)+'"/>';
+    s += '<path d="M-3 -5.8L7 -0.8V1L-3 -4Z" fill="'+shade(face2,-8)+'"/>';
+    s += '<path d="M-8.2 -0.8L0.4 3.4V5.2L-8.2 1Z" fill="'+shade(face2,-8)+'"/>';
     s += '</g>';
   } else {
-    s += '<path d="M32 23c-2.6-2.9-7.8-1.1-6 3.4 1 2.5 3.8 4.7 6 6 2.2-1.3 5-3.5 6-6 1.8-4.5-3.4-6.3-6-3.4z" fill="url(#'+P+'emb)"/>';
-    s += '<path d="M32 23c-2.6-2.9-7.8-1.1-6 3.4 1 2.5 3.8 4.7 6 6 2.2-1.3 5-3.5 6-6 1.8-4.5-3.4-6.3-6-3.4z" fill="none" stroke="'+shade(face2,-14)+'" stroke-opacity=".45" stroke-width="1.2"/>';
+    s += '<path d="M32 21.5c-3.2-3.6-9.7-1.4-7.5 4.2 1.3 3.2 4.8 6 7.5 7.6 2.7-1.6 6.2-4.4 7.5-7.6 2.2-5.6-4.3-7.8-7.5-4.2z" fill="url(#'+P+'emb)"/>';
+    s += '<path d="M32 21.5c-3.2-3.6-9.7-1.4-7.5 4.2 1.3 3.2 4.8 6 7.5 7.6 2.7-1.6 6.2-4.4 7.5-7.6 2.2-5.6-4.3-7.8-7.5-4.2z" fill="none" stroke="'+face2+'" stroke-opacity=".55" stroke-width="1.2"/>';
   }
   /* 빛이 스치는 광택 */
-  s += '<path d="M12 20A24 24 0 0 1 44 9" fill="none" stroke="url(#'+P+'sw)" stroke-width="7" stroke-linecap="round"/>';
-  s += '<ellipse cx="21" cy="18" rx="6.5" ry="3" fill="#FFFFFF" opacity=".8" transform="rotate(-38 21 18)"/>';
-  s += '<path d="M32 62A30 30 0 0 0 58 40" fill="none" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2.4" stroke-linecap="round"/>';
+  s += '<path d="M11 22A25 25 0 0 1 42 9.5" fill="none" stroke="url(#'+P+'sw)" stroke-width="6.4" stroke-linecap="round"/>';
+  s += '<ellipse cx="20" cy="18.5" rx="6" ry="2.8" fill="#FFFFFF" opacity=".85" transform="rotate(-40 20 18.5)"/>';
+  s += '<path d="M33 60A29 29 0 0 0 57.5 40" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="2.4" stroke-linecap="round"/>';
   return '<svg class="coin-svg'+(extra?' '+extra:'')+'" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+s+'</svg>';
 }
 
