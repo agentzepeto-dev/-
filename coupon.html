@@ -122,9 +122,9 @@ h1,h2,h3,p{margin:0}
 .hc-art{position:relative;height:150px;margin:8px 0 10px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#2E1530,#4A2144);box-shadow:inset 0 3px 12px rgba(0,0,0,.5)}
 .hc-art canvas{width:100%;height:100%;display:block}
 .ticket-stack{position:relative;width:100%;height:100%;display:grid;place-items:center}
-.mini-ticket{position:absolute;width:106px;height:140px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.4);display:grid;place-items:center;overflow:hidden;transform:rotate(calc((var(--i) - 1) * 13deg)) translateX(calc((var(--i) - 1) * 66px));}
+.mini-ticket{position:absolute;width:104px;height:130px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.4);display:grid;place-items:center;overflow:hidden;transform:rotate(calc((var(--i) - 1) * 12deg)) translateX(calc((var(--i) - 1) * 62px));}
 .mini-ticket:after{content:'';position:absolute;inset:0;background:linear-gradient(118deg,rgba(255,255,255,.45),rgba(255,255,255,0) 38%,rgba(255,255,255,.3) 72%)}
-.mini-ticket:before{content:'SCRATCH';position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:8px;font-weight:900;letter-spacing:2px;color:rgba(255,255,255,.75)}
+.mini-ticket:before{content:'SCRATCH';position:absolute;bottom:7px;left:0;right:0;text-align:center;font-size:8px;font-weight:900;letter-spacing:2px;color:rgba(255,255,255,.75)}
 .mini-ticket svg{width:56px;height:56px;position:relative;z-index:1;filter:drop-shadow(0 4px 6px rgba(0,0,0,.3))}
 .hc-kinds{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
 .hc-kinds.k5{grid-template-columns:repeat(5,1fr)}
@@ -144,7 +144,7 @@ h1,h2,h3,p{margin:0}
 .tower-btns{display:flex;gap:6px;pointer-events:auto}
 .tbtn{width:38px;height:38px;border-radius:12px;background:rgba(20,6,24,.55);border:1.5px solid rgba(255,255,255,.24);color:#fff;font-size:16px;display:grid;place-items:center;backdrop-filter:blur(6px)}
 .tower-controls{position:absolute;left:0;right:0;bottom:calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px;padding:0 12px;z-index:3}
-.tower-pad{flex:1;height:66px;border-radius:18px;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.3);backdrop-filter:blur(6px);color:#fff;font-size:24px;font-weight:900;display:grid;place-items:center;box-shadow:0 5px 0 rgba(0,0,0,.28)}
+.tower-pad{flex:1;height:66px;border-radius:18px;background:rgba(255,110,165,.24);border:2px solid rgba(255,255,255,.45);backdrop-filter:blur(6px);color:#fff;font-size:24px;font-weight:900;display:grid;place-items:center;box-shadow:0 5px 0 rgba(60,0,30,.3),inset 0 2px 0 rgba(255,255,255,.35)}
 .tower-pad.on{background:rgba(255,120,170,.5);transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.28)}
 .tower-msg{position:absolute;left:50%;top:18%;transform:translateX(-50%);z-index:4;background:rgba(255,255,255,.94);color:#5B2441;font-weight:900;font-size:13px;border-radius:999px;padding:7px 14px;box-shadow:0 6px 16px rgba(0,0,0,.32);opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap}
 .tower-msg.show{opacity:1}
@@ -160,7 +160,7 @@ h1,h2,h3,p{margin:0}
 
 /* ---------- scratch ---------- */
 #scnScratch{background:linear-gradient(170deg,#241333,#38183B 55%,#1C0E20)}
-.scratch-wrap{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 14px calc(12px + env(safe-area-inset-bottom));overflow-y:auto}
+.scratch-wrap{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:0 14px calc(12px + env(safe-area-inset-bottom));overflow-y:auto}
 .scratch-kinds{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;padding-top:2px}
 .sk-btn{display:flex;flex-direction:column;align-items:center;gap:2px;width:60px;padding:7px 2px 6px;border-radius:14px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.18);color:#FFF1F6;font-size:10px;font-weight:900;transition:transform .1s}
 .sk-btn svg{width:24px;height:24px}
@@ -2540,15 +2540,15 @@ function startTower(kind){
 Tower.reset=function(){
   var W=this.W,H=this.H;
   this.platforms=[];
-  this.player={ x:W/2, h:80, vx:0, vy:0, squash:1 };
-  this.camH=0; this.maxH=80; this.floorN=0; this.dir=0; this.dirTouch=0;
+  this.player={ x:W/2, h:150, vx:0, vy:0, squash:1 };
+  this.camH=0; this.maxH=150; this.floorN=0; this.dir=0; this.dirTouch=0;
   this.coinsWon=0; this.nextMilestone=10; this.over=false; this.floorSeq=0; this.lastX=W/2;
   // 시작 바닥
-  this.platforms.push({ x:W/2, y:44, w:Math.max(150,W*0.62), vx:0, type:0, floor:0, base:true });
-  this.topY=44;
+  this.platforms.push({ x:W/2, y:130, w:Math.max(150,W*0.62), vx:0, type:0, floor:0, base:true });
+  this.topY=130;
   // 위로 발판 생성
   for(var i=0;i<14;i++) this.spawn();
-  this.player.h=80;
+  this.player.h=150;
 };
 
 Tower.spawn=function(){
@@ -2608,7 +2608,7 @@ Tower.gameOver=function(){
   if(this.over) return;
   this.over=true; this.running=false;
   SFX.gameover();
-  var floors=Math.max(0,Math.floor((this.maxH-80)/70));
+  var floors=Math.max(0,Math.floor((this.maxH-150)/70));
   var best=state.best[this.kind]||0;
   var isNew=floors>best;
   if(isNew){ state.best[this.kind]=floors; save(); }
@@ -2628,7 +2628,7 @@ Tower.gameOver=function(){
 };
 
 Tower.hud=function(){
-  var f=Math.max(0,Math.floor((this.maxH-80)/70));
+  var f=Math.max(0,Math.floor((this.maxH-150)/70));
   var el=$('#towerFloor');
   if(el && el.textContent!==String(f)) el.textContent=f;
 };
@@ -2641,7 +2641,7 @@ Tower.flash=function(text){
 };
 
 Tower.award=function(){
-  var f=Math.floor((this.maxH-80)/70);
+  var f=Math.floor((this.maxH-150)/70);
   if(f>=this.nextMilestone){
     var milestone=this.nextMilestone;
     this.nextMilestone+=10;
