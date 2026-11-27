@@ -26,7 +26,7 @@ h1,h2,h3,p{margin:0}
 #app{height:100dvh;display:flex;flex-direction:column;overflow:hidden;position:relative}
 
 /* ---------- topbar ---------- */
-.topbar{display:flex;align-items:center;gap:8px;padding:calc(9px + env(safe-area-inset-top)) 14px 6px;flex:0 0 auto;position:relative;z-index:5}
+.topbar{display:flex;align-items:center;gap:8px;padding:calc(9px + env(safe-area-inset-top)) 14px 6px;flex:0 0 auto;position:relative;z-index:5;width:100%;max-width:600px;margin:0 auto}
 .brand{display:flex;align-items:center;gap:7px;min-width:0}
 .brand .blogo{font-size:21px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
 .brand b{font-size:14.5px;font-weight:900;letter-spacing:-.4px;color:#FFF3E6;text-shadow:0 2px 6px rgba(0,0,0,.35);white-space:nowrap;background:rgba(34,10,30,.34);padding:4px 10px;border-radius:999px}
@@ -51,7 +51,7 @@ h1,h2,h3,p{margin:0}
 .tool:active{transform:scale(.96)}
 
 /* ---------- hero ---------- */
-.hero{position:relative;z-index:2;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:8px 16px 4px}
+.hero{position:relative;z-index:2;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:8px 16px 4px;width:100%;max-width:600px;margin:0 auto}
 .hero-glow{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:min(120%,520px);height:70%;background:radial-gradient(ellipse at center,rgba(255,150,190,.42),rgba(255,120,170,.14) 45%,rgba(255,120,170,0) 70%);pointer-events:none;animation:glowpulse 4.5s ease-in-out infinite}
 @keyframes glowpulse{50%{opacity:.62;transform:translate(-50%,-50%) scale(1.08)}}
 .play3d{
@@ -80,7 +80,7 @@ h1,h2,h3,p{margin:0}
 
 /* ---------- gacha dock ---------- */
 .dock{
-  position:relative;z-index:3;flex:0 0 auto;margin:0 10px calc(10px + env(safe-area-inset-bottom));
+  position:relative;z-index:3;flex:0 0 auto;margin:0 auto calc(10px + env(safe-area-inset-bottom));max-width:520px;width:calc(100% - 20px);
   border-radius:26px;padding:9px 9px 10px;
   background:linear-gradient(180deg,#FFFCF8 0%,#FFEFF1 46%,#FFDCE6 100%);
   box-shadow:0 10px 0 rgba(150,50,95,.24),0 26px 40px rgba(10,0,14,.45),inset 0 2px 0 #fff;
@@ -2118,7 +2118,7 @@ function drawTowerPreview(){
   // 발판 미리보기
   var plats=[[170,128,96],[96,96,86],[228,68,78],[150,38,66]];
   plats.forEach(function(p,i){ drawPlatformAt(ctx,'cheese',p[0],p[1],p[2],i,W); });
-  drawTowerCritter(ctx,238,58,1);
+  drawTowerCritter(ctx,238,58,{w:1,h:1});
   ctx.fillStyle='rgba(255,255,255,.9)'; ctx.font='900 13px system-ui'; ctx.textAlign='left';
   ctx.fillText('🧀 🍔 🍓',10,20);
 }
