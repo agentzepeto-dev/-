@@ -121,6 +121,11 @@ h1,h2,h3,p{margin:0}
 .hc-desc{font-size:12px;font-weight:800;color:#9B7B8B;margin-top:1px}
 .hc-art{position:relative;height:150px;margin:8px 0 10px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#2E1530,#4A2144);box-shadow:inset 0 3px 12px rgba(0,0,0,.5)}
 .hc-art canvas{width:100%;height:100%;display:block}
+.ticket-stack{position:relative;width:100%;height:100%;display:grid;place-items:center}
+.mini-ticket{position:absolute;width:106px;height:140px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.4);display:grid;place-items:center;overflow:hidden;transform:rotate(calc((var(--i) - 1) * 13deg)) translateX(calc((var(--i) - 1) * 66px));}
+.mini-ticket:after{content:'';position:absolute;inset:0;background:linear-gradient(118deg,rgba(255,255,255,.45),rgba(255,255,255,0) 38%,rgba(255,255,255,.3) 72%)}
+.mini-ticket:before{content:'SCRATCH';position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:8px;font-weight:900;letter-spacing:2px;color:rgba(255,255,255,.75)}
+.mini-ticket svg{width:56px;height:56px;position:relative;z-index:1;filter:drop-shadow(0 4px 6px rgba(0,0,0,.3))}
 .hc-kinds{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
 .hc-kinds.k5{grid-template-columns:repeat(5,1fr)}
 .kind-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 3px 7px;border-radius:14px;background:linear-gradient(180deg,#fff,#F6E9F0);box-shadow:0 3px 0 rgba(170,110,140,.3),0 5px 10px rgba(120,60,90,.12);font-size:10.5px;font-weight:900;color:#5B3448;transition:transform .08s}
@@ -130,7 +135,7 @@ h1,h2,h3,p{margin:0}
 
 /* ---------- tower ---------- */
 #scnTower{background:#1B0F1C}
-.tower-wrap{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;touch-action:none}
+.tower-wrap{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;touch-action:none;width:100%;max-width:560px;margin:0 auto}
 #towerCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
 .tower-hud{position:absolute;left:0;right:0;top:calc(6px + env(safe-area-inset-top));display:flex;align-items:flex-start;justify-content:space-between;padding:0 12px;pointer-events:none;z-index:3}
 .th-stat{background:rgba(20,6,24,.55);border:1.5px solid rgba(255,255,255,.24);border-radius:14px;padding:5px 11px;color:#fff;font-weight:900;backdrop-filter:blur(6px);line-height:1.15}
@@ -1353,9 +1358,9 @@ function drawMachine(ctx, kind, o){
   panG.addColorStop(0,'rgba(255,248,240,.24)'); panG.addColorStop(.4,'rgba(255,240,232,.10)'); panG.addColorStop(1,'rgba(40,0,20,.28)');
   ctx.fillStyle=panG; roundRect(ctx,68,206,224,214,20); ctx.fill();
   ctx.save(); roundRect(ctx,68,206,224,214,20); ctx.clip();
-  for(var bi=0;bi<26;bi++){
-    ctx.fillStyle= bi%2? 'rgba(255,255,255,.035)':'rgba(0,0,0,.035)';
-    ctx.fillRect(70+bi*8.6,206,4,214);
+  for(var bi=0;bi<18;bi++){
+    ctx.fillStyle= bi%2? 'rgba(255,255,255,.022)':'rgba(0,0,0,.022)';
+    ctx.fillRect(70+bi*12.4,206,6,214);
   }
   ctx.restore();
   ctx.strokeStyle='rgba(255,255,255,.46)'; ctx.lineWidth=2; roundRect(ctx,68,206,224,214,20); ctx.stroke();
@@ -2024,14 +2029,14 @@ function drawGiftBox(ctx){
 var OpenStage = {
   kind:'gift', cap:null, taps:0, closed:false,
   reset:function(){
-    this.kind='gift'; this.cap=null; this.taps=0;
+    this.kind='gift'; this.cap=null; this.taps=0; this.closed=false;
     GiftBox.stop();
     $('#openScene').innerHTML=''; $('#openActions').innerHTML='';
     $('#tapDots').style.visibility='hidden';
     $$('#tapDots i').forEach(function(d){ d.classList.remove('on'); });
   },
   begin:function(kind,cap){
-    this.kind=kind; this.cap=cap; this.taps=0;
+    this.kind=kind; this.cap=cap; this.taps=0; this.closed=false;
     $('#openScene').innerHTML='';
     $('#openActions').innerHTML='';
     $('#tapDots').style.visibility='hidden';
@@ -2285,9 +2290,10 @@ function renderHub(){
   SCRATCH_ORDER.forEach(function(){});
   var art=$('#hubTicketArt');
   if(art && !art.dataset.done){
-    art.innerHTML=SCRATCH_ORDER.map(function(k,i){
-      return '<div style="width:'+(i===2?54:40)+'px;height:'+(i===2?54:40)+'px;transform:rotate('+(-14+i*7)+'deg);filter:drop-shadow(0 6px 8px rgba(0,0,0,.4))">'+symSVG(SCRATCH_META[k].sym)+'</div>';
-    }).join('');
+    var conf=[['star','#6B4E12','#E8B93A'],['heart','#6E1A3C','#E85C90'],['emerald','#0E4A38','#3FBF8A']];
+    art.innerHTML='<div class="ticket-stack">'+conf.map(function(c,i){
+      return '<div class="mini-ticket" style="--i:'+i+';background:linear-gradient(160deg,'+c[1]+','+c[2]+')">'+symSVG(SCRATCH_META[c[0]].sym)+'</div>';
+    }).join('')+'</div>';
     art.dataset.done='1';
   }
   drawTowerPreview();
@@ -2330,28 +2336,42 @@ function drawPlatformAt(ctx,kind,x,y,w,i,W){
 }
 
 function drawCheesePlat(ctx,x,y,w){
-  var h=18, hw=w/2;
-  var g=ctx.createLinearGradient(0,y-8,0,y+h);
-  g.addColorStop(0,'#FFEFA8'); g.addColorStop(.3,'#FFD447'); g.addColorStop(.7,'#F0AE18'); g.addColorStop(1,'#C07E08');
+  var hw=w/2;
+  var topH=13, frontH=15;
   ctx.save();
-  ctx.shadowColor='rgba(0,0,0,.4)'; ctx.shadowBlur=10; ctx.shadowOffsetY=5;
-  roundRect(ctx,x-hw,y-9,w,h+8,6); ctx.fillStyle=g; ctx.fill();
-  ctx.shadowColor='transparent';
+  // 옆면(앞)
+  var fg=ctx.createLinearGradient(0,y,0,y+frontH);
+  fg.addColorStop(0,'#F2B31C'); fg.addColorStop(.45,'#E9A010'); fg.addColorStop(1,'#A86804');
+  roundRect(ctx,x-hw,y-2,w,frontH+2,7); ctx.fillStyle=fg; ctx.fill();
   // 윗면
-  ctx.fillStyle='#FFF3B8'; roundRect(ctx,x-hw+2,y-9,w-4,6,4); ctx.fill();
-  // 옆면 그림자
-  var sg=ctx.createLinearGradient(0,y+6,0,y+h);
-  sg.addColorStop(0,'rgba(120,60,0,0)'); sg.addColorStop(1,'rgba(120,60,0,.45)');
-  ctx.fillStyle=sg; roundRect(ctx,x-hw+1,y+6,w-2,10,4); ctx.fill();
-  // 구멍
-  var holes=Math.max(2,Math.round(w/34));
+  var tg=ctx.createLinearGradient(0,y-topH-2,0,y+1);
+  tg.addColorStop(0,'#FFF6C2'); tg.addColorStop(.45,'#FFDF62'); tg.addColorStop(1,'#F5BC26');
+  roundRect(ctx,x-hw,y-topH-2,w,topH+3,7); ctx.fillStyle=tg; ctx.fill();
+  ctx.strokeStyle='rgba(150,90,0,.18)'; ctx.lineWidth=1; ctx.stroke();
+  // 뒤쪽 밝은 테
+  ctx.beginPath();
+  ctx.moveTo(x-hw+5,y-topH-1.5); ctx.lineTo(x+hw-5,y-topH-1.5);
+  ctx.strokeStyle='rgba(255,255,230,.75)'; ctx.lineWidth=2; ctx.stroke();
+  // 구멍 (앞면)
+  var holes=Math.max(2,Math.round(w/30));
   for(var i=0;i<holes;i++){
-    var hx=x-hw+w*(i+0.5)/holes+(i%2?4:-3), hy=y+2+(i%2?4:0), r=3.2+(i%3)*1.1;
-    ctx.beginPath(); ctx.ellipse(hx,hy,r,r*0.86,0,0,7);
-    ctx.fillStyle='rgba(168,100,0,.55)'; ctx.fill();
-    ctx.beginPath(); ctx.ellipse(hx,hy-0.9,r*0.8,r*0.66,0,0,7);
-    ctx.fillStyle='rgba(255,226,120,.55)'; ctx.fill();
+    var hx=x-hw+w*(i+0.5)/holes+(i%2?5:-4), hy=y+6+(i%2?3:0), r=3.4+(i%3)*1.3;
+    var hg=ctx.createRadialGradient(hx-r*0.3,hy-r*0.4,0.5,hx,hy,r);
+    hg.addColorStop(0,'#8A5000'); hg.addColorStop(.7,'#B87608'); hg.addColorStop(1,'#FFC94A');
+    ctx.beginPath(); ctx.ellipse(hx,hy,r,r*0.9,0,0,7); ctx.fillStyle=hg; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(hx,hy-r*0.55,r*0.66,r*0.34,0,0,7);
+    ctx.fillStyle='rgba(255,232,150,.55)'; ctx.fill();
   }
+  // 구멍 (윗면)
+  for(var j=0;j<Math.max(1,Math.round(w/48));j++){
+    var tx=x-hw+w*(j+0.62)/Math.max(1,Math.round(w/48)+0.3), ty=y-topH*0.55;
+    ctx.beginPath(); ctx.ellipse(tx,ty,2.6,2.2,0,0,7); ctx.fillStyle='rgba(168,104,4,.5)'; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(tx,ty-0.7,1.8,1.4,0,0,7); ctx.fillStyle='rgba(255,225,130,.5)'; ctx.fill();
+  }
+  // 끝면
+  ctx.beginPath();
+  ctx.ellipse(x-hw+3,y+frontH/2-1,4,frontH/2+1,0,0,7);
+  ctx.fillStyle='rgba(120,70,0,.35)'; ctx.fill();
   ctx.restore();
 }
 
@@ -2526,7 +2546,7 @@ Tower.reset=function(){
   this.platforms=[];
   this.player={ x:W/2, h:80, vx:0, vy:0, squash:1 };
   this.camH=0; this.maxH=80; this.floorN=0; this.dir=0; this.dirTouch=0;
-  this.coinsWon=0; this.nextMilestone=10; this.over=false; this.floorSeq=0;
+  this.coinsWon=0; this.nextMilestone=10; this.over=false; this.floorSeq=0; this.lastX=W/2;
   // 시작 바닥
   this.platforms.push({ x:W/2, y:44, w:Math.max(150,W*0.62), vx:0, type:0, floor:0, base:true });
   this.topY=44;
@@ -2543,7 +2563,10 @@ Tower.spawn=function(){
   var w=Math.max(42, 116-floor*1.9);
   w=Math.max(w, 42+(Math.random()*10-5));
   var margin=18+w/2;
-  var x=margin+Math.random()*Math.max(1,(W-margin*2));
+  var reach=Math.min(this.W*0.42,195);
+  var lastX=(this.lastX==null?this.W/2:this.lastX);
+  var x=clamp(lastX+(Math.random()*2-1)*reach, margin, Math.max(margin,this.W-margin));
+  this.lastX=x;
   var moving = floor>6 && Math.random() < Math.min(0.38, 0.06+floor*0.02);
   this.platforms.push({
     x:x, y:y, w:w, vx: moving ? (Math.random()<0.5?-1:1)*(26+Math.random()*46+Math.min(34,floor*1.1)) : 0,
@@ -2725,7 +2748,7 @@ Tower.draw=function(){
     ctx.beginPath(); ctx.arc(bx,py,0.8+rnd()*1.7,0,7); ctx.fill();
   }
   // 테마 장식 (떠 있는 음식 조각)
-  ctx.save(); ctx.globalAlpha=0.13;
+  ctx.save(); ctx.globalAlpha=0.2;
   for(var k=0;k<5;k++){
     var dx=(k*97+((camH*0.25)%200))%(W+80)-40;
     var dy=((k*163 - camH*0.35)%(H+120)+H+120)%(H+120)-40;
@@ -2748,6 +2771,8 @@ Tower.draw=function(){
       roundRect(ctx,pl.x-pl.w/2,y-10,pl.w,22,10); ctx.fillStyle=bg; ctx.fill();
       ctx.strokeStyle='rgba(120,70,20,.3)'; ctx.lineWidth=1.5; ctx.stroke();
     }else{
+      ctx.fillStyle='rgba(0,0,0,.22)';
+      ctx.beginPath(); ctx.ellipse(pl.x,y+12,pl.w*0.46,4.2,0,0,7); ctx.fill();
       drawPlatformAt(ctx,this.kind,pl.x,y,pl.w,pl.type,W);
     }
   }
@@ -2873,15 +2898,16 @@ function paintFoil(){
     ctx.beginPath(); ctx.arc(x,y,r,0,7); ctx.fill();
   }
   // 워터마크 심볼
+  var glyph = Scratch.kind==='star'?'★':Scratch.kind==='heart'?'♥':Scratch.kind==='diamond'?'◆':Scratch.kind==='emerald'?'◈':'✎';
   ctx.save();
-  ctx.globalAlpha=.14;
-  var size=Math.min(W,H)*0.34;
-  for(var k=0;k<3;k++){
-    var sx=W*(0.25+0.25*k), sy=H*(0.24+0.2*(k%2));
-    ctx.save(); ctx.translate(sx,sy); ctx.scale(size/100,size/100); ctx.translate(-50,-50);
-    ctx.fillStyle='#6A4A00'; ctx.beginPath(); ctx.arc(0,0,44,0,7); ctx.fill();
-    ctx.restore();
-  }
+  ctx.globalAlpha=.13;
+  ctx.fillStyle='#5A3A00';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.font='900 '+Math.round(Math.min(W,H)*0.44)+'px system-ui';
+  ctx.save(); ctx.translate(W*0.5,H*0.28); ctx.rotate(-0.14); ctx.fillText(glyph,0,0); ctx.restore();
+  ctx.font='900 '+Math.round(Math.min(W,H)*0.2)+'px system-ui';
+  ctx.save(); ctx.translate(W*0.23,H*0.7); ctx.rotate(0.22); ctx.fillText(glyph,0,0); ctx.restore();
+  ctx.save(); ctx.translate(W*0.8,H*0.74); ctx.rotate(-0.3); ctx.fillText(glyph,0,0); ctx.restore();
   ctx.restore();
   // 문구
   ctx.save();
