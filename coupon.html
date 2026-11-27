@@ -1529,97 +1529,97 @@ function machineSVG(kind){
 function capsuleSVG(kind){
   var gift = kind === 'gift';
   var P = gift ? 'cpG' : 'cpH';
-  var topTint = gift ? '#FFB9D2' : '#B9A4FF';
-  var botCol  = gift ? '#FFE7F0' : '#F1E8FF';
-  var botDeep = gift ? '#FFB9D2' : '#C9B4FF';
+  var topTint = gift ? '#FF9DBF' : '#A98CFF';
+  var botCol  = gift ? '#FFD5E5' : '#E2D5FF';
+  var botDeep = gift ? '#F79BBF' : '#B79CFB';
   var emb  = gift ? '#FF5C8D' : '#8B63E8';
   var emb2 = gift ? '#C93A6B' : '#6B45C6';
   var s = '<defs>'
-    + '<linearGradient id="'+P+'top" x1=".2" y1="0" x2=".7" y2="1">'
-      + '<stop offset="0" stop-color="'+shade(topTint,58)+'"/>'
-      + '<stop offset=".28" stop-color="'+shade(topTint,24)+'"/>'
-      + '<stop offset=".62" stop-color="'+topTint+'"/>'
-      + '<stop offset="1" stop-color="'+shade(topTint,-26)+'"/>'
+    + '<linearGradient id="'+P+'top" x1=".22" y1=".02" x2=".75" y2="1">'
+      + '<stop offset="0" stop-color="'+shade(topTint,72)+'"/>'
+      + '<stop offset=".25" stop-color="'+shade(topTint,44)+'"/>'
+      + '<stop offset=".58" stop-color="'+shade(topTint,16)+'"/>'
+      + '<stop offset=".85" stop-color="'+topTint+'"/>'
+      + '<stop offset="1" stop-color="'+shade(topTint,-18)+'"/>'
     + '</linearGradient>'
-    + '<linearGradient id="'+P+'bot" x1=".15" y1="0" x2=".7" y2="1">'
-      + '<stop offset="0" stop-color="'+shade(botCol,60)+'"/>'
-      + '<stop offset=".3" stop-color="'+shade(botCol,20)+'"/>'
-      + '<stop offset=".7" stop-color="'+botDeep+'"/>'
-      + '<stop offset="1" stop-color="'+shade(botDeep,-22)+'"/>'
-    + '</linearGradient>'
+    + '<radialGradient id="'+P+'bot" cx=".34" cy=".24" r=".92">'
+      + '<stop offset="0" stop-color="'+shade(botCol,52)+'"/>'
+      + '<stop offset=".42" stop-color="'+shade(botCol,16)+'"/>'
+      + '<stop offset=".78" stop-color="'+botCol+'"/>'
+      + '<stop offset="1" stop-color="'+botDeep+'"/>'
+    + '</radialGradient>'
     + '<linearGradient id="'+P+'ring" x1="0" y1="0" x2="0" y2="1">'
       + '<stop offset="0" stop-color="#FFFFFF"/>'
-      + '<stop offset=".3" stop-color="'+shade(botCol,26)+'"/>'
-      + '<stop offset=".55" stop-color="'+shade(topTint,-6)+'"/>'
-      + '<stop offset="1" stop-color="'+shade(topTint,-30)+'"/>'
+      + '<stop offset=".28" stop-color="'+shade(topTint,50)+'"/>'
+      + '<stop offset=".5" stop-color="'+shade(topTint,26)+'"/>'
+      + '<stop offset=".74" stop-color="'+shade(botDeep,-6)+'"/>'
+      + '<stop offset="1" stop-color="'+shade(botDeep,-26)+'"/>'
     + '</linearGradient>'
     + '<radialGradient id="'+P+'emb" cx=".34" cy=".28" r=".8">'
       + '<stop offset="0" stop-color="'+shade(emb,58)+'"/>'
       + '<stop offset=".55" stop-color="'+emb+'"/>'
       + '<stop offset="1" stop-color="'+emb2+'"/>'
     + '</radialGradient>'
-    + '<linearGradient id="'+P+'glow" x1="0" y1="0" x2="0" y2="1">'
-      + '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".9"/>'
-      + '<stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>'
-    + '</linearGradient>'
     + '<filter id="'+P+'bl" x="-40%" y="-60%" width="180%" height="240%"><feGaussianBlur stdDeviation="6"/></filter>'
     + '<clipPath id="'+P+'topClip"><path d="M22 100a78 78 0 0 1 156 0Z"/></clipPath>'
     + '</defs>';
 
-  s += '<ellipse cx="100" cy="192" rx="62" ry="11" fill="#1C0A20" opacity=".38" filter="url(#'+P+'bl)"/>';
+  s += '<ellipse cx="100" cy="192" rx="64" ry="12" fill="#1C0A20" opacity=".4" filter="url(#'+P+'bl)"/>';
 
   /* 아래 통 */
   s += '<path d="M22 100a78 78 0 0 0 156 0Z" fill="url(#'+P+'bot)"/>';
-  s += '<path d="M22 100a78 78 0 0 0 156 0" fill="none" stroke="'+shade(botDeep,-30)+'" stroke-opacity=".45" stroke-width="2.4"/>';
-  s += '<path d="M24 103a76 76 0 0 0 152 0a74 74 0 0 1 -152 0Z" fill="'+shade(botDeep,-26)+'" opacity=".28"/>';
-  s += '<path d="M30 110a70 70 0 0 0 140 0" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="2.6"/>';
-  s += '<path d="M40 140c14 22 46 34 82 30" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="9" stroke-linecap="round"/>';
-  s += '<path d="M128 168c14-6 22-14 28-26" fill="none" stroke="'+shade(botDeep,-20)+'" stroke-opacity=".35" stroke-width="10" stroke-linecap="round"/>';
+  s += '<path d="M24 102a76 76 0 0 0 152 0a74 74 0 0 1 -152 0Z" fill="'+shade(botDeep,-34)+'" opacity=".26"/>';
+  s += '<path d="M22 100a78 78 0 0 0 156 0" fill="none" stroke="'+shade(botDeep,-34)+'" stroke-opacity=".5" stroke-width="2.6"/>';
+  s += '<path d="M32 112a68 68 0 0 0 136 0" fill="none" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="2.2"/>';
+  s += '<ellipse cx="62" cy="146" rx="14" ry="8" fill="#FFFFFF" opacity=".4" transform="rotate(-34 62 146)"/>';
+  s += '<path d="M140 168c14-6 22-14 28-26" fill="none" stroke="'+shade(botDeep,-26)+'" stroke-opacity=".3" stroke-width="12" stroke-linecap="round"/>';
 
   /* 위 반투명 캡슐 */
-  s += '<path d="M22 100a78 78 0 0 1 156 0Z" fill="url(#'+P+'top)" opacity=".92"/>';
+  s += '<path d="M22 100a78 78 0 0 1 156 0Z" fill="url(#'+P+'top)"/>';
   s += '<g clip-path="url(#'+P+'topClip)">';
-  s += '<ellipse cx="100" cy="90" rx="50" ry="28" fill="#FFFFFF" opacity=".45"/>';
+  s += '<ellipse cx="100" cy="88" rx="52" ry="30" fill="#FFFFFF" opacity=".42"/>';
   s += gift
-    ? '<g opacity=".3" transform="translate(100 88) rotate(-8)"><path d="M-13 -4L1 -11L15 -4V10L1 17L-13 10Z" fill="#FFFFFF"/><path d="M-13 -4L1 3V17L-13 10Z" fill="#FFE7A8"/><path d="M-3 -8L10 -1V3L-3 -4Z" fill="#FFD166"/></g>'
-    : '<path d="M100 74c-4-4.6-12-1.8-9.2 5.2 1.6 3.8 6 7.2 9.2 9.2 3.2-2 7.6-5.4 9.2-9.2 2.8-7-5.2-9.8-9.2-5.2z" fill="#FFFFFF" opacity=".34"/>';
-  s += '<path d="M74 84c4-12 14-20 26-22" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="14" stroke-linecap="round" fill="none"/>';
+    ? '<g opacity=".34" transform="translate(100 86) rotate(-8)"><path d="M-14 -4L1 -12L16 -4V11L1 19L-14 11Z" fill="#FFFFFF"/><path d="M-14 -4L1 4V19L-14 11Z" fill="#FFE7A8"/><path d="M-3 -9L11 -1V4L-3 -4Z" fill="#FFD166"/></g>'
+    : '<path d="M100 70c-4.4-5-13-2-10 5.6 1.8 4.1 6.5 7.8 10 10 3.5-2.2 8.2-5.9 10-10 3-7.6-5.6-10.6-10-5.6z" fill="#FFFFFF" opacity=".38"/>';
   s += '</g>';
-  s += '<path d="M22 100a78 78 0 0 1 156 0" fill="none" stroke="'+shade(topTint,-34)+'" stroke-opacity=".5" stroke-width="2.6"/>';
-  s += '<path d="M30 94a70 70 0 0 1 140 0" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="2.2"/>';
+  s += '<path d="M22 100a78 78 0 0 1 156 0" fill="none" stroke="'+shade(topTint,-30)+'" stroke-opacity=".55" stroke-width="2.6"/>';
+  s += '<path d="M30 94a70 70 0 0 1 140 0" fill="none" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2.4"/>';
 
   /* 유리 광택 */
-  s += '<path d="M46 88C50 58 68 38 94 30" stroke="#FFFFFF" stroke-width="13" fill="none" stroke-linecap="round" opacity=".55"/>';
-  s += '<ellipse cx="70" cy="52" rx="16" ry="6.5" fill="#FFFFFF" opacity=".6" transform="rotate(-38 70 52)"/>';
-  s += '<path d="M132 54l2.6 6.2 6.2 2.6-6.2 2.6-2.6 6.2-2.6-6.2-6.2-2.6 6.2-2.6z" fill="#FFFFFF" opacity=".9"/>';
-  s += '<path d="M150 78l1.8 4.2 4.2 1.8-4.2 1.8-1.8 4.2-1.8-4.2-4.2-1.8 4.2-1.8z" fill="#FFFFFF" opacity=".65"/>';
+  s += '<path d="M44 90C48 58 68 36 94 28" stroke="#FFFFFF" stroke-width="14" fill="none" stroke-linecap="round" opacity=".5"/>';
+  s += '<path d="M50 84C55 60 70 42 90 33" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>';
+  s += '<ellipse cx="70" cy="52" rx="16" ry="6.5" fill="#FFFFFF" opacity=".55" transform="rotate(-38 70 52)"/>';
+  s += '<path d="M132 52l2.8 6.8 6.8 2.8-6.8 2.8-2.8 6.8-2.8-6.8-6.8-2.8 6.8-2.8z" fill="#FFFFFF" opacity=".95"/>';
+  s += '<path d="M151 76l1.9 4.4 4.4 1.9-4.4 1.9-1.9 4.4-1.9-4.4-4.4-1.9 4.4-1.9z" fill="#FFFFFF" opacity=".7"/>';
+  s += '<circle cx="120" cy="30" r="1.7" fill="#FFFFFF" opacity=".8"/>';
 
   /* 맞물림 링 */
-  s += '<rect x="16" y="92" width="168" height="17" rx="8.5" fill="url(#'+P+'ring)"/>';
-  s += '<rect x="16" y="92" width="168" height="4.5" rx="2.2" fill="#FFFFFF" opacity=".9"/>';
-  s += '<rect x="16" y="104" width="168" height="5" rx="2.5" fill="'+shade(topTint,-34)+'" opacity=".45"/>';
-  s += '<rect x="16" y="92" width="168" height="17" rx="8.5" fill="none" stroke="'+shade(topTint,-38)+'" stroke-opacity=".45" stroke-width="1.6"/>';
+  s += '<rect x="14" y="90" width="172" height="20" rx="10" fill="url(#'+P+'ring)"/>';
+  s += '<rect x="14" y="90" width="172" height="5.6" rx="2.8" fill="#FFFFFF" opacity=".92"/>';
+  s += '<rect x="14" y="104" width="172" height="4.4" rx="2.2" fill="'+shade(botDeep,-32)+'" opacity=".4"/>';
+  s += '<rect x="14" y="90" width="172" height="20" rx="10" fill="none" stroke="'+shade(topTint,-40)+'" stroke-opacity=".4" stroke-width="1.6"/>';
 
   /* 스티커 엠블럼 */
-  s += '<ellipse cx="100" cy="140" rx="23" ry="6" fill="'+shade(botDeep,-20)+'" opacity=".22"/>';
-  s += '<circle cx="100" cy="134" r="21" fill="#FFFFFF" opacity=".97"/>';
-  s += '<circle cx="100" cy="134" r="21" fill="none" stroke="'+shade(botDeep,-14)+'" stroke-opacity=".45" stroke-width="1.8"/>';
-  s += '<circle cx="100" cy="134" r="17.2" fill="'+shade(botCol,34)+'" opacity=".8"/>';
+  s += '<ellipse cx="100" cy="143" rx="24" ry="6" fill="'+shade(botDeep,-24)+'" opacity=".22"/>';
+  s += '<circle cx="100" cy="135" r="21.5" fill="#FFFFFF" opacity=".97"/>';
+  s += '<circle cx="100" cy="135" r="21.5" fill="none" stroke="'+shade(botDeep,-18)+'" stroke-opacity=".45" stroke-width="1.8"/>';
+  s += '<circle cx="100" cy="135" r="17.6" fill="'+shade(botCol,42)+'" opacity=".85"/>';
   if(gift){
-    s += '<g transform="translate(100 137)">';
-    s += '<path d="M-8.5 -2.5L1.5 -7L11 -2.5V6.5L1 11L-8.5 6.5Z" fill="url(#'+P+'emb)"/>';
-    s += '<path d="M-8.5 -2.5L1 1.5V11L-8.5 6.5Z" fill="'+shade(emb,14)+'"/>';
-    s += '<path d="M1 1.5L11 -2.5V6.5L1 11Z" fill="'+shade(emb2,-4)+'"/>';
-    s += '<path d="M-8.5 -4.6L1 0.4L11 -4.6L1.5 -9.4Z" fill="'+shade(emb,36)+'"/>';
-    s += '<path d="M-2.8 -5.6L6.6 -0.8V0.8L-2.8 -4Z" fill="#FFE07A"/>';
-    s += '<path d="M-7.8 -0.6L0.2 3.6V5.2L-7.8 1Z" fill="#FFE07A"/>';
+    s += '<g transform="translate(100 138)">';
+    s += '<path d="M-9 -2.5L1 -7.5L11 -2.5V6L1 11L-9 6Z" fill="url(#'+P+'emb)"/>';
+    s += '<path d="M-9 -2.5L1 2V11L-9 6Z" fill="'+shade(emb,14)+'"/>';
+    s += '<path d="M1 2L11 -2.5V6L1 11Z" fill="'+shade(emb2,-4)+'"/>';
+    s += '<path d="M-9 -4.8L1 0.4L11 -4.8L1 -9.6Z" fill="'+shade(emb,38)+'"/>';
+    s += '<path d="M-3 -5.8L7 -0.8V0.8L-3 -4Z" fill="#FFE07A"/>';
+    s += '<path d="M-8.2 -0.6L0.2 3.6V5.2L-8.2 1Z" fill="#FFE07A"/>';
     s += '<ellipse cx="-4" cy="-1.6" rx="2.6" ry="1.4" fill="#FFFFFF" opacity=".7" transform="rotate(-28 -4 -1.6)"/>';
     s += '</g>';
   } else {
-    s += '<path d="M100 127c-2.9-3.1-8.4-1.2-6.5 3.6 1.1 2.7 4.1 5.1 6.5 6.5 2.4-1.4 5.4-3.8 6.5-6.5 1.9-4.8-3.6-6.7-6.5-3.6z" fill="url(#'+P+'emb)"/>';
-    s += '<ellipse cx="97.2" cy="131" rx="2.9" ry="1.5" fill="#FFFFFF" opacity=".85" transform="rotate(-30 97.2 131)"/>';
+    s += '<path d="M100 127c-3-3.2-8.6-1.2-6.7 3.7 1.1 2.8 4.2 5.2 6.7 6.7 2.5-1.5 5.6-3.9 6.7-6.7 1.9-4.9-3.7-6.9-6.7-3.7z" fill="url(#'+P+'emb)"/>';
+    s += '<ellipse cx="97" cy="131" rx="3" ry="1.5" fill="#FFFFFF" opacity=".85" transform="rotate(-30 97 131)"/>';
   }
-  s += '<path d="M83 120a20 20 0 0 1 30 -6" fill="none" stroke="#FFFFFF" stroke-opacity=".85" stroke-width="2.6"/>';
+  s += '<path d="M84 120a20 20 0 0 1 31 -5" fill="none" stroke="#FFFFFF" stroke-opacity=".9" stroke-width="2.6"/>';
+  s += '<path d="M112 150a20 20 0 0 1 -22 3" fill="none" stroke="'+shade(botDeep,-20)+'" stroke-opacity=".3" stroke-width="2.2"/>';
 
   return '<svg class="capsule" viewBox="0 0 200 208" xmlns="http://www.w3.org/2000/svg" role="img">'+s+'</svg>';
 }
