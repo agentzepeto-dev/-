@@ -578,11 +578,11 @@ function fringeSoft(c){
     + hairShine(c,44);
 }
 function fringePart(c){
-  var d='M30 98C28 44 58 10 100 10C142 10 172 44 170 98C166 80 158 68 148 62C144 74 138 80 130 82C124 72 118 66 110 64C106 70 104 74 100 78C96 74 94 70 90 64C82 66 76 72 70 82C62 80 56 74 52 62C42 68 34 80 30 98Z';
+  var d='M30 98C28 44 58 10 100 10C142 10 172 44 170 98C167 84 160 76 150 72C146 82 140 88 132 90C126 78 118 68 110 62C106 59 104 57 100 56C96 57 94 59 90 62C82 68 74 78 68 90C60 88 54 82 50 72C40 76 33 84 30 98Z';
   return ink(d, hairFill(c), 3)
-    + wedge(100,16,100,78,7, shade(c,-26), '.32')
-    + wedge(100,16,70,82,6, shade(c,-22), '.26')
-    + wedge(100,16,130,82,6, shade(c,-22), '.26')
+    + wedge(100,16,100,56,7, shade(c,-26), '.3')
+    + wedge(100,16,68,90,6, shade(c,-22), '.24')
+    + wedge(100,16,132,90,6, shade(c,-22), '.24')
     + hairShine(c,42);
 }
 function fringeStraight(c){
@@ -1056,10 +1056,10 @@ function armSVG(side,type,col,skin){
     s += stro('M'+(100+m*22)+' '+(sy+1)+'q6 -6 12 -3', '#FFFFFF', 2.6, 'opacity=".55"');
     s += limb('M'+(100+m*31)+' '+(sy+16)+'Q'+(100+m*41)+' '+(sy+32)+' '+hx+' '+(hy-3), 9.6, skin);
   } else if(type==='short'){
-    s += limb('M'+sx+' '+sy+'Q'+(100+m*39)+' '+(sy+12)+' '+(100+m*39)+' '+(sy+24), 13.5, col);
-    s += limb('M'+(100+m*38)+' '+(sy+20)+'Q'+(100+m*43)+' '+(sy+40)+' '+hx+' '+(hy-2), 9.2, skin);
+    s += limb('M'+sx+' '+sy+'Q'+(100+m*39)+' '+(sy+12)+' '+(100+m*39)+' '+(sy+24), 14, col);
+    s += limb('M'+(100+m*38)+' '+(sy+20)+'Q'+(100+m*43)+' '+(sy+40)+' '+hx+' '+(hy-2), 10.2, skin);
   } else {
-    s += limb('M'+sx+' '+sy+'Q'+(100+m*41)+' '+(sy+24)+' '+hx+' '+hy, 9.2, skin);
+    s += limb('M'+sx+' '+sy+'Q'+(100+m*41)+' '+(sy+24)+' '+hx+' '+hy, 10.2, skin);
   }
   s += '<circle cx="'+hx+'" cy="'+hy+'" r="6.8" fill="'+skin+'" stroke="'+INK+'" stroke-width="2.4"/>';
   s += stro('M'+(hx-m*4)+' '+hy+'q3 2 6 1', shade(skin,-34), 1.5, 'opacity=".55"');
