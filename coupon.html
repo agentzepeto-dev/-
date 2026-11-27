@@ -26,8 +26,8 @@ h1,h2,h3,p{margin:0}
 .brand-text{font-weight:900;font-size:15px;letter-spacing:-.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .coinbar{margin-left:auto;display:flex;gap:6px;flex:0 0 auto}
 .coin{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:999px;background:#fff;box-shadow:0 3px 8px rgba(214,120,155,.18);font-weight:900;font-size:15px}
-.coin .ico{display:grid;place-items:center;width:25px;height:25px}
-.coin .ico svg{width:25px;height:25px;display:block;filter:drop-shadow(0 2px 3px rgba(150,90,20,.32))}
+.coin .ico{display:grid;place-items:center;width:26px;height:26px}
+.coin .ico svg{width:26px;height:26px;display:block;filter:drop-shadow(0 2px 3px rgba(150,90,20,.32))}
 .coin.heart{border:2px solid #FFD1E0}
 .coin.gift{border:2px solid #FFE3B0}
 .coin.pop{animation:coinpop .45s}
@@ -1789,9 +1789,9 @@ function coinSVG(type, extra){
   s += '<circle cx="32" cy="32" r="27.6" fill="none" stroke="'+shade(face,44)+'" stroke-opacity=".75" stroke-width="3.2" stroke-dasharray="1.9 2.5"/>';
   s += '<circle cx="32" cy="32" r="25" fill="url(#'+P+'face)"/>';
   s += '<circle cx="32" cy="32" r="25" fill="none" stroke="'+face2+'" stroke-opacity=".5" stroke-width="1.4"/>';
-  s += '<circle cx="32" cy="32" r="21.6" fill="none" stroke="'+shade(face,44)+'" stroke-opacity=".55" stroke-width="1.3"/>';
+  s += '<circle cx="32" cy="32" r="21.6" fill="none" stroke="'+shade(face,44)+'" stroke-opacity=".3" stroke-width="1"/>';
   if(gift){
-    s += '<g transform="translate(32 33.5) scale(1.32)">';
+    s += '<g transform="translate(32 33.5) scale(1.5)">';
     s += '<path d="M-9 -2.5L1 -7.5L11 -2.5V6L1 11L-9 6Z" fill="url(#'+P+'emb)"/>';
     s += '<path d="M-9 -2.5L1 2V11L-9 6Z" fill="'+shade(emb2,-6)+'"/>';
     s += '<path d="M1 2L11 -2.5V6L1 11Z" fill="'+shade(emb2,-22)+'"/>';
@@ -1800,9 +1800,11 @@ function coinSVG(type, extra){
     s += '<path d="M-8.2 -0.8L0.4 3.4V5.2L-8.2 1Z" fill="'+shade(face2,-8)+'"/>';
     s += '</g>';
   } else {
+    s += '<g transform="translate(32 32.5) scale(1.2) translate(-32 -32)">';
     s += '<path d="M32 21.5c-3.2-3.6-9.7-1.4-7.5 4.2 1.3 3.2 4.8 6 7.5 7.6 2.7-1.6 6.2-4.4 7.5-7.6 2.2-5.6-4.3-7.8-7.5-4.2z" fill="url(#'+P+'emb)"/>';
     s += '<path d="M32 21.5c-3.2-3.6-9.7-1.4-7.5 4.2 1.3 3.2 4.8 6 7.5 7.6 2.7-1.6 6.2-4.4 7.5-7.6 2.2-5.6-4.3-7.8-7.5-4.2z" fill="none" stroke="#FFFFFF" stroke-opacity=".75" stroke-width="1.6"/>';
     s += '<ellipse cx="28.6" cy="24.4" rx="2.6" ry="1.3" fill="#FFFFFF" opacity=".85" transform="rotate(-32 28.6 24.4)"/>';
+    s += '</g>';
   }
   /* 빛이 스치는 광택 */
   s += '<path d="M11 22A25 25 0 0 1 42 9.5" fill="none" stroke="url(#'+P+'sw)" stroke-width="6.4" stroke-linecap="round"/>';
