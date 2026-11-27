@@ -208,16 +208,16 @@ h1,h2,h3,p{margin:0}
 .open-stage{position:relative;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px 14px calc(14px + env(safe-area-inset-bottom));overflow:hidden;perspective:1000px}
 .open-hint{font-size:14px;font-weight:900;color:#FFEDF5;text-align:center;letter-spacing:-.3px;min-height:20px;text-shadow:0 2px 8px rgba(0,0,0,.5);z-index:4}
 .open-scene{position:relative;width:min(86vw,340px);height:min(52vh,380px);display:grid;place-items:center;transform-style:preserve-3d}
-.capsule3d{position:relative;width:190px;height:190px;cursor:pointer;z-index:3;transition:transform .2s}
-.cap-half{position:absolute;left:0;width:190px;height:96px;border-radius:96px 96px 8px 8px;transition:transform .62s cubic-bezier(.3,1.1,.4,1),opacity .62s;backface-visibility:hidden}
-.cap-half.top{top:0;border-radius:96px 96px 14px 14px;background:radial-gradient(circle at 40% 30%,rgba(255,255,255,.9),rgba(255,255,255,0) 46%),linear-gradient(155deg,#FFE9A8 0%,#FFC94A 38%,#E79A12 72%,#A86A05 100%);box-shadow:inset 0 -10px 18px rgba(120,60,0,.35),inset 0 6px 12px rgba(255,255,255,.6),0 -6px 14px rgba(0,0,0,.25)}
-.cap-half.bot{top:96px;height:96px;border-radius:14px 14px 96px 96px;background:radial-gradient(circle at 40% 70%,rgba(255,255,255,.7),rgba(255,255,255,0) 44%),linear-gradient(155deg,#FFD9E6 0%,#FF9FC2 36%,#E05A8C 72%,#9E2A57 100%);box-shadow:inset 0 10px 18px rgba(120,0,50,.32),inset 0 -6px 12px rgba(255,255,255,.35),0 12px 22px rgba(0,0,0,.4)}
-.cap-seam{position:absolute;left:-2px;right:-2px;top:92px;height:8px;border-radius:6px;background:linear-gradient(180deg,#B57512,#7A4B06 45%,#C79030);box-shadow:0 2px 6px rgba(0,0,0,.4);z-index:4;transition:opacity .3s}
-.cap-sticker{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:linear-gradient(160deg,#FFFDF5,#FFF0D8);box-shadow:0 4px 10px rgba(80,30,10,.4),inset 0 -3px 6px rgba(160,100,40,.25),inset 0 2px 0 #fff;display:grid;place-items:center;font-size:38px;z-index:5;transition:opacity .3s,transform .3s;border:2px solid rgba(255,255,255,.8)}
+.capsule3d{position:relative;width:220px;height:220px;cursor:pointer;z-index:3;transition:transform .2s}
+.cap-half{position:absolute;left:0;width:220px;height:110px;border-radius:110px 110px 10px 10px;transition:transform .62s cubic-bezier(.3,1.1,.4,1),opacity .62s;backface-visibility:hidden}
+.cap-half.top{top:0;border-radius:110px 110px 16px 16px;background:radial-gradient(circle at 40% 30%,rgba(255,255,255,.9),rgba(255,255,255,0) 46%),linear-gradient(155deg,#FFE9A8 0%,#FFC94A 38%,#E79A12 72%,#A86A05 100%);box-shadow:inset 0 -10px 18px rgba(120,60,0,.35),inset 0 6px 12px rgba(255,255,255,.6),0 -6px 14px rgba(0,0,0,.25)}
+.cap-half.bot{top:110px;height:110px;border-radius:16px 16px 110px 110px;background:radial-gradient(circle at 40% 70%,rgba(255,255,255,.7),rgba(255,255,255,0) 44%),linear-gradient(155deg,#FFD9E6 0%,#FF9FC2 36%,#E05A8C 72%,#9E2A57 100%);box-shadow:inset 0 10px 18px rgba(120,0,50,.32),inset 0 -6px 12px rgba(255,255,255,.35),0 12px 22px rgba(0,0,0,.4)}
+.cap-seam{position:absolute;left:-2px;right:-2px;top:103px;height:12px;border-radius:7px;background:linear-gradient(180deg,#B57512,#7A4B06 45%,#C79030);box-shadow:0 2px 6px rgba(0,0,0,.4);z-index:4;transition:opacity .3s}
+.cap-sticker{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%) rotate(-7deg);width:96px;height:66px;border-radius:16px;background:linear-gradient(160deg,#FFFDF5,#FFF0D8);box-shadow:0 4px 10px rgba(80,30,10,.4),inset 0 -3px 6px rgba(160,100,40,.25),inset 0 2px 0 #fff;display:grid;place-items:center;font-size:38px;z-index:5;transition:opacity .3s,transform .3s;border:2px solid rgba(255,255,255,.8)}
 .capsule3d.shake{animation:cshake .3s}
 @keyframes cshake{25%{transform:rotate(-4deg) scale(1.02)}75%{transform:rotate(4deg) scale(1.02)}}
-.capsule3d.split .cap-half.top{transform:translate(-46px,-92px) rotate(-24deg);opacity:0}
-.capsule3d.split .cap-half.bot{transform:translate(46px,92px) rotate(24deg);opacity:0}
+.capsule3d.split .cap-half.top{transform:translate(-54px,-104px) rotate(-24deg);opacity:0}
+.capsule3d.split .cap-half.bot{transform:translate(54px,104px) rotate(24deg);opacity:0}
 .capsule3d.split .cap-seam,.capsule3d.split .cap-sticker{opacity:0}
 .cap-rays{position:absolute;left:50%;top:50%;width:360px;height:360px;transform:translate(-50%,-50%);pointer-events:none;z-index:1;opacity:0;background:conic-gradient(from 0deg,rgba(255,240,190,.55) 0 6deg,rgba(255,240,190,0) 6deg 30deg,rgba(255,240,190,.5) 30deg 36deg,rgba(255,240,190,0) 36deg 60deg,rgba(255,240,190,.5) 60deg 66deg,rgba(255,240,190,0) 66deg 90deg);border-radius:50%;transition:opacity .4s;mask-image:radial-gradient(circle,#000 30%,transparent 72%);-webkit-mask-image:radial-gradient(circle,#000 30%,transparent 72%)}
 .cap-rays.on{opacity:1;animation:spin 14s linear infinite}
@@ -282,8 +282,8 @@ h1,h2,h3,p{margin:0}
 .gcard.big .gc-title{font-size:19px;margin-top:8px}
 .gc-desc{font-size:11px;font-weight:700;color:#8B6B7E;line-height:1.42;margin-top:3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
 .gcard.big .gc-desc{font-size:13.5px;-webkit-line-clamp:8;line-height:1.55;margin-top:6px}
-.gc-foot{display:flex;justify-content:space-between;font-size:9px;font-weight:800;color:#B49AA8;margin-top:8px;padding-top:6px;border-top:1px dashed #F0DCE6}
-.gc-check{position:absolute;right:9px;bottom:8px;width:18px;height:18px;border-radius:50%;background:#F3E4EC;color:#fff;font-size:11px;font-weight:900;display:grid;place-items:center}
+.gc-foot{display:flex;justify-content:space-between;font-size:9px;font-weight:800;color:#B49AA8;margin-top:8px;padding:6px 18px 0 0;border-top:1px dashed #F0DCE6}
+.gc-check{position:absolute;right:8px;bottom:6px;width:18px;height:18px;border-radius:50%;background:#F3E4EC;color:#fff;font-size:11px;font-weight:900;display:grid;place-items:center}
 .gcard.sel .gc-check{background:#FF5E93}
 .gc-fusion{margin-top:6px;font-size:9.5px;font-weight:900;color:#9A5F16;background:#FFF4D6;border-radius:7px;padding:3px 6px;display:inline-block}
 .inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
@@ -1236,7 +1236,7 @@ function drawCapsuleShape(ctx,x,y,r,rot,c1,c2,stickerKind){
 
   // 스티커
   if(stickerKind){
-    ctx.beginPath(); ctx.arc(0,r*0.06,r*0.42,0,7);
+    ctx.beginPath(); ctx.arc(0,r*0.06,r*0.36,0,7);
     ctx.fillStyle='rgba(255,253,245,.96)'; ctx.fill();
     ctx.strokeStyle='rgba(120,70,60,.18)'; ctx.lineWidth=1; ctx.stroke();
     ctx.save();
@@ -1441,21 +1441,25 @@ function drawMachine(ctx, kind, o){
     var dy=o.drop.y;
     drawCapsuleShape(ctx, winX+winW/2, dy, 15, o.drop.rot||0.2, o.drop.c1||'#FFE9A8', o.drop.c2||'#FFC93C', isGift?'gift':'heart');
   }else if(o.showCapsule){
-    drawCapsuleShape(ctx, winX+winW/2, winY+winH-20, 20, -0.18, o.showCapsule.c1, o.showCapsule.c2, isGift?'gift':'heart');
+    drawCapsuleShape(ctx, winX+winW/2, winY+winH-21, 24, -0.18, o.showCapsule.c1, o.showCapsule.c2, isGift?'gift':'heart');
   }
   // 유리 반사
   var rg=ctx.createLinearGradient(winX,winY,winX+winW,winY+winH);
   rg.addColorStop(0,'rgba(255,255,255,.20)'); rg.addColorStop(.4,'rgba(255,255,255,.04)'); rg.addColorStop(.42,'rgba(255,255,255,0)');
   ctx.fillStyle=rg; ctx.fillRect(winX,winY,winW,winH);
   ctx.restore();
-  // 플랩
+  // 캡슐 꺼내는 플랩 도어
   ctx.save();
-  var flapH=o.flap!==undefined?o.flap:1;
-  ctx.globalAlpha=.9;
-  var flg=ctx.createLinearGradient(0,winY,0,winY+16);
-  flg.addColorStop(0,'#3A2A34'); flg.addColorStop(1,'#120A12');
+  var flg=ctx.createLinearGradient(0,winY+1,0,winY+26);
+  flg.addColorStop(0,'#6B5460'); flg.addColorStop(.16,'#2E2028'); flg.addColorStop(.7,'#140B14'); flg.addColorStop(1,'#3A2A34');
   ctx.fillStyle=flg;
-  roundRect(ctx,winX+2,winY+2,winW-4,10+flapH*4,4); ctx.fill();
+  roundRect(ctx,winX+1,winY+1,winW-2,25,5); ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,.22)'; ctx.lineWidth=1; roundRect(ctx,winX+1.5,winY+1.5,winW-3,24,5); ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,.14)'; ctx.fillRect(winX+6,winY+22,winW-12,2);
+  // 바닥 트레이
+  var trg=ctx.createLinearGradient(0,winY+winH-16,0,winY+winH-2);
+  trg.addColorStop(0,'rgba(255,255,255,0)'); trg.addColorStop(1,'rgba(255,190,220,.16)');
+  ctx.fillStyle=trg; ctx.fillRect(winX+2,winY+winH-16,winW-4,14);
   ctx.restore();
   // 배출구 아래 트레이
   ctx.fillStyle='rgba(255,255,255,.10)'; roundRect(ctx,winX-2,winY+winH-6,winW+4,12,6); ctx.fill();
