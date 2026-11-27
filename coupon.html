@@ -53,9 +53,9 @@ h1,h2,h3,p{margin:0}
 @keyframes charidle{50%{transform:translateY(-4px)}}
 .char-col.happy svg{animation:charhop .5s ease 2}
 @keyframes charhop{40%{transform:translateY(-14px) scale(1.03)}100%{transform:none}}
-.bubble{position:absolute;z-index:4;left:50%;top:10px;transform:translateX(-50%) translateY(-8px);max-width:min(88%,400px);background:#fff;border:3.5px solid #3A2B3D;border-radius:24px 22px 26px 20px;padding:9px 16px;font-weight:900;font-size:14.5px;text-align:center;box-shadow:5px 6px 0 rgba(58,43,61,.16),0 10px 22px rgba(120,70,110,.18);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;line-height:1.35}
+.bubble{position:absolute;z-index:4;left:50%;top:10px;transform:translateX(-50%) translateY(-8px);max-width:min(88%,400px);background:#fff;border:3.5px solid #5C3D35;border-radius:24px 22px 26px 20px;padding:9px 16px;font-weight:900;font-size:14.5px;text-align:center;box-shadow:5px 6px 0 rgba(92,61,53,.14),0 10px 22px rgba(120,70,110,.18);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;line-height:1.35}
 .bubble.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.bubble:after{content:'';position:absolute;left:50%;bottom:-9px;margin-left:-8px;width:16px;height:16px;background:#fff;border-right:3.5px solid #3A2B3D;border-bottom:3.5px solid #3A2B3D;transform:rotate(45deg);border-bottom-right-radius:4px}
+.bubble:after{content:'';position:absolute;left:50%;bottom:-9px;margin-left:-8px;width:16px;height:16px;background:#fff;border-right:3.5px solid #5C3D35;border-bottom:3.5px solid #5C3D35;transform:rotate(45deg);border-bottom-right-radius:4px}
 .bg-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,rgba(255,255,255,0) 52%,rgba(70,35,65,.12) 100%)}
 .tip-pill{position:absolute;z-index:3;left:50%;bottom:6px;transform:translateX(-50%);background:rgba(255,255,255,.85);color:#9A7C8C;font-size:12px;font-weight:800;padding:4px 12px;border-radius:999px;pointer-events:none;white-space:nowrap}
 
@@ -89,7 +89,7 @@ h1,h2,h3,p{margin:0}
 /* ---------- customizer ---------- */
 .preview{position:relative;height:clamp(210px,34vh,330px);border-radius:26px;overflow:hidden;box-shadow:inset 0 0 0 3px rgba(255,255,255,.75),0 10px 24px rgba(190,120,150,.16);margin-bottom:12px;touch-action:none}
 .preview .sticker-layer{pointer-events:auto}
-.cz-char{position:absolute;left:50%;bottom:-2%;transform:translateX(-50%);height:92%;aspect-ratio:200/338}
+.cz-char{position:absolute;left:50%;bottom:-1%;transform:translateX(-50%);height:94%;aspect-ratio:200/296}
 .cz-char svg{width:100%;height:100%;display:block;filter:drop-shadow(0 8px 10px rgba(120,70,110,.18))}
 .cz-tip{position:absolute;left:50%;top:8px;transform:translateX(-50%);background:rgba(255,255,255,.88);color:#9A7C8C;font-size:11.5px;font-weight:800;padding:4px 12px;border-radius:999px;pointer-events:none;white-space:nowrap;max-width:94%;overflow:hidden;text-overflow:ellipsis}
 .segmented{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#FFEDF4;padding:5px;border-radius:18px;margin-bottom:10px}
@@ -149,6 +149,10 @@ h1,h2,h3,p{margin:0}
 .inv-tools{display:flex;gap:8px;margin:20px 0 4px;flex-wrap:wrap}
 .inv-tools button{flex:1 1 30%;padding:11px 8px;border-radius:14px;background:#fff;border:2px solid #FFE3EE;font-weight:900;font-size:12.5px;color:#A97C91}
 .connect-bar{position:sticky;bottom:0;margin-top:14px;padding:10px 0 4px;background:linear-gradient(180deg,rgba(255,246,249,0) 0%,#FFF6F9 40%)}
+.fuse-note{text-align:center;margin-top:14px}
+.fuse-note .fuse-steps{display:flex;justify-content:center;gap:6px;margin-bottom:10px}
+.fuse-note .fuse-steps span{width:38px;height:38px;border-radius:50%;background:#FFF0F6;box-shadow:0 2px 8px rgba(214,120,155,.2);display:grid;place-items:center;font-size:19px;line-height:1}
+.fuse-note p{font-size:13.5px;font-weight:900;color:#A97C91;line-height:1.6;margin:0}
 .connect-bar .sel-count{text-align:center;font-size:12.5px;font-weight:900;color:#A97C91;margin-bottom:6px;min-height:18px}
 
 /* ---------- overlays ---------- */
@@ -163,7 +167,7 @@ h1,h2,h3,p{margin:0}
 /* draw */
 #drawOverlay{background:rgba(28,10,24,.68);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 #drawOverlay .draw-inner{width:min(620px,100%);display:flex;flex-direction:column;align-items:center;gap:12px;max-height:96dvh}
-.draw-hint{background:#fff;padding:9px 20px;border-radius:22px;border:3.4px solid #3A2B3D;font-weight:900;font-size:16px;box-shadow:4px 5px 0 rgba(58,43,61,.35);text-align:center;letter-spacing:-.3px;flex:0 0 auto}
+.draw-hint{background:#fff;padding:9px 20px;border-radius:22px;border:3.4px solid #5C3D35;font-weight:900;font-size:16px;box-shadow:4px 5px 0 rgba(92,61,53,.3);text-align:center;letter-spacing:-.3px;flex:0 0 auto}
 .draw-stage{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;flex:1 1 auto;min-height:0;overflow-y:auto;padding:6px 0}
 .draw-actions{display:flex;gap:8px;width:100%;max-width:420px;flex:0 0 auto;padding-bottom:env(safe-area-inset-bottom)}
 .draw-actions button{flex:1}
@@ -183,7 +187,7 @@ h1,h2,h3,p{margin:0}
 .giftbox.open #boxbody{animation:boxpop .5s ease}
 @keyframes boxpop{40%{transform:scale(1.06)}}
 .tapdots{display:flex;gap:10px;justify-content:center;margin-top:4px}
-.tapdots i{width:21px;height:21px;border-radius:50%;background:rgba(255,255,255,.55);border:2.4px solid #3A2B3D;font-style:normal}
+.tapdots i{width:21px;height:21px;border-radius:50%;background:rgba(255,255,255,.55);border:2.4px solid #5C3D35;font-style:normal}
 .tapdots i.on{background:#FF5C8D;box-shadow:0 0 0 3px rgba(255,255,255,.85)}
 .card-pop{width:100%;max-width:460px;animation:cardIn .45s cubic-bezier(.2,1.1,.4,1)}
 @keyframes cardIn{from{transform:scale(.75) translateY(20px);opacity:0}to{transform:none;opacity:1}}
@@ -332,8 +336,8 @@ h1,h2,h3,p{margin:0}
     <div class="inv-stats" id="invFilters"></div>
     <div id="invListWrap"></div>
     <div class="connect-bar">
-      <div class="sel-count" id="selCount">카드를 2개 이상 골라 보세요</div>
-      <button class="primary big" id="connectBtn" disabled>✨ 연결하기</button>
+      <div class="sel-count" id="selCount">마음을 담은 카드를 2개 이상 골라 보세요</div>
+      <button class="primary big" id="connectBtn" disabled>✨ 합성하기</button>
     </div>
     <div class="inv-tools">
       <button id="btnBackup">💾 백업 저장</button>
@@ -366,7 +370,7 @@ h1,h2,h3,p{margin:0}
 <div class="overlay" id="connectOverlay" aria-hidden="true">
   <div class="sheet">
     <div class="sheet-head">
-      <h2 style="font-size:17px;font-weight:900;flex:1">✨ 연결 완성!</h2>
+      <h2 style="font-size:17px;font-weight:900;flex:1">✨ 마음이 피어났어요</h2>
       <button class="icon-btn" data-ol-close="connectOverlay" aria-label="닫기">✕</button>
     </div>
     <div class="sheet-body" id="connectBody"></div>
@@ -393,7 +397,7 @@ h1,h2,h3,p{margin:0}
     </div>
     <div class="sheet-body" style="font-size:14.5px;line-height:1.75;color:#5C4756">
       <p><b>1.</b> 뽑은 쿠폰·응원 편지·마음 문구가 자동으로 보관함에 쌓여요.</p>
-      <p><b>2.</b> 카드를 <b>2개 이상</b> 톡톡 눌러 고른 뒤 <b>연결하기</b>를 누르면, 더 멋진 <b>스페셜 카드</b>가 새로 만들어져요.</p>
+      <p><b>2.</b> 카드를 <b>2개 이상</b> 톡톡 눌러 고른 뒤 <b>합성하기</b>를 누르면, 고른 마음의 결을 읽어 <b>더 따뜻하고 감동적인 한마디</b>로 새로 피어나요.</p>
       <p><b>3.</b> 원래 카드도 그대로 남아 있어요. 마음에 드는 조합을 몇 번이든 만들어 보세요!</p>
       <p><b>4.</b> <b>백업 저장</b>으로 파일을 내려받아 두면, 다른 기기에서 <b>불러오기</b>로 그대로 되살릴 수 있어요.</p>
     </div>
@@ -422,34 +426,35 @@ function heart(cx,cy,s,fill){
   return '<path d="M0 4 C-7 -3 -15 3 -7 11 L0 18 L7 11 C15 3 7 -3 0 4Z" fill="'+fill+'" transform="translate('+cx+','+cy+') scale('+s+')"/>';
 }
 
-/* ---------------- 팔레트 ---------------- */
-var INK = '#3A2B3D';
+/* ---------------- 팔레트 (마라마스터 감성: 말랑 SD + 초콜릿 외곽선) ---------------- */
+var INK = '#5C3D35';        // 부드럽고 따뜻한 초콜릿 외곽선
+var INK_L = '#8A6552';      // 아주 얇은 디테일용
 var SKINS=[
-  ['아이보리','#FFEDE4'],['밝은 살구','#FFE0C9'],['복숭아','#F9D2B6'],['베이지','#E9BD97'],
-  ['황토','#D79E6E'],['갈색','#B67A4B'],['진한 갈색','#8B5630']
+  ['아이보리','#FFEFE6'],['밝은 살구','#FFE1CB'],['복숭아','#FBD3B8'],['베이지','#F0C6A3'],
+  ['황토','#E0A87C'],['갈색','#C08858'],['진한 갈색','#96633D']
 ];
 var HAIR_COLORS=[
-  ['흑발','#2E2A33'],['진갈색','#4A3227'],['갈색','#6E4B33'],['밝은 갈색','#A0744C'],
-  ['애쉬','#9A8578'],['금발','#E8C877'],['레몬','#FFE066'],['분홍','#FF9EC4'],
-  ['빨강','#E8604C'],['라벤더','#C3A8FF'],['민트','#9BE3C8'],['하늘','#8FD0FF'],
-  ['은발','#DCE0EA'],['보라','#A98BF0']
+  ['흑발','#40333A'],['진갈색','#6C4632'],['갈색','#8E6543'],['밝은 갈색','#C08E5F'],
+  ['애쉬','#A89383'],['금발','#F1D48F'],['레몬','#FFE585'],['분홍','#FFADC9'],
+  ['빨강','#EE6650'],['라벤더','#C8AEFF'],['민트','#A2E6CD'],['하늘','#96D4FF'],
+  ['은발','#E2E5EE'],['보라','#AE92F2']
 ];
 var CLOTH_COLORS=[
-  ['분홍','#FF9FB7'],['살구','#FFC49B'],['노랑','#FFDE6B'],['연두','#B9E88E'],
-  ['민트','#8FE3CF'],['하늘','#9BD7FF'],['파랑','#8FA8FF'],['보라','#C3A6FF'],
-  ['자주','#E48AC8'],['코랄','#FF8A80'],['크림','#FFF3E0'],['차콜','#5A5566']
+  ['분홍','#FFA6BC'],['살구','#FFC8A2'],['노랑','#FFE07C'],['연두','#C0EA96'],
+  ['민트','#96E6D2'],['하늘','#A2DAFF'],['파랑','#97AEFF'],['보라','#C8ACFF'],
+  ['자주','#E794CC'],['코랄','#FF9488'],['크림','#FFF4E4'],['차콜','#6A6478']
 ];
-var EYE_COLORS=['#7E63E0','#C97A3F','#A9683C','#C89A5C','#93A9C4','#E8A63C','#DDA82C','#F0679A','#E0523E','#A87BE8','#3CC79A','#4F9EE6','#93A9C8','#8A6BE0'];
+var EYE_COLORS=['#8B6CEA','#C97A3F','#B07345','#C89A5C','#9AAFC8','#E8A63C','#DDA82C','#F0679A','#E0523E','#A87BE8','#3CC79A','#4F9EE6','#9AAFC8','#8A6BE0'];
 
-/* ---------------- 만화 드로잉 도구 ---------------- */
+/* ---------------- 그리기 도구 ---------------- */
 function ink(d,fill,w,extra){
-  return '<path d="'+d+'" fill="'+fill+'" stroke="'+INK+'" stroke-width="'+(w==null?3:w)+'" stroke-linejoin="round" stroke-linecap="round"'+(extra?' '+extra:'')+'/>';
+  return '<path d="'+d+'" fill="'+fill+'" stroke="'+INK+'" stroke-width="'+(w==null?2.6:w)+'" stroke-linejoin="round" stroke-linecap="round"'+(extra?' '+extra:'')+'/>';
 }
 function soft(d,fill,extra){
   return '<path d="'+d+'" fill="'+fill+'"'+(extra?' '+extra:'')+'/>';
 }
 function stro(d,col,w,extra){
-  return '<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="'+(w||3)+'" stroke-linecap="round" stroke-linejoin="round"'+(extra?' '+extra:'')+'/>';
+  return '<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="'+(w||2.6)+'" stroke-linecap="round" stroke-linejoin="round"'+(extra?' '+extra:'')+'/>';
 }
 function wedge(x1,y1,x2,y2,w,fill,op){
   return '<path d="M'+x1+' '+y1+'L'+(x2-w)+' '+y2+'L'+(x2+w)+' '+y2+'Z" fill="'+fill+'" opacity="'+(op||.4)+'"/>';
@@ -464,71 +469,76 @@ function nextSvgId(){ __svgN++; return 'v'+__svgN.toString(36)+'_'; }
 function hairId(c){ return 'hg'+__cur+String(c).replace('#',''); }
 function hairGrad(c){
   var id=hairId(c);
-  return '<linearGradient id="'+id+'" x1="0" y1="0" x2="0.15" y2="1">'
-    +'<stop offset="0" stop-color="'+shade(c,14)+'"/>'
-    +'<stop offset=".42" stop-color="'+c+'"/>'
-    +'<stop offset="1" stop-color="'+shade(c,-22)+'"/>'
+  return '<linearGradient id="'+id+'" x1="0.12" y1="0" x2="0.3" y2="1">'
+    +'<stop offset="0" stop-color="'+shade(c,30)+'"/>'
+    +'<stop offset=".3" stop-color="'+shade(c,12)+'"/>'
+    +'<stop offset=".72" stop-color="'+c+'"/>'
+    +'<stop offset="1" stop-color="'+shade(c,-24)+'"/>'
     +'</linearGradient>';
 }
 function hairFill(c){ return 'url(#'+hairId(c)+')'; }
-function hairShine(c,y){
-  var band='M50 '+(y+7)+'C60 '+(y-7)+' 78 '+(y-15)+' 100 '+(y-15)+'C122 '+(y-15)+' 140 '+(y-7)+' 150 '+(y+7)
-    +'C140 '+(y+3)+' 122 '+(y-3)+' 100 '+(y-3)+'C78 '+(y-3)+' 60 '+(y+3)+' 50 '+(y+7)+'Z';
-  return '<path d="'+band+'" fill="'+shade(c,40)+'" opacity=".5"/>'
-    + stro('M66 '+(y+1)+'q18 -4 34 -2', shade(c,58), 2.2, 'opacity=".3"');
+function hairShine(c){
+  return '<path d="M47 66C55 36 77 18 100 18C123 18 145 36 153 66C146 51 126 35 100 35C74 35 54 51 47 66Z" fill="#FFFFFF" opacity=".1"/>'
+    + stro('M54 58C64 37 81 25 100 23', shade(c,58), 2.6, 'opacity=".16"');
+}
+function hairStrands(c){
+  return stro('M64 40C57 54 55 66 57 78', shade(c,-36), 2, 'opacity=".26"')
+    + stro('M136 40C143 54 145 66 143 78', shade(c,-36), 2, 'opacity=".26"')
+    + stro('M100 28C98 44 98 58 100 70', shade(c,-30), 1.7, 'opacity=".18"')
+    + stro('M80 30C75 42 73 52 73 62', shade(c,50), 2.2, 'opacity=".26"')
+    + stro('M120 30C125 42 127 52 127 62', shade(c,50), 1.8, 'opacity=".16"');
 }
 function irisGrad(ec){
   var id='ir'+__cur+String(ec).replace('#','');
-  return '<radialGradient id="'+id+'" cx=".5" cy=".32" r=".8">'
-    +'<stop offset="0" stop-color="'+shade(ec,40)+'"/>'
-    +'<stop offset=".5" stop-color="'+ec+'"/>'
-    +'<stop offset="1" stop-color="'+shade(ec,-48)+'"/>'
+  return '<radialGradient id="'+id+'" cx=".42" cy=".3" r=".86">'
+    +'<stop offset="0" stop-color="'+shade(ec,44)+'"/>'
+    +'<stop offset=".46" stop-color="'+shade(ec,10)+'"/>'
+    +'<stop offset=".85" stop-color="'+ec+'"/>'
+    +'<stop offset="1" stop-color="'+shade(ec,-46)+'"/>'
     +'</radialGradient>';
 }
 function scleraD(cx,cy){
-  return 'M'+(cx-15)+' '+(cy+1)
-    +'C'+(cx-14)+' '+(cy-13)+' '+(cx-7)+' '+(cy-19)+' '+(cx+1)+' '+(cy-19)
-    +'C'+(cx+10)+' '+(cy-19)+' '+(cx+15)+' '+(cy-11)+' '+(cx+15)+' '+(cy+1)
-    +'C'+(cx+15)+' '+(cy+12)+' '+(cx+8)+' '+(cy+18)+' '+(cx-1)+' '+(cy+18)
-    +'C'+(cx-9)+' '+(cy+18)+' '+(cx-15)+' '+(cy+10)+' '+(cx-15)+' '+(cy+1)+'Z';
+  return 'M'+(cx-14)+' '+(cy+1)
+    +'C'+(cx-14)+' '+(cy-11)+' '+(cx-7.4)+' '+(cy-17.4)+' '+(cx+0.4)+' '+(cy-17.4)
+    +'C'+(cx+8.6)+' '+(cy-17.4)+' '+(cx+14)+' '+(cy-9.6)+' '+(cx+14)+' '+(cy+1)
+    +'C'+(cx+14)+' '+(cy+10.6)+' '+(cx+7.4)+' '+(cy+16.6)+' '+(cx-0.4)+' '+(cy+16.6)
+    +'C'+(cx-8.6)+' '+(cy+16.6)+' '+(cx-14)+' '+(cy+9.4)+' '+(cx-14)+' '+(cy+1)+'Z';
 }
 function eyeClips(){
-  return '<clipPath id="eyeClipL'+__cur+'"><path d="'+scleraD(70,90)+'"/></clipPath>'
-    +'<clipPath id="eyeClipR'+__cur+'"><path d="'+scleraD(130,90)+'"/></clipPath>';
+  return '<clipPath id="eyeClipL'+__cur+'"><path d="'+scleraD(72,106)+'"/></clipPath>'
+    +'<clipPath id="eyeClipR'+__cur+'"><path d="'+scleraD(128,106)+'"/></clipPath>';
 }
 
-/* ---------------- 얼굴·눈 (만화 스타일) ---------------- */
+/* ---------------- 얼굴·눈 (말랑 반짝이 눈) ---------------- */
 function eyeGroup(cx,cy,ec,exp,side){
   var s='';
   if(exp==='happy'){
-    s += stro('M'+(cx-14)+' '+(cy+5)+'Q'+cx+' '+(cy-16)+' '+(cx+14)+' '+(cy+5), INK, 5.6);
-    s += stro('M'+(cx+side*14)+' '+(cy+2)+'l'+(side*4)+' 5', INK, 4);
-    s += stro('M'+(cx-6)+' '+(cy-3)+'q6 -4 12 -1', '#FFFFFF', 1.8, 'opacity=".45"');
+    s += stro('M'+(cx-13)+' '+(cy+4)+'C'+(cx-10)+' '+(cy-7)+' '+(cx-4.6)+' '+(cy-10)+' '+(cx+0.4)+' '+(cy-10)+'C'+(cx+6.4)+' '+(cy-10)+' '+(cx+10.6)+' '+(cy-6)+' '+(cx+13)+' '+(cy-1), INK, 4.4);
+    s += stro('M'+(cx+side*13.6)+' '+(cy-1)+'q'+(side*3.2)+' -1.4 '+(side*4.8)+' -3.6', INK, 3);
+    s += stro('M'+(cx-7)+' '+(cy-5)+'q6 -3.4 12 -1', '#FFFFFF', 1.9, 'opacity=".45"');
     return s;
   }
   var clip = (side<0?'eyeClipL':'eyeClipR')+__cur;
-  var irx = exp==='wow' ? 8.4 : 12.8, iry = exp==='wow' ? 10.4 : 14.8;
+  var irx = exp==='wow' ? 7.6 : 10.2, iry = exp==='wow' ? 9.4 : 12.4;
   s += '<g clip-path="url(#'+clip+')">';
-  s += '<path d="'+scleraD(cx,cy)+'" fill="#FFFBF6"/>';
+  s += '<ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="14" ry="17.6" fill="#FFFCF7"/>';
   if(exp==='love'){
-    s += '<ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="13.4" ry="15.4" fill="'+shade(ec,8)+'"/>';
-    s += heart(cx,cy-7,1.06,'#FF4F84',INK);
-    s += '<circle cx="'+(cx-4)+'" cy="'+(cy-3)+'" r="2.3" fill="#FFFFFF" opacity=".95"/>';
-    s += '<circle cx="'+(cx+4)+'" cy="'+(cy+3)+'" r="1.3" fill="#FFFFFF" opacity=".8"/>';
+    s += '<ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="12.2" ry="13.6" fill="'+shade(ec,16)+'"/>';
+    s += heart(cx,cy-7.6,1.02,'#FF5A8C',INK);
+    s += '<circle cx="'+(cx-3.8)+'" cy="'+(cy-3.6)+'" r="2.2" fill="#FFFFFF" opacity=".95"/>';
+    s += '<circle cx="'+(cx+3.6)+'" cy="'+(cy+2.4)+'" r="1.3" fill="#FFFFFF" opacity=".85"/>';
   } else {
-    s += '<ellipse cx="'+cx+'" cy="'+(cy+1)+'" rx="'+irx+'" ry="'+iry+'" fill="url(#ir'+__cur+String(ec).replace('#','')+')"/>';
-    s += '<path d="M'+(cx-irx-1)+' '+(cy-2)+'A'+(irx+1)+' '+(iry+1)+' 0 0 1 '+(cx+irx+1)+' '+(cy-2)+'L'+(cx+irx+1)+' '+(cy-18)+'L'+(cx-irx-1)+' '+(cy-18)+'Z" fill="#2A1B33" opacity=".4"/>';
-    s += '<ellipse cx="'+cx+'" cy="'+(cy+2)+'" rx="'+(exp==='wow'?3.4:5.6)+'" ry="'+(exp==='wow'?4.4:7.1)+'" fill="#241826"/>';
-    s += '<ellipse cx="'+cx+'" cy="'+(cy+iry*0.55)+'" rx="'+(irx*0.66)+'" ry="'+(iry*0.3)+'" fill="'+shade(ec,52)+'" opacity=".72"/>';
-    s += '<ellipse cx="'+(cx-4.6)+'" cy="'+(cy-6)+'" rx="4.3" ry="5.8" fill="#FFFFFF" transform="rotate(-18 '+(cx-4.6)+' '+(cy-6)+')"/>';
-    s += '<circle cx="'+(cx+5.4)+'" cy="'+(cy+7)+'" r="2.4" fill="#FFFFFF" opacity=".95"/>';
-    s += '<path d="M'+(cx+9)+' '+(cy-9)+'l1.3 3.1 3.1 1.3-3.1 1.3-1.3 3.1-1.3-3.1-3.1-1.3 3.1-1.3z" fill="#FFFFFF" opacity=".9"/>';
+    s += '<ellipse cx="'+cx+'" cy="'+(cy+1.2)+'" rx="'+irx+'" ry="'+iry+'" fill="url(#ir'+__cur+String(ec).replace('#','')+')"/>';
+    s += '<path d="M'+(cx-irx-1)+' '+(cy-1)+'A'+(irx+1)+' '+(iry+1)+' 0 0 1 '+(cx+irx+1)+' '+(cy-1)+'L'+(cx+irx+1)+' '+(cy-17)+'L'+(cx-irx-1)+' '+(cy-17)+'Z" fill="'+shade(ec,-66)+'" opacity=".42"/>';
+    s += '<ellipse cx="'+cx+'" cy="'+(cy+2)+'" rx="'+(exp==='wow'?3.2:4.8)+'" ry="'+(exp==='wow'?4:6.2)+'" fill="'+shade(ec,-74)+'"/>';
+    s += '<ellipse cx="'+cx+'" cy="'+(cy+iry*0.62)+'" rx="'+(irx*0.58)+'" ry="'+(iry*0.2)+'" fill="'+shade(ec,50)+'" opacity=".4"/>';
+    s += '<ellipse cx="'+(cx-3.4)+'" cy="'+(cy-5)+'" rx="3.4" ry="4.6" fill="#FFFFFF" opacity=".95" transform="rotate(-14 '+(cx-3.4)+' '+(cy-5)+')"/>';
+    s += '<circle cx="'+(cx+3.8)+'" cy="'+(cy+5.4)+'" r="1.9" fill="#FFFFFF" opacity=".9"/>';
   }
   s += '</g>';
-  s += stro('M'+(cx-16)+' '+(cy+1)+'C'+(cx-15)+' '+(cy-14)+' '+(cx-6)+' '+(cy-22)+' '+(cx+2)+' '+(cy-21)+'C'+(cx+11)+' '+(cy-20)+' '+(cx+16)+' '+(cy-12)+' '+(cx+17)+' '+(cy-2), INK, 5.6);
-  s += stro('M'+(cx+side*17)+' '+(cy-2)+'l'+(side*4)+' -4', INK, 4);
-  s += stro('M'+(cx+side*12)+' '+(cy+13)+'q'+(side*5)+' 4 '+(side*9)+' 1', INK, 2, 'opacity=".7"');
-  s += stro('M'+(cx-11)+' '+(cy-25)+'q11 -5 22 1', shade(ec,-45), 1.8, 'opacity=".3"');
+  s += stro('M'+(cx-14.8)+' '+(cy+1)+'C'+(cx-14.8)+' '+(cy-11.6)+' '+(cx-7.6)+' '+(cy-18.2)+' '+(cx+0.4)+' '+(cy-18.2)+'C'+(cx+9)+' '+(cy-18.2)+' '+(cx+15.2)+' '+(cy-10)+' '+(cx+15.4)+' '+(cy-1), INK, 4);
+  s += stro('M'+(cx+side*15.2)+' '+(cy-1)+'q'+(side*3.2)+' -1.6 '+(side*4.6)+' -4', INK, 2.6);
+  s += stro('M'+(cx+side*2.6)+' '+(cy+13.8)+'q'+(side*5.6)+' 3 '+(side*9.4)+' -0.6', INK_L, 1.5, 'opacity=".35"');
   return s;
 }
 
@@ -536,218 +546,273 @@ function faceSVG(exp,ec,skin,hc){
   exp = exp||'idle';
   ec = ec||EYE_COLORS[0]; skin = skin||SKINS[1][1]; hc = hc||HAIR_COLORS[1][1];
   var s='';
-  var blush = (exp==='love'||exp==='happy') ? '.5' : '.3';
-  [[54,110],[146,110]].forEach(function(p){
-    s += '<ellipse cx="'+p[0]+'" cy="'+p[1]+'" rx="11" ry="6" fill="#FF8FB0" opacity="'+blush+'"/>';
-    s += stro('M'+(p[0]-7)+' '+(p[1]-1)+'l1.6 3.4M'+(p[0]-2)+' '+(p[1]-3)+'l1.6 3.4M'+(p[0]+3)+' '+(p[1]-2)+'l1.6 3.4','#F58CA8',1.2,'opacity=".3"');
+  var blush = (exp==='love'||exp==='happy') ? '.5' : '.32';
+  [[46,130],[154,130]].forEach(function(p){
+    s += '<ellipse cx="'+p[0]+'" cy="'+p[1]+'" rx="14" ry="7" fill="#FF9CB8" opacity="'+blush+'"/>';
+    s += '<ellipse cx="'+p[0]+'" cy="'+(p[1]+1)+'" rx="8.6" ry="4.4" fill="#FF7FA2" opacity="'+(blush*0.45)+'"/>';
+    s += stro('M'+(p[0]-7)+' '+(p[1]-1.2)+'l1.4 3.2M'+(p[0]-2)+' '+(p[1]-2.8)+'l1.4 3.2M'+(p[0]+3)+' '+(p[1]-1.4)+'l1.4 3.2','#F98AA8',1.3,'opacity=".3"');
   });
-  s += eyeGroup(70,90,ec,exp,-1);
-  s += eyeGroup(130,90,ec,exp,1);
-  s += stro('M99 105q3 3 6 1', shade(skin,-32), 2.2, 'opacity=".75"');
+  s += eyeGroup(72,106,ec,exp,-1);
+  s += eyeGroup(128,106,ec,exp,1);
+  s += stro('M98.6 120.4q2.2 2 3.8 0.4', shade(skin,-34), 1.9, 'opacity=".6"');
   if(exp==='happy'){
-    s += ink('M86 116Q100 138 114 116Q100 123 86 116Z', '#B94F6C', 2.6);
-    s += soft('M95 127Q100 132 105 127Q100 130 95 127Z', '#F4869F');
-    s += stro('M83 117l-5 -2M117 117l5 -2', '#B94F6C', 1.8, 'opacity=".55"');
+    s += ink('M90 132Q100 144 110 132Q100 137 90 132Z', '#C85C74', 2.2);
+    s += soft('M96 138Q100 141 104 138Q100 139.4 96 138Z', '#F993AC');
+    s += stro('M86 131l-3.6 -1.4M114 131l3.6 -1.4', '#C85C74', 1.5, 'opacity=".4"');
   } else if(exp==='love'){
-    s += ink('M88 116Q100 132 112 116Q100 122 88 116Z', '#C2586F', 2.6);
-    s += soft('M96 125Q100 128 104 125Q100 127 96 125Z', '#F4869F');
+    s += ink('M91.5 132Q100 141 108.5 132Q100 136 91.5 132Z', '#C85C74', 2.2);
+    s += soft('M96.5 137Q100 139.6 103.5 137Q100 138.4 96.5 137Z', '#F993AC');
   } else if(exp==='wow'){
-    s += ink('M94 117q6 -3 12 0q2 10 -6 10t-6 -10Z', '#B94F6C', 2.6);
-    s += soft('M97 123q3 3 6 0q-3 2 -6 0Z', '#F4869F');
+    s += ink('M95 131q5 -2.4 10 0q1.6 8 -5 8t-5 -8Z', '#C85C74', 2.2);
+    s += soft('M97.8 135.6q2.4 2.4 4.6 0q-2.4 1.6 -4.6 0Z', '#F993AC');
   } else {
-    s += stro('M92 119q8 8 16 0', '#B94F6C', 3.4);
+    s += stro('M92 133q8 5.4 16 0', '#C85C74', 3);
   }
   return s;
 }
 
 function browSVG(exp,hc){
-  var by = exp==='wow' ? 58 : 65;
-  var col = shade(hc,-14);
-  return stro('M57 '+by+'Q70 '+(by-8)+' 83 '+(by-1), col, 4, 'opacity=".9"')
-       + stro('M117 '+(by-1)+'Q130 '+(by-8)+' 143 '+by, col, 4, 'opacity=".9"');
+  var by = exp==='wow' ? 74 : 80;
+  var col = shade(hc,-12);
+  return stro('M54 '+by+'C62 '+(by-6)+' 74 '+(by-6)+' 84 '+(by-1), col, 3.2, 'opacity=".85"')
+       + stro('M116 '+(by-1)+'C126 '+(by-6)+' 138 '+(by-6)+' 146 '+by, col, 3.2, 'opacity=".85"');
 }
 
-/* ---------------- 머리 앞머리(공용) ---------------- */
+/* ---------------- 앞머리 5종 (부드러운 결 + 얼굴선 옆머리) ---------------- */
+function lockL(c,fill){ return ink('M52 24C42 44 40 64 46 78C53 87 66 84 70 74C74 61 72 36 67 22Z', fill||shade(c,8), 2.3); }
+function lockR(c,fill){ return ink('M148 24C158 44 160 64 154 78C147 87 134 84 130 74C126 61 128 36 133 22Z', fill||shade(c,8), 2.3); }
+
 function fringeSoft(c){
-  var d='M30 98C28 44 58 10 100 10C142 10 172 44 170 98C166 80 156 66 146 62C142 72 136 78 128 78C126 66 118 62 110 64C106 70 104 72 100 77C96 72 94 70 90 64C82 62 74 66 72 78C64 78 58 72 54 62C44 66 34 80 30 98Z';
-  return ink(d, hairFill(c), 3)
-    + wedge(100,18,100,77,8, shade(c,-28), '.35')
-    + wedge(100,18,72,78,7, shade(c,-24), '.28')
-    + wedge(100,18,128,78,7, shade(c,-24), '.28')
-    + stro('M56 64q8 10 15 14M144 64q-8 10 -15 14', shade(c,-30), 1.8, 'opacity=".34"')
-    + hairShine(c,44);
+  var d='M32 96C28 46 56 12 100 12C144 12 172 46 168 96'
+    +'C164 82 157 73 149 70'
+    +'C138 66 126 68 116 73'
+    +'C110 76 104 78 100 78'
+    +'C96 78 90 76 84 73'
+    +'C74 68 62 66 51 70'
+    +'C43 73 36 82 32 96Z';
+  return ink(d, hairFill(c), 2.6)
+    + soft('M34 88C42 78 52 74 62 77C52 83 44 90 40 98C36 96 34 92 34 88Z', shade(c,-24), 'opacity=".24"')
+    + soft('M166 88C158 78 148 74 138 77C148 83 156 90 160 98C164 96 166 92 166 88Z', shade(c,-24), 'opacity=".24"')
+    + lockL(c) + lockR(c)
+    + hairStrands(c) + hairShine(c);
 }
 function fringePart(c){
-  var d='M30 98C28 44 58 10 100 10C142 10 172 44 170 98C167 84 160 76 150 72C146 82 140 88 132 90C126 78 118 68 110 62C106 59 104 57 100 56C96 57 94 59 90 62C82 68 74 78 68 90C60 88 54 82 50 72C40 76 33 84 30 98Z';
-  return ink(d, hairFill(c), 3)
-    + wedge(100,16,100,56,7, shade(c,-26), '.3')
-    + wedge(100,16,68,90,6, shade(c,-22), '.24')
-    + wedge(100,16,132,90,6, shade(c,-22), '.24')
-    + hairShine(c,42);
+  var d='M32 96C28 46 56 12 100 12C144 12 172 46 168 96'
+    +'C164 84 158 76 151 72'
+    +'C144 80 134 84 124 80'
+    +'C114 75 106 66 100 56'
+    +'C94 66 86 75 76 80'
+    +'C66 84 56 80 49 72'
+    +'C42 76 36 84 32 96Z';
+  return ink(d, hairFill(c), 2.6)
+    + wedge(100,12,100,54,6, shade(c,-24), '.2')
+    + wedge(100,12,66,78,5, shade(c,-16), '.14')
+    + wedge(100,12,134,78,5, shade(c,-16), '.14')
+    + lockL(c) + lockR(c)
+    + hairStrands(c) + hairShine(c);
 }
 function fringeStraight(c){
-  var d='M30 98C28 44 58 10 100 10C142 10 172 44 170 98C168 78 150 70 100 70C50 70 32 78 30 98Z';
-  return ink(d, hairFill(c), 3)
-    + soft('M32 80C52 72 148 72 168 80C168 78 150 70 100 70C50 70 32 78 30 98Z', shade(c,-26), 'opacity=".5"')
-    + stro('M72 72v-26M100 70v-28M128 72v-26', shade(c,-28), 1.6, 'opacity=".38"')
-    + hairShine(c,50);
+  var d='M32 96C28 46 56 12 100 12C144 12 172 46 168 96'
+    +'C166 88 163 83 158 80'
+    +'C148 74 138 72 128 74'
+    +'C118 76 108 78 100 78'
+    +'C92 78 82 76 72 74'
+    +'C62 72 52 74 42 80'
+    +'C37 83 34 88 32 96Z';
+  return ink(d, hairFill(c), 2.6)
+    + soft('M36 82C52 72 66 70 84 73C64 78 48 83 41 90Z', shade(c,-22), 'opacity=".24"')
+    + soft('M164 82C148 72 134 70 116 73C136 78 152 83 159 90Z', shade(c,-22), 'opacity=".24"')
+    + stro('M74 74v-18M100 76v-22M126 74v-18', shade(c,-24), 1.6, 'opacity=".2"')
+    + lockL(c) + lockR(c)
+    + hairStrands(c) + hairShine(c);
 }
 function fringeJag(c){
-  var d='M30 98C28 42 58 10 100 10C142 10 172 42 170 98C164 80 158 72 152 68L142 84L134 64L124 82L114 62L104 84L96 62L86 84L76 64L66 82L58 68C48 74 36 82 30 98Z';
-  return ink(d, hairFill(c), 3)
-    + wedge(100,18,104,62,5, shade(c,-24), '.38')
-    + wedge(100,18,86,62,5, shade(c,-24), '.38')
-    + hairShine(c,46);
+  var d='M32 96C28 46 56 12 100 12C144 12 172 46 168 96'
+    +'C164 88 159 83 154 81'
+    +'C152 88 147 91 142 86'
+    +'C140 79 135 75 129 74'
+    +'C128 81 122 84 117 78'
+    +'C114 73 109 69 104 67'
+    +'C104 73 102 77 100 77'
+    +'C98 77 96 73 96 67'
+    +'C91 69 86 73 83 78'
+    +'C78 84 72 81 71 74'
+    +'C65 75 60 79 58 86'
+    +'C53 91 48 88 46 81'
+    +'C41 83 36 88 32 96Z';
+  return ink(d, hairFill(c), 2.6)
+    + lockL(c) + lockR(c)
+    + hairStrands(c) + hairShine(c);
 }
 function fringeSweep(c){
-  var d='M30 98C28 44 58 10 100 10C142 10 172 44 170 98C162 76 150 62 134 56C118 50 98 56 84 70C74 80 60 86 48 84C42 88 35 92 30 98Z';
-  return ink(d, hairFill(c), 3)
-    + soft('M48 84C60 86 74 80 84 70C98 56 118 50 134 56C120 58 106 64 94 74C82 84 64 90 48 88Z', shade(c,-24), 'opacity=".42"')
-    + stro('M52 86q24 2 42 -14t34 -14', shade(c,-30), 1.8, 'opacity=".36"')
-    + hairShine(c,48);
+  var d='M32 96C28 46 56 12 100 12C144 12 172 46 168 96'
+    +'C162 80 152 64 140 56'
+    +'C126 47 108 52 94 64'
+    +'C84 72 70 76 58 76'
+    +'C48 76 39 84 32 96Z';
+  return ink(d, hairFill(c), 2.6)
+    + soft('M58 76C70 76 84 72 94 64C108 52 126 47 140 56C126 58 112 64 100 74C88 84 68 86 56 82Z', shade(c,-20), 'opacity=".28"')
+    + lockR(c)
+    + hairStrands(c) + hairShine(c);
 }
 
 /* ---------------- 머리 모양 12종 ---------------- */
 var HAIRS = {
   bob:{ name:'단발',
     back:function(c){
-      return ink('M30 100C28 44 58 10 100 10C142 10 172 44 170 100L173 140C148 156 52 156 27 140Z', hairFill(c), 3)
-        + soft('M27 134C52 152 148 152 173 134L173 140C148 156 52 156 27 140Z', shade(c,-30), 'opacity=".55"');
+      return ink('M33 104C30 48 58 14 100 14C142 14 170 48 167 104L171 144C168 156 157 160 148 153C132 162 68 162 52 153C43 160 32 156 29 144Z', hairFill(c), 2.6)
+        + soft('M29 138C44 152 64 158 84 157C60 160 40 156 30 146Z', shade(c,-28), 'opacity=".45"')
+        + soft('M171 138C156 152 136 158 116 157C140 160 160 156 170 146Z', shade(c,-28), 'opacity=".45"');
     },
     over:function(c){
-      return ink('M31 70C27 100 27 124 31 142C41 148 51 140 48 124C46 106 45 88 44 74Z', c, 2.6)
-        + ink('M169 70C173 100 173 124 169 142C159 148 149 140 152 124C154 106 155 88 156 74Z', c, 2.6);
+      return ink('M33 72C28 100 28 124 33 144C43 150 53 141 50 124C47 104 46 86 45 74Z', c, 2.4)
+        + ink('M167 72C172 100 172 124 167 144C157 150 147 141 150 124C153 104 154 86 155 74Z', c, 2.4)
+        + stro('M40 88q-4 30 -3 50M160 88q4 30 3 50', shade(c,-20), 1.8, 'opacity=".3"');
     },
     front:function(c){ return fringeSoft(c); }
   },
   long:{ name:'긴 생머리',
     back:function(c){
-      return ink('M30 100C28 42 58 8 100 8C142 8 172 42 170 100L176 246C168 260 154 264 144 252C120 266 80 266 56 252C46 264 32 260 24 246Z', hairFill(c), 3)
-        + soft('M24 226C32 254 46 262 56 252C80 266 120 266 144 252C154 264 168 260 176 246L176 256C156 272 44 272 24 256Z', shade(c,-30), 'opacity=".5"')
-        + stro('M54 190q-2 36 4 58M146 190q2 36 -4 58', shade(c,-26), 1.8, 'opacity=".38"');
+      return ink('M33 104C30 46 58 12 100 12C142 12 170 46 167 104L174 248C171 262 160 266 150 256C134 268 66 268 50 256C40 266 29 262 26 248Z', hairFill(c), 2.6)
+        + soft('M26 232C36 254 46 264 56 254C80 268 120 268 144 254C154 264 168 256 174 236L174 250C154 270 46 270 26 250Z', shade(c,-28), 'opacity=".45"')
+        + stro('M52 180q-3 40 2 66M148 180q3 40 -2 66', shade(c,-24), 2, 'opacity=".3"')
+        + stro('M40 150q-3 50 0 86', shade(c,30), 2.4, 'opacity=".22"');
     },
     over:function(c){
-      return ink('M32 68C26 120 32 182 26 238C40 248 54 238 50 220C45 162 46 108 45 74Z', c, 2.6)
-        + ink('M168 68C174 120 168 182 174 238C160 248 146 238 150 220C155 162 154 108 155 74Z', c, 2.6)
-        + stro('M40 90q-4 60 -3 120M160 90q4 60 3 120', shade(c,-24), 1.8, 'opacity=".35"');
+      return ink('M33 68C26 118 32 176 26 234C40 246 56 236 52 216C47 160 47 106 46 72Z', c, 2.4)
+        + ink('M167 68C174 118 168 176 174 234C160 246 144 236 148 216C153 160 153 106 154 72Z', c, 2.4)
+        + stro('M40 92q-4 56 -3 116M160 92q4 56 3 116', shade(c,-22), 1.9, 'opacity=".3"');
     },
     front:function(c){ return fringeSweep(c); }
   },
   twin:{ name:'양갈래',
     back:function(c){
-      return ink('M30 100C28 44 58 10 100 10C142 10 172 44 170 100L172 132C148 146 52 146 28 132Z', hairFill(c), 3)
-        + ink('M34 78C16 102 10 148 16 188C20 208 44 212 50 194C56 172 46 138 52 106Z', hairFill(c), 3)
-        + ink('M166 78C184 102 190 148 184 188C180 208 156 212 150 194C144 172 154 138 148 106Z', hairFill(c), 3)
-        + soft('M16 170C18 196 26 210 38 208C28 192 26 178 28 160Z', shade(c,-28), 'opacity=".42"')
-        + soft('M184 170C182 196 174 210 162 208C172 192 174 178 172 160Z', shade(c,-28), 'opacity=".42"')
-        + stro('M30 96q-8 50 -4 100M170 96q8 50 4 100', shade(c,-22), 2, 'opacity=".3"')
-        + stro('M40 104q-6 44 -3 84M160 104q6 44 3 84', shade(c,26), 2.2, 'opacity=".22"');
+      return ink('M33 104C30 48 58 14 100 14C142 14 170 48 167 104L170 142C150 156 50 156 30 142Z', hairFill(c), 2.6)
+        + ink('M32 76C14 94 8 134 14 172C18 194 44 200 51 180C58 158 44 130 50 102Z', hairFill(c), 2.6)
+        + ink('M168 76C186 94 192 134 186 172C182 194 156 200 149 180C142 158 156 130 150 102Z', hairFill(c), 2.6)
+        + soft('M14 158C16 184 24 198 36 198C26 182 22 170 24 150Z', shade(c,-26), 'opacity=".4"')
+        + soft('M186 158C184 184 176 198 164 198C174 182 178 170 176 150Z', shade(c,-26), 'opacity=".4"')
+        + stro('M28 106q-8 38 -5 76M172 106q8 38 5 76', shade(c,-20), 2, 'opacity=".28"')
+        + stro('M40 112q-7 34 -5 62M160 112q7 34 5 62', shade(c,26), 2.2, 'opacity=".22"');
     },
     over:function(c){
-      return '<circle cx="38" cy="56" r="8.5" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2.4"/>'
-        + '<circle cx="162" cy="56" r="8.5" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2.4"/>'
-        + heart(38,52,0.42,'#FFFFFF') + heart(162,52,0.42,'#FFFFFF');
+      return '<circle cx="36" cy="66" r="9" fill="#FF8FAE" stroke="'+INK+'" stroke-width="2.2"/>'
+        + '<circle cx="164" cy="66" r="9" fill="#FF8FAE" stroke="'+INK+'" stroke-width="2.2"/>'
+        + heart(36,62,0.4,'#FFFFFF') + heart(164,62,0.4,'#FFFFFF');
     },
     front:function(c){ return fringePart(c); }
   },
   wavy:{ name:'웨이브 롱',
     back:function(c){
-      return ink('M30 100C28 42 58 8 100 8C142 8 172 42 170 100C176 138 182 180 166 216C158 234 144 220 136 232C126 244 116 228 108 236C98 244 88 230 80 238C70 246 56 232 50 216C36 182 24 140 30 100Z', hairFill(c), 3)
-        + soft('M50 208C56 232 70 246 80 238C88 230 98 244 108 236C116 228 126 244 136 232C144 220 158 234 166 216L168 228C152 250 48 254 34 228Z', shade(c,-30), 'opacity=".5"')
-        + stro('M44 150q10 24 4 46M156 150q-10 24 -4 46', shade(c,-26), 1.8, 'opacity=".38"');
+      return ink('M33 104C30 46 58 12 100 12C142 12 170 46 167 104'
+        +'C173 136 180 172 170 208C164 230 150 220 142 234C134 248 122 234 114 244C104 254 92 240 84 248C74 256 58 242 50 224C38 194 27 142 33 104Z', hairFill(c), 2.6)
+        + soft('M50 210C58 236 74 256 84 248C92 240 104 254 114 244C122 234 134 248 142 234C150 220 164 230 170 208L172 222C156 248 48 252 34 226Z', shade(c,-28), 'opacity=".45"')
+        + stro('M44 150q10 26 3 52M156 150q-10 26 -3 52', shade(c,-24), 2, 'opacity=".3"')
+        + stro('M54 196q14 10 26 4', shade(c,-26), 2, 'opacity=".22"');
     },
     over:function(c){
-      return ink('M33 70C27 122 34 174 28 220C42 232 56 220 52 202C47 154 47 106 46 76Z', c, 2.6)
-        + ink('M167 70C173 122 166 174 172 220C158 232 144 220 148 202C153 154 153 106 154 76Z', c, 2.6);
+      return ink('M33 70C27 120 34 168 28 214C42 228 58 216 54 198C49 152 47 106 46 74Z', c, 2.4)
+        + ink('M167 70C173 120 166 168 172 214C158 228 142 216 146 198C151 152 153 106 154 74Z', c, 2.4);
     },
     front:function(c){ return fringeSoft(c); }
   },
   pixie:{ name:'숏컷',
     back:function(c){
-      return ink('M32 100C30 46 60 12 100 12C140 12 170 46 168 100C160 112 148 106 142 94C132 106 118 102 112 92C102 104 88 100 80 88C70 102 56 108 46 100C40 104 35 104 32 100Z', hairFill(c), 3)
-        + soft('M34 100C44 108 58 104 68 90C76 102 90 106 100 92C108 102 122 106 132 94C140 106 154 110 166 100L166 104C150 120 50 120 32 104Z', shade(c,-28), 'opacity=".45"');
+      return ink('M33 102C30 46 60 12 100 12C140 12 170 46 167 102C160 114 150 110 144 96C136 110 122 108 116 94C106 108 92 106 84 92C74 106 58 112 48 102C41 108 35 108 33 102Z', hairFill(c), 2.6)
+        + soft('M34 100C44 112 58 110 70 94C78 108 92 112 100 96C108 108 122 112 134 96C144 110 156 114 166 100L166 106C150 124 50 124 32 106Z', shade(c,-26), 'opacity=".4"');
+    },
+    over:function(c){
+      return stro('M40 78C46 58 62 44 82 38', shade(c,34), 3, 'opacity=".3"');
     },
     front:function(c){ return fringeJag(c); }
   },
   pony:{ name:'옆 포니테일',
     back:function(c){
-      return ink('M30 100C28 44 58 10 100 10C142 10 172 44 170 100L172 132C148 146 52 146 28 132Z', hairFill(c), 3)
-        + ink('M160 66C186 76 198 106 192 142C188 168 180 186 170 196C164 176 174 150 172 126C170 102 162 86 146 80Z', hairFill(c), 3)
-        + soft('M176 154C178 176 172 190 168 196C172 180 172 166 170 154Z', shade(c,-28), 'opacity=".42"');
+      return ink('M33 104C30 48 58 14 100 14C142 14 170 48 167 104L171 140C150 154 50 154 30 140Z', hairFill(c), 2.6)
+        + ink('M158 62C188 70 204 104 196 146C190 178 180 196 170 204C164 182 176 152 174 126C172 100 162 82 146 74Z', hairFill(c), 2.6)
+        + soft('M188 150C190 176 182 194 172 204C180 184 180 166 178 150Z', shade(c,-26), 'opacity=".4"')
+        + stro('M182 96q10 30 4 60', shade(c,-22), 1.8, 'opacity=".28"');
     },
     over:function(c){
-      return '<ellipse cx="154" cy="78" rx="9.5" ry="7" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2.4" transform="rotate(-24 154 78)"/>'
-        + heart(154,75,0.42,'#FFFFFF');
+      return '<ellipse cx="152" cy="74" rx="10.5" ry="8" fill="#FF8FAE" stroke="'+INK+'" stroke-width="2.2" transform="rotate(-26 152 74)"/>'
+        + heart(152,71,0.4,'#FFFFFF');
     },
     front:function(c){ return fringeSweep(c); }
   },
   spiky:{ name:'삐죽머리',
     back:function(c){
-      return ink('M32 96C30 44 60 12 100 12C140 12 170 44 168 96L178 108L158 104L156 122L142 108L136 126L122 110L110 128L98 110L86 128L74 110L62 126L54 108L42 122L38 104L22 108Z', hairFill(c), 3)
-        + soft('M32 96L22 108L38 104L42 122L54 108L62 126L74 110L86 128L98 110L110 128L122 110L136 126L142 108L156 122L158 104L178 108L168 96L150 106L120 114L80 114L50 106Z', shade(c,-28), 'opacity=".45"');
+      return ink('M33 98C30 44 60 10 100 10C140 10 170 44 167 98'
+        +'C168 84 160 76 152 78C152 90 142 96 136 88C132 100 118 102 112 90C104 102 88 102 82 90C74 100 60 98 58 86C50 96 40 92 40 80C36 90 34 94 33 98Z', hairFill(c), 2.6)
+        + soft('M34 96C42 104 54 100 60 88C66 100 80 102 88 90C94 102 108 102 116 90C122 100 136 100 142 88C150 98 158 96 166 86L166 96C148 112 46 112 32 96Z', shade(c,-26), 'opacity=".38"');
+    },
+    over:function(c){
+      return stro('M52 56C60 40 74 30 90 26', shade(c,36), 3, 'opacity=".28"');
     },
     front:function(c){ return fringeJag(c); }
   },
   buns:{ name:'만두머리',
     back:function(c){
-      return ink('M32 100C30 44 60 12 100 12C140 12 170 44 168 100L170 132C148 146 52 146 30 132Z', hairFill(c), 3)
-        + '<circle cx="42" cy="26" r="23" fill="'+hairFill(c)+'" stroke="'+INK+'" stroke-width="3"/>'
-        + '<circle cx="158" cy="26" r="23" fill="'+hairFill(c)+'" stroke="'+INK+'" stroke-width="3"/>'
-        + soft('M24 34a23 23 0 0 1 22 -30a25 25 0 0 0 -14 28Z', shade(c,30), 'opacity=".5"')
-        + soft('M176 34a23 23 0 0 0 -22 -30a25 25 0 0 1 14 28Z', shade(c,30), 'opacity=".5"');
+      return ink('M33 104C30 48 58 14 100 14C142 14 170 48 167 104L170 140C150 154 50 154 30 140Z', hairFill(c), 2.6)
+        + '<circle cx="44" cy="30" r="23" fill="'+hairFill(c)+'" stroke="'+INK+'" stroke-width="2.6"/>'
+        + '<circle cx="156" cy="30" r="23" fill="'+hairFill(c)+'" stroke="'+INK+'" stroke-width="2.6"/>'
+        + soft('M26 40a23 23 0 0 1 22 -32a25 25 0 0 0 -14 30Z', shade(c,32), 'opacity=".45"')
+        + soft('M174 40a23 23 0 0 0 -22 -32a25 25 0 0 1 14 30Z', shade(c,32), 'opacity=".45"');
     },
     over:function(c){
-      return '<circle cx="46" cy="60" r="6" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2"/>'
-        + '<circle cx="154" cy="60" r="6" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2"/>';
+      return '<circle cx="48" cy="66" r="6.4" fill="#FF8FAE" stroke="'+INK+'" stroke-width="2"/>'
+        + '<circle cx="152" cy="66" r="6.4" fill="#FF8FAE" stroke="'+INK+'" stroke-width="2"/>';
     },
     front:function(c){ return fringePart(c); }
   },
   braid:{ name:'땋은머리',
     back:function(c){
       var b='';
-      var pts=[[162,110],[168,134],[162,158],[168,182],[162,206]];
+      var pts=[[160,104],[168,128],[162,152],[169,176],[163,200],[168,222]];
       pts.forEach(function(p,i){
-        b += '<ellipse cx="'+p[0]+'" cy="'+p[1]+'" rx="'+(14-i*1.5)+'" ry="'+(15-i*1.2)+'" fill="'+hairFill(c)+'" stroke="'+INK+'" stroke-width="2.6"/>';
-        b += stro('M'+(p[0]-10)+' '+(p[1]-4)+'q10 6 20 0', shade(c,-26), 1.6, 'opacity=".45"');
+        b += '<ellipse cx="'+p[0]+'" cy="'+p[1]+'" rx="'+(15-i*1.6)+'" ry="'+(16-i*1.3)+'" fill="'+hairFill(c)+'" stroke="'+INK+'" stroke-width="2.4"/>';
+        b += stro('M'+(p[0]-11)+' '+(p[1]-4)+'q11 6 22 0', shade(c,-24), 1.7, 'opacity=".4"');
       });
-      return ink('M30 100C28 44 58 10 100 10C142 10 172 44 170 100L172 134C148 148 52 148 28 134Z', hairFill(c), 3) + b;
+      return ink('M33 104C30 48 58 14 100 14C142 14 170 48 167 104L171 142C150 156 50 156 30 142Z', hairFill(c), 2.6) + b;
     },
     over:function(c){
-      return '<circle cx="162" cy="218" r="8" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2.2"/>'
-        + stro('M162 218q-6 12 -2 20M162 218q6 12 2 20','#FF7FA8',4);
+      return '<circle cx="168" cy="232" r="8.4" fill="#FF8FAE" stroke="'+INK+'" stroke-width="2"/>'
+        + stro('M168 232q-6 12 -2 20M168 232q6 12 2 20','#FF8FAE',4);
     },
     front:function(c){ return fringeStraight(c); }
   },
   updo:{ name:'올림머리',
     back:function(c){
-      return ink('M30 100C28 44 58 10 100 10C142 10 172 44 170 100L171 128C148 142 52 142 28 128Z', hairFill(c), 3)
-        + '<circle cx="100" cy="12" r="25" fill="'+hairFill(c)+'" stroke="'+INK+'" stroke-width="3"/>'
-        + soft('M80 0a25 25 0 0 1 40 -2a26 26 0 0 0 -34 18Z', shade(c,30), 'opacity=".5"');
+      return ink('M33 104C30 48 58 14 100 14C142 14 170 48 167 104L169 136C150 150 50 150 31 136Z', hairFill(c), 2.6)
+        + '<circle cx="100" cy="12" r="25" fill="'+hairFill(c)+'" stroke="'+INK+'" stroke-width="2.6"/>'
+        + soft('M80 2a25 25 0 0 1 42 -2a26 26 0 0 0 -36 18Z', shade(c,32), 'opacity=".45"');
     },
     over:function(c){
-      return stro('M60 44q40 -20 80 0','#FF7FA8',6)
-        + '<circle cx="100" cy="33" r="7" fill="#FF7FA8" stroke="'+INK+'" stroke-width="2.2"/>'
-        + heart(100,29,0.4,'#FFFFFF');
+      return stro('M60 50q40 -20 80 0','#FF8FAE',6)
+        + '<circle cx="100" cy="38" r="7.4" fill="#FF8FAE" stroke="'+INK+'" stroke-width="2.2"/>'
+        + heart(100,34,0.4,'#FFFFFF');
     },
     front:function(c){ return fringeSoft(c); }
   },
   hime:{ name:'히메컷',
     back:function(c){
-      return ink('M30 100C28 42 58 8 100 8C142 8 172 42 170 100L176 242C168 256 154 260 144 250C120 262 80 262 56 250C46 260 32 256 24 242Z', hairFill(c), 3)
-        + soft('M24 224C32 252 46 260 56 250C80 262 120 262 144 250C154 260 168 256 176 242L176 252C156 268 44 268 24 252Z', shade(c,-30), 'opacity=".5"');
+      return ink('M33 104C30 46 58 12 100 12C142 12 170 46 167 104L174 246C171 260 160 264 150 254C134 266 66 266 50 254C40 264 29 260 26 246Z', hairFill(c), 2.6)
+        + soft('M26 232C36 254 44 262 54 252C78 266 122 266 146 252C156 262 168 258 174 240L174 252C154 270 46 270 26 252Z', shade(c,-28), 'opacity=".45"');
     },
     over:function(c){
-      return ink('M32 58C28 92 28 118 32 134C44 140 54 132 52 116C48 98 47 78 45 60Z', c, 2.6)
-        + ink('M168 58C172 92 172 118 168 134C156 140 146 132 148 116C152 98 153 78 155 60Z', c, 2.6)
-        + soft('M32 58h14l-1 72h-13Z', shade(c,-24), 'opacity=".32"')
-        + soft('M168 58h-14l1 72h13Z', shade(c,-24), 'opacity=".32"');
+      return ink('M33 58C28 92 28 116 33 132C45 138 55 130 53 114C49 96 47 78 46 60Z', c, 2.4)
+        + ink('M167 58C172 92 172 116 167 132C155 138 145 130 147 114C151 96 153 78 154 60Z', c, 2.4)
+        + soft('M34 62h13l-1 66h-12Z', shade(c,-22), 'opacity=".28"')
+        + soft('M166 62h-13l1 66h12Z', shade(c,-22), 'opacity=".28"');
     },
     front:function(c){ return fringeStraight(c); }
   },
   wbob:{ name:'웨이브 단발',
     back:function(c){
-      return ink('M30 100C28 42 58 12 100 12C142 12 172 42 170 100C180 116 176 144 158 148C146 150 140 140 144 128C126 148 74 148 56 128C60 140 54 150 42 148C24 144 20 116 30 100Z', hairFill(c), 3)
-        + soft('M42 142C54 152 60 140 56 128C74 148 126 148 144 128C140 140 146 152 158 148C150 158 50 158 42 142Z', shade(c,-28), 'opacity=".45"');
+      return ink('M33 104C30 44 58 12 100 12C142 12 170 44 167 104C176 118 172 146 156 152C144 156 138 144 142 132C124 150 76 150 58 132C62 144 56 156 44 152C28 146 24 118 33 104Z', hairFill(c), 2.6)
+        + soft('M44 146C56 156 62 142 58 132C76 150 124 150 142 132C138 144 144 156 156 152C148 162 52 162 44 146Z', shade(c,-26), 'opacity=".42"');
+    },
+    over:function(c){
+      return stro('M36 92q-4 30 2 48M164 92q4 30 -2 48', shade(c,-22), 2, 'opacity=".28"');
     },
     front:function(c){ return fringeSoft(c); }
   }
@@ -757,188 +822,186 @@ var HAIRS = {
 var OUTFITS = {
   dress:{ name:'원피스', sleeve:'puff', sv:'cloth',
     lower:function(cl,dk,lt){
-      return ink('M68 194L132 194C136 216 146 240 156 258C126 270 74 270 44 258C54 240 64 216 68 194Z', cl, 3)
-        + soft('M132 196C136 218 146 242 156 258C146 262 134 264 122 264C130 240 134 216 134 196Z', dk, 'opacity=".42"')
-        + stro('M44 258C74 270 126 270 156 258','#FFFFFF',3,'opacity=".6"')
-        + stro('M84 206L80 262M116 206L120 262','#FFFFFF',2,'opacity=".32"');
+      return ink('M66 194L134 194C140 210 150 226 160 238C148 246 126 250 100 250C74 250 52 246 40 238C50 226 60 210 66 194Z', cl, 2.6)
+        + soft('M134 196C140 212 150 228 160 238C152 242 142 245 132 247C138 228 142 210 142 196Z', dk, 'opacity=".34"')
+        + stro('M84 204L80 244M116 204L120 244','#FFFFFF',2,'opacity=".28"');
     },
     torso:function(cl){
-      return ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L132 200C120 206 80 206 68 200Z', cl, 3);
+      return ink('M72 150C78 142 88 138 100 138C112 138 122 142 128 150L133 196C120 204 80 204 67 196Z', cl, 2.6);
     },
     details:function(cl,dk){
-      return soft('M118 148C126 154 130 172 132 200C126 204 118 206 110 207C116 186 118 166 118 148Z', dk, 'opacity=".35"')
-        + stro('M84 146Q100 160 116 146','#FFFFFF',4.2)
-        + ink('M92 196h16v8h-16Z','#FFFFFF',1.8)
-        + stro('M68 194Q100 202 132 194',dk,2.2,'opacity=".45"');
+      return soft('M120 142C128 148 132 164 133 196C127 200 119 202 111 203C117 182 119 158 120 142Z', dk, 'opacity=".3"')
+        + stro('M84 140Q100 150 116 140','#FFFFFF',4)
+        + stro('M68 190Q100 197 132 190',dk,2.4,'opacity=".38"')
+        + '<path d="M98 188C94 182 87 182 87 188C87 194 94 194 98 188Z" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.3"/>'
+        + '<path d="M102 188C106 182 113 182 113 188C113 194 106 194 102 188Z" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.3"/>'
+        + '<circle cx="100" cy="188" r="2.4" fill="#FFC2D2" stroke="'+INK+'" stroke-width="1.2"/>';
     }
   },
   hoodie:{ name:'후드티', sleeve:'long', sv:'cloth',
     torso:function(cl){
-      return ink('M70 158C76 148 86 142 100 142C114 142 124 148 130 158L136 232C120 240 80 240 64 232Z', cl, 3);
+      return ink('M70 150C76 140 86 136 100 136C114 136 124 140 130 150L137 218C120 227 80 227 63 218Z', cl, 2.6);
     },
     details:function(cl,dk){
-      return ink('M74 150C80 128 120 128 126 150C114 158 86 158 74 150Z', dk, 2.6)
-        + soft('M78 194h44v24q-22 8 -44 0Z', dk, 'opacity=".5"') + stro('M78 194h44v24q-22 8 -44 0Z', INK, 2.2)
-        + stro('M90 150v18M110 150v18','#FFFFFF',3.2)
-        + '<circle cx="90" cy="170" r="3.2" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.4"/>'
-        + '<circle cx="110" cy="170" r="3.2" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.4"/>'
-        + '<rect x="64" y="228" width="72" height="12" rx="5" fill="'+dk+'" stroke="'+INK+'" stroke-width="2.4"/>'
-        + stro('M70 232v5M82 232v5M94 232v5M106 232v5M118 232v5','#FFFFFF',1.6,'opacity=".45"');
+      return ink('M72 144C78 118 122 118 128 144C115 154 85 154 72 144Z', dk, 2.4)
+        + soft('M78 186h44v24q-22 8 -44 0Z', dk, 'opacity=".42"') + stro('M78 186h44v24q-22 8 -44 0Z', INK, 2)
+        + stro('M90 146v16M110 146v16','#FFFFFF',3)
+        + '<circle cx="90" cy="166" r="3.2" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.3"/>'
+        + '<circle cx="110" cy="166" r="3.2" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.3"/>'
+        + '<rect x="63" y="214" width="74" height="13" rx="6" fill="'+dk+'" stroke="'+INK+'" stroke-width="2.2"/>'
+        + stro('M70 218v5M82 218v5M94 218v5M106 218v5M118 218v5M130 218v5','#FFFFFF',1.5,'opacity=".4"');
     }
   },
   overalls:{ name:'멜빵바지', sleeve:'short', sv:'white',
     lower:function(cl,dk){
-      return ink('M68 190h64c2 26 6 46 8 62C122 258 78 258 60 252C62 236 66 214 68 190Z', cl, 3)
-        + stro('M100 194v58','#FFFFFF',2.4,'opacity=".4"')
-        + soft('M124 192c2 24 6 44 8 60c-6 2 -12 3 -18 4C118 232 122 210 124 192Z', dk, 'opacity=".35"');
+      return ink('M64 192h72c2 22 6 38 8 52C122 252 78 252 56 246C58 232 62 210 64 192Z', cl, 2.6)
+        + stro('M100 196v52','#FFFFFF',2.4,'opacity=".36"')
+        + soft('M126 194c2 20 6 36 8 50c-6 2 -12 3 -18 4C120 228 124 208 126 194Z', dk, 'opacity=".3"');
     },
     torso:function(){
-      return ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L132 196C120 202 80 202 68 196Z', '#FFF8EF', 3);
+      return ink('M72 150C78 142 88 138 100 138C112 138 122 142 128 150L132 194C120 200 80 200 68 194Z', '#FFF9F0', 2.6);
     },
     details:function(cl,dk){
-      return ink('M82 162h36v40q-18 8 -36 0Z', cl, 2.8)
-        + stro('M79 158L87 174M121 158L113 174', cl, 9)
-        + stro('M79 158L87 174M121 158L113 174', INK, 2.2, 'opacity=".3"')
-        + '<circle cx="87" cy="174" r="3.6" fill="#FFC94D" stroke="'+INK+'" stroke-width="1.6"/>'
-        + '<circle cx="113" cy="174" r="3.6" fill="#FFC94D" stroke="'+INK+'" stroke-width="1.6"/>'
-        + stro('M88 184h24','#FFFFFF',2.6,'opacity=".55"')
-        + stro('M84 162L100 174L116 162', dk, 2, 'opacity=".45"');
+      return ink('M82 154h36v38q-18 8 -36 0Z', cl, 2.6)
+        + stro('M80 150L88 166M120 150L112 166', cl, 9)
+        + stro('M80 150L88 166M120 150L112 166', INK, 2, 'opacity=".26"')
+        + '<circle cx="88" cy="166" r="3.6" fill="#FFCB52" stroke="'+INK+'" stroke-width="1.5"/>'
+        + '<circle cx="112" cy="166" r="3.6" fill="#FFCB52" stroke="'+INK+'" stroke-width="1.5"/>'
+        + heart(100,180,0.44,'#FFFFFF');
     }
   },
   shirt:{ name:'셔츠', sleeve:'long', sv:'cloth',
     torso:function(cl){
-      return ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L134 232C120 240 80 240 66 232Z', cl, 3);
+      return ink('M70 150C76 140 86 136 100 136C114 136 124 140 130 150L136 218C120 227 80 227 64 218Z', cl, 2.6);
     },
     details:function(cl,dk){
-      return soft('M116 148C124 154 128 172 132 230L134 232C128 236 120 238 112 239C118 200 118 172 116 148Z', dk, 'opacity=".32"')
-        + ink('M84 146L100 164L88 146Z', '#FFFFFF', 2.2)
-        + ink('M116 146L100 164L112 146Z', '#FFFFFF', 2.2)
-        + stro('M100 164v70', dk, 2, 'opacity=".5"')
-        + '<circle cx="100" cy="178" r="2.6" fill="'+dk+'"/><circle cx="100" cy="196" r="2.6" fill="'+dk+'"/><circle cx="100" cy="214" r="2.6" fill="'+dk+'"/>'
-        + stro('M68 208h13M132 208h-13', dk, 2.4, 'opacity=".55"');
+      return soft('M118 142C126 148 130 164 134 216L136 218C130 222 122 224 114 225C120 190 120 162 118 142Z', dk, 'opacity=".28"')
+        + ink('M84 140L100 156L88 140Z', '#FFFFFF', 2)
+        + ink('M116 140L100 156L112 140Z', '#FFFFFF', 2)
+        + stro('M100 156v62', dk, 2, 'opacity=".42"')
+        + '<circle cx="100" cy="170" r="2.8" fill="'+dk+'"/><circle cx="100" cy="186" r="2.8" fill="'+dk+'"/><circle cx="100" cy="202" r="2.8" fill="'+dk+'"/>'
+        + stro('M67 194h14M133 194h-14', dk, 2.4, 'opacity=".45"');
     }
   },
   pajama:{ name:'파자마', sleeve:'long', sv:'cloth',
     torso:function(cl){
-      return ink('M70 158C76 148 86 142 100 142C114 142 124 148 130 158L136 232C120 240 80 240 64 232Z', cl, 3);
+      return ink('M70 150C76 140 86 136 100 136C114 136 124 140 130 150L137 218C120 227 80 227 63 218Z', cl, 2.6);
     },
     details:function(cl,dk,lt){
       var dots='';
       for(var i=0;i<15;i++){
-        dots += '<circle cx="'+(76+(i%5)*12)+'" cy="'+(150+Math.floor(i/5)*24)+'" r="2.6" fill="'+lt+'" opacity=".95"/>';
+        dots += '<circle cx="'+(77+(i%5)*11.5)+'" cy="'+(148+Math.floor(i/5)*22)+'" r="2.8" fill="'+shade(lt,20)+'" opacity=".85"/>';
       }
-      return ink('M84 144L100 160L116 144L112 140L100 152L88 140Z', '#FFFFFF', 2.2)
+      return ink('M84 138L100 152L116 138L112 134L100 145L88 134Z', '#FFFFFF', 2)
         + dots
-        + '<circle cx="100" cy="176" r="3.2" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.4"/>'
-        + '<circle cx="100" cy="194" r="3.2" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.4"/>'
-        + '<rect x="64" y="228" width="72" height="12" rx="5" fill="'+dk+'" stroke="'+INK+'" stroke-width="2.4"/>';
+        + '<circle cx="100" cy="168" r="3.2" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.3"/>'
+        + '<circle cx="100" cy="186" r="3.2" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.3"/>'
+        + '<rect x="63" y="214" width="74" height="13" rx="6" fill="'+dk+'" stroke="'+INK+'" stroke-width="2.2"/>';
     }
   },
   hanbok:{ name:'한복풍', sleeve:'long', sv:'cloth',
     lower:function(cl,dk,lt){
-      return ink('M62 186L138 186C142 214 152 244 166 264C136 278 64 278 34 264C48 244 58 214 62 186Z', cl, 3)
-        + soft('M134 188C138 216 148 246 166 264C154 268 140 271 126 272C134 244 138 214 138 190Z', dk, 'opacity=".38"')
-        + stro('M100 200v70M80 206L74 270M120 206L126 270', shade(cl,-22), 1.8, 'opacity=".28"');
+      return ink('M60 186L140 186C144 210 152 232 166 248C136 262 64 262 34 248C48 232 56 210 60 186Z', cl, 2.6)
+        + soft('M136 188C140 212 148 234 166 248C154 252 140 255 126 256C134 232 138 210 138 188Z', dk, 'opacity=".32"')
+        + stro('M100 196v62M80 202L74 256M120 202L126 256', shade(cl,-20), 1.8, 'opacity=".24"');
     },
     torso:function(cl,dk,lt){
-      return ink('M72 156C78 146 88 142 100 142C112 142 122 146 128 156L130 186C120 192 80 192 70 186Z', lt, 3);
+      return ink('M72 148C78 140 88 136 100 136C112 136 122 140 128 148L131 186C120 192 80 192 69 186Z', lt, 2.6);
     },
     details:function(cl,dk){
-      return ink('M86 144L100 158L114 144L110 140L100 150L90 140Z', '#FFFFFF', 2.2)
-        + stro('M100 158q10 10 4 22', '#FFFFFF', 5)
-        + stro('M100 158q10 10 4 22', INK, 1.4, 'opacity=".22"')
-        + stro('M70 184h60', shade(cl,-26), 2.4, 'opacity=".45"')
-        + soft('M116 146C124 152 128 168 130 186C124 190 116 192 108 193C114 178 116 162 116 146Z', shade(cl,-20), 'opacity=".32"');
+      return ink('M86 138L100 150L114 138L110 134L100 144L90 134Z', '#FFFFFF', 2)
+        + stro('M100 150q11 9 4 22', '#FFFFFF', 5)
+        + stro('M100 150q11 9 4 22', INK, 1.3, 'opacity=".2"')
+        + stro('M70 184h60', shade(cl,-24), 2.4, 'opacity=".38"')
+        + soft('M118 140C126 146 130 162 131 186C125 190 117 192 109 193C115 178 117 158 118 140Z', shade(cl,-18), 'opacity=".28"');
     }
   },
   party:{ name:'파티복', sleeve:'puff', sv:'cloth',
     lower:function(cl,dk,lt){
-      return ink('M68 194L132 194C138 218 150 242 162 262C128 276 72 276 38 262C50 242 62 218 68 194Z', lt, 3)
-        + stro('M38 262q12 10 26 2q12 10 26 2q12 10 26 2q12 10 26 2q12 10 26 2','#FFFFFF',4,'opacity=".85"')
-        + soft('M130 196C136 220 148 244 162 262C150 266 136 270 122 272C130 246 132 220 132 196Z', dk, 'opacity=".32"');
+      return ink('M66 194L134 194C140 212 150 228 162 242C128 256 72 256 38 242C50 228 60 212 66 194Z', lt, 2.6)
+        + stro('M40 244q10 8 20 0t20 0t20 0t20 0t20 0','#FFFFFF',3.4,'opacity=".75"')
+        + soft('M132 196C138 214 148 230 162 242C152 246 138 250 124 252C132 232 134 214 134 196Z', dk, 'opacity=".28"');
     },
     torso:function(cl){
-      return ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L132 200C120 206 80 206 68 200Z', cl, 3);
+      return ink('M72 150C78 142 88 138 100 138C112 138 122 142 128 150L133 194C120 202 80 202 67 194Z', cl, 2.6);
     },
     details:function(cl,dk){
-      return ink('M68 190h64v10H68Z', '#FFC94D', 2.4)
-        + '<circle cx="82" cy="168" r="2.8" fill="#FFFFFF"/><circle cx="100" cy="176" r="2.8" fill="#FFFFFF"/><circle cx="118" cy="166" r="2.8" fill="#FFFFFF"/>'
-        + '<circle cx="90" cy="184" r="2.2" fill="#FFFFFF"/><circle cx="110" cy="184" r="2.2" fill="#FFFFFF"/>'
-        + heart(100,196,0.5,'#FFFFFF');
+      return ink('M67 186h66v11H67Z', '#FFCB52', 2.2)
+        + '<circle cx="82" cy="162" r="3" fill="#FFFFFF"/><circle cx="100" cy="170" r="3" fill="#FFFFFF"/><circle cx="118" cy="160" r="3" fill="#FFFFFF"/>'
+        + '<circle cx="90" cy="178" r="2.2" fill="#FFFFFF"/><circle cx="110" cy="178" r="2.2" fill="#FFFFFF"/>'
+        + heart(100,174,0.48,'#FFFFFF');
     }
   },
   sweater:{ name:'스웨터', sleeve:'long', sv:'cloth',
     torso:function(cl){
-      return ink('M70 158C76 148 86 142 100 142C114 142 124 148 130 158L136 232C120 240 80 240 64 232Z', cl, 3);
+      return ink('M70 150C76 140 86 136 100 136C114 136 124 140 130 150L137 214C120 223 80 223 63 214Z', cl, 2.6);
     },
     details:function(cl,dk,lt){
-      return ink('M84 138C86 126 114 126 116 138C108 146 92 146 84 138Z', lt, 2.6)
-        + '<rect x="64" y="226" width="72" height="14" rx="6" fill="'+dk+'" stroke="'+INK+'" stroke-width="2.4"/>'
-        + stro('M70 230v6M82 230v6M94 230v6M106 230v6M118 230v6M130 230v6','#FFFFFF',1.5,'opacity=".4"')
-        + stro('M76 168q6 12 0 24M124 168q-6 12 0 24', shade(cl,-22), 1.8, 'opacity=".4"')
-        + heart(100,178,0.82,'#FFFFFF',INK);
+      return ink('M84 132C86 118 114 118 116 132C108 140 92 140 84 132Z', lt, 2.4)
+        + '<rect x="63" y="208" width="74" height="15" rx="6" fill="'+dk+'" stroke="'+INK+'" stroke-width="2.2"/>'
+        + stro('M70 212v6M82 212v6M94 212v6M106 212v6M118 212v6M130 212v6','#FFFFFF',1.5,'opacity=".36"')
+        + stro('M76 162q6 12 0 24M124 162q-6 12 0 24', shade(cl,-20), 1.9, 'opacity=".34"')
+        + heart(100,172,0.82,'#FFFFFF',INK);
     }
   },
   tshirt:{ name:'티셔츠', sleeve:'short', sv:'cloth',
     torso:function(cl){
-      return ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L132 228C120 236 80 236 68 228Z', cl, 3);
+      return ink('M70 150C76 142 86 138 100 138C114 138 124 142 130 150L134 198C120 206 80 206 66 198Z', cl, 2.6);
     },
     details:function(cl,dk){
-      return stro('M86 146q14 12 28 0', dk, 3.4)
-        + heart(100,178,0.95,'#FFFFFF',INK)
-        + soft('M118 148C126 154 130 172 132 228C126 232 118 235 110 236C116 200 118 172 118 148Z', dk, 'opacity=".28"')
-        + stro('M86 206q14 6 28 0', '#FFFFFF', 2, 'opacity=".3"');
+      return stro('M86 140q14 11 28 0', dk, 3.2)
+        + heart(100,170,0.9,'#FFFFFF',INK)
+        + soft('M118 142C126 148 130 164 134 198C128 202 120 205 112 206C118 174 118 158 118 142Z', dk, 'opacity=".24"');
     }
   },
   uniform:{ name:'교복풍', sleeve:'short', sv:'white',
     lower:function(cl,dk){
-      return ink('M66 190h68C136 214 144 238 150 258C122 268 78 268 50 258C56 238 64 214 66 190Z', cl, 3)
-        + stro('M84 194L76 262M100 194v72M116 194L124 262', shade(cl,-22), 2.2)
-        + soft('M120 192c4 24 12 48 18 68c-8 2 -16 4 -24 5C120 240 122 214 120 192Z', dk, 'opacity=".45"');
+      return ink('M64 192h72C138 210 146 228 152 242C124 252 76 252 48 242C54 228 62 210 64 192Z', cl, 2.6)
+        + stro('M82 196L74 246M100 196v48M118 196L126 246', shade(cl,-20), 2.2)
+        + soft('M122 194c4 20 12 38 18 48c-8 2 -16 4 -24 5C122 228 124 210 122 194Z', dk, 'opacity=".4"');
     },
     torso:function(){
-      return ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L130 196C120 202 80 202 70 196Z', '#FFFBF5', 3);
+      return ink('M72 150C78 142 88 138 100 138C112 138 122 142 128 150L131 194C120 200 80 200 69 194Z', '#FFFCF6', 2.6);
     },
     details:function(cl,dk){
-      return ink('M78 148L100 168L122 148L114 140L100 154L86 140Z', '#3D5288', 2.6)
-        + stro('M84 156l16 14M116 156l-16 14', '#FFFFFF', 2, 'opacity=".7"')
-        + ink('M96 164h8l-4 10Z', '#E4577C', 1.8)
-        + stro('M92 162q8 8 16 0', '#FFFFFF', 2.6)
-        + stro('M100 176v18M90 186h20', dk, 2, 'opacity=".4"');
+      return ink('M76 142L100 164L124 142L116 134L100 148L84 134Z', '#42598E', 2.4)
+        + stro('M84 148l16 14M116 148l-16 14', '#FFFFFF', 2, 'opacity=".6"')
+        + ink('M95 160h10l-5 10Z', '#E9607F', 1.8)
+        + stro('M100 172v18M89 181h22', dk, 2, 'opacity=".34"');
     }
   },
   track:{ name:'트레이닝복', sleeve:'long', sv:'cloth',
     lower:function(cl,dk){
-      return ink('M72 192h56c2 28 4 50 4 66h-28v-56h-8v56H68c0-16 2-38 4-66Z', cl, 3)
-        + stro('M74 196v58M126 196v58', '#FFFFFF', 4)
-        + soft('M120 194c2 26 4 46 4 62h-8v-54C118 212 119 202 120 194Z', dk, 'opacity=".35"');
+      return ink('M68 194h64c2 22 4 38 4 52h-32v-44h-8v44H64c0-14 2-30 4-52Z', cl, 2.6)
+        + stro('M70 198v46M130 198v46', '#FFFFFF', 4)
+        + soft('M124 196c2 20 4 36 4 50h-8v-42C120 210 122 202 124 196Z', dk, 'opacity=".3"');
     },
     torso:function(cl){
-      return ink('M70 158C76 148 86 142 100 142C114 142 124 148 130 158L136 232C120 240 80 240 64 232Z', cl, 3);
+      return ink('M70 150C76 140 86 136 100 136C114 136 124 140 130 150L137 214C120 223 80 223 63 214Z', cl, 2.6);
     },
     details:function(cl,dk){
-      return stro('M100 146v84','#FFFFFF',3)
-        + stro('M100 146v84', INK, 1, 'opacity=".3"')
-        + stro('M86 142q14 10 28 0','#FFFFFF',4)
-        + '<circle cx="100" cy="158" r="3" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.4"/>'
-        + stro('M64 172h12M136 172h-12','#FFFFFF',5)
-        + '<rect x="64" y="228" width="72" height="12" rx="5" fill="'+dk+'" stroke="'+INK+'" stroke-width="2.2"/>';
+      return stro('M100 140v80','#FFFFFF',3)
+        + stro('M100 140v80', INK, 1, 'opacity=".26"')
+        + stro('M86 136q14 10 28 0','#FFFFFF',4)
+        + '<circle cx="100" cy="152" r="3" fill="#FFFFFF" stroke="'+INK+'" stroke-width="1.3"/>'
+        + stro('M63 166h13M137 166h-13','#FFFFFF',5)
+        + '<rect x="63" y="210" width="74" height="13" rx="6" fill="'+dk+'" stroke="'+INK+'" stroke-width="2"/>';
     }
   },
   apron:{ name:'앞치마 원피스', sleeve:'short', sv:'cloth',
     lower:function(cl,dk,lt){
-      return ink('M68 194L132 194C136 216 146 240 156 258C126 270 74 270 44 258C54 240 64 216 68 194Z', lt, 3)
-        + soft('M132 196C136 218 146 242 156 258C146 262 134 264 122 264C130 240 134 216 134 196Z', dk, 'opacity=".32"');
+      return ink('M68 194L132 194C138 212 148 228 158 240C128 252 74 252 42 240C52 228 62 212 68 194Z', lt, 2.6)
+        + soft('M130 196C136 214 146 230 158 240C150 244 138 247 126 249C132 230 134 212 134 196Z', dk, 'opacity=".28"');
     },
     torso:function(cl){
-      return ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L132 200C120 206 80 206 68 200Z', cl, 3);
+      return ink('M72 150C78 142 88 138 100 138C112 138 122 142 128 150L133 194C120 202 80 202 67 194Z', cl, 2.6);
     },
     details:function(){
-      return ink('M84 156h32l6 88q-22 8 -44 0Z', '#FFFFFF', 2.8)
-        + stro('M86 156L94 142M114 156L106 142','#FFFFFF',4)
-        + '<rect x="90" y="196" width="22" height="18" rx="6" fill="#FFF0F5" stroke="'+INK+'" stroke-width="2"/>'
-        + heart(101,202,0.4,'#FF9FB7')
-        + stro('M84 156l4 84','#FFD7E5',2,'opacity=".6"');
+      return ink('M85 150h30l7 86q-22 9 -44 0Z', '#FFFCF6', 2.4)
+        + stro('M87 150L95 134M113 150L105 134','#FFFCF6',4)
+        + '<rect x="89" y="186" width="24" height="20" rx="7" fill="#FFF2F7" stroke="'+INK+'" stroke-width="1.8"/>'
+        + heart(101,192,0.42,'#FFA6BC')
+        + stro('M85 152l5 80','#FFD3E2',2,'opacity=".55"');
     }
   }
 };
@@ -947,150 +1010,149 @@ var OUTFITS = {
 var HATS = {
   none:{ name:'없음', render:function(){ return ''; } },
   beret:{ name:'베레모', render:function(){
-    return ink('M52 50C52 24 74 12 100 12C126 12 148 24 148 50C140 60 60 60 52 50Z', '#E4577C', 3)
-      + soft('M56 46C56 26 76 16 100 16C124 16 144 26 144 46C136 52 64 52 56 46Z', '#F07A9A', 'opacity=".5"')
-      + stro('M62 40q18 -16 38 -18','#FFFFFF',3.4,'opacity=".5"')
-      + '<path d="M100 12q6 -10 12 -4" stroke="'+INK+'" stroke-width="3" fill="none" stroke-linecap="round"/>'
-      + '<circle cx="112" cy="6" r="4.4" fill="#C43E63" stroke="'+INK+'" stroke-width="2"/>';
+    return ink('M48 58C48 30 72 16 100 16C128 16 152 30 152 58C143 70 57 70 48 58Z', '#EE6B8E', 2.6)
+      + soft('M53 54C53 32 74 20 100 20C126 20 147 32 147 54C138 61 62 61 53 54Z', '#FF8DA9', 'opacity=".55"')
+      + stro('M56 46C66 32 82 24 100 22','#FFFFFF',3.4,'opacity=".55"')
+      + stro('M106 18q7 -9 13 -3','#C84F6E',3.4)
+      + '<circle cx="119" cy="13" r="4.6" fill="#C43E63" stroke="'+INK+'" stroke-width="1.8"/>';
   }},
   cap:{ name:'야구모자', render:function(){
-    return ink('M54 54C54 24 72 12 100 12C128 12 146 24 146 54Z', '#5B8DEF', 3)
-      + ink('M142 50C176 48 190 60 190 72C162 78 142 68 136 60Z', '#3F6FD8', 3)
-      + soft('M60 48C60 26 76 16 98 16C88 24 80 34 78 48Z', '#8FB6FF', 'opacity=".45"')
-      + '<circle cx="100" cy="13" r="5" fill="#3F6FD8" stroke="'+INK+'" stroke-width="2"/>'
-      + stro('M66 42q14 -12 30 -14','#FFFFFF',3,'opacity=".45"');
+    return ink('M50 62C50 28 70 14 100 14C130 14 150 28 150 62Z', '#6A97F0', 2.6)
+      + ink('M146 58C180 56 196 68 196 80C166 88 144 76 138 68Z', '#4A78DC', 2.6)
+      + soft('M56 56C56 32 74 18 96 18C86 28 80 40 78 56Z', '#A2C2FF', 'opacity=".5"')
+      + '<circle cx="100" cy="15" r="5.4" fill="#4A78DC" stroke="'+INK+'" stroke-width="1.8"/>'
+      + stro('M62 46C74 32 86 24 98 22','#FFFFFF',3,'opacity=".5"');
   }},
-  bunny:{ name:'토끼귀', render:function(){
-    return ink('M74 34C64 6 66 -10 76 -12C86 -14 90 4 88 32Z', '#FFE3EC', 3)
-      + ink('M126 34C136 6 134 -10 124 -12C114 -14 110 4 112 32Z', '#FFE3EC', 3)
-      + soft('M77 28C70 8 72 -4 79 -6C85 -8 86 6 84 26Z', '#FFB9D0')
-      + soft('M123 28C130 8 128 -4 121 -6C115 -8 114 6 116 26Z', '#FFB9D0')
-      + stro('M70 34q6 4 14 2M130 34q-6 4 -14 2', shade('#FFE3EC',-18), 2, 'opacity=".55"');
+  bunny:{ name:'토끼 귀', render:function(){
+    return ink('M74 34C64 4 66 -14 77 -16C88 -18 91 2 88 32Z', '#FFE6EE', 2.6)
+      + ink('M126 34C136 4 134 -14 123 -16C112 -18 109 2 112 32Z', '#FFE6EE', 2.6)
+      + soft('M77 28C70 6 72 -8 79 -10C85 -12 86 4 84 26Z', '#FFB9D0')
+      + soft('M123 28C130 6 128 -8 121 -10C115 -12 114 4 116 26Z', '#FFB9D0')
+      + stro('M68 36q7 4 15 2M132 36q-7 4 -15 2', shade('#FFE6EE',-16), 2, 'opacity=".5"');
   }},
   crown:{ name:'왕관', render:function(){
-    return ink('M58 46L66 12L82 30L100 8L118 30L134 12L142 46Z', '#FFC94D', 3)
-      + stro('M58 46h84', '#E9A800', 2.6)
-      + '<circle cx="100" cy="38" r="4.6" fill="#FF6B9A" stroke="'+INK+'" stroke-width="1.6"/>'
-      + '<circle cx="76" cy="40" r="3.4" fill="#7FD8FF" stroke="'+INK+'" stroke-width="1.4"/>'
-      + '<circle cx="124" cy="40" r="3.4" fill="#7FD8FF" stroke="'+INK+'" stroke-width="1.4"/>'
-      + soft('M66 12l16 18l-8 4Z', '#FFF3B0', 'opacity=".7"');
+    return ink('M56 58L64 18L82 40L100 12L118 40L136 18L144 58Z', '#FFD05C', 2.4)
+      + stro('M56 56h88', '#E9A800', 2.4)
+      + '<circle cx="100" cy="48" r="5" fill="#FF6B9A" stroke="'+INK+'" stroke-width="1.5"/>'
+      + '<circle cx="74" cy="50" r="3.6" fill="#7FD8FF" stroke="'+INK+'" stroke-width="1.3"/>'
+      + '<circle cx="126" cy="50" r="3.6" fill="#7FD8FF" stroke="'+INK+'" stroke-width="1.3"/>'
+      + soft('M64 18l16 20l-8 5Z', '#FFF3B0', 'opacity=".7"');
   }},
   ribbon:{ name:'리본', render:function(){
-    return ink('M100 30L64 10C52 30 52 46 64 54Z', '#FF7FA8', 3)
-      + ink('M100 30L136 10C148 30 148 46 136 54Z', '#FF7FA8', 3)
-      + soft('M64 14L92 30L64 46Z', '#FFA8C4', 'opacity=".5"')
-      + soft('M136 14L108 30L136 46Z', '#FFA8C4', 'opacity=".5"')
-      + '<circle cx="100" cy="30" r="8.5" fill="#FF5C8D" stroke="'+INK+'" stroke-width="2.6"/>'
-      + stro('M93 34q-9 12 -15 22','#FF7FA8',5) + stro('M107 34q9 12 15 22','#FF7FA8',5);
+    return ink('M100 40L62 18C50 40 50 58 62 66Z', '#FF8FAE', 2.4)
+      + ink('M100 40L138 18C150 40 150 58 138 66Z', '#FF8FAE', 2.4)
+      + soft('M63 24L92 40L63 58Z', '#FFB4C8', 'opacity=".5"')
+      + soft('M137 24L108 40L137 58Z', '#FFB4C8', 'opacity=".5"')
+      + '<circle cx="100" cy="40" r="9" fill="#FF6F9C" stroke="'+INK+'" stroke-width="2.2"/>'
+      + stro('M92 44q-9 14 -15 24','#FF8FAE',5) + stro('M108 44q9 14 15 24','#FF8FAE',5);
   }},
   straw:{ name:'밀짚모자', render:function(){
-    return ink('M100 46C58 46 22 56 22 66C22 78 58 86 100 86C142 86 178 78 178 66C178 56 142 46 100 46Z', '#F3D8A2', 3)
-      + ink('M64 46C64 18 78 8 100 8C122 8 136 18 136 46Z', '#FBEBC8', 3)
-      + soft('M136 44C136 20 124 10 104 9C118 14 128 26 130 44Z', shade('#FBEBC8',-14), 'opacity=".65"')
-      + '<path d="M64 36h72v11H64Z" fill="#FF9FB7" stroke="'+INK+'" stroke-width="2.4"/>'
-      + stro('M30 62q22 -8 44 -10M170 62q-22 -8 -44 -10','#DFBB79',2.2,'opacity=".7"');
+    return ink('M100 54C56 54 20 64 20 76C20 88 56 96 100 96C144 96 180 88 180 76C180 64 144 54 100 54Z', '#F5DCAB', 2.6)
+      + ink('M62 54C62 24 78 12 100 12C122 12 138 24 138 54Z', '#FCEDCB', 2.6)
+      + soft('M138 52C138 26 126 14 106 13C120 18 130 32 132 52Z', shade('#FCEDCB',-12), 'opacity=".6"')
+      + '<path d="M62 44h76v13H62Z" fill="#FFA6BC" stroke="'+INK+'" stroke-width="2.2"/>'
+      + stro('M28 72q24 -10 48 -12M172 72q-24 -10 -48 -12','#DFBB79',2.2,'opacity=".65"');
   }},
   beanie:{ name:'비니', render:function(){
-    return ink('M56 56C56 22 76 10 100 10C124 10 144 22 144 56Z', '#8FD0FF', 3)
-      + '<rect x="53" y="46" width="94" height="18" rx="8" fill="#69B4EA" stroke="'+INK+'" stroke-width="2.8"/>'
-      + stro('M60 50v10M70 50v10M80 50v10M90 50v10M100 50v10M110 50v10M120 50v10M130 50v10M140 50v10','#FFFFFF',1.6,'opacity=".45"')
-      + '<circle cx="100" cy="7" r="9" fill="#FFF3E0" stroke="'+INK+'" stroke-width="2.4"/>'
-      + stro('M66 40q12 -14 28 -18','#FFFFFF',3.4,'opacity=".5"');
+    return ink('M54 64C54 28 74 14 100 14C126 14 146 28 146 64Z', '#96D4FF', 2.6)
+      + '<rect x="50" y="52" width="100" height="19" rx="9" fill="#6FB8EC" stroke="'+INK+'" stroke-width="2.4"/>'
+      + stro('M58 56v11M70 56v11M82 56v11M94 56v11M106 56v11M118 56v11M130 56v11M142 56v11','#FFFFFF',1.6,'opacity=".45"')
+      + '<circle cx="100" cy="10" r="9.5" fill="#FFF3E0" stroke="'+INK+'" stroke-width="2.2"/>'
+      + stro('M64 46C76 30 88 22 100 20','#FFFFFF',3.4,'opacity=".55"');
   }},
   wizard:{ name:'마법사모자', render:function(){
-    return ink('M58 50L112 -10L134 50Z', '#6B5BD6', 3)
-      + ink('M46 50C46 42 82 36 100 36C118 36 154 42 154 50C154 58 118 62 100 62C82 62 46 58 46 50Z', '#5A4AC4', 3)
-      + '<path d="M96 20l2.6 6.4 6.4 2.6-6.4 2.6L96 38l-2.6-6.4L87 29l6.4-2.6z" fill="#FFE066" stroke="'+INK+'" stroke-width="1.4"/>'
-      + '<circle cx="118" cy="38" r="2.6" fill="#FFE066"/><circle cx="82" cy="42" r="2.2" fill="#FFE066"/>'
-      + soft('M112 -10L120 2L104 14Z', '#8F80F0', 'opacity=".75"');
+    return ink('M56 58L112 -8L136 58Z', '#7A6AE0', 2.6)
+      + ink('M44 58C44 49 82 43 100 43C118 43 156 49 156 58C156 67 118 71 100 71C82 71 44 67 44 58Z', '#6555CC', 2.6)
+      + '<path d="M96 26l2.6 6.4 6.4 2.6-6.4 2.6L96 44l-2.6-6.4L87 35l6.4-2.6z" fill="#FFE066" stroke="'+INK+'" stroke-width="1.3"/>'
+      + '<circle cx="118" cy="46" r="2.6" fill="#FFE066"/><circle cx="82" cy="50" r="2.2" fill="#FFE066"/>'
+      + soft('M112 -8L120 4L104 16Z', '#9C8CF6', 'opacity=".75"');
   }},
-  cat:{ name:'고양이귀', render:function(){
-    return ink('M62 44L50 4L90 24Z', '#6B5B70', 3)
-      + ink('M138 44L150 4L110 24Z', '#6B5B70', 3)
-      + soft('M66 38L58 14L84 26Z', '#FFC0D3') + soft('M134 38L142 14L116 26Z', '#FFC0D3')
-      + stro('M58 8q10 6 16 14M142 8q-10 6 -16 14', shade('#6B5B70',-25), 2, 'opacity=".55"');
+  cat:{ name:'고양이 귀', render:function(){
+    return ink('M60 52L48 10L90 30Z', '#7A6A80', 2.6)
+      + ink('M140 52L152 10L110 30Z', '#7A6A80', 2.6)
+      + soft('M64 46L57 20L84 32Z', '#FFC4D6') + soft('M136 46L143 20L116 32Z', '#FFC4D6')
+      + stro('M56 14q10 6 16 14M146 14q-10 6 -16 14', shade('#7A6A80',-20), 2, 'opacity=".5"');
   }},
   flower:{ name:'꽃 화관', render:function(){
     var f='';
-    var pts=[[54,56],[76,38],[100,32],[124,38],[146,56]];
+    var pts=[[48,66],[72,44],[100,36],[128,44],[152,66]];
     for(var i=0;i<pts.length;i++){
       var x=pts[i][0], y=pts[i][1];
-      f += '<g><circle cx="'+(x-6)+'" cy="'+y+'" r="5.2" fill="#FFC0D9" stroke="'+INK+'" stroke-width="1.6"/>'
-        + '<circle cx="'+(x+6)+'" cy="'+y+'" r="5.2" fill="#FFC0D9" stroke="'+INK+'" stroke-width="1.6"/>'
-        + '<circle cx="'+x+'" cy="'+(y-6)+'" r="5.2" fill="#FFC0D9" stroke="'+INK+'" stroke-width="1.6"/>'
-        + '<circle cx="'+x+'" cy="'+(y+6)+'" r="5.2" fill="#FFC0D9" stroke="'+INK+'" stroke-width="1.6"/>'
-        + '<circle cx="'+x+'" cy="'+y+'" r="4" fill="#FFE066" stroke="'+INK+'" stroke-width="1.4"/></g>';
+      f += '<g><circle cx="'+(x-6)+'" cy="'+y+'" r="5.4" fill="#FFC6DD" stroke="'+INK+'" stroke-width="1.5"/>'
+        + '<circle cx="'+(x+6)+'" cy="'+y+'" r="5.4" fill="#FFC6DD" stroke="'+INK+'" stroke-width="1.5"/>'
+        + '<circle cx="'+x+'" cy="'+(y-6)+'" r="5.4" fill="#FFC6DD" stroke="'+INK+'" stroke-width="1.5"/>'
+        + '<circle cx="'+x+'" cy="'+(y+6)+'" r="5.4" fill="#FFC6DD" stroke="'+INK+'" stroke-width="1.5"/>'
+        + '<circle cx="'+x+'" cy="'+y+'" r="4.2" fill="#FFE066" stroke="'+INK+'" stroke-width="1.3"/></g>';
     }
-    f += stro('M46 62q26 -22 54 -26t54 26','#8FCF7A',3);
+    f += stro('M42 72q26 -24 58 -28t58 28','#96D48C',3);
     return f;
   }},
   glasses:{ name:'안경', render:function(){
-    return '<circle cx="70" cy="90" r="17" fill="rgba(190,230,255,.3)" stroke="'+INK+'" stroke-width="3"/>'
-      + '<circle cx="130" cy="90" r="17" fill="rgba(190,230,255,.3)" stroke="'+INK+'" stroke-width="3"/>'
-      + stro('M87 88h26', INK, 3)
-      + stro('M53 86l-11 -5M147 86l11 -5', INK, 3)
-      + stro('M60 80q6 -6 14 -7','#FFFFFF',2.6,'opacity=".8"')
-      + stro('M120 80q6 -6 14 -7','#FFFFFF',2.6,'opacity=".8"');
+    return '<circle cx="67" cy="104" r="19" fill="rgba(196,232,255,.28)" stroke="'+INK+'" stroke-width="2.6"/>'
+      + '<circle cx="133" cy="104" r="19" fill="rgba(196,232,255,.28)" stroke="'+INK+'" stroke-width="2.6"/>'
+      + stro('M86 102h28', INK, 2.6)
+      + stro('M48 100l-12 -5M152 100l12 -5', INK, 2.6)
+      + stro('M56 94q7 -7 16 -8','#FFFFFF',2.4,'opacity=".85"')
+      + stro('M122 94q7 -7 16 -8','#FFFFFF',2.4,'opacity=".85"');
   }},
   starpin:{ name:'별 머리핀', render:function(){
-    return '<path d="M62 46l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" fill="#FFC94D" stroke="'+INK+'" stroke-width="2" stroke-linejoin="round"/>'
-      + '<circle cx="124" cy="40" r="4.2" fill="#FF9EC4" stroke="'+INK+'" stroke-width="1.4"/>'
-      + '<circle cx="134" cy="50" r="3.2" fill="#9BE3C8" stroke="'+INK+'" stroke-width="1.4"/>';
+    return '<path d="M62 54l4.4 10 11 1-8 7.6 2 11-9.4-5.4-9.4 5.4 2-11-8-7.6 11-1z" fill="#FFD05C" stroke="'+INK+'" stroke-width="1.8" stroke-linejoin="round"/>'
+      + '<circle cx="126" cy="48" r="4.6" fill="#FFA6C6" stroke="'+INK+'" stroke-width="1.3"/>'
+      + '<circle cx="136" cy="58" r="3.4" fill="#A2E6CD" stroke="'+INK+'" stroke-width="1.3"/>';
   }}
 };
 
-/* ---------------- 몸 ---------------- */
+/* ---------------- 몸 (짧고 통통한 SD) ---------------- */
 function armSVG(side,type,col,skin){
   var m = side<0 ? -1 : 1;
-  var sx = 100 + m*26, sy = 166;
-  var hx = 100 + m*43, hy = 216;
+  var sx = 100 + m*26, sy = 152;
+  var hx = 100 + m*38, hy = 188;
   var s = '';
   function limb(d,w,fill){
-    return stro(d, INK, w+3.4) + stro(d, fill, w);
+    return stro(d, INK, w+3.6) + stro(d, fill, w);
   }
   if(type==='long'){
-    s += limb('M'+sx+' '+sy+'Q'+(100+m*41)+' '+(sy+24)+' '+hx+' '+hy, 13.5, col);
-    s += stro('M'+sx+' '+(sy+2)+'Q'+(100+m*41)+' '+(sy+26)+' '+hx+' '+(hy-4), shade(col,-20), 2, 'opacity=".3"');
+    s += limb('M'+sx+' '+sy+'Q'+(100+m*38)+' '+(sy+20)+' '+hx+' '+hy, 13.5, col);
+    s += stro('M'+(sx+m*1)+' '+(sy+3)+'Q'+(100+m*36)+' '+(sy+22)+' '+(hx-m*2)+' '+(hy-5), shade(col,-16), 2, 'opacity=".24"');
   } else if(type==='puff'){
-    s += '<circle cx="'+(100+m*29)+'" cy="'+(sy+7)+'" r="13" fill="'+col+'" stroke="'+INK+'" stroke-width="3"/>';
-    s += stro('M'+(100+m*22)+' '+(sy+1)+'q6 -6 12 -3', '#FFFFFF', 2.6, 'opacity=".55"');
-    s += limb('M'+(100+m*31)+' '+(sy+16)+'Q'+(100+m*41)+' '+(sy+32)+' '+hx+' '+(hy-3), 9.6, skin);
+    s += '<circle cx="'+(100+m*29)+'" cy="'+(sy+6)+'" r="12.6" fill="'+col+'" stroke="'+INK+'" stroke-width="2.4"/>';
+    s += stro('M'+(100+m*22)+' '+(sy+1)+'q6 -5 11 -3', '#FFFFFF', 2.2, 'opacity=".42"');
+    s += limb('M'+(100+m*31)+' '+(sy+16)+'Q'+(100+m*37)+' '+(sy+30)+' '+hx+' '+(hy-4), 9.6, skin);
   } else if(type==='short'){
-    s += limb('M'+sx+' '+sy+'Q'+(100+m*39)+' '+(sy+12)+' '+(100+m*39)+' '+(sy+24), 14, col);
-    s += limb('M'+(100+m*38)+' '+(sy+20)+'Q'+(100+m*43)+' '+(sy+40)+' '+hx+' '+(hy-2), 10.2, skin);
+    s += limb('M'+sx+' '+sy+'Q'+(100+m*35)+' '+(sy+12)+' '+(100+m*34)+' '+(sy+22), 14, col);
+    s += limb('M'+(100+m*33)+' '+(sy+19)+'Q'+(100+m*37)+' '+(sy+34)+' '+hx+' '+(hy-3), 10, skin);
   } else {
-    s += limb('M'+sx+' '+sy+'Q'+(100+m*41)+' '+(sy+24)+' '+hx+' '+hy, 10.2, skin);
+    s += limb('M'+sx+' '+sy+'Q'+(100+m*35)+' '+(sy+20)+' '+hx+' '+hy, 10, skin);
   }
-  s += '<circle cx="'+hx+'" cy="'+hy+'" r="6.8" fill="'+skin+'" stroke="'+INK+'" stroke-width="2.4"/>';
-  s += stro('M'+(hx-m*4)+' '+hy+'q3 2 6 1', shade(skin,-34), 1.5, 'opacity=".55"');
+  // 동글동글 미튼 손
+  s += '<circle cx="'+hx+'" cy="'+hy+'" r="7" fill="'+skin+'" stroke="'+INK+'" stroke-width="2.1"/>';
+  s += stro('M'+(hx-m*3.6)+' '+(hy+1)+'q2.8 2 5.4 1', shade(skin,-32), 1.4, 'opacity=".4"');
   return s;
 }
 
 function bodySVG(ch){
   var skin = SKINS[ch.skin][1];
   var cloth = CLOTH_COLORS[ch.outfitColor][1];
-  var dk = shade(cloth,-18), lt = shade(cloth,22);
+  var dk = shade(cloth,-16), lt = shade(cloth,24);
   var o = OUTFITS[ch.outfit] || OUTFITS.dress;
   var svc = o.sv==='white' ? '#FFF8F0' : cloth;
   var s = '';
-  // 다리
-  s += '<rect x="80" y="222" width="17" height="56" rx="8.5" fill="'+skin+'" stroke="'+INK+'" stroke-width="2.6"/>';
-  s += '<rect x="103" y="222" width="17" height="56" rx="8.5" fill="'+skin+'" stroke="'+INK+'" stroke-width="2.6"/>';
-  s += soft('M92 222h5v56h-5Z', shade(skin,-16), 'opacity=".22"');
-  s += soft('M115 222h5v56h-5Z', shade(skin,-16), 'opacity=".22"');
+  // 통통한 다리
+  s += ink('M77 186q0 -8 11 -8q11 0 11 8v52q0 9 -11 9q-11 0 -11 -9Z', skin, 2.4);
+  s += ink('M101 186q0 -8 11 -8q11 0 11 8v52q0 9 -11 9q-11 0 -11 -9Z', skin, 2.4);
+  s += soft('M101 186q0 -8 11 -8v69q-11 0 -11 -9Z', shade(skin,-12), 'opacity=".16"');
   // 몸통(피부)
-  s += ink('M72 158C78 148 88 144 100 144C112 144 122 148 128 158L131 214C120 220 80 220 69 214Z', skin, 2.6);
+  s += ink('M70 150C76 142 87 138 100 138C113 138 124 142 130 150L135 202C121 210 79 210 65 202Z', skin, 2.4);
   // 아랫옷
   if(o.lower) s += o.lower(cloth,dk,lt);
-  // 신발
-  s += ink('M80 246h17v18H80Z', '#FFFDF8', 2.4);
-  s += ink('M103 246h17v18h-17Z', '#FFFDF8', 2.4);
-  s += stro('M80 250h17M103 250h17', '#E9CBD8', 1.8);
-  s += '<rect x="72" y="262" width="26" height="18" rx="8" fill="#FFFDF8" stroke="'+INK+'" stroke-width="2.6"/>';
-  s += '<rect x="102" y="262" width="26" height="18" rx="8" fill="#FFFDF8" stroke="'+INK+'" stroke-width="2.6"/>';
-  s += '<rect x="70" y="272" width="30" height="8" rx="4" fill="#8A6A90" stroke="'+INK+'" stroke-width="2"/>';
-  s += '<rect x="100" y="272" width="30" height="8" rx="4" fill="#8A6A90" stroke="'+INK+'" stroke-width="2"/>';
-  s += stro('M74 268h22M104 268h22', '#FF9FB7', 2.6, 'opacity=".9"');
+  // 동글동글 단화
+  s += ink('M79 243q0 -6 9 -6t9 6v5q0 7 -9 7t-9 -7Z', '#FFDCE6', 2);
+  s += ink('M103 243q0 -6 9 -6t9 6v5q0 7 -9 7t-9 -7Z', '#FFDCE6', 2);
+  s += ink('M77 251q0 -3 11 -3t11 3v2q0 6 -11 6t-11 -6Z', '#FFAFC6', 1.8);
+  s += ink('M101 251q0 -3 11 -3t11 3v2q0 6 -11 6t-11 -6Z', '#FFAFC6', 1.8);
+  s += stro('M82 246h13M106 246h13', '#FFF0F5', 1.7);
+  s += '<ellipse cx="84" cy="245" rx="3" ry="1.6" fill="#FFFFFF" opacity=".75"/>';
+  s += '<ellipse cx="108" cy="245" rx="3" ry="1.6" fill="#FFFFFF" opacity=".75"/>';
   // 윗옷
   if(o.torso) s += o.torso(cloth,dk,lt);
   s += armSVG(-1,o.sleeve||'short',svc,skin);
@@ -1099,21 +1161,24 @@ function bodySVG(ch){
   return s;
 }
 
-/* ---------------- 머리 조립 ---------------- */
+/* ---------------- 머리 조립 (둥근 만두형 얼굴) ---------------- */
 function headSVG(skin,ec,hc,exp){
   var s = '';
-  s += ink('M88 130h24v28q-12 10-24 0Z', skin, 2.8);
-  s += soft('M88 132q12 14 24 0v10q-12 10-24 0Z', shade(skin,-20), 'opacity=".55"');
-  s += soft('M44 78C44 100 48 112 52 118C46 116 42 106 42 90Z', shade(skin,-16), 'opacity=".5"');
-  s += soft('M156 78C156 100 152 112 148 118C154 116 158 106 158 90Z', shade(skin,-16), 'opacity=".5"');
-  var face = 'M100 20C64 20 44 44 44 78C44 104 56 126 72 138C82 145 91 148 100 148C109 148 118 145 128 138C144 126 156 104 156 78C156 44 136 20 100 20Z';
-  s += ink(face, skin, 3.2);
-  s += soft('M138 126C148 114 156 100 156 80C156 104 146 124 128 138C122 142 116 144 110 145L110 140C122 137 132 133 138 126Z', shade(skin,-14), 'opacity=".45"');
-  s += soft('M52 96C54 74 64 52 84 40C72 56 66 76 66 96Z', shade(skin,-10), 'opacity=".45"');
-  s += soft('M100 112q26 0 34 14q-10 14 -34 16Z', shade(skin,-8), 'opacity=".18"');
-  s += soft('M46 70C50 54 62 38 82 28C64 44 56 62 54 84C50 80 47 76 46 70Z', shade(skin,-14), 'opacity=".4"');
-  s += soft('M154 70C150 54 138 38 118 28C136 44 144 62 146 84C150 80 153 76 154 70Z', shade(skin,-14), 'opacity=".35"');
-  s += soft('M100 64q18 0 26 8q-8 12 -26 14Z', shade(skin,-12), 'opacity=".3"');
+  // 귀 (얼굴 뒤)
+  s += ink('M36 92q-6 -2 -8 4q-2 8 4 12q4 2 6 -2Z', skin, 2.2);
+  s += ink('M164 92q6 -2 8 4q2 8 -4 12q-4 2 -6 -2Z', skin, 2.2);
+  s += stro('M34 96q4 4 3 10', shade(skin,-26), 1.6, 'opacity=".4"');
+  s += stro('M166 96q-4 4 -3 10', shade(skin,-26), 1.6, 'opacity=".4"');
+  // 둥글둥글 볼살 많은 얼굴
+  var face = 'M100 20C131 20 157 38 164 70C169 88 167 106 160 120C151 140 128 158 100 158C72 158 49 140 40 120C33 106 31 88 36 70C43 38 69 20 100 20Z';
+  s += ink(face, skin, 2.8);
+  s += soft('M100 22q34 0 52 22q-14 -8 -32 -10q-24 -2 -44 8q16 -20 24 -20Z', shade(skin,16), 'opacity=".26"');
+  s += soft('M42 118C50 140 74 156 100 156C86 156 60 146 48 128Z', shade(skin,-12), 'opacity=".3"');
+  s += soft('M158 118C150 140 126 156 100 156C114 156 140 146 152 128Z', shade(skin,-12), 'opacity=".26"');
+  s += '<ellipse cx="50" cy="132" rx="15" ry="9" fill="'+shade(skin,-8)+'" opacity=".22"/>';
+  s += '<ellipse cx="150" cy="132" rx="15" ry="9" fill="'+shade(skin,-8)+'" opacity=".22"/>';
+  s += soft('M100 150q10 0 12 4q-6 4 -12 4q-6 0 -12 -4q2 -4 12 -4Z', shade(skin,-16), 'opacity=".18"');
+  s += soft('M62 46q14 -12 32 -12q-14 6 -24 18Z', '#FFFFFF', 'opacity=".25"');
   s += faceSVG(exp,ec,skin,hc);
   return s;
 }
@@ -1132,9 +1197,8 @@ function characterSVG(ch,exp){
   s += headSVG(skin,ec,hc,exp||'idle');
   if(hair.over) s += hair.over(hc);
   s += hair.front(hc);
-  s += browSVG(exp||'idle',hc);
   s += hat.render();
-  return '<svg viewBox="0 -18 200 338" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="내 캐릭터">'
+  return '<svg viewBox="0 -20 200 296" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="내 캐릭터">'
     + '<defs>'+hairGrad(hc)+irisGrad(ec)+eyeClips()+'</defs>'+s+'</svg>';
 }
 
@@ -1147,13 +1211,17 @@ function bustSVG(ch){
   var hat = HATS[ch.hat] || HATS.none;
   var s = hair.back(hc) + headSVG(skin,ec,hc,'idle');
   if(hair.over) s += hair.over(hc);
-  s += hair.front(hc) + browSVG('idle',hc) + hat.render();
-  return '<svg viewBox="22 -18 156 172" xmlns="http://www.w3.org/2000/svg">'
+  s += hair.front(hc) + hat.render();
+  return '<svg viewBox="24 -26 152 198" xmlns="http://www.w3.org/2000/svg">'
     + '<defs>'+hairGrad(hc)+irisGrad(ec)+eyeClips()+'</defs>'+s+'</svg>';
 }
 
 function outfitSVG(ch){
-  return '<svg viewBox="34 138 132 174" xmlns="http://www.w3.org/2000/svg">'+bodySVG(ch)+'</svg>';
+  __cur = nextSvgId();
+  var skin = SKINS[ch.skin][1];
+  var hc = HAIR_COLORS[ch.hairColor][1];
+  var ec = EYE_COLORS[ch.hairColor] || EYE_COLORS[0];
+  return '<svg viewBox="26 130 148 148" xmlns="http://www.w3.org/2000/svg"><defs>'+irisGrad(ec)+'</defs>'+bodySVG(ch)+'</svg>';
 }
 
 /* ---------------- 뽑기 기계 ---------------- */
@@ -1353,7 +1421,7 @@ var HEARTS = [
   {emoji:'☘️',title:'예린이가 따뜻한 말을 전해요',desc:'따뜻한 말 한마디가 오래 마음에 남길 바라요.',kw:'다정함'}
 ];
 
-var TYPE_LABEL = { coupon:'쿠폰', letter:'응원 편지', heart:'마음', special:'스페셜' };
+var TYPE_LABEL = { coupon:'쿠폰', letter:'응원 편지', heart:'마음', special:'마음 문장' };
 var MISSIONS = [
   {id:'m1',emoji:'💬',title:'고마운 점 한 가지 말해주기',desc:'소중한 사람에게 고마운 점을 한 가지 말해 보세요.',reward:{heart:1}},
   {id:'m2',emoji:'🤗',title:'꼭 안아주기 · 하이파이브',desc:'따뜻하게 안아 주거나 하이파이브로 마음을 나눠요.',reward:{gift:1}},
@@ -1832,9 +1900,9 @@ function cardHTML(c, opts){
   var inner = '<div class="gc-top"><span class="gc-badge">'+TYPE_LABEL[c.type]+'</span><span class="gc-emoji">'+c.emoji+'</span></div>'
     + '<h3 class="gc-title">'+esc(c.title)+'</h3>'
     + '<p class="gc-desc">'+esc(c.desc)+'</p>'
-    + (c.fusion && c.fusion.length ? '<div class="gc-fusion">'+c.fusion.map(esc).join(' + ')+'</div>' : (c.bonus ? '<div class="gc-fusion">🎁 보너스 코인 +1</div>' : ''))
+    + (c.note ? '<div class="gc-fusion">'+esc(c.note)+'</div>' : (c.fusion && c.fusion.length ? '<div class="gc-fusion">마음 '+(c.fusion.length||2)+'장에서 피어난 문장</div>' : (c.bonus ? '<div class="gc-fusion">🎁 보너스 코인 +1</div>' : '')))
     + '<div class="gc-foot"><span>예린이의 마음</span><span>'+shortDate(c.at)+'</span></div>'
-    + (opts.big ? '<div class="card-stamp">'+(c.type==='coupon'?'마음 쿠폰':c.type==='heart'?'마음 카드':c.type==='letter'?'응원 편지':'스페셜 카드')+'</div>' : '')
+    + (opts.big ? '<div class="card-stamp">'+(c.type==='coupon'?'마음 쿠폰':c.type==='heart'?'마음 카드':c.type==='letter'?'응원 편지':'마음에서 마음으로')+'</div>' : '')
     + (opts.big ? '' : '<span class="gc-check">✓</span>');
   if(opts.big) return '<div class="'+cls+'">'+inner+'</div>';
   return '<button class="'+cls+'" data-card="'+c.id+'" aria-pressed="'+(sel.has(c.id)?'true':'false')+'">'+inner+'</button>';
@@ -1850,7 +1918,7 @@ function renderInventory(){
   invCount.textContent = counts.all;
   invBadge.textContent = counts.all;
   invBadge.style.display = counts.all ? 'grid' : 'none';
-  var fs = [['all','전체'],['coupon','쿠폰'],['letter','편지'],['heart','마음'],['special','스페셜']];
+  var fs = [['all','전체'],['coupon','쿠폰'],['letter','편지'],['heart','마음'],['special','마음 문장']];
   invFilters.innerHTML = fs.map(function(f){
     return '<button class="chip'+(invFilter===f[0]?' on':'')+'" data-filter="'+f[0]+'">'+f[1]+' '+counts[f[0]]+'</button>';
   }).join('');
@@ -1864,65 +1932,132 @@ function renderInventory(){
 }
 function updateSelBar(){
   var n = sel.size;
-  selCount.textContent = n ? n+'개 선택했어요 · 2개 이상이면 연결할 수 있어요' : '카드를 2개 이상 골라 보세요';
+  selCount.textContent = n ? n+'개 골랐어요 · 2개 이상이면 더 따뜻한 한마디로 피어나요' : '마음을 담은 카드를 2개 이상 골라 보세요';
   connectBtn.disabled = n < 2;
-  connectBtn.textContent = n>=2 ? '✨ '+n+'개 연결하기' : '✨ 연결하기';
+  connectBtn.textContent = n>=2 ? '✨ '+n+'개 합성하기' : '✨ 합성하기';
 }
 
-/* 스페셜 카드 만들기 */
-var ADJS = ['특급','꿈결 같은','최고의','달콤한','든든한','반짝이는','따뜻한','신비한','행복 가득한'];
-var CLOSES = [
-  '오늘 피로 싹 풀리게 응원할게요 💛',
-  '하루가 반짝반짝 빛나길 바랄게요 ✨',
-  '우리 같이 웃는 날이 더 많아지길! 🌷',
-  '당신의 하루에 작은 행복이 가득하길 💗',
-  '언제나 당신 편이에요, 힘내요! 🌟',
-  '이 마음이 오래오래 남길 바랄게요 🎀',
-  '오늘도 스스로를 아껴 주는 하루가 되길 🌼'
-];
-function makeSpecial(cards){
-  var kws = [], emos = [];
+/* =================
+   합성하기 — 마음이 마음을 만나 '더 좋은 말'로
+   ================= */
+var FUSE_POOLS = {
+  love:{ label:'사랑', emoji:'💗', kws:['사랑','마음','함께','행복','꼬옥 안아주기','자랑'],
+    msgs:[
+      {t:'네가 있어서 참 다행이야', b:'세상에 하나뿐인 사람이 내 옆에 있다는 것, 그게 내 하루의 제일 큰 행운이야. 오늘도 고맙고, 내일도 고마울 거야.'},
+      {t:'사랑은 이런 마음이구나', b:'네가 웃으면 나도 웃고, 네가 힘들면 내 마음이 먼저 아파. 그게 사랑이라는 걸 네 덕분에 알았어.'},
+      {t:'오늘도 너를 좋아해', b:'어제보다 조금 더, 내일은 오늘보다 더. 셀 수 없이 쌓여 가는 마음을 오늘도 네게 다 보낼게.'},
+      {t:'내 마음의 집은 너야', b:'어디를 다녀와도 돌아오고 싶은 곳이 너라서 좋아. 그냥 네 곁이 제일 편하고 따뜻해.'},
+      {t:'이 마음, 평생 갈 것 같아', b:'처음의 설렘은 그대로인데 이제는 네 하루하루가 궁금해. 오래오래 네 옆에서 그걸 지켜보고 싶어.'}
+    ]},
+  comfort:{ label:'위로', emoji:'🌙', kws:['휴식','다정함','힘내기'],
+    msgs:[
+      {t:'힘들었지, 정말 고생했어', b:'아무것도 안 해도 괜찮은 날이 있어. 오늘은 그런 날이야. 내가 옆에서 조용히 있어 줄게.'},
+      {t:'잘하고 있어, 정말로', b:'네가 생각하는 것보다 훨씬 잘하고 있어. 결과보다 네가 버텨 온 하루가 더 대단해.'},
+      {t:'울어도 괜찮아', b:'참지 않아도 돼. 네 눈물이 아깝지 않은 사람이 여기 있어. 다 울고 나면 내가 안아 줄게.'},
+      {t:'언제나 네 편이야', b:'네가 맞는지 틀린지보다, 네가 덜 외로운 게 더 중요해. 그래서 나는 언제나 네 편이야.'},
+      {t:'천천히 가도 돼', b:'남들보다 느려도 괜찮아. 네 속도로 걷는 너를 나는 응원할 거야. 옆에서 같이 걸을게.'}
+    ]},
+  cheer:{ label:'응원', emoji:'🌱', kws:['응원','설렘','웃음','행운','칭찬'],
+    msgs:[
+      {t:'네가 해낼 거야, 난 알아', b:'네가 준비해 온 시간을 나는 봤어. 그러니까 결과가 어떻든 네가 이미 멋진 거야. 힘내!'},
+      {t:'너의 오늘이 반짝이길', b:'작은 일에도 웃을 수 있는 하루가 되길. 그리고 그 웃음의 이유에 내가 하나쯤 있으면 좋겠어.'},
+      {t:'한 걸음만 더', b:'지금이 제일 힘든 지점일 수도 있어. 조금만 더 가면 네가 그토록 바라던 풍경이 펼쳐질 거야.'},
+      {t:'너라서 가능한 일이야', b:'다른 사람이었다면 못 했을 거야. 네가 아니면 안 되는 일이야. 그러니까 꼭 네가 해 줘.'},
+      {t:'너의 도전을 응원해', b:'완벽하지 않아도 돼. 시작한 것만으로도 대단한 거야. 내가 뒤에서 제일 크게 응원할게.'}
+    ]},
+  thanks:{ label:'고마움', emoji:'🌟', kws:['고마움','자랑'],
+    msgs:[
+      {t:'네가 해 준 걸 다 기억해', b:'말하지 않아도, 당연한 것처럼 넘겼지만 나는 다 알고 있어. 네 덕분에 버틴 날이 참 많아.'},
+      {t:'고맙다는 말로는 부족해', b:'네가 내 하루에 얼마나 큰 힘이 되는지 너는 너무 몰라. 그래도 오늘은 꼭 말할게. 고마워.'},
+      {t:'너의 수고를 알아', b:'아무도 못 본 그 수고, 내가 봤어. 티 내지 않고 해낸 그 마음이 참 대단하고 고마워.'},
+      {t:'내가 더 잘할게', b:'네가 준 만큼은 아니어도, 네게 받은 마음을 꼭 갚고 싶어. 오늘부터 조금씩 더 잘할게.'},
+      {t:'네가 있어 참 좋아', b:'당연해서 잊고 살지만, 없으면 정말 큰일 날 사람. 그게 너야. 오늘도 고마워.'}
+    ]},
+  care:{ label:'돌봄', emoji:'🍵', kws:['마사지','청소','따뜻한 차','간식','반신욕','꽃','어깨 주무르기','심부름'],
+    msgs:[
+      {t:'오늘은 네가 먼저 쉬어', b:'일은 잠깐 내려놓고 따뜻한 차 한 잔부터. 네가 편해야 내 마음도 편해져.'},
+      {t:'오늘만큼은 내가 다 할게', b:'아무것도 하지 마. 오늘 하루만큼은 네가 아무것도 안 해도 되게 내가 다 해 줄게.'},
+      {t:'몸부터 챙겨 줄게', b:'네가 아프면 제일 속상한 사람이 나야. 그러니까 오늘은 꼭 잘 먹고 푹 자. 부탁이야.'},
+      {t:'너를 위한 시간을 가져', b:'누구를 위해서도 아닌, 오직 너를 위한 시간. 그게 내가 네게 가장 바라는 선물이야.'},
+      {t:'내 손으로 챙겨 줄게', b:'힘든 날엔 말보다 다정한 손길이 더 필요할 때가 있어. 오늘은 그걸 내가 해 줄게.'}
+    ]},
+  play:{ label:'함께', emoji:'🎈', kws:['산책','영화','노래','책 읽어주기','영어 책 읽어주기'],
+    msgs:[
+      {t:'너와 함께면 어디든', b:'특별한 곳이 아니어도 좋아. 너랑 걸으면 길도 명소가 되고, 밥도 맛집이 돼.'},
+      {t:'오늘 하루를 같이 쓰자', b:'아무 계획 없는 하루를 너와 함께 보내고 싶어. 그게 내가 생각하는 제일 좋은 하루야.'},
+      {t:'너랑 하는 건 다 재밌어', b:'같은 영화도, 같은 노래도, 같은 길도 너와 하면 처음처럼 좋아. 그게 참 신기해.'},
+      {t:'웃음이 떠나지 않는 하루', b:'오늘은 웃을 일만 가득했으면 좋겠어. 그 웃음, 내가 제일 가까이서 다 보고 싶어.'},
+      {t:'우리만의 시간', b:'세상이 잠깐 멈춘 것처럼, 우리 둘만의 시간을 가져 보자. 그게 요즘 내 소원이야.'}
+    ]},
+  mixed:{ label:'마음', emoji:'✨', kws:[],
+    msgs:[
+      {t:'이 마음, 네게 닿기를', b:'서로 다른 마음들을 모아 한 문장으로 빚었어. 부족해도 진심이라는 건 알아줄 거야.'},
+      {t:'마음이 마음을 만나면', b:'작은 마음들이 모여 이만큼 커졌어. 네가 생각보다 나를 많이 웃게 한다는 뜻이야.'},
+      {t:'네게 보내는 다짐', b:'앞으로도 네 곁에 있어 줄게. 이유는 하나야. 네가 좋으니까.'},
+      {t:'말로 다 못 한 마음', b:'다 꺼내지 못한 마음까지 여기 담아 봤어. 읽는 동안 네가 조금이라도 따뜻했으면 좋겠어.'},
+      {t:'오늘의 너에게', b:'오늘 네가 어떤 하루를 보냈든, 이 문장 하나는 꼭 전하고 싶었어. 네 소중함을 잊지 않았으면 해서.'}
+    ]}
+};
+var FUSE_ORDER = ['love','comfort','cheer','thanks','care','play'];
+var lastFuseText = '';
+
+function fuseMoodOf(cards){
+  var score = {love:0, comfort:0, cheer:0, thanks:0, care:0, play:0};
   cards.forEach(function(c){
-    if(c.kw && kws.indexOf(c.kw)<0) kws.push(c.kw);
-    if(c.emoji) emos.push(c.emoji);
+    var kw = c.kw || '';
+    FUSE_ORDER.forEach(function(m){
+      if(FUSE_POOLS[m].kws.indexOf(kw) >= 0) score[m] += 2;
+    });
+    if(c.type==='heart') score.love += 1.2;
+    if(c.type==='letter') score.comfort += 0.9;
+    if(c.type==='coupon') score.care += 0.7;
+    if(c.type==='special') score.thanks += 0.6;
   });
-  if(!kws.length) kws.push('마음');
-  var adj = pick(ADJS), close = pick(CLOSES);
-  var kw = kws.slice(0,3).join(' ');
-  var shapes = [
-    '예린이의 '+adj+' '+kw+' 선물!',
-    '예린이표 '+adj+' '+kw+' 세트!',
-    '예린이의 '+kw+' 마음 꾸러미!'
-  ];
-  var title = pick(shapes);
-  var hasHeart = cards.some(function(c){ return c.type==='heart' || c.type==='letter'; });
-  var hasCoupon = cards.some(function(c){ return c.type==='coupon'; });
-  var desc = close;
-  if(hasHeart && hasCoupon) desc = '마음과 선물을 한 번에 담았어요. '+close;
-  else if(!hasCoupon) desc = '마음을 모아 더 따뜻한 한마디로 만들었어요. '+close;
+  var best = 'mixed', bv = 1.4;
+  FUSE_ORDER.forEach(function(m){ if(score[m] > bv){ bv = score[m]; best = m; } });
+  return best;
+}
+function pickFuseMessage(mood){
+  var pool = FUSE_POOLS[mood].msgs, m = pick(pool), tries = 0;
+  while(m.b === lastFuseText && tries++ < 8) m = pick(pool);
+  lastFuseText = m.b;
+  return m;
+}
+function makeSpecial(cards){
+  var mood = fuseMoodOf(cards);
+  var m = pickFuseMessage(mood);
+  var emos = cards.map(function(c){ return c.emoji || ''; }).join('');
+  var n = cards.length;
   return {
-    id:uid(), type:'special',
-    emoji: emos.slice(0,2).join('') || '✨',
-    title:title, desc:desc,
-    kw:kws[0], at:Date.now(),
-    fusion: cards.map(function(c){ return c.title; })
+    id: uid(), type: 'special',
+    emoji: emos.slice(0, 4) || FUSE_POOLS[mood].emoji,
+    title: m.t,
+    desc: m.b,
+    kw: FUSE_POOLS[mood].label,
+    mood: mood,
+    at: Date.now(),
+    from: n,
+    note: '마음 ' + n + '장이 모여 피어난 문장'
   };
 }
 function connectSelected(){
   var cards = state.cards.filter(function(c){ return sel.has(c.id); });
-  if(cards.length<2){ toast('카드를 2개 이상 골라 주세요'); return; }
+  if(cards.length < 2){ toast('카드를 2개 이상 골라 주세요'); return; }
   var sp = makeSpecial(cards);
   state.cards.unshift(sp);
-  cards.forEach(function(c){ c.linked = (c.linked||0)+1; });
+  cards.forEach(function(c){ c.linked = (c.linked||0) + 1; });
   sel.clear();
   save();
   renderInventory();
+  var moodName = FUSE_POOLS[sp.mood].label;
   connectBody.innerHTML = '<div class="card-pop">'+cardHTML(sp,{big:true})+'</div>'
-    + '<p style="text-align:center;font-size:13px;font-weight:800;color:#8A7280;line-height:1.6;margin:12px 0 0">'
-    + sp.fusion.map(esc).join(' + ')+'<br>➜ 새 스페셜 카드가 보관함에 담겼어요!</p>'
-    + '<button class="primary big" data-ol-close="connectOverlay" style="margin-top:14px">확인</button>';
+    + '<div class="fuse-note">'
+    +   '<div class="fuse-steps">'+cards.slice(0,4).map(function(c){ return '<span>'+c.emoji+'</span>'; }).join('')+'</div>'
+    +   '<p>'+esc(moodName)+'의 마음이 하나로 모여<br>이 문장이 되었어요</p>'
+    + '</div>'
+    + '<button class="primary big" data-ol-close="connectOverlay" style="margin-top:14px">마음에 담았어요</button>';
   openOverlay('connectOverlay');
-  say('우와! 더 멋진 선물이 됐어 💛','love');
+  say('우와! 마음이 한 문장으로 피어났어 💛','love');
   playSound('open');
 }
 
