@@ -87,7 +87,7 @@ h1,h2,h3,p{margin:0}
   position:relative;z-index:3;flex:0 0 auto;margin:0 auto calc(10px + env(safe-area-inset-bottom));max-width:520px;width:calc(100% - 20px);
   border-radius:26px;padding:9px 9px 10px;
   background:linear-gradient(180deg,#FFFCF8 0%,#FFEFF1 46%,#FFDCE6 100%);
-  box-shadow:0 10px 0 rgba(150,50,95,.24),0 26px 40px rgba(10,0,14,.45),inset 0 2px 0 #fff;
+  box-shadow:0 10px 0 rgba(150,50,95,.3),0 26px 44px rgba(10,0,14,.5),inset 0 2px 0 #fff,inset 0 0 0 1.5px rgba(255,255,255,.9);
 }
 .dock:before{content:'';position:absolute;left:16px;right:16px;top:0;height:3px;border-radius:0 0 4px 4px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.95),rgba(255,255,255,0))}
 .dock-head{display:flex;align-items:center;justify-content:center;gap:8px;padding:1px 4px 7px}
@@ -98,7 +98,7 @@ h1,h2,h3,p{margin:0}
 .machine-pick:active{transform:translateY(2px) scale(.985)}
 .machine-pick:after{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(255,255,255,0) 34%,rgba(255,255,255,0) 70%,rgba(255,255,255,.16));pointer-events:none}
 .mini-canvas{width:100%;aspect-ratio:2/3;display:block;border-radius:12px}
-.mp-name{font-size:11px;font-weight:900;color:#fff;text-align:center;padding:3px 2px 2px;letter-spacing:-.3px;text-shadow:0 1px 3px rgba(0,0,0,.6);background:rgba(255,255,255,.1);border-radius:8px}
+.mp-name{font-size:11.5px;font-weight:900;color:#5B2C46;text-align:center;padding:4px 2px 3px;letter-spacing:-.3px;background:linear-gradient(180deg,#FFFDF8,#FFE9F0);border-radius:9px;box-shadow:inset 0 1px 0 #fff,0 2px 4px rgba(0,0,0,.25)}
 .pick-tag{position:absolute;top:8px;right:8px;font-size:10px;font-weight:900;color:#4B2A00;background:linear-gradient(180deg,#FFE07C,#FFC12E);border-radius:999px;padding:1px 7px;box-shadow:0 2px 4px rgba(0,0,0,.35)}
 
 /* ---------- screens ---------- */
@@ -2818,8 +2818,8 @@ function renderScratchKinds(){
 function ticketHTML(meta,revealed){
   var pr=Scratch.prize;
   var grade = revealed ? pr.g : '행운';
-  var msg = revealed ? pr.t : '은박을 긁어 보세요';
-  var sub = revealed ? pr.s : '손가락으로 문질러 긁으면 마음이 보여요';
+  var msg = revealed ? pr.t : '행운이 숨어 있어요';
+  var sub = revealed ? pr.s : '끝까지 긁으면 마음이 보여요';
   return '<div class="ticket-inner" style="background:radial-gradient(ellipse at 50% 24%,rgba(255,255,255,.18),rgba(255,255,255,0) 62%),linear-gradient(165deg,'+meta.bg[0]+','+meta.bg[1]+');color:'+meta.theme.text+'">'
     +'<div style="position:absolute;inset:9px;border:1.5px dashed rgba(255,255,255,.32);border-radius:14px;pointer-events:none"></div>'
     +'<div style="position:absolute;top:14px;left:16px;font-size:9px;font-weight:900;letter-spacing:1.4px;opacity:.65">BEST '+meta.prices[0]+'P</div>'
