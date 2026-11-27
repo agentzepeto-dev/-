@@ -16,7 +16,7 @@
 <div class="row" id="row1"></div>
 <div class="row" id="row2"></div>
 <script>
-fetch('coupon.html').then(function(r){return r.text();}).then(function(t){
+fetch('coupon.html?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.text();}).then(function(t){
   var blocks = t.match(/<script>[\s\S]*?<\/script>/g);
   var code = blocks[blocks.length-1].replace(/^<script>/,'').replace(/<\/script>$/,'');
   var sc = document.createElement('script'); sc.textContent = code;
