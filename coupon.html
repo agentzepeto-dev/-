@@ -1497,7 +1497,7 @@ function machineSVG(kind){
   s += '<rect x="57" y="257" width="86" height="5" rx="2.5" fill="'+shade(deep,30)+'" opacity=".28"/>';
   if(gift){
     /* 작은 3D 선물 상자 엠블럼 */
-    s += '<g transform="translate(100 249)">';
+    s += '<g transform="translate(100 249) scale(1.35)">';
     s += '<path d="M-9 -3L2 -8L12 -3V7L1 12L-9 7Z" fill="'+shade(base,-6)+'"/>';
     s += '<path d="M-9 -3L1 2V12L-9 7Z" fill="url(#'+P+'emb)"/>';
     s += '<path d="M1 2L12 -3V7L1 12Z" fill="'+shade(deep,-6)+'"/>';
@@ -1507,8 +1507,10 @@ function machineSVG(kind){
     s += '<path d="M-8 -3.4l9 4.6" stroke="#FFF3B8" stroke-width="1.2" opacity=".8"/>';
     s += '</g>';
   } else {
-    s += '<path d="M100 244c-2.6-2.7-7.4-1-5.6 3.2 1 2.4 3.7 4.4 5.6 5.6 1.9-1.2 4.6-3.2 5.6-5.6 1.8-4.2-3-5.9-5.6-3.2z" fill="url(#'+P+'emb)" transform="translate(0 0)"/>';
+    s += '<g transform="translate(100 249) scale(1.35) translate(-100 -249)">';
+    s += '<path d="M100 244c-2.6-2.7-7.4-1-5.6 3.2 1 2.4 3.7 4.4 5.6 5.6 1.9-1.2 4.6-3.2 5.6-5.6 1.8-4.2-3-5.9-5.6-3.2z" fill="url(#'+P+'emb)"/>';
     s += '<ellipse cx="97.4" cy="247" rx="2.6" ry="1.4" fill="#FFFFFF" opacity=".8" transform="rotate(-30 97.4 247)"/>';
+    s += '</g>';
   }
 
   /* 배출구 */
