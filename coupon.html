@@ -26,7 +26,8 @@ h1,h2,h3,p{margin:0}
 .brand-text{font-weight:900;font-size:15px;letter-spacing:-.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .coinbar{margin-left:auto;display:flex;gap:6px;flex:0 0 auto}
 .coin{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:999px;background:#fff;box-shadow:0 3px 8px rgba(214,120,155,.18);font-weight:900;font-size:15px}
-.coin .ico{font-size:15px;line-height:1}
+.coin .ico{display:grid;place-items:center;width:22px;height:22px}
+.coin .ico svg{width:22px;height:22px;display:block;filter:drop-shadow(0 2px 2px rgba(150,90,20,.28))}
 .coin.heart{border:2px solid #FFD1E0}
 .coin.gift{border:2px solid #FFE3B0}
 .coin.pop{animation:coinpop .45s}
@@ -37,18 +38,23 @@ h1,h2,h3,p{margin:0}
 .bg-layer{position:absolute;inset:0;z-index:0;transition:background .35s ease}
 .bg-pattern{position:absolute;inset:0;opacity:.8}
 .rug{position:absolute;z-index:1;left:50%;bottom:0;transform:translateX(-50%);width:min(96%,560px);height:22%;border-radius:50%;background:radial-gradient(ellipse at 50% 60%,rgba(255,255,255,.8),rgba(255,255,255,0) 68%);pointer-events:none}
+.floor-sheen{position:absolute;z-index:1;left:0;right:0;bottom:0;height:40%;pointer-events:none;
+  background:radial-gradient(ellipse 52% 92% at 50% 108%,rgba(255,255,255,.62),rgba(255,255,255,0) 72%),linear-gradient(180deg,rgba(74,30,62,0) 52%,rgba(74,30,62,.05) 82%,rgba(74,30,62,.13) 100%)}
+.stage-glow{position:absolute;z-index:1;left:50%;bottom:4%;transform:translateX(-50%);width:min(92%,720px);height:58%;pointer-events:none;background:radial-gradient(ellipse at 50% 78%,rgba(255,255,255,.5),rgba(255,255,255,.14) 46%,rgba(255,255,255,0) 72%)}
 .sticker-layer{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
 .sticker{position:absolute;line-height:1;transform-origin:center;filter:drop-shadow(0 2px 3px rgba(120,80,110,.18));pointer-events:none;user-select:none}
 .stage-inner{position:relative;z-index:2;flex:1;min-height:0;display:grid;grid-template-columns:1fr minmax(94px,27%) 1fr;grid-template-rows:1fr;align-items:end;justify-items:center;gap:2px;width:min(100%,940px);margin:0 auto;padding:0 6px 4px}
 .machine{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;max-width:250px;height:100%;min-height:0;padding-bottom:2px;transition:transform .12s}
 .machine:active{transform:scale(.97)}
 .m-art{width:100%;display:flex;justify-content:center;align-items:flex-end;flex:1 1 auto;min-height:0}
-.m-art svg{width:100%;height:auto;max-height:100%;display:block;filter:drop-shadow(0 10px 14px rgba(120,70,110,.22))}
+.m-art svg{width:100%;height:auto;max-height:100%;display:block;filter:drop-shadow(0 14px 16px rgba(120,70,110,.24))}
+.machine.pulling .lever,.machine:active .lever{transform:rotate(-62deg)}
 .m-label{margin-top:2px;display:flex;flex-direction:column;align-items:center;gap:1px;background:#fff;border-radius:16px;padding:5px 10px;box-shadow:0 4px 10px rgba(190,120,150,.2);width:100%;max-width:170px}
 .m-label b{font-size:12.5px;font-weight:900;letter-spacing:-.2px;white-space:nowrap}
 .m-label span{font-size:11.5px;font-weight:800;color:#A08595;white-space:nowrap}
 .m-machine.short .m-label{background:#F0E9F2;color:#7B6B7B}
 .char-col{width:100%;max-width:264px;height:100%;min-height:0;display:flex;align-items:flex-end;justify-content:center;position:relative;pointer-events:none}
+.char-col:after{content:'';position:absolute;left:50%;bottom:1px;transform:translateX(-50%);width:56%;height:13px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(108,56,92,.26),rgba(108,56,92,0) 72%);pointer-events:none}
 .char-col svg{width:100%;height:auto;max-height:100%;display:block;filter:drop-shadow(0 10px 12px rgba(120,70,110,.2));animation:charidle 3.6s ease-in-out infinite}
 @keyframes charidle{50%{transform:translateY(-4px)}}
 .char-col.happy svg{animation:charhop .5s ease 2}
@@ -179,7 +185,7 @@ h1,h2,h3,p{margin:0}
 .giftbox #lid,.giftbox #bow{transform-box:fill-box;transform-origin:center}
 .giftbox.t1{animation:shakeBox .42s ease}
 .giftbox.t2{animation:shakeBox .34s ease 2}
-@keyframes shakeBox{0%,100%{transform:translate(0,0) rotate(0)}20%{transform:translate(-7px,0) rotate(-3.5deg)}60%{transform:translate(7px,0) rotate(3.5deg)}}
+@keyframes shakeBox{0%{transform:none}16%{transform:translateY(-12px) rotate(-3.4deg) scale(1.03,.97)}38%{transform:translateY(1px) rotate(2.6deg) scale(.985,1.018)}58%{transform:translateY(-6px) rotate(-1.6deg) scale(1.012,.99)}78%{transform:translateY(0) rotate(.9deg)}100%{transform:none}}
 .giftbox.open #lid{transform:translate(-14px,-118px) rotate(-28deg);opacity:0;transition:transform .55s cubic-bezier(.2,.8,.3,1),opacity .55s}
 .giftbox.open #bow{transform:translate(26px,-150px) rotate(40deg);opacity:0;transition:transform .55s cubic-bezier(.2,.8,.3,1),opacity .55s}
 .giftbox.open #rays{opacity:1;transform:scale(1);transition:transform .5s cubic-bezier(.2,.9,.3,1.4),opacity .3s}
@@ -204,7 +210,8 @@ h1,h2,h3,p{margin:0}
 .card-stamp{display:inline-block;align-self:flex-start;margin-top:10px;font-size:11px;font-weight:900;letter-spacing:1px;color:#C4517A;border:2px dashed #FFA9C6;border-radius:999px;padding:3px 10px;transform:rotate(-4deg)}
 .bonus{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-weight:900;color:#7A5A00;background:#FFF3C4;border-radius:16px;padding:9px 14px;animation:bonusIn .5s .15s both;font-size:14.5px}
 @keyframes bonusIn{from{transform:translateY(14px) scale(.9);opacity:0}to{transform:none;opacity:1}}
-.coin-float{position:absolute;font-size:56px;pointer-events:none;animation:coinFloat 1.5s ease-out forwards;filter:drop-shadow(0 8px 12px rgba(0,0,0,.3))}
+.coin-float{position:absolute;pointer-events:none;animation:coinFloat 1.5s ease-out forwards;filter:drop-shadow(0 8px 12px rgba(0,0,0,.3))}
+.coin-float svg{width:64px;height:64px;display:block}
 @keyframes coinFloat{0%{transform:translateY(40px) scale(.4);opacity:0}30%{transform:translateY(-10px) scale(1.15);opacity:1}100%{transform:translateY(-150px) scale(1);opacity:0}}
 .confetti{position:absolute;width:10px;height:14px;border-radius:3px;pointer-events:none;animation:confettiFall 1.5s ease-out forwards}
 @keyframes confettiFall{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--dx),110vh) rotate(var(--rot));opacity:.9}}
@@ -263,13 +270,15 @@ h1,h2,h3,p{margin:0}
   <header class="topbar">
     <div class="brand"><span class="logo">🎁</span><span class="brand-text">두근두근 쿠폰 마음 선물</span></div>
     <div class="coinbar">
-      <button class="coin heart" id="coinHeart" aria-label="하트 코인"><span class="ico">💗</span><b id="heartCount">2</b></button>
-      <button class="coin gift" id="coinGift" aria-label="선물 코인"><span class="ico">🎁</span><b id="giftCount">2</b></button>
+      <button class="coin heart" id="coinHeart" aria-label="하트 코인"><span class="ico" id="icoHeart"></span><b id="heartCount">2</b></button>
+      <button class="coin gift" id="coinGift" aria-label="선물 코인"><span class="ico" id="icoGift"></span><b id="giftCount">2</b></button>
     </div>
   </header>
 
   <main class="stage" id="stage">
     <div class="bg-layer" id="bgLayer"></div>
+    <div class="floor-sheen"></div>
+    <div class="stage-glow"></div>
     <div class="rug"></div>
     <div class="sticker-layer" id="mainStickers" aria-hidden="true"></div>
     <div class="bubble" id="bubble"></div>
@@ -465,6 +474,13 @@ function heart(cx,cy,s,fill,edge){
     +' transform="translate('+cx+','+cy+') scale('+s+')"/>';
 }
 var __svgN = 0, __cur = '';
+function charGloss(id){
+  return '<radialGradient id="'+id+'" cx=".5" cy=".5" r=".5">'
+    +'<stop offset="0" stop-color="#FFFFFF" stop-opacity=".34"/>'
+    +'<stop offset=".55" stop-color="#FFFFFF" stop-opacity=".12"/>'
+    +'<stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>'
+    +'</radialGradient>';
+}
 function nextSvgId(){ __svgN++; return 'v'+__svgN.toString(36)+'_'; }
 function hairId(c){ return 'hg'+__cur+String(c).replace('#',''); }
 function hairGrad(c){
@@ -1186,6 +1202,7 @@ function headSVG(skin,ec,hc,exp){
 /* ---------------- 캐릭터 조립 ---------------- */
 function characterSVG(ch,exp){
   __cur = nextSvgId();
+  var glossId = 'cg' + __cur.replace(/[^a-z0-9]/gi,'');
   var skin = SKINS[ch.skin][1];
   var hc = HAIR_COLORS[ch.hairColor][1];
   var ec = EYE_COLORS[ch.hairColor] || EYE_COLORS[0];
@@ -1198,8 +1215,9 @@ function characterSVG(ch,exp){
   if(hair.over) s += hair.over(hc);
   s += hair.front(hc);
   s += hat.render();
+  s += '<ellipse cx="62" cy="38" rx="56" ry="54" fill="url(#'+glossId+')"/>';
   return '<svg viewBox="0 -20 200 296" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="내 캐릭터">'
-    + '<defs>'+hairGrad(hc)+irisGrad(ec)+eyeClips()+'</defs>'+s+'</svg>';
+    + '<defs>'+hairGrad(hc)+irisGrad(ec)+eyeClips()+charGloss(glossId)+'</defs>'+s+'</svg>';
 }
 
 function bustSVG(ch){
@@ -1224,127 +1242,550 @@ function outfitSVG(ch){
   return '<svg viewBox="26 130 148 148" xmlns="http://www.w3.org/2000/svg"><defs>'+irisGrad(ec)+'</defs>'+bodySVG(ch)+'</svg>';
 }
 
+/* =======================================================
+   진짜 장난감 같은 3D 아트 (뽑기통 · 캡슐 · 선물상자 · 코인)
+   ======================================================= */
+
+function artCapGrads(P, cols){
+  return cols.map(function(c,i){
+    return '<radialGradient id="'+P+'cap'+i+'" cx=".35" cy=".3" r=".8">'
+      + '<stop offset="0" stop-color="'+shade(c,62)+'"/>'
+      + '<stop offset=".4" stop-color="'+shade(c,20)+'"/>'
+      + '<stop offset=".82" stop-color="'+c+'"/>'
+      + '<stop offset="1" stop-color="'+shade(c,-28)+'"/>'
+      + '</radialGradient>';
+  }).join('');
+}
+
+function artBall(P, i, cx, cy, r, rot, op, cols){
+  var c = cols[i];
+  return '<g transform="rotate('+rot+' '+cx+' '+cy+')" opacity="'+(op==null?1:op)+'">'
+    + '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="url(#'+P+'cap'+i+')"/>'
+    + '<path d="M'+(cx-r)+' '+cy+' A'+r+' '+r+' 0 0 0 '+(cx+r)+' '+cy+' Z" fill="'+shade(c,-34)+'" opacity=".26"/>'
+    + '<path d="M'+(cx-r*0.98)+' '+cy+' Q'+cx+' '+(cy+r*0.34)+' '+(cx+r*0.98)+' '+cy+'" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="'+(r*0.13)+'" stroke-linecap="round"/>'
+    + '<ellipse cx="'+(cx-r*0.33)+'" cy="'+(cy-r*0.42)+'" rx="'+(r*0.34)+'" ry="'+(r*0.2)+'" fill="#FFFFFF" opacity=".78" transform="rotate(-32 '+(cx-r*0.33)+' '+(cy-r*0.42)+')"/>'
+    + '<circle cx="'+cx+'" cy="'+cy+'" r="'+(r-0.8)+'" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1"/>'
+    + '</g>';
+}
+
 /* ---------------- 뽑기 기계 ---------------- */
 function machineSVG(kind){
-  var gift = kind==='gift';
-  var main = gift? '#FF7FA8' : '#A78BFA';
-  var dark = gift? '#DE4F80' : '#8264E6';
-  var dome = gift? '#FFD7E4' : '#E3DAFF';
-  var capA = gift? '#FFC2D6' : '#C9B8FF';
-  var capB = gift? '#FFE9A8' : '#A8E9FF';
-  var capC = gift? '#C7F0D8' : '#FFC2DE';
-  var icon = gift? '🎁' : '💗';
-  var s = '';
-  s += '<ellipse cx="100" cy="296" rx="76" ry="10" fill="rgba(90,50,80,.18)"/>';
-  // 다리
-  s += ink('M48 258h16v26c0 6 -4 9 -8 9s-8 -3 -8 -9Z', '#C9BED6', 3);
-  s += ink('M136 258h16v26c0 6 -4 9 -8 9s-8 -3 -8 -9Z', '#C9BED6', 3);
-  // 유리 돔
-  s += '<path d="M36 96C36 44 62 18 100 18C138 18 164 44 164 96Z" fill="'+dome+'" stroke="'+INK+'" stroke-width="4"/>';
-  s += '<circle cx="80" cy="74" r="12" fill="'+capA+'" stroke="'+INK+'" stroke-width="2.4"/>';
-  s += '<circle cx="106" cy="62" r="12" fill="'+capB+'" stroke="'+INK+'" stroke-width="2.4"/>';
-  s += '<circle cx="126" cy="82" r="12" fill="'+capC+'" stroke="'+INK+'" stroke-width="2.4"/>';
-  s += '<circle cx="62" cy="92" r="10" fill="'+capC+'" stroke="'+INK+'" stroke-width="2.2"/>';
-  s += stro('M48 88C50 56 66 34 90 26','#FFFFFF',8,'opacity=".6"');
-  s += '<ellipse cx="68" cy="52" rx="11" ry="6" fill="#FFFFFF" opacity=".5" transform="rotate(-32 68 52)"/>';
-  s += '<ellipse cx="140" cy="66" rx="5" ry="10" fill="#FFFFFF" opacity=".3" transform="rotate(-18 140 66)"/>';
-  // 돔 받침
-  s += '<rect x="28" y="88" width="144" height="16" rx="8" fill="'+dark+'" stroke="'+INK+'" stroke-width="3.5"/>';
-  s += stro('M36 94h128','#FFFFFF',2.4,'opacity=".28"');
-  // 본체
-  s += ink('M28 100h144v134c0 12 -8 20 -20 20H48c-12 0 -20 -8 -20 -20Z', main, 4);
-  s += soft('M132 100h20c14 0 20 8 20 20v114c0 12 -6 20 -18 20h-14c12 -34 14 -104 -8 -154Z', dark, 'opacity=".26"');
-  s += soft('M28 100h14c-8 26 -8 96 2 138H34c-4 -44 -6 -98 -6 -138Z', '#FFFFFF', 'opacity=".16"');
-  // 손잡이
-  s += stro('M164 166l14 -10', INK, 9);
-  s += '<circle cx="180" cy="154" r="10" fill="#FFC94D" stroke="'+INK+'" stroke-width="3"/>';
-  s += '<circle cx="177" cy="151" r="3" fill="#FFFFFF" opacity=".8"/>';
-  s += '<circle cx="164" cy="166" r="7" fill="'+dark+'" stroke="'+INK+'" stroke-width="2.6"/>';
-  // 동전 투입구
-  s += '<rect x="42" y="144" width="11" height="26" rx="5" fill="#4A3A4E" stroke="'+INK+'" stroke-width="2.6"/>';
-  s += '<rect x="45" y="149" width="5" height="16" rx="2.5" fill="#2A1E2E"/>';
-  s += '<circle cx="47" cy="136" r="7" fill="#FFC94D" stroke="'+INK+'" stroke-width="2.2"/>';
-  s += stro('M44 136h6','#E9A800',1.6,'opacity=".75"');
-  // 중앙 창
-  s += '<circle cx="103" cy="168" r="41" fill="#F7FCFF" stroke="'+INK+'" stroke-width="4"/>';
-  s += '<circle cx="103" cy="168" r="33" fill="rgba(190,235,255,.36)"/>';
-  s += '<circle cx="89" cy="158" r="11" fill="'+capA+'" stroke="'+INK+'" stroke-width="2.2"/>';
-  s += '<circle cx="114" cy="154" r="10" fill="'+capC+'" stroke="'+INK+'" stroke-width="2.2"/>';
-  s += '<circle cx="108" cy="182" r="11" fill="'+capB+'" stroke="'+INK+'" stroke-width="2.2"/>';
-  s += stro('M73 150q10 -14 26 -18','#FFFFFF',6,'opacity=".75"');
-  s += '<ellipse cx="81" cy="164" rx="7" ry="12" fill="#FFFFFF" opacity=".5" transform="rotate(-26 81 164)"/>';
-  // 간판
-  s += ink('M62 210h78c8 0 14 6 14 13s-6 13 -14 13H62c-8 0 -14 -6 -14 -13s6 -13 14 -13Z', '#FFFFFF', 3.2);
-  s += '<text x="101" y="230" text-anchor="middle" font-size="18" font-family="Apple Color Emoji,Segoe UI Emoji,sans-serif">'+icon+'</text>';
-  // 배출구
-  s += ink('M72 242h58c4 0 7 3 7 7v6c0 4 -3 7 -7 7H72c-4 0 -7 -3 -7 -7v-6c0 -4 3 -7 7 -7Z', '#3E2F44', 2.8);
-  s += '<rect x="70" y="245" width="62" height="6" rx="3" fill="#241826" opacity=".8"/>';
-  s += stro('M80 250h42','#FFFFFF',1.6,'opacity=".28"');
+  var gift = kind === 'gift';
+  var P = gift ? 'mG' : 'mH';
+  var base = gift ? '#FF7FA8' : '#A78BFA';
+  var lite = gift ? '#FFC2D6' : '#CDBDFF';
+  var mid  = gift ? '#FF9CBD' : '#B79DFB';
+  var deep = gift ? '#DE4F80' : '#8264E6';
+  var edge = gift ? '#A83259' : '#543BB0';
+  var tint = gift ? '#FFDCE8' : '#E6DEFF';
+  var capCols = gift
+    ? ['#FFD8E6','#FFE7A8','#C3F0D8','#C6E6FF','#F2CCFF','#FFD0B0']
+    : ['#D0BEFF','#A8ECFF','#FFC9E2','#FFE6A8','#BCF2D8','#FFC2AE'];
+
+  var defs = '<defs>'
+    + '<linearGradient id="'+P+'body" x1="0" y1="0" x2="1" y2="0">'
+      + '<stop offset="0" stop-color="'+shade(deep,-14)+'"/>'
+      + '<stop offset=".045" stop-color="'+shade(base,40)+'"/>'
+      + '<stop offset=".15" stop-color="'+shade(base,26)+'"/>'
+      + '<stop offset=".34" stop-color="'+base+'"/>'
+      + '<stop offset=".58" stop-color="'+mid+'"/>'
+      + '<stop offset=".82" stop-color="'+deep+'"/>'
+      + '<stop offset="1" stop-color="'+shade(edge,-6)+'"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="'+P+'vert" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".5"/>'
+      + '<stop offset=".12" stop-color="#FFFFFF" stop-opacity="0"/>'
+      + '<stop offset=".72" stop-color="#2A0A22" stop-opacity="0"/>'
+      + '<stop offset="1" stop-color="#2A0A22" stop-opacity=".38"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="'+P+'crome" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0" stop-color="#FFFFFF"/>'
+      + '<stop offset=".16" stop-color="#EAF1F7"/>'
+      + '<stop offset=".38" stop-color="#A9B7C6"/>'
+      + '<stop offset=".5" stop-color="#F7FBFE"/>'
+      + '<stop offset=".74" stop-color="#AEBDCB"/>'
+      + '<stop offset="1" stop-color="#E7EEF5"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="'+P+'gold" x1=".15" y1="0" x2=".55" y2="1">'
+      + '<stop offset="0" stop-color="#FFF8D6"/>'
+      + '<stop offset=".26" stop-color="#FFDD72"/>'
+      + '<stop offset=".5" stop-color="#E9A200"/>'
+      + '<stop offset=".68" stop-color="#FFE894"/>'
+      + '<stop offset="1" stop-color="#C18500"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="'+P+'leg" x1="0" y1="0" x2="1" y2="0">'
+      + '<stop offset="0" stop-color="#D9D2E4"/>'
+      + '<stop offset=".3" stop-color="#F4F0F8"/>'
+      + '<stop offset=".7" stop-color="#C9C0D6"/>'
+      + '<stop offset="1" stop-color="#A79DB4"/>'
+    + '</linearGradient>'
+    + '<radialGradient id="'+P+'dome" cx=".38" cy=".24" r=".86">'
+      + '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/>'
+      + '<stop offset=".5" stop-color="'+tint+'" stop-opacity=".6"/>'
+      + '<stop offset="1" stop-color="'+tint+'" stop-opacity=".85"/>'
+    + '</radialGradient>'
+    + '<linearGradient id="'+P+'sheen" x1=".12" y1="0" x2=".5" y2="1">'
+      + '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".9"/>'
+      + '<stop offset=".3" stop-color="#FFFFFF" stop-opacity=".24"/>'
+      + '<stop offset=".55" stop-color="#FFFFFF" stop-opacity="0"/>'
+      + '<stop offset=".85" stop-color="#FFFFFF" stop-opacity=".12"/>'
+      + '<stop offset="1" stop-color="#FFFFFF" stop-opacity=".38"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="'+P+'rim" x1="0" y1="0" x2=".3" y2="1">'
+      + '<stop offset="0" stop-color="#FFFFFF"/>'
+      + '<stop offset=".4" stop-color="'+shade(tint,14)+'"/>'
+      + '<stop offset="1" stop-color="'+shade(deep,16)+'"/>'
+    + '</linearGradient>'
+    + '<radialGradient id="'+P+'winIn" cx=".5" cy=".2" r=".9">'
+      + '<stop offset="0" stop-color="#2B1531"/>'
+      + '<stop offset=".68" stop-color="#4C2B4C"/>'
+      + '<stop offset="1" stop-color="#71496C"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="'+P+'winGlass" cx=".34" cy=".24" r=".85">'
+      + '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".6"/>'
+      + '<stop offset=".58" stop-color="#E4F5FF" stop-opacity=".28"/>'
+      + '<stop offset="1" stop-color="#9ADBFF" stop-opacity=".34"/>'
+    + '</radialGradient>'
+    + '<linearGradient id="'+P+'flap" x1="0" y1="0" x2=".2" y2="1">'
+      + '<stop offset="0" stop-color="#7E6480"/>'
+      + '<stop offset=".4" stop-color="#42284A"/>'
+      + '<stop offset="1" stop-color="#1C0F1E"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="'+P+'plate" x1="0" y1="0" x2=".1" y2="1">'
+      + '<stop offset="0" stop-color="#FFFFFF"/>'
+      + '<stop offset=".55" stop-color="#FFF4F9"/>'
+      + '<stop offset="1" stop-color="#EFDAE6"/>'
+    + '</linearGradient>'
+    + '<radialGradient id="'+P+'emb" cx=".35" cy=".28" r=".8">'
+      + '<stop offset="0" stop-color="'+shade(base,58)+'"/>'
+      + '<stop offset=".6" stop-color="'+shade(base,10)+'"/>'
+      + '<stop offset="1" stop-color="'+deep+'"/>'
+    + '</radialGradient>'
+    + '<filter id="'+P+'bl" x="-40%" y="-60%" width="180%" height="240%"><feGaussianBlur stdDeviation="4"/></filter>'
+    + '<filter id="'+P+'bl2" x="-40%" y="-60%" width="180%" height="240%"><feGaussianBlur stdDeviation="1.6"/></filter>'
+    + '<clipPath id="'+P+'bodyClip"><rect x="26" y="110" width="148" height="182" rx="26"/></clipPath>'
+    + '<clipPath id="'+P+'domeClip"><path d="M28 102C28 52 60 16 100 16C140 16 172 52 172 102Z"/></clipPath>'
+    + '<clipPath id="'+P+'winClip"><circle cx="100" cy="180" r="37"/></clipPath>'
+    + artCapGrads(P, capCols)
+    + '</defs>';
+
+  var s = defs;
+
+  /* 땅에 닿는 부드러운 그림자 */
+  s += '<ellipse cx="100" cy="303" rx="76" ry="9" fill="#5A2350" opacity=".26" filter="url(#'+P+'bl)"/>';
+  s += '<ellipse cx="100" cy="299" rx="54" ry="4.5" fill="#3A1030" opacity=".22" filter="url(#'+P+'bl2)"/>';
+
+  /* 다리 */
+  [46, 137].forEach(function(x){
+    s += '<rect x="'+x+'" y="268" width="17" height="34" rx="8" fill="url(#'+P+'leg)"/>';
+    s += '<rect x="'+(x+2.5)+'" y="271" width="4" height="24" rx="2" fill="#FFFFFF" opacity=".6"/>';
+    s += '<rect x="'+(x+11)+'" y="271" width="2.5" height="24" rx="1.2" fill="#7E6C8E" opacity=".45"/>';
+    s += '<path d="M'+x+' 294 h17 v4 q0 6 -8.5 6 T'+x+' 298 Z" fill="#4C3B54"/>';
+    s += '<path d="M'+(x+1)+' 298 q7.5 4 15 0" stroke="#8B7897" stroke-width="1.4" fill="none" opacity=".7"/>';
+  });
+
+  /* 본체 */
+  s += '<rect x="26" y="110" width="148" height="182" rx="26" fill="url(#'+P+'body)"/>';
+  s += '<g clip-path="url(#'+P+'bodyClip)">';
+  s += '<rect x="26" y="110" width="148" height="182" fill="url(#'+P+'vert)"/>';
+  s += '<path d="M33 132C29 176 29 232 35 272C31 236 33 176 41 124Z" fill="#FFFFFF" opacity=".42"/>';
+  s += '<path d="M44 118C40 160 40 234 46 280C42 236 44 164 50 120Z" fill="#FFFFFF" opacity=".22"/>';
+  s += '<path d="M167 112C174 152 174 232 166 284C158 240 158 156 167 112Z" fill="'+shade(edge,-10)+'" opacity=".34"/>';
+  s += '<path d="M160 112C168 154 168 234 160 286C152 244 152 156 160 112Z" fill="'+shade(edge,6)+'" opacity=".18"/>';
+  s += '<rect x="26" y="264" width="148" height="28" fill="'+shade(edge,-20)+'" opacity=".18"/>';
+  s += '<rect x="26" y="110" width="148" height="2.6" fill="#FFFFFF" opacity=".35"/>';
+  /* 본체에 비치는 돔 반사 */
+  s += '<ellipse cx="74" cy="150" rx="26" ry="34" fill="#FFFFFF" opacity=".16" filter="url(#'+P+'bl2)"/>';
+  s += '</g>';
+  s += '<rect x="26" y="110" width="148" height="182" rx="26" fill="none" stroke="'+shade(edge,-30)+'" stroke-opacity=".55" stroke-width="2.4"/>';
+
+  /* 본체 나사 */
+  [[37,122],[163,122],[37,278],[163,278]].forEach(function(p){
+    s += '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3" fill="url(#'+P+'crome)" stroke="#8E7C96" stroke-opacity=".5" stroke-width=".9"/>';
+    s += '<path d="M'+(p[0]-1.6)+' '+p[1]+'h3.2" stroke="#8E7C96" stroke-width=".9" opacity=".8"/>';
+  });
+
+  /* 돔 받침 링 */
+  s += '<rect x="22" y="98" width="156" height="19" rx="9.5" fill="url(#'+P+'crome)"/>';
+  s += '<rect x="22" y="98" width="156" height="5" rx="2.5" fill="#FFFFFF" opacity=".8"/>';
+  s += '<rect x="22" y="110" width="156" height="5" rx="2.5" fill="'+shade(edge,0)+'" opacity=".5"/>';
+  s += '<rect x="22" y="105" width="156" height="2" fill="#FFFFFF" opacity=".5"/>';
+
+  /* 유리 돔 내부 */
+  s += '<path d="M28 102C28 52 60 16 100 16C140 16 172 52 172 102Z" fill="url(#'+P+'dome)"/>';
+  s += '<g clip-path="url(#'+P+'domeClip)">';
+  s += '<ellipse cx="100" cy="104" rx="58" ry="12" fill="'+shade(deep,4)+'" opacity=".35"/>';
+  var domeBalls = [
+    [2, 60, 78, 10, -6, .78], [1, 82, 70, 11, 4, .78], [3, 106, 66, 11, -3, .78], [0, 128, 72, 10, 5, .78], [4, 146, 82, 8, -8, .78],
+    [5, 46, 94, 8.5, 0, 1], [0, 66, 94, 11.5, 0, 1], [2, 92, 92, 13, 0, 1], [3, 118, 94, 12.5, 0, 1], [1, 142, 96, 10, 0, 1], [4, 156, 100, 7, 0, 1]
+  ];
+  domeBalls.forEach(function(b){ s += artBall(P, b[0], b[1], b[2], b[3], b[4], b[5], capCols); });
+  /* 돔 안쪽 어두운 아래·왼쪽 그림자 */
+  s += '<path d="M28 102C28 52 60 16 100 16C86 22 66 44 60 102Z" fill="'+shade(deep,10)+'" opacity=".12"/>';
+  s += '<ellipse cx="100" cy="98" rx="72" ry="10" fill="'+shade(deep,0)+'" opacity=".18"/>';
+  s += '</g>';
+
+  /* 유리 광택 */
+  s += '<path d="M28 102C28 52 60 16 100 16C140 16 172 52 172 102Z" fill="url(#'+P+'sheen)"/>';
+  s += '<path d="M40 96C43 60 62 32 94 20" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" opacity=".55"/>';
+  s += '<path d="M48 88C53 60 70 39 94 28" fill="none" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round" opacity=".85"/>';
+  s += '<ellipse cx="63" cy="55" rx="15" ry="7" fill="#FFFFFF" opacity=".75" transform="rotate(-38 63 55)"/>';
+  s += '<path d="M136 38l2.6 6.2 6.2 2.6-6.2 2.6-2.6 6.2-2.6-6.2-6.2-2.6 6.2-2.6z" fill="#FFFFFF" opacity=".95"/>';
+  s += '<path d="M154 62l1.7 4 4 1.7-4 1.7-1.7 4-1.7-4-4-1.7 4-1.7z" fill="#FFFFFF" opacity=".7"/>';
+  s += '<circle cx="120" cy="34" r="1.6" fill="#FFFFFF" opacity=".8"/>';
+  s += '<path d="M28 102C28 52 60 16 100 16C140 16 172 52 172 102" fill="none" stroke="url(#'+P+'rim)" stroke-width="3.4"/>';
+  s += '<path d="M33 100C34 58 60 22 96 18" fill="none" stroke="#FFFFFF" stroke-width="2" opacity=".85"/>';
+
+  /* 앞 유리창 */
+  s += '<circle cx="100" cy="180" r="46" fill="url(#'+P+'crome)"/>';
+  s += '<circle cx="100" cy="180" r="46" fill="none" stroke="'+shade(edge,-20)+'" stroke-opacity=".45" stroke-width="2"/>';
+  s += '<circle cx="100" cy="180" r="39.5" fill="url(#'+P+'winIn)"/>';
+  s += '<circle cx="100" cy="180" r="39.5" fill="none" stroke="#1B0C1E" stroke-opacity=".5" stroke-width="2"/>';
+  s += '<g clip-path="url(#'+P+'winClip)">';
+  s += '<ellipse cx="100" cy="206" rx="42" ry="16" fill="'+shade(deep,-4)+'" opacity=".45"/>';
+  s += artBall(P, 0, 86, 168, 12, -4, 1, capCols);
+  s += artBall(P, 3, 112, 164, 10.5, 6, 1, capCols);
+  s += artBall(P, 1, 106, 194, 11.5, 0, 1, capCols);
+  s += artBall(P, 2, 82, 192, 9, 0, 1, capCols);
+  s += '<ellipse cx="100" cy="180" rx="37" ry="37" fill="url(#'+P+'winGlass)"/>';
+  s += '<path d="M76 154A37 37 0 0 1 116 148" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity=".65"/>';
+  s += '<ellipse cx="82" cy="163" rx="6" ry="12" fill="#FFFFFF" opacity=".5" transform="rotate(-22 82 163)"/>';
+  s += '<path d="M124 202A37 37 0 0 1 78 210" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" opacity=".35"/>';
+  s += '</g>';
+  s += '<circle cx="100" cy="180" r="37.5" fill="none" stroke="#FFFFFF" stroke-opacity=".65" stroke-width="2.2"/>';
+  s += '<path d="M100 133.5A46 46 0 0 1 143 165" fill="none" stroke="#FFFFFF" stroke-width="2.4" opacity=".8"/>';
+
+  /* 동전 투입구 */
+  s += '<rect x="35" y="150" width="23" height="58" rx="11.5" fill="url(#'+P+'crome)"/>';
+  s += '<rect x="35" y="150" width="23" height="58" rx="11.5" fill="none" stroke="'+shade(edge,-10)+'" stroke-opacity=".4" stroke-width="1.6"/>';
+  s += '<rect x="42.5" y="163" width="8" height="30" rx="4" fill="#231226"/>';
+  s += '<rect x="44" y="165" width="2.4" height="26" rx="1.2" fill="#FFFFFF" opacity=".3"/>';
+  s += '<rect x="42.5" y="163" width="8" height="30" rx="4" fill="none" stroke="#0E0510" stroke-opacity=".6" stroke-width="1"/>';
+  s += '<circle cx="46.5" cy="157" r="1.7" fill="#8E9BAA"/>';
+  /* 넣는 동전 */
+  s += '<g transform="rotate(-12 46 140)">';
+  s += '<ellipse cx="46" cy="144" rx="10.5" ry="10" fill="url(#'+P+'gold)"/>';
+  s += '<ellipse cx="46" cy="142.6" rx="8.4" ry="8" fill="'+shade(base,40)+'"/>';
+  s += '<ellipse cx="46" cy="142.6" rx="8.4" ry="8" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="1.2"/>';
+  s += '<path d="M46 138.4c-1.7-1.7-4.6-.5-3.4 1.8.6 1.1 2.2 2.3 3.4 3 1.2-.7 2.8-1.9 3.4-3 1.2-2.3-1.7-3.5-3.4-1.8z" fill="'+shade(deep,-12)+'"/>';
+  s += '<ellipse cx="43.6" cy="140.4" rx="2.1" ry="1.1" fill="#FFFFFF" opacity=".8" transform="rotate(-30 43.6 140.4)"/>';
+  s += '</g>';
+  s += '<path d="M37 121l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#FFF3B0" opacity=".9"/>';
+
+  /* 레버 */
+  s += '<g class="lever" id="lever-'+P+'" style="transform-box:view-box;transform-origin:171px 182px;transition:transform .2s cubic-bezier(.3,.9,.35,1)">';
+  s += '<path d="M171 182L184 171" stroke="'+shade(edge,-30)+'" stroke-width="10.5" stroke-linecap="round" opacity=".45"/>';
+  s += '<path d="M171 181L183.5 171.5" stroke="url(#'+P+'gold)" stroke-width="8.6" stroke-linecap="round"/>';
+  s += '<path d="M172 178.5L182 170" stroke="#FFF8D0" stroke-width="2.4" stroke-linecap="round" opacity=".75"/>';
+  s += '<circle cx="187" cy="168" r="11" fill="url(#'+P+'gold)" stroke="'+shade(edge,-20)+'" stroke-opacity=".5" stroke-width="1.6"/>';
+  s += '<ellipse cx="183.4" cy="163.8" rx="3.8" ry="2.5" fill="#FFFFFF" opacity=".9" transform="rotate(-32 183.4 163.8)"/>';
+  s += '<path d="M180 175A10 10 0 0 0 194 173" fill="none" stroke="'+shade(edge,-30)+'" stroke-width="1.4" opacity=".35"/>';
+  s += '</g>';
+  s += '<circle cx="171" cy="182" r="10.5" fill="url(#'+P+'crome)" stroke="'+shade(edge,-20)+'" stroke-opacity=".45" stroke-width="1.6"/>';
+  s += '<circle cx="171" cy="182" r="4.2" fill="#8E9BAA"/>';
+  s += '<circle cx="169.6" cy="180.4" r="1.8" fill="#FFFFFF" opacity=".8"/>';
+
+  /* 간판 */
+  s += '<ellipse cx="100" cy="270" rx="40" ry="4" fill="'+shade(edge,-30)+'" opacity=".18" filter="url(#'+P+'bl2)"/>';
+  s += '<rect x="53" y="233" width="94" height="32" rx="16" fill="url(#'+P+'plate)"/>';
+  s += '<rect x="53" y="233" width="94" height="32" rx="16" fill="none" stroke="'+shade(edge,-10)+'" stroke-opacity=".35" stroke-width="1.8"/>';
+  s += '<rect x="57" y="236" width="86" height="9" rx="4.5" fill="#FFFFFF" opacity=".8"/>';
+  s += '<rect x="57" y="257" width="86" height="5" rx="2.5" fill="'+shade(deep,30)+'" opacity=".28"/>';
+  if(gift){
+    /* 작은 3D 선물 상자 엠블럼 */
+    s += '<g transform="translate(100 249)">';
+    s += '<path d="M-9 -3L2 -8L12 -3V7L1 12L-9 7Z" fill="'+shade(base,-6)+'"/>';
+    s += '<path d="M-9 -3L1 2V12L-9 7Z" fill="url(#'+P+'emb)"/>';
+    s += '<path d="M1 2L12 -3V7L1 12Z" fill="'+shade(deep,-6)+'"/>';
+    s += '<path d="M-9 -5.6L1 -0.6L12 -5.6L2 -10.6Z" fill="'+shade(base,34)+'"/>';
+    s += '<path d="M-3 -6.4L7 -1.4V0.4L-3 -4.6Z" fill="#FFE07A"/>';
+    s += '<path d="M-8.2 -1.2L0.6 3V4.6L-8.2 0.4Z" fill="#FFE07A"/>';
+    s += '<path d="M-8 -3.4l9 4.6" stroke="#FFF3B8" stroke-width="1.2" opacity=".8"/>';
+    s += '</g>';
+  } else {
+    s += '<path d="M100 244c-2.6-2.7-7.4-1-5.6 3.2 1 2.4 3.7 4.4 5.6 5.6 1.9-1.2 4.6-3.2 5.6-5.6 1.8-4.2-3-5.9-5.6-3.2z" fill="url(#'+P+'emb)" transform="translate(0 0)"/>';
+    s += '<ellipse cx="97.4" cy="247" rx="2.6" ry="1.4" fill="#FFFFFF" opacity=".8" transform="rotate(-30 97.4 247)"/>';
+  }
+
+  /* 배출구 */
+  s += '<ellipse cx="100" cy="289" rx="34" ry="3.4" fill="'+shade(edge,-30)+'" opacity=".2"/>';
+  s += '<rect x="64" y="262" width="72" height="28" rx="14" fill="'+shade(edge,-26)+'"/>';
+  s += '<rect x="66" y="264" width="68" height="24" rx="12" fill="url(#'+P+'winIn)"/>';
+  s += '<rect x="68" y="266" width="64" height="20" rx="10" fill="url(#'+P+'flap)"/>';
+  s += '<rect x="68" y="266" width="64" height="7" rx="3.5" fill="#FFFFFF" opacity=".28"/>';
+  s += '<rect x="68" y="280" width="64" height="4" rx="2" fill="#000000" opacity=".25"/>';
+  s += '<rect x="68" y="266" width="64" height="20" rx="10" fill="none" stroke="#160A18" stroke-opacity=".7" stroke-width="1.4"/>';
+  s += '<rect x="94" y="274.5" width="12" height="3.4" rx="1.7" fill="#0F0611" opacity=".65"/>';
+  s += '<path d="M73 271q9 -4 18 -2" stroke="#FFFFFF" stroke-width="1.6" fill="none" opacity=".35" stroke-linecap="round"/>';
+
   return '<svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg" role="img">'+s+'</svg>';
 }
 
+/* ---------------- 뽑기 캡슐 ---------------- */
 function capsuleSVG(kind){
-  var gift = kind==='gift';
-  var top = gift? '#FF6F9C' : '#9B7BF0';
-  var bot = gift? '#FFEFF5' : '#F4EEFF';
-  var icon = gift? '🎁' : '💗';
-  var s = '';
-  s += '<ellipse cx="100" cy="182" rx="62" ry="12" fill="rgba(20,8,20,.28)"/>';
-  s += '<path d="M22 100a78 78 0 0 1 156 0Z" fill="'+top+'" stroke="'+INK+'" stroke-width="4.5"/>';
-  s += '<path d="M22 100a78 78 0 0 0 156 0Z" fill="'+bot+'" stroke="'+INK+'" stroke-width="4.5"/>';
-  s += '<path d="M24 100a76 76 0 0 0 152 0a78 78 0 0 1 -152 0Z" fill="'+shade(top,-28)+'" opacity=".18"/>';
-  s += '<path d="M46 88C50 58 68 38 94 30" stroke="#FFFFFF" stroke-width="12" fill="none" stroke-linecap="round" opacity=".5"/>';
-  s += '<ellipse cx="70" cy="52" rx="15" ry="6" fill="#FFFFFF" opacity=".42" transform="rotate(-38 70 52)"/>';
-  s += '<path d="M132 54l2.6 6.2 6.2 2.6-6.2 2.6-2.6 6.2-2.6-6.2-6.2-2.6 6.2-2.6z" fill="#FFFFFF" opacity=".85"/>';
-  s += '<path d="M150 78l1.8 4.2 4.2 1.8-4.2 1.8-1.8 4.2-1.8-4.2-4.2-1.8 4.2-1.8z" fill="#FFFFFF" opacity=".6"/>';
-  s += '<rect x="16" y="92" width="168" height="16" rx="8" fill="#FBF7FF" stroke="'+INK+'" stroke-width="3.4"/>';
-  s += '<rect x="22" y="95" width="156" height="4" rx="2" fill="#FFFFFF" opacity=".75"/>';
-  s += '<circle cx="100" cy="100" r="15" fill="'+bot+'" stroke="'+INK+'" stroke-width="2.6"/>';
-  s += heart(100,92,0.62, gift? '#FF5C8D':'#8B63E8', INK);
-  s += '<text x="100" y="132" text-anchor="middle" font-size="22" font-family="Apple Color Emoji,Segoe UI Emoji,sans-serif" opacity=".85">'+icon+'</text>';
+  var gift = kind === 'gift';
+  var P = gift ? 'cpG' : 'cpH';
+  var topTint = gift ? '#FFB9D2' : '#B9A4FF';
+  var botCol  = gift ? '#FFF0F5' : '#F4EEFF';
+  var botDeep = gift ? '#FFC2D8' : '#D9C9FF';
+  var emb  = gift ? '#FF5C8D' : '#8B63E8';
+  var emb2 = gift ? '#C93A6B' : '#6B45C6';
+  var s = '<defs>'
+    + '<linearGradient id="'+P+'top" x1=".2" y1="0" x2=".7" y2="1">'
+      + '<stop offset="0" stop-color="'+shade(topTint,58)+'"/>'
+      + '<stop offset=".28" stop-color="'+shade(topTint,24)+'"/>'
+      + '<stop offset=".62" stop-color="'+topTint+'"/>'
+      + '<stop offset="1" stop-color="'+shade(topTint,-26)+'"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="'+P+'bot" x1=".15" y1="0" x2=".7" y2="1">'
+      + '<stop offset="0" stop-color="'+shade(botCol,60)+'"/>'
+      + '<stop offset=".3" stop-color="'+shade(botCol,20)+'"/>'
+      + '<stop offset=".7" stop-color="'+botDeep+'"/>'
+      + '<stop offset="1" stop-color="'+shade(botDeep,-22)+'"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="'+P+'ring" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0" stop-color="#FFFFFF"/>'
+      + '<stop offset=".3" stop-color="'+shade(botCol,26)+'"/>'
+      + '<stop offset=".55" stop-color="'+shade(topTint,-6)+'"/>'
+      + '<stop offset="1" stop-color="'+shade(topTint,-30)+'"/>'
+    + '</linearGradient>'
+    + '<radialGradient id="'+P+'emb" cx=".34" cy=".28" r=".8">'
+      + '<stop offset="0" stop-color="'+shade(emb,58)+'"/>'
+      + '<stop offset=".55" stop-color="'+emb+'"/>'
+      + '<stop offset="1" stop-color="'+emb2+'"/>'
+    + '</radialGradient>'
+    + '<linearGradient id="'+P+'glow" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".9"/>'
+      + '<stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>'
+    + '</linearGradient>'
+    + '<filter id="'+P+'bl" x="-40%" y="-60%" width="180%" height="240%"><feGaussianBlur stdDeviation="6"/></filter>'
+    + '<clipPath id="'+P+'topClip"><path d="M22 100a78 78 0 0 1 156 0Z"/></clipPath>'
+    + '</defs>';
+
+  s += '<ellipse cx="100" cy="192" rx="62" ry="11" fill="#1C0A20" opacity=".38" filter="url(#'+P+'bl)"/>';
+
+  /* 아래 통 */
+  s += '<path d="M22 100a78 78 0 0 0 156 0Z" fill="url(#'+P+'bot)"/>';
+  s += '<path d="M22 100a78 78 0 0 0 156 0" fill="none" stroke="'+shade(botDeep,-30)+'" stroke-opacity=".45" stroke-width="2.4"/>';
+  s += '<path d="M30 106a70 70 0 0 0 140 0" fill="none" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="2.2"/>';
+  s += '<path d="M40 140c14 22 46 34 82 30" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="9" stroke-linecap="round"/>';
+  s += '<path d="M128 168c14-6 22-14 28-26" fill="none" stroke="'+shade(botDeep,-20)+'" stroke-opacity=".35" stroke-width="10" stroke-linecap="round"/>';
+
+  /* 위 반투명 캡슐 */
+  s += '<path d="M22 100a78 78 0 0 1 156 0Z" fill="url(#'+P+'top)" opacity=".92"/>';
+  s += '<g clip-path="url(#'+P+'topClip)">';
+  s += '<ellipse cx="100" cy="92" rx="52" ry="30" fill="#FFFFFF" opacity=".5"/>';
+  s += '<path d="M74 84c4-12 14-20 26-22" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="14" stroke-linecap="round" fill="none"/>';
+  s += '</g>';
+  s += '<path d="M22 100a78 78 0 0 1 156 0" fill="none" stroke="'+shade(topTint,-34)+'" stroke-opacity=".5" stroke-width="2.6"/>';
+  s += '<path d="M30 94a70 70 0 0 1 140 0" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="2.2"/>';
+
+  /* 유리 광택 */
+  s += '<path d="M46 88C50 58 68 38 94 30" stroke="#FFFFFF" stroke-width="13" fill="none" stroke-linecap="round" opacity=".55"/>';
+  s += '<ellipse cx="70" cy="52" rx="16" ry="6.5" fill="#FFFFFF" opacity=".6" transform="rotate(-38 70 52)"/>';
+  s += '<path d="M132 54l2.6 6.2 6.2 2.6-6.2 2.6-2.6 6.2-2.6-6.2-6.2-2.6 6.2-2.6z" fill="#FFFFFF" opacity=".9"/>';
+  s += '<path d="M150 78l1.8 4.2 4.2 1.8-4.2 1.8-1.8 4.2-1.8-4.2-4.2-1.8 4.2-1.8z" fill="#FFFFFF" opacity=".65"/>';
+
+  /* 맞물림 링 */
+  s += '<rect x="16" y="92" width="168" height="17" rx="8.5" fill="url(#'+P+'ring)"/>';
+  s += '<rect x="16" y="92" width="168" height="4.5" rx="2.2" fill="#FFFFFF" opacity=".9"/>';
+  s += '<rect x="16" y="104" width="168" height="5" rx="2.5" fill="'+shade(topTint,-34)+'" opacity=".45"/>';
+  s += '<rect x="16" y="92" width="168" height="17" rx="8.5" fill="none" stroke="'+shade(topTint,-38)+'" stroke-opacity=".45" stroke-width="1.6"/>';
+
+  /* 스티커 엠블럼 */
+  s += '<circle cx="100" cy="132" r="18" fill="#FFFFFF" opacity=".95"/>';
+  s += '<circle cx="100" cy="132" r="18" fill="none" stroke="'+shade(botDeep,-14)+'" stroke-opacity=".5" stroke-width="1.6"/>';
+  s += '<circle cx="100" cy="132" r="14.6" fill="'+shade(botCol,30)+'" opacity=".7"/>';
+  if(gift){
+    s += '<g transform="translate(100 134)">';
+    s += '<path d="M-8.5 -2.5L1.5 -7L11 -2.5V6.5L1 11L-8.5 6.5Z" fill="url(#'+P+'emb)"/>';
+    s += '<path d="M-8.5 -2.5L1 1.5V11L-8.5 6.5Z" fill="'+shade(emb,14)+'"/>';
+    s += '<path d="M1 1.5L11 -2.5V6.5L1 11Z" fill="'+shade(emb2,-4)+'"/>';
+    s += '<path d="M-8.5 -4.6L1 0.4L11 -4.6L1.5 -9.4Z" fill="'+shade(emb,36)+'"/>';
+    s += '<path d="M-2.8 -5.6L6.6 -0.8V0.8L-2.8 -4Z" fill="#FFE07A"/>';
+    s += '<path d="M-7.8 -0.6L0.2 3.6V5.2L-7.8 1Z" fill="#FFE07A"/>';
+    s += '<ellipse cx="-4" cy="-1.6" rx="2.6" ry="1.4" fill="#FFFFFF" opacity=".7" transform="rotate(-28 -4 -1.6)"/>';
+    s += '</g>';
+  } else {
+    s += '<path d="M100 126c-2.4-2.6-7-1-5.4 3 .9 2.3 3.4 4.2 5.4 5.4 2-1.2 4.5-3.1 5.4-5.4 1.6-4-3-5.6-5.4-3z" fill="url(#'+P+'emb)"/>';
+    s += '<ellipse cx="97.6" cy="129.4" rx="2.4" ry="1.3" fill="#FFFFFF" opacity=".8" transform="rotate(-30 97.6 129.4)"/>';
+  }
+  s += '<path d="M86 120a16 16 0 0 1 22 -5" fill="none" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2.2"/>';
+
   return '<svg class="capsule" viewBox="0 0 200 208" xmlns="http://www.w3.org/2000/svg" role="img">'+s+'</svg>';
 }
 
+/* ---------------- 선물 상자 ---------------- */
 function giftBoxSVG(){
-  var rays='';
+  var P = 'gb';
+  var rays = '';
   for(var i=0;i<20;i++){
     var a = i*(Math.PI*2/20) + 0.12;
-    var r1 = 86, r2 = 108 + (i%2?14:0);
-    var x1 = 120+Math.cos(a)*r1, y1 = 116+Math.sin(a)*r1;
-    var x2 = 120+Math.cos(a)*r2, y2 = 116+Math.sin(a)*r2;
+    var r1 = 92, r2 = 116 + (i%2?14:0);
+    var x1 = 120+Math.cos(a)*r1, y1 = 118+Math.sin(a)*r1;
+    var x2 = 120+Math.cos(a)*r2, y2 = 118+Math.sin(a)*r2;
     rays += '<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'"/>';
   }
   function star(cx,cy,r,fill){
     return '<path d="M'+cx+' '+(cy-r)+'l'+(r*0.35)+' '+(r*0.65)+' '+(r*0.72)+' '+(r*0.12)+' -'+(r*0.5)+' '+(r*0.5)+
       ' '+(r*0.14)+' '+(r*0.72)+' -'+(r*0.7)+' -'+(r*0.36)+' -'+(r*0.7)+' '+(r*0.36)+' '+(r*0.14)+' -'+(r*0.72)+
-      ' -'+(r*0.5)+' -'+(r*0.5)+' '+(r*0.72)+' -'+(r*0.12)+'Z" fill="'+fill+'" stroke="'+INK+'" stroke-width="2" stroke-linejoin="round"/>';
+      ' -'+(r*0.5)+' -'+(r*0.5)+' '+(r*0.72)+' -'+(r*0.12)+'Z" fill="'+fill+'" stroke="'+INK+'"'
+      +' stroke-width="2" stroke-linejoin="round"/>';
   }
   var stars = star(40,44,13,'#FFE066') + star(198,40,16,'#FFD1E0') + star(206,150,11,'#B9E88F') + star(30,158,10,'#B7E4FF');
+
+  var defs = '<defs>'
+    + '<linearGradient id="gbFront" x1="0" y1="0" x2=".9" y2="0">'
+      + '<stop offset="0" stop-color="#FFC6D8"/><stop offset=".22" stop-color="#FF9FBD"/>'
+      + '<stop offset=".6" stop-color="#FF7FA8"/><stop offset="1" stop-color="#EF6894"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="gbSide" x1="0" y1="0" x2="1" y2="0">'
+      + '<stop offset="0" stop-color="#E2628D"/><stop offset=".5" stop-color="#CE5079"/><stop offset="1" stop-color="#B63F66"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="gbTop" x1="0" y1="0" x2=".8" y2="1">'
+      + '<stop offset="0" stop-color="#FFE0EA"/><stop offset=".45" stop-color="#FFC0D3"/><stop offset="1" stop-color="#FF9CBB"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="gbLidFront" x1="0" y1="0" x2=".9" y2="0">'
+      + '<stop offset="0" stop-color="#FFD2DF"/><stop offset=".3" stop-color="#FFA8C4"/>'
+      + '<stop offset=".72" stop-color="#FF8CB0"/><stop offset="1" stop-color="#F0709B"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="gbLidTop" x1="0" y1="0" x2=".8" y2="1">'
+      + '<stop offset="0" stop-color="#FFEAF1"/><stop offset=".5" stop-color="#FFCADE"/><stop offset="1" stop-color="#FFAEC8"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="gbRibbon" x1="0" y1="0" x2="1" y2="0">'
+      + '<stop offset="0" stop-color="#FFD86B"/><stop offset=".22" stop-color="#FFF0B4"/>'
+      + '<stop offset=".5" stop-color="#FFD166"/><stop offset=".78" stop-color="#E9A61E"/><stop offset="1" stop-color="#C98C00"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="gbRibbonV" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0" stop-color="#FFE79A"/><stop offset=".35" stop-color="#FFD166"/>'
+      + '<stop offset=".7" stop-color="#F2B223"/><stop offset="1" stop-color="#D99A00"/>'
+    + '</linearGradient>'
+    + '<radialGradient id="gbBow" cx=".35" cy=".28" r=".85">'
+      + '<stop offset="0" stop-color="#FFF3BE"/><stop offset=".5" stop-color="#FFD166"/><stop offset="1" stop-color="#D99A00"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="gbKnot" cx=".35" cy=".3" r=".8">'
+      + '<stop offset="0" stop-color="#FFF6CE"/><stop offset=".55" stop-color="#FFCE58"/><stop offset="1" stop-color="#C98C00"/>'
+    + '</radialGradient>'
+    + '<linearGradient id="gbGloss" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".85"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>'
+    + '</linearGradient>'
+    + '<filter id="gbBl" x="-40%" y="-60%" width="180%" height="240%"><feGaussianBlur stdDeviation="6"/></filter>'
+    + '</defs>';
+
   return '<svg class="giftbox" id="giftBox" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img">'
+    + defs
     + '<g id="rays" stroke="#FFD166" stroke-width="8" stroke-linecap="round" opacity="0">'+rays+stars+'</g>'
     + '<g id="boxbody">'
-    +   '<ellipse cx="120" cy="222" rx="74" ry="10" fill="rgba(30,10,30,.28)"/>'
-    +   '<path d="M48 116h144v92c0 8 -6 14 -14 14H62c-8 0 -14 -6 -14 -14Z" fill="#FF8FB1" stroke="'+INK+'" stroke-width="4"/>'
-    +   '<ellipse cx="120" cy="122" rx="66" ry="9" fill="#7A3350" stroke="'+INK+'" stroke-width="3"/>'
-    +   '<path d="M164 120h24v88c0 8 -6 14 -14 14h-10Z" fill="#E9628F" opacity=".4"/>'
-    +   '<rect x="111" y="116" width="18" height="106" fill="#FFD166" stroke="'+INK+'" stroke-width="3"/>'
-    +   '<rect x="48" y="158" width="144" height="15" fill="#FFD166" stroke="'+INK+'" stroke-width="3"/>'
-    +   '<path d="M62 208q58 12 116 0" stroke="rgba(255,255,255,.5)" stroke-width="5" fill="none"/>'
-    +   '<path d="M62 124q6 36 2 76" stroke="#FFFFFF" stroke-width="7" fill="none" opacity=".3" stroke-linecap="round"/>'
+    /* 바닥 그림자 */
+    +   '<ellipse cx="120" cy="220" rx="78" ry="11" fill="#3A0F28" opacity=".34" filter="url(#gbBl)"/>'
+    +   '<ellipse cx="122" cy="216" rx="58" ry="5" fill="#2A0A1E" opacity=".22" filter="url(#gbBl)"/>'
+    /* 상자 오른쪽 면 */
+    +   '<path d="M168 122L188 108V198L168 212Z" fill="url(#gbSide)"/>'
+    +   '<path d="M168 160L188 146V162L168 176Z" fill="url(#gbRibbonV)" opacity=".95"/>'
+    /* 상자 윗면 */
+    +   '<path d="M52 122L72 108H188L168 122Z" fill="url(#gbTop)"/>'
+    +   '<path d="M108 122L128 108H144L124 122Z" fill="url(#gbRibbonV)"/>'
+    +   '<path d="M70 116L170 116" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="2"/>'
+    /* 앞면 */
+    +   '<path d="M52 122H168V206Q168 212 162 212H58Q52 212 52 206Z" fill="url(#gbFront)"/>'
+    +   '<path d="M108 122H124V212H108Z" fill="url(#gbRibbon)"/>'
+    +   '<path d="M52 160H168V176H52Z" fill="url(#gbRibbonV)"/>'
+    /* 앞면 광택·그림자 */
+    +   '<path d="M60 126Q56 168 58 208" stroke="#FFFFFF" stroke-width="8" fill="none" opacity=".28" stroke-linecap="round"/>'
+    +   '<path d="M156 126Q166 166 164 208" stroke="#A82F58" stroke-width="9" fill="none" opacity=".18" stroke-linecap="round"/>'
+    +   '<path d="M60 206q54 10 108 0" stroke="#FFFFFF" stroke-width="4" fill="none" opacity=".22"/>'
+    +   '<path d="M108 122h16v90h-16z" fill="url(#gbGloss)" opacity=".25"/>'
+    /* 상자 윗면과 뚜껑 사이 그림자 */
+    +   '<path d="M55 120h113l-3 5H57Z" fill="#7A2B4C" opacity=".35"/>'
     + '</g>'
     + '<g id="lid">'
-    +   '<path d="M38 90h164c6 0 10 4 10 10v16c0 6 -4 10 -10 10H38c-6 0 -10 -4 -10 -10V100c0 -6 4 -10 10 -10Z" fill="#FF6F9C" stroke="'+INK+'" stroke-width="4"/>'
-    +   '<rect x="111" y="90" width="18" height="36" fill="#FFD166" stroke="'+INK+'" stroke-width="3"/>'
-    +   '<path d="M42 96h150" stroke="#FFFFFF" stroke-width="4" opacity=".35" stroke-linecap="round"/>'
+    /* 뚜껑 오른쪽 */
+    +   '<path d="M176 96L196 82V106L176 120Z" fill="url(#gbSide)"/>'
+    /* 뚜껑 윗면 */
+    +   '<path d="M44 96L64 82H196L176 96Z" fill="url(#gbLidTop)"/>'
+    +   '<path d="M106 96L126 82H146L126 96Z" fill="url(#gbRibbonV)"/>'
+    +   '<path d="M62 90H186" stroke="#FFFFFF" stroke-opacity=".4" stroke-width="2"/>'
+    /* 뚜껑 앞면 */
+    +   '<path d="M44 96H176V114Q176 120 170 120H50Q44 120 44 114Z" fill="url(#gbLidFront)"/>'
+    +   '<path d="M106 96H126V120H106Z" fill="url(#gbRibbonV)"/>'
+    +   '<path d="M48 100H172" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="3"/>'
+    +   '<path d="M44 112H176V114Q176 120 170 120H50Q44 120 44 114Z" fill="#B04066" opacity=".25"/>'
     + '</g>'
     + '<g id="bow">'
-    +   '<ellipse cx="94" cy="82" rx="25" ry="14" fill="#FFD166" stroke="'+INK+'" stroke-width="3.4" transform="rotate(-16 94 82)"/>'
-    +   '<ellipse cx="146" cy="82" rx="25" ry="14" fill="#FFD166" stroke="'+INK+'" stroke-width="3.4" transform="rotate(16 146 82)"/>'
-    +   '<ellipse cx="94" cy="82" rx="12" ry="5.5" fill="#FFE9A8" opacity=".7" transform="rotate(-16 94 82)"/>'
-    +   '<ellipse cx="146" cy="82" rx="12" ry="5.5" fill="#FFE9A8" opacity=".7" transform="rotate(16 146 82)"/>'
-    +   '<circle cx="120" cy="84" r="10" fill="#F3B400" stroke="'+INK+'" stroke-width="3"/>'
+    /* 리본 꼬리 */
+    +   '<path d="M112 88C100 100 92 112 88 124l12 4c4-12 10-22 18-30Z" fill="url(#gbRibbonV)" stroke="#C98C00" stroke-opacity=".35" stroke-width="1.4"/>'
+    +   '<path d="M128 88c6 12 10 24 10 36l-12 2c0-12-2-22-6-32Z" fill="url(#gbRibbonV)" stroke="#C98C00" stroke-opacity=".35" stroke-width="1.4"/>'
+    /* 고리 */
+    +   '<path d="M118 82C104 62 78 60 76 76c-2 16 24 18 42 8Z" fill="url(#gbBow)" stroke="#C98C00" stroke-opacity=".4" stroke-width="1.6"/>'
+    +   '<path d="M122 82C136 62 162 60 164 76c2 16-24 18-42 8Z" fill="url(#gbBow)" stroke="#C98C00" stroke-opacity=".4" stroke-width="1.6"/>'
+    +   '<path d="M112 78C100 68 88 68 82 74c-2 3-1 6 2 8 8 4 20 2 28-4Z" fill="#FFE9A8" opacity=".55"/>'
+    +   '<path d="M128 78c12-10 24-10 30-4 2 3 1 6-2 8-8 4-20 2-28-4Z" fill="#FFE9A8" opacity=".55"/>'
+    +   '<path d="M104 80C96 72 86 70 80 74" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2.4" fill="none" stroke-linecap="round"/>'
+    +   '<path d="M136 80c8-8 18-10 24-6" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2.4" fill="none" stroke-linecap="round"/>'
+    /* 매듭 */
+    +   '<circle cx="120" cy="84" r="11" fill="url(#gbKnot)" stroke="#C98C00" stroke-opacity=".45" stroke-width="1.6"/>'
+    +   '<ellipse cx="116.5" cy="80" rx="4" ry="2.6" fill="#FFFFFF" opacity=".7" transform="rotate(-30 116.5 80)"/>'
+    +   '<path d="M114 90a8 8 0 0 0 12 0" stroke="#C98C00" stroke-opacity=".4" stroke-width="1.6" fill="none"/>'
     + '</g>'
     + '</svg>';
+}
+
+/* ---------------- 3D 코인 ---------------- */
+function coinSVG(type, extra){
+  var gift = type === 'gift';
+  var P = gift ? 'coG' : 'coH';
+  var face = gift ? '#FFD35C' : '#FFC2D6';
+  var face2 = gift ? '#F0A800' : '#F2709B';
+  var face3 = gift ? '#B97A00' : '#C2416C';
+  var s = '<defs>'
+    + '<linearGradient id="'+P+'rim" x1=".2" y1="0" x2=".8" y2="1">'
+      + '<stop offset="0" stop-color="'+shade(face,60)+'"/>'
+      + '<stop offset=".25" stop-color="'+face2+'"/>'
+      + '<stop offset=".5" stop-color="'+face3+'"/>'
+      + '<stop offset=".72" stop-color="'+shade(face,40)+'"/>'
+      + '<stop offset="1" stop-color="'+face2+'"/>'
+    + '</linearGradient>'
+    + '<radialGradient id="'+P+'face" cx=".34" cy=".28" r=".85">'
+      + '<stop offset="0" stop-color="'+shade(face,55)+'"/>'
+      + '<stop offset=".5" stop-color="'+face+'"/>'
+      + '<stop offset="1" stop-color="'+face2+'"/>'
+    + '</radialGradient>'
+    + '<linearGradient id="'+P+'sw" x1="0" y1="0" x2=".6" y2="1">'
+      + '<stop offset="0" stop-color="#FFFFFF" stop-opacity=".85"/>'
+      + '<stop offset=".45" stop-color="#FFFFFF" stop-opacity=".1"/>'
+      + '<stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>'
+    + '</linearGradient>'
+    + '<radialGradient id="'+P+'emb" cx=".35" cy=".3" r=".8">'
+      + '<stop offset="0" stop-color="'+shade(face,70)+'"/>'
+      + '<stop offset=".6" stop-color="'+shade(face,26)+'"/>'
+      + '<stop offset="1" stop-color="'+shade(face2,-8)+'"/>'
+    + '</radialGradient>'
+    + '</defs>';
+  s += '<circle cx="32" cy="32" r="30" fill="url(#'+P+'rim)"/>';
+  s += '<circle cx="32" cy="32" r="30" fill="none" stroke="'+shade(face3,-20)+'" stroke-opacity=".45" stroke-width="1.6"/>';
+  /* 톱니 테두리 */
+  s += '<circle cx="32" cy="32" r="26.5" fill="none" stroke="'+shade(face,30)+'" stroke-opacity=".55" stroke-width="4.6" stroke-dasharray="1.8 2.4"/>';
+  s += '<circle cx="32" cy="32" r="23.4" fill="url(#'+P+'face)"/>';
+  s += '<circle cx="32" cy="32" r="23.4" fill="none" stroke="'+shade(face2,-18)+'" stroke-opacity=".5" stroke-width="1.4"/>';
+  s += '<circle cx="32" cy="32" r="19.5" fill="none" stroke="'+shade(face,45)+'" stroke-opacity=".5" stroke-width="1.2"/>';
+  if(gift){
+    s += '<g transform="translate(32 33)">';
+    s += '<path d="M-9 -2.5L1 -7.5L11 -2.5V6L1 11L-9 6Z" fill="url(#'+P+'emb)"/>';
+    s += '<path d="M-9 -2.5L1 2V11L-9 6Z" fill="'+shade(face2,-4)+'"/>';
+    s += '<path d="M1 2L11 -2.5V6L1 11Z" fill="'+shade(face3,4)+'"/>';
+    s += '<path d="M-9 -4.8L1 0.4L11 -4.8L1 -9.6Z" fill="'+shade(face,58)+'"/>';
+    s += '<path d="M-3 -5.8L7 -0.8V0.8L-3 -4Z" fill="'+shade(face3,6)+'"/>';
+    s += '<path d="M-8.2 -0.8L0.4 3.4V5L-8.2 0.8Z" fill="'+shade(face3,6)+'"/>';
+    s += '</g>';
+  } else {
+    s += '<path d="M32 23c-2.6-2.9-7.8-1.1-6 3.4 1 2.5 3.8 4.7 6 6 2.2-1.3 5-3.5 6-6 1.8-4.5-3.4-6.3-6-3.4z" fill="url(#'+P+'emb)"/>';
+    s += '<path d="M32 23c-2.6-2.9-7.8-1.1-6 3.4 1 2.5 3.8 4.7 6 6 2.2-1.3 5-3.5 6-6 1.8-4.5-3.4-6.3-6-3.4z" fill="none" stroke="'+shade(face2,-14)+'" stroke-opacity=".45" stroke-width="1.2"/>';
+  }
+  /* 빛이 스치는 광택 */
+  s += '<path d="M12 20A24 24 0 0 1 44 9" fill="none" stroke="url(#'+P+'sw)" stroke-width="7" stroke-linecap="round"/>';
+  s += '<ellipse cx="21" cy="18" rx="6.5" ry="3" fill="#FFFFFF" opacity=".8" transform="rotate(-38 21 18)"/>';
+  s += '<path d="M32 62A30 30 0 0 0 58 40" fill="none" stroke="#FFFFFF" stroke-opacity=".25" stroke-width="2.4" stroke-linecap="round"/>';
+  return '<svg class="coin-svg'+(extra?' '+extra:'')+'" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+s+'</svg>';
 }
 
 /* ---------------- 배경 테마 ---------------- */
@@ -1884,7 +2325,7 @@ function confettiBurst(heartsOnly){
 function coinFloat(type){
   var el = document.createElement('div');
   el.className='coin-float';
-  el.textContent = type==='gift' ? '🎁' : '💗';
+  el.innerHTML = coinSVG(type);
   el.style.left='50%'; el.style.top='42%'; el.style.transform='translateX(-50%)';
   drawStage.appendChild(el);
   playSound('coin');
@@ -2132,8 +2573,14 @@ function doRestore(file){
 /* =================
    이벤트
    ================= */
-$('#machineGift').addEventListener('click', function(){ if(!drawState) startDraw('gift'); });
-$('#machineHeart').addEventListener('click', function(){ if(!drawState) startDraw('heart'); });
+$('#machineGift').addEventListener('click', function(){
+  var m = this; m.classList.add('pulling'); setTimeout(function(){ m.classList.remove('pulling'); }, 460);
+  if(!drawState) startDraw('gift');
+});
+$('#machineHeart').addEventListener('click', function(){
+  var m = this; m.classList.add('pulling'); setTimeout(function(){ m.classList.remove('pulling'); }, 460);
+  if(!drawState) startDraw('heart');
+});
 $('#coinHeart').addEventListener('click', function(){ openScreen('missions'); });
 $('#coinGift').addEventListener('click', function(){ openScreen('missions'); });
 
@@ -2294,6 +2741,8 @@ function init(){
 
   artGift.innerHTML = machineSVG('gift');
   artHeart.innerHTML = machineSVG('heart');
+  if($('#icoHeart')) $('#icoHeart').innerHTML = coinSVG('heart');
+  if($('#icoGift')) $('#icoGift').innerHTML = coinSVG('gift');
 
   applyTheme(bgLayer, state.bg.theme);
   applyTheme(czBg, state.bg.theme);
