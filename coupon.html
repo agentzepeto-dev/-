@@ -82,12 +82,12 @@ h1,h2,h3,p{margin:0}
 /* ---------- gacha dock ---------- */
 .dock{position:relative;z-index:3;flex:0 0 auto;width:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;justify-content:center;padding:0 1px}
 .dock-machines{display:grid;grid-template-columns:1fr 1fr;gap:0 2px;align-items:end;width:100%}
-.machine-pick{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;padding:0;border-radius:22px;transition:transform .1s}
+.machine-pick{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;padding:0;border-radius:22px;transition:transform .1s}
 .machine-pick:active{transform:translateY(2px) scale(.985)}
 .machine-pick:before{content:'';position:absolute;left:2%;right:2%;bottom:10%;height:15%;border-radius:50%;background:radial-gradient(ellipse at 50% 46%,rgba(255,255,255,.98),rgba(255,255,255,.7) 46%,rgba(255,255,255,0) 76%);filter:blur(2px);z-index:0}
-.mini-canvas{position:relative;z-index:1;width:100%;aspect-ratio:300/494;display:block}
+.mini-canvas{position:relative;z-index:1;width:100%;aspect-ratio:300/532;display:block}
 .mp-name{position:relative;z-index:2;font-size:10.5px;font-weight:900;color:#7A2A50;text-align:center;padding:4px 9px 5px;letter-spacing:-.3px;background:linear-gradient(180deg,#fff,#FFF0F6);border-radius:999px;box-shadow:0 3px 0 rgba(200,140,170,.3),0 6px 12px rgba(150,80,110,.14);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
-.pick-tag{position:absolute;z-index:3;top:0;right:4px;font-size:9.5px;font-weight:900;color:#7A3A06;background:linear-gradient(180deg,#FFEBAE,#FFC94A);border-radius:999px;padding:2px 7px;box-shadow:0 2px 5px rgba(160,100,20,.26)}
+.dock-note{position:relative;z-index:2;text-align:center;font-size:10.5px;font-weight:900;color:#9C5A7A;margin-top:7px;letter-spacing:-.2px;text-shadow:0 1px 0 rgba(255,255,255,.75)}
 
 /* ---------- screens ---------- */
 .screen{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;background:linear-gradient(165deg,#FFF9F4,#FFEFF4 60%,#FFE1EC);transform:translateY(102%);transition:transform .34s cubic-bezier(.3,.9,.3,1);visibility:hidden}
@@ -423,16 +423,15 @@ h1,h2,h3,p{margin:0}
       <section class="dock" aria-label="뽑기 기계 고르기">
         <div class="dock-machines">
           <button class="machine-pick" data-kind="gift" aria-label="선물 상자 뽑기통 열기">
-            <span class="pick-tag">🪙 1</span>
             <canvas class="mini-canvas" id="miniGift" width="300" height="400"></canvas>
             <span class="mp-name">🎁 선물 상자 뽑기통</span>
           </button>
           <button class="machine-pick" data-kind="heart" aria-label="마음 뽑기통 열기">
-            <span class="pick-tag">🪙 1</span>
             <canvas class="mini-canvas" id="miniHeart" width="300" height="400"></canvas>
             <span class="mp-name">💗 마음 뽑기통</span>
           </button>
         </div>
+        <div class="dock-note">🪙 코인 1개로 한 번 뽑기</div>
       </section>
 
       <div class="hero-actions">
@@ -4478,7 +4477,7 @@ function drawMiniMachines(){
     var fit=fitCanvas(cv);
     var ctx=cv.getContext('2d');
     /* 360x540 원본 좌표계에서 뽑기통 부분만 골라 칸을 꽉 채우게 그린다 */
-    var VX=30, VY=30, VW=300, VH=494;
+    var VX=30, VY=30, VW=300, VH=532;
     var s=Math.min(fit.w/VW, fit.h/VH);
     var ox=(fit.w - VW*s)/2 - VX*s;
     var oy=(fit.h - VH*s)/2 - VY*s;
