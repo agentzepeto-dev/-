@@ -798,7 +798,23 @@ function loadState(){
   try{
     var raw = localStorage.getItem(STORE_KEY);
     if(!raw) return defaultState();
-    return merge(defaultState(), JSON.parse(raw));
+    var saved = JSON.parse(raw);
+    var st = merge(defaultState(), saved);
+    /* merge()는 기본 상태에 없는 키를 버리므로, 게임별 기록(동적 키)은 저장값에서 직접 살린다 */
+    if(saved && typeof saved==='object' && saved.mini && typeof saved.mini==='object'){
+      st.mini = st.mini || { date:'', coins:{}, best:{} };
+      st.mini.date = saved.mini.date || '';
+      st.mini.best = {}; st.mini.coins = {};
+      ['best','coins'].forEach(function(box){
+        var src2 = saved.mini[box];
+        if(!src2 || typeof src2!=='object') return;
+        Object.keys(src2).forEach(function(k){
+          var v = Number(src2[k]);
+          if(isFinite(v) && v>=0) st.mini[box][k] = v;
+        });
+      });
+    }
+    return st;
   }catch(e){ return defaultState(); }
 }
 function save(){
@@ -2417,8 +2433,8 @@ var TOWER_META={
   cheese:{ name:'치즈 타워', emoji:'🧀', bg:['#16233F','#3A2A5C'], accent:'#FFD84D', glow:'#FFB84D' },
   burger:{ name:'햄버거 타워', emoji:'🍔', bg:['#2A1522','#5E2A2A'], accent:'#FFB347', glow:'#FF7A3D' },
   fruit:{ name:'과일 타워', emoji:'🍓', bg:['#122E22','#2A5A42'], accent:'#FF8FA8', glow:'#7DEBB6' },
-  cake:{ name:'케이크 타워', emoji:'🍰', bg:['#5E2A50','#F7B8D6'], accent:'#FFD3E8', glow:'#FFC2DE' },
-  donut:{ name:'도넛 타워', emoji:'🍩', bg:['#4A2350','#D9A2C6'], accent:'#FFE0C8', glow:'#F5B6D2' }
+  cake:{ name:'케이크 타워', emoji:'🍰', bg:['#7A3F6B','#FFCFE4'], accent:'#FFD3E8', glow:'#FFC2DE' },
+  donut:{ name:'도넛 타워', emoji:'🍩', bg:['#5A3057','#F3BFD8'], accent:'#FFE0C8', glow:'#F5B6D2' }
 };
 
 function drawPlatformAt(ctx,kind,x,y,w,i,W){
