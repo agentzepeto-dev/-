@@ -53,12 +53,12 @@ h1,h2,h3,p{margin:0}
 
 /* ---------- sky decoration ---------- */
 .sky-fx{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.sky-sun{position:absolute;right:-10%;top:-7%;width:min(64vw,330px);height:min(64vw,330px);border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(255,253,234,.98),rgba(255,243,199,.74) 30%,rgba(255,233,180,.28) 54%,rgba(255,233,180,0) 73%);animation:sunpulse 7.5s ease-in-out infinite}
+.sky-sun{position:absolute;right:-8%;top:-6%;width:min(54vw,270px);height:min(54vw,270px);border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(255,255,240,.95),rgba(255,247,206,.62) 26%,rgba(255,236,182,.22) 50%,rgba(255,236,182,0) 70%);animation:sunpulse 8s ease-in-out infinite}
 @keyframes sunpulse{50%{transform:scale(1.06);opacity:.92}}
-.sky-cloud{position:absolute;height:20px;border-radius:999px;background:#fff;box-shadow:0 9px 20px rgba(140,178,222,.24);opacity:.97;animation:clouddrift 9s ease-in-out infinite}
+.sky-cloud{position:absolute;height:18px;border-radius:999px;background:linear-gradient(180deg,#fff 0 64%,#EDF6FF 100%);box-shadow:0 10px 20px rgba(140,178,222,.2);opacity:.96;animation:clouddrift 9s ease-in-out infinite}
 .sky-cloud:before,.sky-cloud:after{content:'';position:absolute;border-radius:50%;background:#fff}
-.sky-cloud:before{width:150%;height:168%;left:6%;top:-88%}
-.sky-cloud:after{width:94%;height:126%;right:4%;top:-56%}
+.sky-cloud:before{width:48%;height:190%;left:9%;top:-108%}
+.sky-cloud:after{width:33%;height:132%;right:11%;top:-64%}
 @keyframes clouddrift{0%,100%{transform:translateX(0)}50%{transform:translateX(16px)}}
 .sky-star{position:absolute;width:14px;height:14px;background:linear-gradient(180deg,#FFFDF4,#FFE59B);clip-path:polygon(50% 0%,58% 38%,96% 50%,58% 62%,50% 100%,42% 62%,4% 50%,42% 38%);filter:drop-shadow(0 0 7px rgba(255,232,165,.95));animation:twinkle 3.6s ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.32;transform:scale(.74) rotate(0)}50%{opacity:1;transform:scale(1.1) rotate(18deg)}}
@@ -80,12 +80,12 @@ h1,h2,h3,p{margin:0}
 @keyframes capfloat{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-12px) rotate(8deg)}}
 
 /* ---------- gacha dock ---------- */
-.dock{position:relative;z-index:3;flex:1 1 auto;min-height:0;width:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;justify-content:center;padding:0 2px}
+.dock{position:relative;z-index:3;flex:0 0 auto;width:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;justify-content:center;padding:0 1px}
 .dock-machines{display:grid;grid-template-columns:1fr 1fr;gap:0 2px;align-items:end;width:100%}
 .machine-pick{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;padding:0;border-radius:22px;transition:transform .1s}
 .machine-pick:active{transform:translateY(2px) scale(.985)}
 .machine-pick:before{content:'';position:absolute;left:2%;right:2%;bottom:10%;height:15%;border-radius:50%;background:radial-gradient(ellipse at 50% 46%,rgba(255,255,255,.98),rgba(255,255,255,.7) 46%,rgba(255,255,255,0) 76%);filter:blur(2px);z-index:0}
-.mini-canvas{position:relative;z-index:1;width:100%;aspect-ratio:3/4;display:block}
+.mini-canvas{position:relative;z-index:1;width:100%;aspect-ratio:300/494;display:block}
 .mp-name{position:relative;z-index:2;font-size:10.5px;font-weight:900;color:#7A2A50;text-align:center;padding:4px 9px 5px;letter-spacing:-.3px;background:linear-gradient(180deg,#fff,#FFF0F6);border-radius:999px;box-shadow:0 3px 0 rgba(200,140,170,.3),0 6px 12px rgba(150,80,110,.14);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .pick-tag{position:absolute;z-index:3;top:0;right:4px;font-size:9.5px;font-weight:900;color:#7A3A06;background:linear-gradient(180deg,#FFEBAE,#FFC94A);border-radius:999px;padding:2px 7px;box-shadow:0 2px 5px rgba(160,100,20,.26)}
 
@@ -347,6 +347,7 @@ h1,h2,h3,p{margin:0}
 .gi-play{font-size:11px;font-weight:900;color:#fff;background:linear-gradient(180deg,#FF9EC0,#F0558C);border-radius:999px;padding:5px 11px;box-shadow:0 3px 0 #C43063;white-space:nowrap}
 .gitem:active .gi-play{box-shadow:none}
 .hub-foot-hint{text-align:center;font-size:11px;font-weight:800;color:#B492A4;padding:2px 0 6px}
+.hub-scroll{padding-top:4px}
 
 /* ---------- mini game screens ---------- */
 .gscreen{background:linear-gradient(170deg,#EAF7FF 0%,#FFEAF4 56%,#FFF4E6 100%)}
@@ -379,6 +380,7 @@ h1,h2,h3,p{margin:0}
 
 /* ---------- memory match ---------- */
 .mem-wrap{position:relative;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:0 12px}
+.mem-board{background:linear-gradient(180deg,#fff,#FFF4F9);border-radius:26px;padding:10px;box-shadow:0 10px 0 rgba(200,140,170,.22),0 18px 32px rgba(150,80,110,.14),inset 0 0 0 2px #fff}
 .mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .mcard{position:relative;aspect-ratio:3/4;border-radius:15px;transform-style:preserve-3d;transition:transform .32s cubic-bezier(.3,1.2,.4,1);background:none;perspective:600px}
 .mcard .mf{position:absolute;inset:0;border-radius:15px;display:grid;place-items:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;font-size:26px;box-shadow:0 4px 0 rgba(190,120,150,.26),0 8px 14px rgba(150,80,110,.12)}
@@ -550,7 +552,7 @@ h1,h2,h3,p{margin:0}
     <div class="g-hud"><span class="g-chip" id="matchMoves">🃏 0번</span><span class="g-chip" id="matchTime">⏱ 0:00</span></div>
   </div>
   <div class="mem-wrap">
-    <div class="mem-grid" id="memGrid"></div>
+    <div class="mem-board"><div class="mem-grid" id="memGrid"></div></div>
     <div class="g-panel" id="matchPanel" style="border-radius:24px"></div>
   </div>
   <div class="g-foot"><span class="g-hint">같은 그림 두 장을 찾아 짝을 맞춰요</span></div>
@@ -3487,8 +3489,8 @@ Mole.refit=function(){
 
 Mole.layout=function(){
   var W=this.W, H=this.H;
-  var gw=Math.min(W-28, 330), gh=Math.min(H-110, 380);
-  var ox=(W-gw)/2, oy=Math.max(46,(H-gh)/2+10);
+  var gw=Math.min(W-26, 340), gh=Math.min(H-96, 660);
+  var ox=(W-gw)/2, oy=Math.max(40,(H-gh)/2+6);
   var cols=3, rows=3;
   var cw=gw/cols, ch=gh/rows;
   var rx=Math.min(cw*0.34, 46), ry=rx*0.6;
@@ -3496,7 +3498,7 @@ Mole.layout=function(){
   for(var r=0;r<rows;r++){
     for(var c=0;c<cols;c++){
       this.holes.push({
-        x:ox+cw*(c+0.5), y:oy+ch*(r+0.62), rx:rx, ry:ry,
+        x:ox+cw*(c+0.5), y:oy+ch*(r+0.58), rx:rx, ry:ry,
         up:0, timer:0, golden:false, hit:false, active:false, wobble:Math.random()*6.28
       });
     }
@@ -4476,7 +4478,7 @@ function drawMiniMachines(){
     var fit=fitCanvas(cv);
     var ctx=cv.getContext('2d');
     /* 360x540 원본 좌표계에서 뽑기통 부분만 골라 칸을 꽉 채우게 그린다 */
-    var VX=32, VY=110, VW=296, VH=408;
+    var VX=30, VY=30, VW=300, VH=494;
     var s=Math.min(fit.w/VW, fit.h/VH);
     var ox=(fit.w - VW*s)/2 - VX*s;
     var oy=(fit.h - VH*s)/2 - VY*s;
